@@ -54,15 +54,14 @@ paginate = 5
   [languages.en]
     languageName = "English"
     title = "CMBBQ's Blog"
-    subtitle = "A simple, retro theme for Hugo"
     owner = ""
     keywords = ""
     copyright = ""
     menuMore = "Show more"
-    readMore = "Read more"
+    readMore = "阅读全文"
     readOtherPosts = "Read other posts"
-    newerPosts = "Newer posts"
-    olderPosts = "Older posts"
+    newerPosts = "下一篇"
+    olderPosts = "上一篇"
     missingContentMessage = "Page not found..."
     missingBackButtonLabel = "Back to home page"
 
