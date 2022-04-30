@@ -53,20 +53,20 @@ paginate = 5
 [languages]
   [languages.en]
     languageName = "English"
-    title = "CMBBQ's Blog"
+    title = "CMBBQ的博客"
     owner = ""
     keywords = ""
     copyright = ""
-    menuMore = "Show more"
+    menuMore = "显示更多"
     readMore = "阅读全文"
-    readOtherPosts = "Read other posts"
+    readOtherPosts = "阅读其他博文"
     newerPosts = "下一篇"
     olderPosts = "上一篇"
-    missingContentMessage = "Page not found..."
-    missingBackButtonLabel = "Back to home page"
+    missingContentMessage = "页面不存在"
+    missingBackButtonLabel = "回到主页"
 
     [languages.en.params.logo]
-      logoText = "CMBBQ's Blog"
+      logoText = "CMBBQ的博客"
       logoHomeLink = "/"
 
 
