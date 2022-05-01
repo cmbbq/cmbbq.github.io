@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CMBBQ&#39;s Blog</title>
+    <title>CMBBQ的博客</title>
     <link>https://cmbbq.github.io/</link>
-    <description>Recent content on CMBBQ&#39;s Blog</description>
+    <description>Recent content on CMBBQ的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -13,8 +13,7 @@
       <pubDate>Sat, 30 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/%E6%B5%B7%E5%86%9B%E6%B0%B4%E9%9D%A2%E8%88%B0%E8%89%87/</guid>
-      <description>型号 动力 最高航速 满载排水量 武器 舰载机 雷达 其他     075型两栖攻击舰 柴油机 25节 4万吨 2×11管30毫米近防炮，2×海红旗10 30架直升机 H/LJQ-382型三坐标对空搜索雷达，中近程快反相控阵雷达 3艘726型气垫登陆艇   091型综合补给舰 柴油机 25节 4.8万吨 4×6管30毫米近防炮 2架直升机     093型综合补给舰 柴油机 20节 2.3万吨 4×2管37毫米舰炮 1架直升机      海军现役的3艘075型全通甲板两栖攻击舰分别为：海南舰、广西舰、安徽舰。
-海军现役远洋补给舰包括9艘903型和2艘901型综合补给舰，其中901航速可跟上航母编队，是航母编队的专用高速补给舰。</description>
+      <description>型号 动力 最高航速 满载排水量 武器 舰载机 雷达 其他     001型航空母舰 蒸气锅炉 30节 7万吨 3×海红旗10，3×11管30毫米近防炮 24架歼-15战斗机，4架直-18J预警直升机，4架直-18F反潜直升机，2架直-9C搜救直升机，2架卡-31预警直升机 346A型C/S波段主动式相控阵雷达 14度滑跳甲板，光学助降系统，滑跃式短程起飞/拦阻索回收系统   002型航空母舰 蒸气锅炉 31节 7万吨 3×海红旗10，3×11管30毫米近防炮 32架歼-15战斗机，8架直-18F反潜直升机，4架直-9C搜救直升机 346A型C/S波段主动式相位阵列雷达 12度滑跳甲板，光学助降系统，滑跃式短程起飞/拦阻索回收回收系统   003型航空母舰 蒸气锅炉 30节 8.5万吨  歼-15B战斗机，J-35隐形战斗机，空警-600固定翼预警机 346A型C/S波段主动式相控阵雷达，X波段相控阵雷达 3台电磁弹射器，光学助降系统，弹射起飞/拦阻索回收系统   052D型导弹驱逐舰 燃柴交替 32节 7650吨 1×单管130毫米舰炮，1×11管30毫米近防炮，1×7管30毫米近防炮，1×24联装HQ-10导弹发射装置，64具垂发 1架反潜直升机 H/LJG-346B型有源相控阵雷达    052C型导弹驱逐舰 燃柴交替 31节 7000吨 1×单管100毫米舰炮，2×7管30毫米近防炮，8×6联海红旗-9防空导弹垂直发射系统，2×4联装鹰击62反舰导弹 1架反潜直升机 H/LJG-346B型有源相控阵雷达    052B型导弹驱逐舰 燃柴交替 30节 6200吨 1×单管100毫米舰炮，2×7管30毫米近防炮，2×“施基利”防空导弹系统发射装置，4×4联装鹰击-83反舰导弹发射装置 1架反潜直升机 MR-750A“顶板”三坐标对空搜索雷达，MR-90“前罩”火控雷达，H/LJQ-366型超视距对海搜索雷达，H/LJQ-364型对海/低空搜索雷达    054A型导弹护卫舰 柴油机 28节 4053吨 1×单管76毫米舰炮，2×7或11管30毫米近防炮，4×8单元H/AKJ-16型垂直发射系统，2×4联装鹰击-83反舰导弹发射装置 1架反潜直升机 H/LJQ-366型超视距对海搜索雷达，H/LJP-349A型火控雷达，H/LJQ-382型三坐标对空搜索雷达，H/LJQ-364型对海/低空搜索雷达    055型导弹驱逐舰 燃气轮机 30节 1.</description>
       <content>&lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -30,40 +29,161 @@
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
+&lt;td&gt;001型航空母舰&lt;/td&gt;
+&lt;td&gt;蒸气锅炉&lt;/td&gt;
+&lt;td&gt;30节&lt;/td&gt;
+&lt;td&gt;7万吨&lt;/td&gt;
+&lt;td&gt;3×海红旗10，3×11管30毫米近防炮&lt;/td&gt;
+&lt;td&gt;24架歼-15战斗机，4架直-18J预警直升机，4架直-18F反潜直升机，2架直-9C搜救直升机，2架卡-31预警直升机&lt;/td&gt;
+&lt;td&gt;346A型C/S波段主动式相控阵雷达&lt;/td&gt;
+&lt;td&gt;14度滑跳甲板，光学助降系统，滑跃式短程起飞/拦阻索回收系统&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;002型航空母舰&lt;/td&gt;
+&lt;td&gt;蒸气锅炉&lt;/td&gt;
+&lt;td&gt;31节&lt;/td&gt;
+&lt;td&gt;7万吨&lt;/td&gt;
+&lt;td&gt;3×海红旗10，3×11管30毫米近防炮&lt;/td&gt;
+&lt;td&gt;32架歼-15战斗机，8架直-18F反潜直升机，4架直-9C搜救直升机&lt;/td&gt;
+&lt;td&gt;346A型C/S波段主动式相位阵列雷达&lt;/td&gt;
+&lt;td&gt;12度滑跳甲板，光学助降系统，滑跃式短程起飞/拦阻索回收回收系统&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;003型航空母舰&lt;/td&gt;
+&lt;td&gt;蒸气锅炉&lt;/td&gt;
+&lt;td&gt;30节&lt;/td&gt;
+&lt;td&gt;8.5万吨&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;歼-15B战斗机，J-35隐形战斗机，空警-600固定翼预警机&lt;/td&gt;
+&lt;td&gt;346A型C/S波段主动式相控阵雷达，X波段相控阵雷达&lt;/td&gt;
+&lt;td&gt;3台电磁弹射器，光学助降系统，弹射起飞/拦阻索回收系统&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;052D型导弹驱逐舰&lt;/td&gt;
+&lt;td&gt;燃柴交替&lt;/td&gt;
+&lt;td&gt;32节&lt;/td&gt;
+&lt;td&gt;7650吨&lt;/td&gt;
+&lt;td&gt;1×单管130毫米舰炮，1×11管30毫米近防炮，1×7管30毫米近防炮，1×24联装HQ-10导弹发射装置，64具垂发&lt;/td&gt;
+&lt;td&gt;1架反潜直升机&lt;/td&gt;
+&lt;td&gt;H/LJG-346B型有源相控阵雷达&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;052C型导弹驱逐舰&lt;/td&gt;
+&lt;td&gt;燃柴交替&lt;/td&gt;
+&lt;td&gt;31节&lt;/td&gt;
+&lt;td&gt;7000吨&lt;/td&gt;
+&lt;td&gt;1×单管100毫米舰炮，2×7管30毫米近防炮，8×6联海红旗-9防空导弹垂直发射系统，2×4联装鹰击62反舰导弹&lt;/td&gt;
+&lt;td&gt;1架反潜直升机&lt;/td&gt;
+&lt;td&gt;H/LJG-346B型有源相控阵雷达&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;052B型导弹驱逐舰&lt;/td&gt;
+&lt;td&gt;燃柴交替&lt;/td&gt;
+&lt;td&gt;30节&lt;/td&gt;
+&lt;td&gt;6200吨&lt;/td&gt;
+&lt;td&gt;1×单管100毫米舰炮，2×7管30毫米近防炮，2×“施基利”防空导弹系统发射装置，4×4联装鹰击-83反舰导弹发射装置&lt;/td&gt;
+&lt;td&gt;1架反潜直升机&lt;/td&gt;
+&lt;td&gt;MR-750A“顶板”三坐标对空搜索雷达，MR-90“前罩”火控雷达，H/LJQ-366型超视距对海搜索雷达，H/LJQ-364型对海/低空搜索雷达&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;054A型导弹护卫舰&lt;/td&gt;
+&lt;td&gt;柴油机&lt;/td&gt;
+&lt;td&gt;28节&lt;/td&gt;
+&lt;td&gt;4053吨&lt;/td&gt;
+&lt;td&gt;1×单管76毫米舰炮，2×7或11管30毫米近防炮，4×8单元H/AKJ-16型垂直发射系统，2×4联装鹰击-83反舰导弹发射装置&lt;/td&gt;
+&lt;td&gt;1架反潜直升机&lt;/td&gt;
+&lt;td&gt;H/LJQ-366型超视距对海搜索雷达，H/LJP-349A型火控雷达，H/LJQ-382型三坐标对空搜索雷达，H/LJQ-364型对海/低空搜索雷达&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;055型导弹驱逐舰&lt;/td&gt;
+&lt;td&gt;燃气轮机&lt;/td&gt;
+&lt;td&gt;30节&lt;/td&gt;
+&lt;td&gt;1.2万吨&lt;/td&gt;
+&lt;td&gt;1×单管130毫米舰炮，1×11管30毫米近防炮，112具垂发&lt;/td&gt;
+&lt;td&gt;2架反潜直升机&lt;/td&gt;
+&lt;td&gt;H/LJG-346B型有源相控阵雷达&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;056型导弹护卫舰&lt;/td&gt;
+&lt;td&gt;柴油机&lt;/td&gt;
+&lt;td&gt;28节&lt;/td&gt;
+&lt;td&gt;1440吨&lt;/td&gt;
+&lt;td&gt;1×单管76毫米舰炮，2×单管30毫米舰炮，2×机枪，1×8联装红旗-10近防导弹发射装置，2×双联装鹰击-83反舰导弹发射装置&lt;/td&gt;
+&lt;td&gt;1架反潜直升机&lt;/td&gt;
+&lt;td&gt;改进型361对空/平面搜索雷达，Type 760 I频导航雷达&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;071型船坞登陆舰&lt;/td&gt;
+&lt;td&gt;柴油机&lt;/td&gt;
+&lt;td&gt;23节&lt;/td&gt;
+&lt;td&gt;2.5万吨&lt;/td&gt;
+&lt;td&gt;1×单管76毫米舰炮，4×6管30毫米近防炮，4×18管舰载干扰弹火箭发射装置&lt;/td&gt;
+&lt;td&gt;6架直-8直升机&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;4艘726型气垫登陆艇&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
 &lt;td&gt;075型两栖攻击舰&lt;/td&gt;
 &lt;td&gt;柴油机&lt;/td&gt;
 &lt;td&gt;25节&lt;/td&gt;
 &lt;td&gt;4万吨&lt;/td&gt;
 &lt;td&gt;2×11管30毫米近防炮，2×海红旗10&lt;/td&gt;
-&lt;td&gt;30架直升机&lt;/td&gt;
+&lt;td&gt;30架各型直升机&lt;/td&gt;
 &lt;td&gt;H/LJQ-382型三坐标对空搜索雷达，中近程快反相控阵雷达&lt;/td&gt;
 &lt;td&gt;3艘726型气垫登陆艇&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;091型综合补给舰&lt;/td&gt;
+&lt;td&gt;901型综合补给舰&lt;/td&gt;
 &lt;td&gt;柴油机&lt;/td&gt;
 &lt;td&gt;25节&lt;/td&gt;
 &lt;td&gt;4.8万吨&lt;/td&gt;
 &lt;td&gt;4×6管30毫米近防炮&lt;/td&gt;
-&lt;td&gt;2架直升机&lt;/td&gt;
+&lt;td&gt;2架运输直升机&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;093型综合补给舰&lt;/td&gt;
+&lt;td&gt;903型综合补给舰&lt;/td&gt;
 &lt;td&gt;柴油机&lt;/td&gt;
 &lt;td&gt;20节&lt;/td&gt;
 &lt;td&gt;2.3万吨&lt;/td&gt;
 &lt;td&gt;4×2管37毫米舰炮&lt;/td&gt;
-&lt;td&gt;1架直升机&lt;/td&gt;
+&lt;td&gt;1架运输直升机&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;海军现役的3艘075型全通甲板两栖攻击舰分别为：海南舰、广西舰、安徽舰。&lt;/p&gt;
-&lt;p&gt;海军现役远洋补给舰包括9艘903型和2艘901型综合补给舰，其中901航速可跟上航母编队，是航母编队的专用高速补给舰。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;img/type901_3.jpg&#34; alt=&#34;901&#34;&gt;&lt;/p&gt;
+&lt;p&gt;001/002型滑跃甲板航母，2艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type002.jpg&#34; alt=&#34;002&#34;&gt;&lt;/p&gt;
+&lt;p&gt;003型电磁弹射航母，1艘
+&lt;img src=&#34;https://cmbbq.github.io/img/j35.jpg&#34; alt=&#34;j35&#34;&gt;&lt;/p&gt;
+&lt;p&gt;055型巡洋舰，6艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type055.jpg&#34; alt=&#34;055&#34;&gt;&lt;/p&gt;
+&lt;p&gt;052C型驱逐舰，6艘 
+&lt;img src=&#34;https://cmbbq.github.io/img/type052C.jpg&#34; alt=&#34;052C&#34;&gt;&lt;/p&gt;
+&lt;p&gt;052D型驱逐舰，24艘 
+&lt;img src=&#34;https://cmbbq.github.io/img/type052D.jpg&#34; alt=&#34;052D&#34;&gt;&lt;/p&gt;
+&lt;p&gt;其他早期型号驱逐舰：051C型驱逐舰2艘；051B型驱逐舰1艘；956型驱逐舰4艘；052型驱逐舰2艘；052B型驱逐舰2艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type052B.jpg&#34; alt=&#34;052B&#34;&gt;&lt;/p&gt;
+&lt;p&gt;054A型护卫舰，30艘；054型2艘。
+&lt;img src=&#34;https://cmbbq.github.io/img/type054A.jpg&#34; alt=&#34;071&#34;&gt;&lt;/p&gt;
+&lt;p&gt;056型小型护卫舰，50艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type056A.jpg&#34; alt=&#34;056&#34;&gt;&lt;/p&gt;
+&lt;p&gt;071型船坞登陆舰，8艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type071.jpg&#34; alt=&#34;071&#34;&gt;&lt;/p&gt;
+&lt;p&gt;075型全通甲板两栖攻击舰，3艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type075.jpg&#34; alt=&#34;075&#34;&gt;&lt;/p&gt;
+&lt;p&gt;901型综合补给舰（航母编队专用高速补给舰），2艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type901.jpg&#34; alt=&#34;901&#34;&gt;&lt;/p&gt;
+&lt;p&gt;903型综合补给舰，9艘
+&lt;img src=&#34;https://cmbbq.github.io/img/type903.jpg&#34; alt=&#34;903&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
