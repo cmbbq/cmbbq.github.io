@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>拆解复杂系统的混沌猴子 :: CMBBQ的博客</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="要想拆解一个维持多年且具有高度弹性的复杂系统，主动且非歧视性地出击以破坏其稳定性，才是时间上可控的策略。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/%E6%8B%86%E8%A7%A3%E5%A4%8D%E6%9D%82%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B7%B7%E6%B2%8C%E7%8C%B4%E5%AD%90/" />
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="拆解复杂系统的混沌猴子">
+<meta property="og:description" content="要想拆解一个维持多年且具有高度弹性的复杂系统，主动且非歧视性地出击以破坏其稳定性，才是时间上可控的策略。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/%E6%8B%86%E8%A7%A3%E5%A4%8D%E6%9D%82%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B7%B7%E6%B2%8C%E7%8C%B4%E5%AD%90/" />
+<meta property="og:site_name" content="CMBBQ的博客" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2022-06-15 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    CMBBQ的博客
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/%E6%8B%86%E8%A7%A3%E5%A4%8D%E6%9D%82%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B7%B7%E6%B2%8C%E7%8C%B4%E5%AD%90/">拆解复杂系统的混沌猴子</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2022-06-15
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/%E6%B7%B7%E6%B2%8C%E5%B7%A5%E7%A8%8B/">混沌工程</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/%E5%BC%B9%E6%80%A7/">弹性</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/%E5%A4%8D%E6%9D%82%E7%B3%BB%E7%BB%9F/">复杂系统</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>神经网络、分布式系统、股市、全球经济、地球气候、银河系都是在客观世界长期运行的“复杂系统”（complex system）。对复杂系统进行研究、建模是非常困难的，更不用说以精妙绝伦的洞察力去准确预测其未来状态并给出确定性的应对策略了。历史、经济、国际关系等人文学科，反而是最缺乏数学工具的研究者对人类已知世界中最复杂系统进行的研究。好在本文并不讨论对复杂系统的研究，而仅讨论对它的拆解。</p>
+<p>中国持续数千年的封建宗法一体制被一些历史学者称为超稳定结构，原因就在于王朝更迭的奇异修复能力。这种能力固然在中国历史中最为显眼，但绝非孤例，而是任意长期运行的复杂系统都具备的共同属性——本文将其称为“弹性”，即从不稳态自动修复回稳态的特性。一个复杂系统规模越大，复杂程度越高，稳定运行时间越长，在一定时间期限内将其从稳态变迁至非稳态所需破坏的内部结构就越多，这也就意味着该系统的“弹性”也就越高。</p>
+<p>我所在的互联网行业用Netflix提出的混沌猴子（Chaos Monkey）方法检验复杂分布式系统的稳定性，通过随机注入网络分区或设备故障的方式来尝试主动破坏分布式系统，从而追溯风险点。混沌猴子往往可以在数个小时内检测出原先需要6个月（机器故障和自然汰换）或数年（自然灾害和机房级网络异常）才能暴露出来的问题。</p>
+<p>这种混沌工程上的经验推广到任意的复杂系统后，可以得出一个结论：要想拆解一个维持多年且具有高度弹性的复杂系统，主动且<strong>非歧视性</strong>地出击以破坏其稳定性，才是时间上可控的策略。</p>
+<p>冷战以来的和平发展与全球化分工的国际秩序已经稳定运行了三十年，石油美元体系则已经稳定运行了近五十年。从时间尺度上讲，这已经算是一种历史奇观，足以让后世研究者将其冠名为一个“时代”了。因此无论美元霸权体系如何腐朽、垂死，都不能简单地忽视该体系具备坚韧“弹性”的客观事实。当下的国际秩序显然比如今微服务时代普遍降低到百万代码行级别的脆弱分布式系统复杂得多，也健壮得多，坐等它内部自然老化——比如西方新保守主义政客在对华贸易战和对俄金融战上的失策——不一定是坏的策略，但一定是不可控的策略。谁也不知道自然运转下这个系统运行多久才会崩溃，甚至无法证明它是否终将在有意义的期限内崩溃。</p>
+<p>因此对于中国来说，“被动等待强敌内爆”这一策略，固然短期内有利于国内稳定，却确定性地不是拆解美元霸权的最优解。</p>
+<p>我认为更有效率的策略是主动为对手制造麻烦：外交上出击南太平洋岛国、与产油国建立安全合作机制、制造某些供应环节的单点故障、以疫情为接口主动切断某些贸易链路，这些举措都可以作为混沌猴子式的对美元霸权体系的试探性破坏。在明年美国陷入金融危机（这一点最近已经在西方主流经济学界形成共识，美国的主要银行更是提前两三年就做好了资金准备）时，更是可以半渡而击，联合被现有体系压迫的主要大国和资源能源产出国推出新的全球金融体系和取代美元的新型国际货币。为何如此急切？为何不像林毅夫所提倡的靠发展解决一切矛盾？因为一旦错过了这个时间窗口，美元霸权又可以发挥复杂系统的“弹性”，借助欧洲诸国集体自戕带来的欧元份额损失和资金回流苟延残喘，使全中国劳动者不得不继续被回光返照的末年美元霸权收割十年，直到下一个美元危机时刻。决策者从风险管理角度出发往往不取上策，只取中策，但谋天下者必须给出上策这种可能性。</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/%E4%BF%A1%E6%81%AF%E5%8C%96%E6%95%99%E6%9D%A1%E4%B8%8D%E5%BA%94%E8%A2%AB%E7%A5%9E%E5%9C%A3%E5%8C%96/">
+                <span class="button__text">信息化教条不应被神圣化</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© Copyright 2022 CMBBQ. &nbsp;   &nbsp;      </span>
+    
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> cmbbq_rpb@outlook.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
