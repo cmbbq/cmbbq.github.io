@@ -1,5 +1,5 @@
 +++
-title = "String Lookups Could Reduce to Parsing"
+title = "String Lookups Reduce to Parsing"
 date = "2023-05-14"
 tags = ["sys"]
 description = "字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法，从字符流中抽取状态。因此龙书中的NFA转DFA算法可以派上用场。"
