@@ -2,3 +2,12 @@ cd cmbbq;
 hugo -d ..
 cd ..
 ./submit ".."
+
+===========================
+clean blog update history 
+git checkout --orphan tmp 
+git add .
+git commit -m "."
+git branch -D main
+git branch -m main
+git push -f origin main 

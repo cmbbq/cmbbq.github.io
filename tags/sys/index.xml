@@ -79,6 +79,28 @@ HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU t
     </item>
     
     <item>
+      <title>Desired Properties of a Large-scale Search Index</title>
+      <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
+      <pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
+      <description>[WIP]</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>HPC &amp; Heterogeneous Computing</title>
+      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
+      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
+      <description>[WIP]</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
       <title>On ABI</title>
       <link>https://cmbbq.github.io/posts/on-abi/</link>
       <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
@@ -102,28 +124,6 @@ ABI以ISA提供的指令、寄存器、内存管理能力为构件（building bl
 &lt;p&gt;ABI以ISA提供的指令、寄存器、内存管理能力为构件（building block），详尽且精确地描述如何实现一个系统语言在特定硬件、操作系统、编译器下的执行模型，并允许分开编译的产物之间能互操作。例如C ABI需定义调用约定（calling convention）、基础数据类型的表示、聚合数据类型的内存布局；C++03 ABI需额外定义异常机制、RTTI信息存储、虚表布局和动态绑定机制、重载函数/运算符/模板实例化所需的名字重置（name mangling）；C++11 ABI需进一步定义lambda的实现、自动类型推导机制等新增语言机制。&lt;/p&gt;
 &lt;p&gt;无论是C，还是C++都没有在语言层面制定官方的ABI标准，毕竟ABI标准本身也限制了实现的自由。目前最主流的Itanium C++ ABI号称被许多操作系统采用，能适配多数微处理器架构，被大多数编译器实现，包括gcc和clang这两个主要玩家。但值得注意的是，被多方支持，不意味着多方支持的是完全相同的东西。同样打着Itanium ABI名号，clang在arm32 linux上编译的C++库能给amd64 windows上的程序使用吗？显然不行，因为最基础的calling convention，甚至基础数据类型表示都不同。Itanium C++ ABI即使实现大一统，积极意义也仅限于允许一些依赖CPU无关规则的危险技巧（比如修改vtable，这种操作我们现在只能称之为hack）在相当多的环境下通用罢了——只要C++语言标准不将ABI纳入讨论范围，对ABI做出假设的技巧永远是危险的，想要创造新的语言机制，就必须在C++标准层面推进某种ABI共识。&lt;/p&gt;
 &lt;p&gt;那么系统语言是否应该对某种基于特定ABI实现的语言特性进行标准化呢？从C++的发展历史来看，这种做法已经有了先例，而且是相当危险冒失的。将非零抽象开销的dynamic exception、rtti引入C++客观上导致了社区分裂，有相当一部分C++使用者至今依然选择-fno-exeptions或-fno-rtti。近期的提案&lt;a href=&#34;https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2232r0.html&#34;&gt;Zero-Overhead Deterministic Exceptions: Catching Values&lt;/a&gt;给出了一个对exception ABI进行改动的零开销异常机制，是对历史错误的亡羊补牢。系统语言的语言标准应审慎地只对ISA无关且零抽象开销的ABI规则进行标准化，以便在此基础上创造新的语言机制或为应用层开发提供便利。&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Desired Properties of a Large-scale Search Index</title>
-      <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
-      <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
-      <description>[WIP]</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>HPC &amp; Heterogeneous Computing</title>
-      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
-      <pubDate>Wed, 25 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
-      <description>[WIP]</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
 </content>
     </item>
     

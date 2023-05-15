@@ -98,7 +98,18 @@ HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU t
     </item>
     
     <item>
-      <title>NCO</title>
+      <title>Desired Properties of a Large-scale Search Index</title>
+      <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
+      <pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
+      <description>[WIP]</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>On NCO</title>
       <link>https://cmbbq.github.io/posts/on-nco/</link>
       <pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate>
       
@@ -111,6 +122,17 @@ HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU t
 &lt;p&gt;非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。&lt;/p&gt;
 &lt;p&gt;深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。&lt;/p&gt;
 &lt;p&gt;随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>HPC &amp; Heterogeneous Computing</title>
+      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
+      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
+      <description>[WIP]</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
 </content>
     </item>
     
@@ -138,28 +160,6 @@ ABI以ISA提供的指令、寄存器、内存管理能力为构件（building bl
 &lt;p&gt;ABI以ISA提供的指令、寄存器、内存管理能力为构件（building block），详尽且精确地描述如何实现一个系统语言在特定硬件、操作系统、编译器下的执行模型，并允许分开编译的产物之间能互操作。例如C ABI需定义调用约定（calling convention）、基础数据类型的表示、聚合数据类型的内存布局；C++03 ABI需额外定义异常机制、RTTI信息存储、虚表布局和动态绑定机制、重载函数/运算符/模板实例化所需的名字重置（name mangling）；C++11 ABI需进一步定义lambda的实现、自动类型推导机制等新增语言机制。&lt;/p&gt;
 &lt;p&gt;无论是C，还是C++都没有在语言层面制定官方的ABI标准，毕竟ABI标准本身也限制了实现的自由。目前最主流的Itanium C++ ABI号称被许多操作系统采用，能适配多数微处理器架构，被大多数编译器实现，包括gcc和clang这两个主要玩家。但值得注意的是，被多方支持，不意味着多方支持的是完全相同的东西。同样打着Itanium ABI名号，clang在arm32 linux上编译的C++库能给amd64 windows上的程序使用吗？显然不行，因为最基础的calling convention，甚至基础数据类型表示都不同。Itanium C++ ABI即使实现大一统，积极意义也仅限于允许一些依赖CPU无关规则的危险技巧（比如修改vtable，这种操作我们现在只能称之为hack）在相当多的环境下通用罢了——只要C++语言标准不将ABI纳入讨论范围，对ABI做出假设的技巧永远是危险的，想要创造新的语言机制，就必须在C++标准层面推进某种ABI共识。&lt;/p&gt;
 &lt;p&gt;那么系统语言是否应该对某种基于特定ABI实现的语言特性进行标准化呢？从C++的发展历史来看，这种做法已经有了先例，而且是相当危险冒失的。将非零抽象开销的dynamic exception、rtti引入C++客观上导致了社区分裂，有相当一部分C++使用者至今依然选择-fno-exeptions或-fno-rtti。近期的提案&lt;a href=&#34;https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2232r0.html&#34;&gt;Zero-Overhead Deterministic Exceptions: Catching Values&lt;/a&gt;给出了一个对exception ABI进行改动的零开销异常机制，是对历史错误的亡羊补牢。系统语言的语言标准应审慎地只对ISA无关且零抽象开销的ABI规则进行标准化，以便在此基础上创造新的语言机制或为应用层开发提供便利。&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Desired Properties of a Large-scale Search Index</title>
-      <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
-      <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
-      <description>[WIP]</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>HPC &amp; Heterogeneous Computing</title>
-      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
-      <pubDate>Wed, 25 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
-      <description>[WIP]</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
 </content>
     </item>
     
