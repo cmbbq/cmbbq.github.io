@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="透明度（白盒程度）是互联网软件工程实践中长期被忽略的一个理想属性。" />
+<meta name="description" content="透明度，或者说程序的白盒指数，是互联网软件工程实践中长期被忽略的一个理想属性。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/on-transparency/" />
@@ -36,7 +36,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="On Transparency">
-<meta property="og:description" content="透明度（白盒程度）是互联网软件工程实践中长期被忽略的一个理想属性。" />
+<meta property="og:description" content="透明度，或者说程序的白盒指数，是互联网软件工程实践中长期被忽略的一个理想属性。" />
 <meta property="og:url" content="https://cmbbq.github.io/posts/on-transparency/" />
 <meta property="og:site_name" content="Cmbbq Wiki" />
 
@@ -102,7 +102,7 @@
   
   <span class="post-tags">
     
-    #<a href="https://cmbbq.github.io/tags/software-engineering/">software engineering</a>&nbsp;
+    #<a href="https://cmbbq.github.io/tags/se/">se</a>&nbsp;
     
   </span>
   
@@ -112,7 +112,7 @@
   
 
   <div class="post-content"><div>
-        <p>透明度是软件工程中长期被忽略的理想属性，是目前互联网行业技术管理体系中的薄弱环节。本文的透明度主要是指组件内部实现对研发团队的可见度、可解释性和可掌控程度，或者说<a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)">白盒</a>程度。</p>
+        <p>透明度是软件工程中长期被忽略的理想属性，是目前互联网行业技术管理体系中的薄弱环节。本文的透明度主要是指组件内部实现对研发团队的可见度、可解释性和可掌控程度，或者说<a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)">白盒</a>指数。</p>
 <p>一个项目自上而下依赖的第三方黑盒越少，各个抽象层次上诸多组件对研发团队就越是透明的。高透明度意味着高度可维护，高度hackable，随时可拆卸，定位到任何抽象层次上存在性能瓶颈都能毫无桎梏地zoom in，然后修改、重构。习惯性地使用第三方依赖，哪怕这个依赖是得到广泛应用，甚至接近行业标准的高声望项目，依然会注入实现需求不完全匹配的风险。</p>
 <p><a href="https://cmbbq.github.io/posts/hpc-heterogeneous-computing">高性能计算</a>的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。</p>
 <p>国内互联网同行们对造轮持过分谨慎态度，将其视为anti-pattern，遇到问题时立刻开始技术选型，对使用第三方依赖形成了不假思索的路径依赖。缺乏洞察问题的新颖性和独特性的敏锐度和饥渴，自然故步自封于技术选型，而无法做到真正的技术创新——计算系统的创新是根植于真实需求，对非结构化的现实需求施加结构，创造新的计算和存储形态。就以全文检索为例，<a href="https://tech.meituan.com/2022/11/17/elasicsearch-optimization-practice-based-on-run-length-encoding.html">美团外卖搜索用ES</a>，<a href="https://zhuanlan.zhihu.com/p/608082104">微信聊天搜索用SQLite</a>，都是没有选择自研高性能检索引擎，导致业务场景和经典解决方案出现错配，后期遇到了性能瓶颈后的所谓优化方案也只不过是对第三方库进行魔改，让它更贴合原本的需求罢了。比如lucene压根就不是in-memory索引，以至于外卖店家商品搜索这么小规模的场景都不能保证实时性。再说SQLite，默认当然不支持拆表+并行搜索，针对大库做简单的拆表和scatter-gather并行搜索提升性能其实是理所当然的解决方案。</p>
