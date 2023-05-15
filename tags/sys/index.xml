@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sys on Cmbbq Wiki</title>
+    <link>https://cmbbq.github.io/tags/sys/</link>
+    <description>Recent content in sys on Cmbbq Wiki</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>String Lookups Could Reduce to Parsing</title>
+      <link>https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/</link>
+      <pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/</guid>
+      <description>标题即结论：字符串查找问题可归约为解析问题。
+这个结论源于近期一个有趣的观察：用ragel写高性能的ascii protocol parser，本质上是利用nfa转dfa提升性能，这和toplingdb中将同一层各个sst对应的trie（本质是dfa）合并成一个dfa(大量dfa-&amp;gt;nfa-&amp;gt;1dfa)的思路是同构的。
+上述同构隐隐蕴含着一个reduction：字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法从字符流中抽取状态，lookups可以视作一类特殊（且模式相当规则）的parsing。LSM key lookup更是比较特殊的海量索引的key range无overlap的场景，存在大量可以轻松合并的DFA。因此龙书中的大量DFA转NFA转DFA算法可以派上用场。
+KV Store的in-memory key index，可以是红黑树，可以是skiplist，可以是hashmap，可以说patricia trie(一种radix tree变种)，也可以是toplingdb中的NestLoudsTrie。这种结构我们同样可以在路由表实现中看到。字符串索引，归根到底是字符串lookup结构。正如路由表实现可以通过把所有routes合并到一个DFA里（很多routes都包含regex），kv数据库也把Trie这种特殊的dfa（Trie的状态转移图是树，树是一种无向图，多了个任意两结点只由一个边连接的约束）做多索引合并，每个索引对应的key range还不重叠（LSM特性），因此合并速度非常快，合并后的DFA表示起来也简单、紧凑，详见自动机算法在数据库索引中的应用，我在作者的文章下面追问了一下DFA合并的触发条件和DFA合并开销，作者的答复是compaction/flush时触发，在整个lsm更新过程中占比很小，也不涉及多线程，无需考虑线程安全。</description>
+      <content>&lt;p&gt;标题即结论：字符串查找问题可归约为解析问题。&lt;/p&gt;
+&lt;p&gt;这个结论源于近期一个有趣的观察：用ragel写高性能的ascii protocol parser，本质上是利用&lt;a href=&#34;https://en.wikipedia.org/wiki/Nondeterministic_finite_automata&#34;&gt;nfa&lt;/a&gt;转&lt;a href=&#34;https://en.wikipedia.org/wiki/Deterministic_finite_automaton&#34;&gt;dfa&lt;/a&gt;提升性能，这和&lt;a href=&#34;https://github.com/topling/toplingdb&#34;&gt;toplingdb&lt;/a&gt;中将同一层各个sst对应的trie（本质是dfa）合并成一个dfa(大量dfa-&amp;gt;nfa-&amp;gt;1dfa)的思路是同构的。&lt;/p&gt;
+&lt;p&gt;上述同构隐隐蕴含着一个reduction：字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法从字符流中抽取状态，lookups可以视作一类特殊（且模式相当规则）的parsing。LSM key lookup更是比较特殊的海量索引的key range无overlap的场景，存在大量可以轻松合并的DFA。因此龙书中的大量DFA转NFA转DFA算法可以派上用场。&lt;/p&gt;
+&lt;p&gt;KV Store的in-memory key index，可以是红黑树，可以是skiplist，可以是hashmap，可以说patricia trie(一种&lt;a href=&#34;https://en.wikipedia.org/wiki/Radix_tree&#34;&gt;radix tree&lt;/a&gt;变种)，也可以是toplingdb中的NestLoudsTrie。这种结构我们同样可以在路由表实现中看到。字符串索引，归根到底是字符串lookup结构。正如路由表实现可以通过把所有routes合并到一个DFA里（很多routes都包含regex），kv数据库也把Trie这种特殊的dfa（Trie的状态转移图是树，树是一种无向图，多了个任意两结点只由一个边连接的约束）做多索引合并，每个索引对应的key range还不重叠（LSM特性），因此合并速度非常快，合并后的DFA表示起来也简单、紧凑，详见&lt;a href=&#34;https://zhuanlan.zhihu.com/p/628057993&#34;&gt;自动机算法在数据库索引中的应用&lt;/a&gt;，我在作者的文章下面追问了一下DFA合并的触发条件和DFA合并开销，作者的答复是compaction/flush时触发，在整个lsm更新过程中占比很小，也不涉及多线程，无需考虑线程安全。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Take Full Advantage of the Manycore NUMA Reality</title>
+      <link>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</link>
+      <pubDate>Sat, 13 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</guid>
+      <description>[WIP]
+当一个计算密集服务成为互联网规模的基础设施时，高性能计算(HPC)的需求就变得迫切，因为性能意味着时间、能源和金钱。
+本文主要讨论现代商用硬件上高性能架构的若干设计原则，其中重点在于NUMA和hardware locality——拥有更深memory hierarchy的NUMA物理机与SMP上的高性能编程截然不同，需要充分利用hardware locality来释放它们的潜力。
+商用硬件的现实 时代变了，服务端SMP已是过去时，曾经的众核异构未来已成为商用硬件的现实。
+&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。 &amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。 todo 高性能架构的Heuristics HPC三板斧分别是并行性(parallelism)，数据局部性(data locality)，特化(specialization)：
+并行是无处不在的，cpu层面上、物理机层面上、机房层面上均可横向扩展，因此充分利用硬件的并行性是提升系统整体性能的有效手段。“堆硬件”、“堆机器”是我们快速发展阶段(move fast and break nothing)，简单、粗暴、安全、稳定且烧钱的做法。并行性不仅可以简单利用，也可以更精细化地finetune：优化并行算法，提升内存分配的多核可扩展性，避免由不必要的context switch, data copy, cache false sharing，则可以减少烧钱。
+数据局部性。todo
+特化分为硬件特化和软件特化：用专业的硬件做专业的事，用直接的软件解决方案解决直接需求，毫无疑问可以提升效率，是高性能架构设计的必然选择，值得考虑的仅仅是技术风险。
+HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU tuning、CUDA、Hybrid model、模型压缩等话题，只讨论CPU相关的NUMA、OpenMP、Cache、SIMD、μArch。
+我所在的互联网AI技术部门，GPU显然是目前更热门的话题。但如果把视角拉高俯瞰所有互联网计算系统，不难发现目前互联网场景中大部分计算密集应用实际上仍有着相当高的访存密度和访存不规则性(memory reference intensity &amp;amp; irregularity)：
+很多CPU-bound服务纯计算部分耗时不足一半，严格地更适合用CPU商用硬件，比如MIR、OLAP、全文检索。 一些真正计算密集的领域，往往在业务上只有近实时约束，相对来说延迟不敏感，同样在实践中大量应用CPU而非GPU以硬件节省成本，如中小模型的推理、多媒体转码、特征提取。 甚至某些GPU主导的算子优化领域，在CPU tuning做得足够深入之后，也能用更低总价达到近似的效果，比如稀疏科列斯基分解(sparse Cholesky factorization)，快速多极子算法(FMM)。 利用硬件拓扑局部性最大化众核效率 todo
+被忽视的质量指标：透明度 </description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+&lt;p&gt;当一个计算密集服务成为互联网规模的基础设施时，高性能计算(HPC)的需求就变得迫切，因为性能意味着时间、能源和金钱。&lt;/p&gt;
+&lt;p&gt;本文主要讨论现代商用硬件上高性能架构的若干设计原则，其中重点在于NUMA和hardware locality——拥有更深memory hierarchy的NUMA物理机与SMP上的高性能编程截然不同，需要充分利用hardware locality来释放它们的潜力。&lt;/p&gt;
+&lt;h2 id=&#34;商用硬件的现实&#34;&gt;商用硬件的现实&lt;/h2&gt;
+&lt;p&gt;时代变了，服务端SMP已是过去时，曾经的众核异构未来已成为商用硬件的现实。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。&lt;/li&gt;
+&lt;li&gt;todo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;高性能架构的heuristics&#34;&gt;高性能架构的Heuristics&lt;/h2&gt;
+&lt;p&gt;HPC三板斧分别是并行性(parallelism)，数据局部性(data locality)，特化(specialization)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;并行是无处不在的，cpu层面上、物理机层面上、机房层面上均可横向扩展，因此充分利用硬件的并行性是提升系统整体性能的有效手段。“堆硬件”、“堆机器”是我们快速发展阶段(move fast and break nothing)，简单、粗暴、安全、稳定且烧钱的做法。并行性不仅可以简单利用，也可以更精细化地finetune：优化并行算法，提升内存分配的多核可扩展性，避免由不必要的context switch, data copy, cache false sharing，则可以减少烧钱。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据局部性。todo&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;特化分为硬件特化和软件特化：用专业的硬件做专业的事，用直接的软件解决方案解决直接需求，毫无疑问可以提升效率，是高性能架构设计的必然选择，值得考虑的仅仅是技术风险。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU tuning、CUDA、Hybrid model、模型压缩等话题，只讨论CPU相关的NUMA、OpenMP、Cache、SIMD、μArch。&lt;/p&gt;
+&lt;p&gt;我所在的互联网AI技术部门，GPU显然是目前更热门的话题。但如果把视角拉高俯瞰所有互联网计算系统，不难发现目前互联网场景中大部分计算密集应用实际上仍有着相当高的访存密度和访存不规则性(memory reference intensity &amp;amp; irregularity)：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;很多CPU-bound服务纯计算部分耗时不足一半，严格地更适合用CPU商用硬件，比如MIR、OLAP、全文检索。&lt;/li&gt;
+&lt;li&gt;一些真正计算密集的领域，往往在业务上只有近实时约束，相对来说延迟不敏感，同样在实践中大量应用CPU而非GPU以硬件节省成本，如中小模型的推理、多媒体转码、特征提取。&lt;/li&gt;
+&lt;li&gt;甚至某些GPU主导的算子优化领域，在CPU tuning做得足够深入之后，也能用更低总价达到近似的效果，比如稀疏科列斯基分解(sparse Cholesky factorization)，快速多极子算法(FMM)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;利用硬件拓扑局部性最大化众核效率&#34;&gt;利用硬件拓扑局部性最大化众核效率&lt;/h2&gt;
+&lt;p&gt;todo&lt;/p&gt;
+&lt;h2 id=&#34;被忽视的质量指标透明度&#34;&gt;被忽视的质量指标：透明度&lt;/h2&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>On ABI</title>
+      <link>https://cmbbq.github.io/posts/on-abi/</link>
+      <pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/on-abi/</guid>
+      <description>前注：ABI在本文中特指系统语言的ABI，这里系统语言，即system programming language，指的是C，C++，Rust这样应用于系统编程的的编译语言。有时候我们也会讨论常用库或基础库的ABI，比如gcc5就把std::basic_string和std::list的实现改了，自然也就影响了跨版本的ABI兼容性，这种层面的ABI兼容性虽然也是一个工程上的疑难杂症，但不在本文的讨论范围内，毕竟源码都不同了。本文讨论ABI兼容性的是同一份源码在不同ISA、操作系统、编译器上对应二进制产物的兼容性。
+系统语言的ABI、应用层软件的API、微处理器架构的ISA都是描述各自抽象层次互操作能力的接口。
+ABI的独特之处在于它本身就是繁重的机制实现，而非轻量的协议声明——实现和声明之间有概念上的分野，这已经体现在法律上：复制ABI是赤裸裸的抄袭，而复制API或ISA则属于fair use。你显然可以合法地为他人写的API/ISA出书做注，Google实现自己的Java时合法复制了Oracle的Java API，无需license。
+ABI之所以复杂，就是因为它处于两个抽象层次之间。ABI中的很大一部分内容既要向上对语言标准负责，向下要对ISA负责，必须遵循两个方向的约束，将复杂度留给自身，从而成就语言标准和ISA这两个抽象契约的简洁、干净，和人类友好。
+ABI中的重要组成部分之一calling convention受到ISA的约束，i386中用cdecl, stdcall, fastcall, vectorcall, thiscall, amd64中用systemv, msnative, vectorcall，arm32用aapcs，arm64用aapcs64。ABI中也有很大一部分是指令集无关的（ISA-agnostic），比如name mangling、class layout。这些机制往往足够底层，又与其他指令集相关的部分有强耦合，加上历史因素，往往也只有一小部分能被写入语言标准。
+如果ISA差异足够大，维护不同的ABI无疑是必要的，强行用一套ABI兼容不仅不自然，也不高效。以早期的Windows为例，微软就为早先的i386（IA-32）和后来的Intel IA-64提供了两套ABI。再后来，AMD赢得64位战争，Intel也遵循了前向兼容IA-32的amd64，又名x86_64, x64，IA-64就式微了。
+ABI以ISA提供的指令、寄存器、内存管理能力为构件（building block），详尽且精确地描述如何实现一个系统语言在特定硬件、操作系统、编译器下的执行模型，并允许分开编译的产物之间能互操作。例如C ABI需定义调用约定（calling convention）、基础数据类型的表示、聚合数据类型的内存布局；C++03 ABI需额外定义异常机制、RTTI信息存储、虚表布局和动态绑定机制、重载函数/运算符/模板实例化所需的名字重置（name mangling）；C++11 ABI需进一步定义lambda的实现、自动类型推导机制等新增语言机制。
+无论是C，还是C++都没有在语言层面制定官方的ABI标准，毕竟ABI标准本身也限制了实现的自由。目前最主流的Itanium C++ ABI号称被许多操作系统采用，能适配多数微处理器架构，被大多数编译器实现，包括gcc和clang这两个主要玩家。但值得注意的是，被多方支持，不意味着多方支持的是完全相同的东西。同样打着Itanium ABI名号，clang在arm32 linux上编译的C++库能给amd64 windows上的程序使用吗？显然不行，因为最基础的calling convention，甚至基础数据类型表示都不同。Itanium C++ ABI即使实现大一统，积极意义也仅限于允许一些依赖CPU无关规则的危险技巧（比如修改vtable，这种操作我们现在只能称之为hack）在相当多的环境下通用罢了——只要C++语言标准不将ABI纳入讨论范围，对ABI做出假设的技巧永远是危险的，想要创造新的语言机制，就必须在C++标准层面推进某种ABI共识。
+那么系统语言是否应该对某种基于特定ABI实现的语言特性进行标准化呢？从C++的发展历史来看，这种做法已经有了先例，而且是相当危险冒失的。将非零抽象开销的dynamic exception、rtti引入C++客观上导致了社区分裂，有相当一部分C++使用者至今依然选择-fno-exeptions或-fno-rtti。近期的提案Zero-Overhead Deterministic Exceptions: Catching Values给出了一个对exception ABI进行改动的零开销异常机制，是对历史错误的亡羊补牢。系统语言的语言标准应审慎地只对ISA无关且零抽象开销的ABI规则进行标准化，以便在此基础上创造新的语言机制或为应用层开发提供便利。</description>
+      <content>&lt;p&gt;前注：ABI在本文中特指系统语言的ABI，这里系统语言，即system programming language，指的是C，C++，Rust这样应用于系统编程的的编译语言。有时候我们也会讨论常用库或基础库的ABI，比如gcc5就把std::basic_string和std::list的实现改了，自然也就影响了跨版本的ABI兼容性，这种层面的ABI兼容性虽然也是一个工程上的疑难杂症，但不在本文的讨论范围内，毕竟源码都不同了。本文讨论ABI兼容性的是同一份源码在不同ISA、操作系统、编译器上对应二进制产物的兼容性。&lt;/p&gt;
+&lt;p&gt;系统语言的ABI、应用层软件的API、微处理器架构的ISA都是描述各自抽象层次互操作能力的接口。&lt;/p&gt;
+&lt;p&gt;ABI的独特之处在于它本身就是繁重的机制实现，而非轻量的协议声明——实现和声明之间有概念上的分野，这已经体现在法律上：复制ABI是赤裸裸的抄袭，而复制API或ISA则属于fair use。你显然可以合法地为他人写的API/ISA出书做注，Google实现自己的Java时合法复制了Oracle的Java API，无需license。&lt;/p&gt;
+&lt;p&gt;ABI之所以复杂，就是因为它处于两个抽象层次之间。ABI中的很大一部分内容既要向上对语言标准负责，向下要对ISA负责，必须遵循两个方向的约束，将复杂度留给自身，从而成就语言标准和ISA这两个抽象契约的简洁、干净，和人类友好。&lt;/p&gt;
+&lt;p&gt;ABI中的重要组成部分之一calling convention受到ISA的约束，i386中用cdecl, stdcall, fastcall, vectorcall, thiscall, amd64中用systemv, msnative, vectorcall，arm32用aapcs，arm64用aapcs64。ABI中也有很大一部分是指令集无关的（ISA-agnostic），比如name mangling、class layout。这些机制往往足够底层，又与其他指令集相关的部分有强耦合，加上历史因素，往往也只有一小部分能被写入语言标准。&lt;/p&gt;
+&lt;p&gt;如果ISA差异足够大，维护不同的ABI无疑是必要的，强行用一套ABI兼容不仅不自然，也不高效。以早期的Windows为例，微软就为早先的i386（IA-32）和后来的Intel IA-64提供了两套ABI。再后来，AMD赢得64位战争，Intel也遵循了前向兼容IA-32的amd64，又名x86_64, x64，IA-64就式微了。&lt;/p&gt;
+&lt;p&gt;ABI以ISA提供的指令、寄存器、内存管理能力为构件（building block），详尽且精确地描述如何实现一个系统语言在特定硬件、操作系统、编译器下的执行模型，并允许分开编译的产物之间能互操作。例如C ABI需定义调用约定（calling convention）、基础数据类型的表示、聚合数据类型的内存布局；C++03 ABI需额外定义异常机制、RTTI信息存储、虚表布局和动态绑定机制、重载函数/运算符/模板实例化所需的名字重置（name mangling）；C++11 ABI需进一步定义lambda的实现、自动类型推导机制等新增语言机制。&lt;/p&gt;
+&lt;p&gt;无论是C，还是C++都没有在语言层面制定官方的ABI标准，毕竟ABI标准本身也限制了实现的自由。目前最主流的Itanium C++ ABI号称被许多操作系统采用，能适配多数微处理器架构，被大多数编译器实现，包括gcc和clang这两个主要玩家。但值得注意的是，被多方支持，不意味着多方支持的是完全相同的东西。同样打着Itanium ABI名号，clang在arm32 linux上编译的C++库能给amd64 windows上的程序使用吗？显然不行，因为最基础的calling convention，甚至基础数据类型表示都不同。Itanium C++ ABI即使实现大一统，积极意义也仅限于允许一些依赖CPU无关规则的危险技巧（比如修改vtable，这种操作我们现在只能称之为hack）在相当多的环境下通用罢了——只要C++语言标准不将ABI纳入讨论范围，对ABI做出假设的技巧永远是危险的，想要创造新的语言机制，就必须在C++标准层面推进某种ABI共识。&lt;/p&gt;
+&lt;p&gt;那么系统语言是否应该对某种基于特定ABI实现的语言特性进行标准化呢？从C++的发展历史来看，这种做法已经有了先例，而且是相当危险冒失的。将非零抽象开销的dynamic exception、rtti引入C++客观上导致了社区分裂，有相当一部分C++使用者至今依然选择-fno-exeptions或-fno-rtti。近期的提案&lt;a href=&#34;https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2232r0.html&#34;&gt;Zero-Overhead Deterministic Exceptions: Catching Values&lt;/a&gt;给出了一个对exception ABI进行改动的零开销异常机制，是对历史错误的亡羊补牢。系统语言的语言标准应审慎地只对ISA无关且零抽象开销的ABI规则进行标准化，以便在此基础上创造新的语言机制或为应用层开发提供便利。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Desired Properties of a Large-scale Search Index</title>
+      <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
+      <pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
+      <description>[WIP]</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>HPC &amp; Heterogeneous Computing</title>
+      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
+      <pubDate>Wed, 25 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
+      <description>[WIP]</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>A Taxonomy of Stateful Distributed Systems</title>
+      <link>https://cmbbq.github.io/posts/a-taxonomy-of-stateful-distributed-systems/</link>
+      <pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/a-taxonomy-of-stateful-distributed-systems/</guid>
+      <description>CAP theorem的讨论范围是狭窄的 在分布式系统领域，CAP theorem广泛被引用，而且经常被用以指导超出它讨论边界的问题。
+被形式化证明（见Brewer&amp;rsquo;s Conjecture and the Feasibility of Consistent, Available, Partition-​Tolerant Web Services）的CAP theorem其实只局限在read-write storage场景：一个只包含get、set(x)两种操作的存储系统，这种系统被称为register。
+在异步网络（指的是消息传递时间无界）中实现register是无法同时满足下列属性的：
+Availability：所有发往register的请求最终都能完成。这和大多数真实系统的定义是不同的，因为真实系统不要求100%完成请求，只要保证SLA够高，同时又往往有一定时间约束，超时就会返回timeout错误。 Consistency：所有读、写操作均是linearizable的：B操作在A操作之后成功执行，则B看到的系统状态不能比A完成时的系统状态更旧。 Partition tolerance：允许网络丢包。 Partition tolerance默认是满足的，因此CAP-availability、CAP-consistency两种属性二选一。 离开了形式化证明的场景后，CAP theorem还有指导意义吗？答案是否定的——除非重新定义availability和consistency，将其推广到更通用的场景：从单对象单操作到多对象多操作的事务系统。 重新定义availability和consistency后的分布式系统分类学虽然和CAP theorem非常类似，但不能称之为CAP theorem。
+一致性 更通用的“一致性”应定义为“并发系统中共享状态更新的可见性”。 现代微处理器、分布式系统、数据库的共性是——它们都是存在共享数据的并发系统。 当我们讨论一致性（consistency）时，可能指的是微处理器架构和系统编程领域的一致性模型，也可能指的是分布式系统领域的副本一致性，还可能指的是数据库领域的事务隔离性。这些领域的抽象层次不同，共同点是讨论的系统都是并发系统。
+一致性模型（consistency model）是用于描述微处理器架构领域的多核并发场景下，各个处理器被允许的乱序程度——乱序的约束越少，效率越高，并发程序正确性越难保证。
+最强的strict consistency指的是任何写在任何时钟周期都立刻对任何处理器可见，显然不能推广到分布式系统领域。 次之的sequential consistency指的是写操作顺序对于每个副本而言都是一致的，即各进程内部的program order一致，而不同进程执行的顺序可以不一致。这个概念最初也是Lamport在讨论multi-processor computer如何正确执行并发程序时提出的。和分布式系统的副本一致性无关。C++中std::memory_order_seq_cst即可保证线程内部的program order。 更宽松的causal consistency指的是写操作中有依赖关系的那一部分的顺序是一致的，即各进程中的dependency order一致。现代CPU基本上都是out-of-order流水线，在保证dependency order这个底线后，能多乱序就多乱序。在C++中用std::memory_order_consume的load(A)和std::memory_order_acquire的store(B)配合，即可保证这个store之前所有写操作中load(A)依赖的那一部分对load(A)是可见的。如果每个依赖都保证Release-Consume ordering，则依赖链就有序，整体上可满足causal consistency。 除了上述几个著名模型外，还有几十个不同方法、领域中应用的一致性模型，下图就包含了非事务分布式存储系统中种种一致性模型（详见Consistency in Non-Transactional Distributed Storage Systems）。 并发程序显然可以很容易推广到分布式复制状态机，只是增加了网络延迟。因此，一致性模型可以推广应用到分布式系统中的副本一致性。以sequential consistency为例，增加了实时约束后就是分布式系统领域中更被广泛引用的linearizability，指的是单个被复制对象上的单个操作满足：A是写操作，B是对副本的读，A happened-before（因果律上的先于，见https://en.wikipedia.org/wiki/Happened-before） B，则A的写对B的读总是可见。比较一下C++的sequentially consistent ordering定义：everything that happened-before a store in one thread becomes a visible side effect in the thread that did a load。二者是一致的。</description>
+      <content>&lt;h2 id=&#34;cap-theorem的讨论范围是狭窄的&#34;&gt;CAP theorem的讨论范围是狭窄的&lt;/h2&gt;
+&lt;p&gt;在分布式系统领域，CAP theorem广泛被引用，而且经常被用以指导超出它讨论边界的问题。&lt;/p&gt;
+&lt;p&gt;被形式化证明（见&lt;a href=&#34;https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf&#34;&gt;Brewer&amp;rsquo;s Conjecture and the Feasibility of Consistent, Available, Partition-​Tolerant Web Services&lt;/a&gt;）的CAP theorem其实只局限在read-write storage场景：一个只包含get、set(x)两种操作的存储系统，这种系统被称为register。&lt;/p&gt;
+&lt;p&gt;在异步网络（指的是消息传递时间无界）中实现register是无法同时满足下列属性的：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Availability：所有发往register的请求最终都能完成。这和大多数真实系统的定义是不同的，因为真实系统不要求100%完成请求，只要保证SLA够高，同时又往往有一定时间约束，超时就会返回timeout错误。&lt;/li&gt;
+&lt;li&gt;Consistency：所有读、写操作均是linearizable的：B操作在A操作之后成功执行，则B看到的系统状态不能比A完成时的系统状态更旧。&lt;/li&gt;
+&lt;li&gt;Partition tolerance：允许网络丢包。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Partition tolerance默认是满足的，因此CAP-availability、CAP-consistency两种属性二选一。
+离开了形式化证明的场景后，CAP theorem还有指导意义吗？答案是否定的——除非重新定义availability和consistency，将其推广到更通用的场景：从单对象单操作到多对象多操作的事务系统。
+重新定义availability和consistency后的分布式系统分类学虽然和CAP theorem非常类似，但不能称之为CAP theorem。&lt;/p&gt;
+&lt;h2 id=&#34;一致性&#34;&gt;一致性&lt;/h2&gt;
+&lt;p&gt;更通用的“一致性”应定义为“并发系统中共享状态更新的可见性”。
+现代微处理器、分布式系统、数据库的共性是——它们都是存在共享数据的并发系统。
+当我们讨论一致性（consistency）时，可能指的是微处理器架构和系统编程领域的一致性模型，也可能指的是分布式系统领域的副本一致性，还可能指的是数据库领域的事务隔离性。这些领域的抽象层次不同，共同点是讨论的系统都是并发系统。&lt;/p&gt;
+&lt;p&gt;一致性模型（consistency model）是用于描述微处理器架构领域的多核并发场景下，各个处理器被允许的乱序程度——乱序的约束越少，效率越高，并发程序正确性越难保证。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;最强的strict consistency指的是任何写在任何时钟周期都立刻对任何处理器可见，显然不能推广到分布式系统领域。&lt;/li&gt;
+&lt;li&gt;次之的sequential consistency指的是写操作顺序对于每个副本而言都是一致的，即各进程内部的program order一致，而不同进程执行的顺序可以不一致。这个概念最初也是Lamport在讨论multi-processor computer如何正确执行并发程序时提出的。和分布式系统的副本一致性无关。C++中std::memory_order_seq_cst即可保证线程内部的program order。&lt;/li&gt;
+&lt;li&gt;更宽松的causal consistency指的是写操作中有依赖关系的那一部分的顺序是一致的，即各进程中的dependency order一致。现代CPU基本上都是out-of-order流水线，在保证dependency order这个底线后，能多乱序就多乱序。在C++中用std::memory_order_consume的load(A)和std::memory_order_acquire的store(B)配合，即可保证这个store之前所有写操作中load(A)依赖的那一部分对load(A)是可见的。如果每个依赖都保证Release-Consume ordering，则依赖链就有序，整体上可满足causal consistency。&lt;/li&gt;
+&lt;li&gt;除了上述几个著名模型外，还有几十个不同方法、领域中应用的一致性模型，下图就包含了非事务分布式存储系统中种种一致性模型（详见&lt;a href=&#34;https://arxiv.org/pdf/1512.00168.pdf&#34;&gt;Consistency in Non-Transactional Distributed Storage Systems&lt;/a&gt;）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/1.png&#34; alt=&#34;Consistency1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;并发程序显然可以很容易推广到分布式复制状态机，只是增加了网络延迟。因此，一致性模型可以推广应用到分布式系统中的副本一致性。以sequential consistency为例，增加了实时约束后就是分布式系统领域中更被广泛引用的linearizability，指的是单个被复制对象上的单个操作满足：A是写操作，B是对副本的读，A happened-before（因果律上的先于，见https://en.wikipedia.org/wiki/Happened-before） B，则A的写对B的读总是可见。比较一下C++的sequentially consistent ordering定义：everything that happened-before a store in one thread becomes a visible side effect in the thread that did a load。二者是一致的。&lt;/p&gt;
+&lt;p&gt;必须注意，迄今为止讨论的对象仅限单个被复制到不同副本中的对象上的单个操作，分布式存储不可能只存一个对象，有很多分布式存储支持事务或BatchWrite，涉及到多个对象上的多个操作。将单对象上单操作的可见性推广到多对象上多操作也不困难——事务的ACID隔离级别本质上就是将单个共享对象上单个操作的可见性推广到多个对象上一组操作上。下图的左侧就是数据库领域熟知的隔离级别，和分布式系统、微处理器架构、多核编程一样，乱序的约束越少，效率越高，并发程序正确性越难保证。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/2.png&#34; alt=&#34;Consistency2&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;可用性&#34;&gt;可用性&lt;/h2&gt;
+&lt;p&gt;更通用的“可用性”应定义为“在施加某种约束后，系统仍最终能响应所有请求，无论网络分区持续多久”。
+比CAP theorem更完善的分布式系统分类学可参考&lt;a href=&#34;https://arxiv.org/pdf/1302.0309.pdf&#34;&gt;Highly Available Transactions: Virtues and Limitations&lt;/a&gt;。
+这篇论文里给出了新的可用性定义：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;High availability：每个用户向运行中的系统发的请求，最终都会得到回复，无论网络分区持续多久。这就是CAP-availability，或者说traditional availability的标准定义。&lt;/li&gt;
+&lt;li&gt;Sticky availability：每当用户事务在一个数据库状态（该状态反应了之前该用户所有操作）拷贝上执行，最终都会得到回复，无论网络分区持续多久。 这比CAP-availability要求更高。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;只追求high availability，用户可以访问系统中的任何一个replica，不同操作在不同replica上响应也没关系；但若追求sticky availability，用户则需要保证连续的若干操作总是在同一个replica上。比如Dynamo这种multi-writer的分布式存储，不能写一会儿A节点，再写一会儿B节点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Transactional availability：分布式系统文献的一致性模型大多考虑的都是单对象上单个操作的场景，而数据库文献中关注的是事务：多个对象上多个操作合起来称为一个事务。显然CAP-availability定义也不适用于事务。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;事务的replica availability：事务能为它需要访问的各个对象联系到至少一个replica。这个要求是比CAP-availability低的。&lt;/li&gt;
+&lt;li&gt;事务的liveliness：假设我们让每个事务都abort，就可以保证100%的及时响应，完美实现CAP-Availability，但又有什么意义呢？因此还需要保证尽可能让事务commit，而不是abort。&lt;/li&gt;
+&lt;li&gt;因此，最终给出的transactional availability定义是：对事务中每个数据都保证replica availability，并且最终能够在N次retry内commit成功，或internal abort（由事务自己主动选择的abort，而非系统实现将其abort）。&lt;/li&gt;
+&lt;li&gt;更进一步还可以给出sticky transactional availability的定义：如果系统能保证sticky availability，则能保证transactional availability。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;根据这种定义，可以将现有的事务系统的consistency（隔离级别）与其availability进行比较，得出下图中的结果：在新的分类学中，availability要求越高，consistency要求越宽松是成立的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/3.png&#34; alt=&#34;Availability&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

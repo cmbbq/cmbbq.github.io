@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>String Lookups Could Reduce to Parsing :: Cmbbq Wiki</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法，从字符流中抽取状态。因此龙书中的NFA转DFA算法可以派上用场。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/" />
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="String Lookups Could Reduce to Parsing">
+<meta property="og:description" content="字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法，从字符流中抽取状态。因此龙书中的NFA转DFA算法可以派上用场。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/" />
+<meta property="og:site_name" content="Cmbbq Wiki" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2023-05-14 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq Wiki
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/">String Lookups Could Reduce to Parsing</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2023-05-14
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>标题即结论：字符串查找问题可归约为解析问题。</p>
+<p>这个结论源于近期一个有趣的观察：用ragel写高性能的ascii protocol parser，本质上是利用<a href="https://en.wikipedia.org/wiki/Nondeterministic_finite_automata">nfa</a>转<a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton">dfa</a>提升性能，这和<a href="https://github.com/topling/toplingdb">toplingdb</a>中将同一层各个sst对应的trie（本质是dfa）合并成一个dfa(大量dfa-&gt;nfa-&gt;1dfa)的思路是同构的。</p>
+<p>上述同构隐隐蕴含着一个reduction：字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法从字符流中抽取状态，lookups可以视作一类特殊（且模式相当规则）的parsing。LSM key lookup更是比较特殊的海量索引的key range无overlap的场景，存在大量可以轻松合并的DFA。因此龙书中的大量DFA转NFA转DFA算法可以派上用场。</p>
+<p>KV Store的in-memory key index，可以是红黑树，可以是skiplist，可以是hashmap，可以说patricia trie(一种<a href="https://en.wikipedia.org/wiki/Radix_tree">radix tree</a>变种)，也可以是toplingdb中的NestLoudsTrie。这种结构我们同样可以在路由表实现中看到。字符串索引，归根到底是字符串lookup结构。正如路由表实现可以通过把所有routes合并到一个DFA里（很多routes都包含regex），kv数据库也把Trie这种特殊的dfa（Trie的状态转移图是树，树是一种无向图，多了个任意两结点只由一个边连接的约束）做多索引合并，每个索引对应的key range还不重叠（LSM特性），因此合并速度非常快，合并后的DFA表示起来也简单、紧凑，详见<a href="https://zhuanlan.zhihu.com/p/628057993">自动机算法在数据库索引中的应用</a>，我在作者的文章下面追问了一下DFA合并的触发条件和DFA合并开销，作者的答复是compaction/flush时触发，在整个lsm更新过程中占比很小，也不涉及多线程，无需考虑线程安全。</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://cmbbq.github.io/posts/on-transparency/">
+                <span class="button__icon">←</span>
+                <span class="button__text">On Transparency</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/">
+                <span class="button__text">Take Full Advantage of the Manycore NUMA Reality</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
