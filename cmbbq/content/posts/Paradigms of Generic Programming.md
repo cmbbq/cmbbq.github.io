@@ -21,16 +21,18 @@ generic programming is not about how to use template。第一个版本的STL尽�
 
 ## 三种规约，三种范式
 根据规约不同，可命名泛型编程的三种范式：Archetype, Ducktype, Subtype。
-1. **Archetype**：以类型的类型(type-of-type)或者说协议(protocol)、接口(interface)为规约。
+- **Archetype**：以类型的类型(type-of-type)或者说协议(protocol)、接口(interface)为规约。
   - [Rust trait](https://doc.rust-lang.org/book/ch10-02-traits.html): "defines shared behavior"
   - [Carbon interface](https://github.com/carbon-language/carbon-lang/blob/trunk/docs/design/generics/terminology.md#interface): "defines an API that a given type can implement"
   - [Swift protocol](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/): "defines a blueprint of methods, properties, and other requirements"
   - [C++ type erasure idiom](https://davekilian.com/cpp-type-erasure.html): "captures the concept shared among all the concrete types"
-2. **Ducktype**：基于模板进行文本替换的结构化规约。
+
+- **Ducktype**：基于模板进行文本替换的结构化规约。
   - 模板本质上就是编译期ducktyping，不能提前独立进行类型和语法检查，只有实例化之后才能做类型和语法检查，能鸭子叫，编译通过，叫不出鸭子叫，编译报错。
   - C++20中模板结构化规约是concept, 此前则是SFINAE技巧，或者干脆不成文：要么因循旧例(iterable的T一定要有begin和end)，要么心照不宣（自己写的代码，只有自己懂，无需对外公开规约）。
   - 由于规约本身并非类型，无法用普通容器存储遵循规约的一系列具体类型，只能用类型推导的tuple-like容器。
-3. **Subtype**: 以基类为规约。
+
+- **Subtype**: 以基类为规约。
   - 子类系统是面向对象语言最普及的泛型编程范式，往往基于class hierarchy +『虚表存放函数指针』+『对象内置虚指针』或『callsite胖指针』实现。
   - 子类系统固然是简单自然的多态，但毕竟subtyping有一丢丢的性能开销，不是零成本抽象，而且难以非侵入式地让一个新接口适配已有代码。
 
