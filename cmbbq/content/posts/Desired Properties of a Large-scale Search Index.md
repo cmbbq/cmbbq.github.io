@@ -1,8 +1,8 @@
 +++
-title = "Desired Properties of a Large-scale Search Index"
+title = "Desired Properties of a Modern Vector Database"
 date = "2023-01-28"
 tags = ["sys"]
-description = "什么是好的检索系统？什么是好的分布式检索系统？什么是好的Internet-scale检索系统？"
+description = "理想的向量数据库应该具备哪些能力和质量属性？我们需要它来支撑什么样的业务？"
 showFullContent = false
 +++
 

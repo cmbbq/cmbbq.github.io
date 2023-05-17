@@ -79,7 +79,7 @@ HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU t
     </item>
     
     <item>
-      <title>Desired Properties of a Large-scale Search Index</title>
+      <title>Desired Properties of a Modern Vector Database</title>
       <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
       <pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
       
@@ -90,13 +90,31 @@ HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU t
     </item>
     
     <item>
-      <title>HPC &amp; Heterogeneous Computing</title>
+      <title>A Decade of CPU vs GPU Tussle</title>
       <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
       <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
-      <description>[WIP]</description>
+      <description>[WIP]
+GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
+这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
+GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
+GPU的发展速度毫无疑问是领先CPU的，Vnatoli的文章。。。。
+摩尔定律是两年翻倍，而黄氏定律则是宣称通过软硬件协同能达到1.08年翻倍。
+甚至如果我们考虑成本因素，根据经验数据，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。</description>
       <content>&lt;p&gt;[WIP]&lt;/p&gt;
+&lt;h2 id=&#34;gpu和cpu方法的边界何在&#34;&gt;GPU和CPU方法的边界何在？&lt;/h2&gt;
+&lt;p&gt;做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？&lt;/p&gt;
+&lt;p&gt;这个问题可以归约为&lt;a href=&#34;https://www.usenix.org/legacy/event/hotpar10/tech/full_papers/main.pdf&#34;&gt;On the Limits of GPU Acceleration(2010)&lt;/a&gt;中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。&lt;/p&gt;
+&lt;h2 id=&#34;gpu和cpu的价格-性能趋势&#34;&gt;GPU和CPU的价格-性能趋势&lt;/h2&gt;
+&lt;p&gt;上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？&lt;/p&gt;
+&lt;p&gt;GPU的发展速度毫无疑问是领先CPU的，&lt;a href=&#34;https://www.nextplatform.com/2019/07/10/a-decade-of-accelerated-computing-augurs-well-for-gpus/&#34;&gt;Vnatoli的文章&lt;/a&gt;。。。。&lt;/p&gt;
+&lt;p&gt;摩尔定律是两年翻倍，而&lt;a href=&#34;https://en.wikipedia.org/wiki/Huang%27s_law&#34;&gt;黄氏定律&lt;/a&gt;则是宣称通过软硬件协同能达到1.08年翻倍。&lt;/p&gt;
+&lt;p&gt;甚至如果我们考虑成本因素，根据&lt;a href=&#34;https://epochai.org/blog/trends-in-gpu-price-performance&#34;&gt;经验数据&lt;/a&gt;，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/4.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar1&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/5.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar2&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/6.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar3&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
 </content>
     </item>
     
