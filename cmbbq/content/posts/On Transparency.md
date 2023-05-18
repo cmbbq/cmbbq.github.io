@@ -10,7 +10,7 @@ showFullContent = false
 
 一个项目自上而下依赖的第三方黑盒越少，各个抽象层次上诸多组件对研发团队就越是透明的。高透明度意味着高度可维护，高度hackable，随时可拆卸，定位到任何抽象层次上存在性能瓶颈都能毫无桎梏地zoom in，然后修改、重构。习惯性地使用第三方依赖，哪怕这个依赖是得到广泛应用，甚至接近行业标准的高声望项目，依然会注入实现需求不完全匹配的风险。
 
-[高性能计算](https://cmbbq.github.io/posts/hpc-heterogeneous-computing)的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。
+高性能计算的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。
 
 国内互联网同行们对造轮持过分谨慎态度，将其视为anti-pattern，遇到问题时立刻开始技术选型，对使用第三方依赖形成了不假思索的路径依赖。缺乏洞察问题的新颖性和独特性的敏锐度和饥渴，自然故步自封于技术选型，而无法做到真正的技术创新——计算系统的创新是根植于真实需求，对非结构化的现实需求施加结构，创造新的计算和存储形态。就以全文检索为例，[美团外卖搜索用ES](https://tech.meituan.com/2022/11/17/elasicsearch-optimization-practice-based-on-run-length-encoding.html)，[微信聊天搜索用SQLite](https://zhuanlan.zhihu.com/p/608082104)，都是没有选择自研高性能检索引擎，导致业务场景和经典解决方案出现错配，后期遇到了性能瓶颈后的所谓优化方案也只不过是对第三方库进行魔改，让它更贴合原本的需求罢了。比如lucene压根就不是in-memory索引，以至于外卖店家商品搜索这么小规模的场景都不能保证实时性。再说SQLite，默认当然不支持拆表+并行搜索，针对大库做简单的拆表和scatter-gather并行搜索提升性能其实是理所当然的解决方案。
 
