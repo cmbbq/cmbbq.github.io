@@ -20,7 +20,7 @@
 如此视造轮为畏途实让人唏嘘，在性能上碰壁后，再钻进别人的故纸堆中修修补补，浪费的精力，产生额外的痛苦，远远超过当初用C++/Rust实现一个小而美的in-memory search index(例如pisa)。自研检索引擎用极少的代码量就可以击败lucene、sqlite、postgres，也可以很轻松地支持多线程实时索引更新，而不必牺牲索引性能，还可以针对现代物理机进行深度cache优化、减少核间通信和远端内存访问，将现代硬件的性能在检索这种访存密集应用上发挥到极致。</description>
       <content>&lt;p&gt;透明度是软件工程中长期被忽略的理想属性，是目前互联网行业技术管理体系中的薄弱环节。本文的透明度主要是指组件内部实现对研发团队的可见度、可解释性和可掌控程度，或者说&lt;a href=&#34;https://en.wikipedia.org/wiki/White_box_(software_engineering)&#34;&gt;白盒&lt;/a&gt;指数。&lt;/p&gt;
 &lt;p&gt;一个项目自上而下依赖的第三方黑盒越少，各个抽象层次上诸多组件对研发团队就越是透明的。高透明度意味着高度可维护，高度hackable，随时可拆卸，定位到任何抽象层次上存在性能瓶颈都能毫无桎梏地zoom in，然后修改、重构。习惯性地使用第三方依赖，哪怕这个依赖是得到广泛应用，甚至接近行业标准的高声望项目，依然会注入实现需求不完全匹配的风险。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://cmbbq.github.io/posts/hpc-heterogeneous-computing&#34;&gt;高性能计算&lt;/a&gt;的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。&lt;/p&gt;
+&lt;p&gt;高性能计算的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。&lt;/p&gt;
 &lt;p&gt;国内互联网同行们对造轮持过分谨慎态度，将其视为anti-pattern，遇到问题时立刻开始技术选型，对使用第三方依赖形成了不假思索的路径依赖。缺乏洞察问题的新颖性和独特性的敏锐度和饥渴，自然故步自封于技术选型，而无法做到真正的技术创新——计算系统的创新是根植于真实需求，对非结构化的现实需求施加结构，创造新的计算和存储形态。就以全文检索为例，&lt;a href=&#34;https://tech.meituan.com/2022/11/17/elasicsearch-optimization-practice-based-on-run-length-encoding.html&#34;&gt;美团外卖搜索用ES&lt;/a&gt;，&lt;a href=&#34;https://zhuanlan.zhihu.com/p/608082104&#34;&gt;微信聊天搜索用SQLite&lt;/a&gt;，都是没有选择自研高性能检索引擎，导致业务场景和经典解决方案出现错配，后期遇到了性能瓶颈后的所谓优化方案也只不过是对第三方库进行魔改，让它更贴合原本的需求罢了。比如lucene压根就不是in-memory索引，以至于外卖店家商品搜索这么小规模的场景都不能保证实时性。再说SQLite，默认当然不支持拆表+并行搜索，针对大库做简单的拆表和scatter-gather并行搜索提升性能其实是理所当然的解决方案。&lt;/p&gt;
 &lt;p&gt;如此视造轮为畏途实让人唏嘘，在性能上碰壁后，再钻进别人的故纸堆中修修补补，浪费的精力，产生额外的痛苦，远远超过当初用C++/Rust实现一个小而美的in-memory search index(例如&lt;a href=&#34;https://github.com/pisa-engine/pisa&#34;&gt;pisa&lt;/a&gt;)。自研检索引擎用极少的代码量就可以击败lucene、sqlite、postgres，也可以很轻松地支持多线程实时索引更新，而不必牺牲索引性能，还可以针对现代物理机进行深度cache优化、减少核间通信和远端内存访问，将现代硬件的性能在检索这种访存密集应用上发挥到极致。&lt;/p&gt;
 </content>
@@ -103,8 +103,10 @@ HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU t
       <pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
-      <description>[WIP]</description>
+      <description>[WIP]
+RoadMap</description>
       <content>&lt;p&gt;[WIP]&lt;/p&gt;
+&lt;p&gt;RoadMap&lt;/p&gt;
 </content>
     </item>
     
@@ -268,31 +270,26 @@ Archetype范式中不仅可以为自己的类型提供多种Archetype adaption�
     </item>
     
     <item>
-      <title>A Decade of CPU vs GPU Tussle</title>
+      <title>A Decade of Tussle between CPU and GPU</title>
       <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
       <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
-      <description>[WIP]
-GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
+      <description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
 这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
 GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
-GPU的发展速度毫无疑问是领先CPU的，Vnatoli的文章。。。。
 摩尔定律是两年翻倍，而黄氏定律则是宣称通过软硬件协同能达到1.08年翻倍。
 甚至如果我们考虑成本因素，根据经验数据，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-&lt;h2 id=&#34;gpu和cpu方法的边界何在&#34;&gt;GPU和CPU方法的边界何在？&lt;/h2&gt;
+      <content>&lt;h2 id=&#34;gpu和cpu方法的边界何在&#34;&gt;GPU和CPU方法的边界何在？&lt;/h2&gt;
 &lt;p&gt;做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？&lt;/p&gt;
 &lt;p&gt;这个问题可以归约为&lt;a href=&#34;https://www.usenix.org/legacy/event/hotpar10/tech/full_papers/main.pdf&#34;&gt;On the Limits of GPU Acceleration(2010)&lt;/a&gt;中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。&lt;/p&gt;
 &lt;h2 id=&#34;gpu和cpu的价格-性能趋势&#34;&gt;GPU和CPU的价格-性能趋势&lt;/h2&gt;
 &lt;p&gt;上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？&lt;/p&gt;
-&lt;p&gt;GPU的发展速度毫无疑问是领先CPU的，&lt;a href=&#34;https://www.nextplatform.com/2019/07/10/a-decade-of-accelerated-computing-augurs-well-for-gpus/&#34;&gt;Vnatoli的文章&lt;/a&gt;。。。。&lt;/p&gt;
 &lt;p&gt;摩尔定律是两年翻倍，而&lt;a href=&#34;https://en.wikipedia.org/wiki/Huang%27s_law&#34;&gt;黄氏定律&lt;/a&gt;则是宣称通过软硬件协同能达到1.08年翻倍。&lt;/p&gt;
 &lt;p&gt;甚至如果我们考虑成本因素，根据&lt;a href=&#34;https://epochai.org/blog/trends-in-gpu-price-performance&#34;&gt;经验数据&lt;/a&gt;，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/4.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar1&#34;&gt;
 &lt;img src=&#34;https://cmbbq.github.io/img/5.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar2&#34;&gt;
 &lt;img src=&#34;https://cmbbq.github.io/img/6.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar3&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;heading&#34;&gt;&lt;/h2&gt;
 </content>
     </item>
     
