@@ -3,31 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cmbbq.github.io/</loc>
-    <lastmod>2023-05-15T00:00:00+00:00</lastmod>
+    <lastmod>2023-06-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://cmbbq.github.io/posts/on-transparency/</loc>
-    <lastmod>2023-05-15T00:00:00+00:00</lastmod>
+    <loc>https://cmbbq.github.io/posts/federated-learning-vs-in-center-distributed-training/</loc>
+    <lastmod>2023-06-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/</loc>
+    <lastmod>2023-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/tags/sys/</loc>
+    <lastmod>2023-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/tags/</loc>
+    <lastmod>2023-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/posts/on-transparency/</loc>
     <lastmod>2023-05-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/tags/se/</loc>
     <lastmod>2023-05-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://cmbbq.github.io/tags/</loc>
-    <lastmod>2023-05-15T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/</loc>
     <lastmod>2023-05-14T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/tags/sys/</loc>
-    <lastmod>2023-05-14T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</loc>
-    <lastmod>2023-05-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</loc>
-    <lastmod>2023-01-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/paradigms-of-generic-programming/</loc>
     <lastmod>2022-11-10T00:00:00+00:00</lastmod>
@@ -41,7 +38,7 @@
     <loc>https://cmbbq.github.io/posts/on-nco/</loc>
     <lastmod>2022-10-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</loc>
+    <loc>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</loc>
     <lastmod>2022-09-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/on-abi/</loc>

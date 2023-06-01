@@ -6,7 +6,64 @@
     <description>Recent content in sys on Cmbbq Wiki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Federated Learning vs In-center Distributed Training</title>
+      <link>https://cmbbq.github.io/posts/federated-learning-vs-in-center-distributed-training/</link>
+      <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/federated-learning-vs-in-center-distributed-training/</guid>
+      <description>[WIP]
+联邦学习 联邦学习由McMahan于2016年提出，指的是许多移动设备在一个中央服务器的编排下协作训练模型，保持训练数据离散，避免对用户数据进行收集，仅将客户端模型更新上传中央服务器汇总成新的全局模型的机器学习模式。
+联邦学习的naive实现如下：
+中央服务器选定一些clients，让这些client下载模型。 每个client根据自己的数据计算更新。 每个client将更新（即新的完整模型）上传到中央服务器。 中央服务器用某种方式（比如取平均）聚合这些模型得到一个全局模型。 上传模型更新到中央服务器开销大的问题 大量文献对联邦学习进行了讨论。Federated Learning: Strategies For Improving Communication Efficiency指出联邦学习的naive实现的第3步很容易出现通信瓶颈，这是首当其冲的问题，提出了降低上行链路通信成本的两种方法：结构化更新，缩略更新。
+联邦学习的问题可以被形式化地表述为：学习模型中的参数。全连接层的参数可用一个实数矩阵（这只是为了简化问题，所以讨论单个矩阵）表示 W ∈ R^(d1×d2)，shape为(#input × #output)，d1和d2表示输出维度和输入维度。卷积层kernel是4d tensor(#input × width × height × #output) ，需reshape到 (#input × width × height) × #output 。
+用W(t)表示当前回合(t)的模型，W(i,t)表示本地更新后的模型，所谓更新就是H(i,t) = W(i,t) - W(t)。中央服务器可聚合得到新模型：W(t+1) = W(t) + η(t)H(t)，其中H(t) = Sum(H(i,t))/N，η(t)是learning rate。
+结构化更新 结构化更新是指直接从一个用少量变量参数化的受限空间里学习更新，而不是学习整个模型的更新。
+所谓结构化更新，也就是impose structure on updates，论文里提出两种结构，一种是低秩矩阵，另一种是随机掩码。
+在结构化更新之低秩矩阵方法中，本地模型的更新H(i,t)必须是一个rank &amp;lt; k的低秩矩阵，这里k是一个固定的数字。将H(i,t)表示为H(i,t)=A(i,t)B(i,t)，其中A(i,t)∈ R^(d1×k)，B(i,t)∈ R^(k×d2)，在后续计算中，随机生成一个A(i,t)视为常数，然后优化B(i,t)。这样A的数据就不必上传，可以坍塌成一个随机种子，只需上传B(i,t)。这种优化，本质上是利用降维的压缩技术，使用矩阵将原始数据进行降维处理，然后使用重构矩阵将降维后的数据重新构建为原始数据。 A(i,t)每回合都为每个client随机生成一次。立刻就得到d1/k的上传开销减少。固定B，训练A，或者同时训练A和B都试过，效果不如固定A，训练B。对此的解释是A可视作重构矩阵（从变换后的向量中重新构建出原始向量），B是投影矩阵（将一个向量投影到另一个向量的子空间上）。固定A训练B实际上相当于解决这样一个问题：给定一个随机的重构矩阵，什么样的投影矩阵可以恢复最多的信息？
+在结构化更新之随机掩码方法中，本地模型的更新H(i,t)必须是用某个预定义的随机掩码生成的稀疏矩阵。同样是每回合对每个client重新生成一次。稀疏掩码可以坍塌成一个随机种子，因此只需上传H(i,t)的非零值和种子。
+缩略更新 缩略(sketched)更新，学习一个完整模型更新，学成之后，再通过有损的量化、随机旋转、子采样将其压缩后再发给服务器。
+量化：将权重做概率量化，用更小的标量类型充当原始权重的unbiased estimator。
+随机旋转：其实就是用一个随机正交矩阵乘一下，防止大部分数据都是0的情形，导致量化效果差。
+子采样：原本上传的是H(i,t)，subsampling之后只上传一个随机子集。
+算法、隐私、安全、工程等个层面的挑战 Advances and Open Problems in Federated Learning, 。</description>
+      <content>&lt;p&gt;[WIP]&lt;/p&gt;
+&lt;h1 id=&#34;联邦学习&#34;&gt;联邦学习&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/1602.05629.pdf&#34;&gt;联邦学习&lt;/a&gt;由McMahan于2016年提出，指的是许多移动设备在一个中央服务器的编排下协作训练模型，保持训练数据离散，避免对用户数据进行收集，仅将客户端模型更新上传中央服务器汇总成新的全局模型的机器学习模式。&lt;/p&gt;
+&lt;p&gt;联邦学习的naive实现如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;中央服务器选定一些clients，让这些client下载模型。&lt;/li&gt;
+&lt;li&gt;每个client根据自己的数据计算更新。&lt;/li&gt;
+&lt;li&gt;每个client将更新（即新的完整模型）上传到中央服务器。&lt;/li&gt;
+&lt;li&gt;中央服务器用某种方式（比如取平均）聚合这些模型得到一个全局模型。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;上传模型更新到中央服务器开销大的问题&#34;&gt;上传模型更新到中央服务器开销大的问题&lt;/h2&gt;
+&lt;p&gt;大量文献对联邦学习进行了讨论。&lt;a href=&#34;https://arxiv.org/pdf/1610.05492.pdf&#34;&gt;Federated Learning: Strategies For Improving Communication Efficiency&lt;/a&gt;指出联邦学习的naive实现的第3步很容易出现通信瓶颈，这是首当其冲的问题，提出了降低上行链路通信成本的两种方法：结构化更新，缩略更新。&lt;/p&gt;
+&lt;p&gt;联邦学习的问题可以被形式化地表述为：学习模型中的参数。全连接层的参数可用一个实数矩阵（这只是为了简化问题，所以讨论单个矩阵）表示 W ∈ R^(d1×d2)，shape为(#input × #output)，d1和d2表示输出维度和输入维度。卷积层kernel是4d tensor(#input × width × height × #output) ，需reshape到 (#input × width × height) × #output 。&lt;/p&gt;
+&lt;p&gt;用W(t)表示当前回合(t)的模型，W(i,t)表示本地更新后的模型，所谓更新就是H(i,t) = W(i,t) - W(t)。中央服务器可聚合得到新模型：W(t+1) = W(t) + η(t)H(t)，其中H(t) = Sum(H(i,t))/N，η(t)是learning rate。&lt;/p&gt;
+&lt;h3 id=&#34;结构化更新&#34;&gt;结构化更新&lt;/h3&gt;
+&lt;p&gt;结构化更新是指直接从一个用少量变量参数化的受限空间里学习更新，而不是学习整个模型的更新。&lt;/p&gt;
+&lt;p&gt;所谓结构化更新，也就是impose structure on updates，论文里提出两种结构，一种是低秩矩阵，另一种是随机掩码。&lt;/p&gt;
+&lt;p&gt;在结构化更新之低秩矩阵方法中，本地模型的更新H(i,t)必须是一个rank &amp;lt; k的低秩矩阵，这里k是一个固定的数字。将H(i,t)表示为H(i,t)=A(i,t)B(i,t)，其中A(i,t)∈ R^(d1×k)，B(i,t)∈ R^(k×d2)，在后续计算中，随机生成一个A(i,t)视为常数，然后优化B(i,t)。这样A的数据就不必上传，可以坍塌成一个随机种子，只需上传B(i,t)。这种优化，本质上是利用降维的压缩技术，使用矩阵将原始数据进行降维处理，然后使用重构矩阵将降维后的数据重新构建为原始数据。
+A(i,t)每回合都为每个client随机生成一次。立刻就得到d1/k的上传开销减少。固定B，训练A，或者同时训练A和B都试过，效果不如固定A，训练B。对此的解释是A可视作重构矩阵（从变换后的向量中重新构建出原始向量），B是投影矩阵（将一个向量投影到另一个向量的子空间上）。固定A训练B实际上相当于解决这样一个问题：给定一个随机的重构矩阵，什么样的投影矩阵可以恢复最多的信息？&lt;/p&gt;
+&lt;p&gt;在结构化更新之随机掩码方法中，本地模型的更新H(i,t)必须是用某个预定义的随机掩码生成的稀疏矩阵。同样是每回合对每个client重新生成一次。稀疏掩码可以坍塌成一个随机种子，因此只需上传H(i,t)的非零值和种子。&lt;/p&gt;
+&lt;h3 id=&#34;缩略更新&#34;&gt;缩略更新&lt;/h3&gt;
+&lt;p&gt;缩略(sketched)更新，学习一个完整模型更新，学成之后，再通过有损的量化、随机旋转、子采样将其压缩后再发给服务器。&lt;/p&gt;
+&lt;p&gt;量化：将权重做概率量化，用更小的标量类型充当原始权重的unbiased estimator。&lt;/p&gt;
+&lt;p&gt;随机旋转：其实就是用一个随机正交矩阵乘一下，防止大部分数据都是0的情形，导致量化效果差。&lt;/p&gt;
+&lt;p&gt;子采样：原本上传的是H(i,t)，subsampling之后只上传一个随机子集。&lt;/p&gt;
+&lt;h2 id=&#34;算法隐私安全工程等个层面的挑战&#34;&gt;算法、隐私、安全、工程等个层面的挑战&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/1912.04977.pdf&#34;&gt;Advances and Open Problems in Federated Learning&lt;/a&gt;, 。&lt;/p&gt;
+&lt;p&gt;todo&lt;/p&gt;
+&lt;h2 id=&#34;通信延迟高的问题&#34;&gt;通信延迟高的问题&lt;/h2&gt;
+&lt;p&gt;还有一个关键问题——高通信延迟，在之前的论文中没被很好地address。[https://dga.hanlab.ai/assets/neurips21_dga.pdf](Delayed Gradient Averaging: Tolerate the
+Communication Latency in Federated Learning)一文提出了一种延迟进行梯度平均的算法，用16节点是树莓派集群模拟现实世界中的移动节点和无线网络环境做了个实验，经验性地证明应用延迟梯度平均可以使联邦学习过程容忍高网络延迟，同时还不牺牲准确度。&lt;/p&gt;
+&lt;p&gt;todo&lt;/p&gt;
+&lt;h1 id=&#34;in-center-distribtued-training&#34;&gt;In-center Distribtued Training&lt;/h1&gt;
+</content>
+    </item>
+    
     <item>
       <title>String Lookups Reduce to Parsing</title>
       <link>https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/</link>
@@ -25,78 +82,11 @@ KV Store的in-memory key index，可以是红黑树，可以是skiplist，可以
     </item>
     
     <item>
-      <title>Take Full Advantage of the Manycore NUMA Reality</title>
-      <link>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</link>
-      <pubDate>Sat, 13 May 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</guid>
-      <description>[WIP]
-当一个计算密集服务成为互联网规模的基础设施时，高性能计算(HPC)的需求就变得迫切，因为性能意味着时间、能源和金钱。
-本文主要讨论现代商用硬件上高性能架构的若干设计原则，其中重点在于NUMA和hardware locality——拥有更深memory hierarchy的NUMA物理机与SMP上的高性能编程截然不同，需要充分利用hardware locality来释放它们的潜力。
-商用硬件的现实 时代变了，服务端SMP已是过去时，曾经的众核异构未来已成为商用硬件的现实。
-&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。 &amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。 todo 高性能架构的Heuristics HPC三板斧分别是并行性(parallelism)，数据局部性(data locality)，特化(specialization)：
-并行是无处不在的，cpu层面上、物理机层面上、机房层面上均可横向扩展，因此充分利用硬件的并行性是提升系统整体性能的有效手段。“堆硬件”、“堆机器”是我们快速发展阶段(move fast and break nothing)，简单、粗暴、安全、稳定且烧钱的做法。并行性不仅可以简单利用，也可以更精细化地finetune：优化并行算法，提升内存分配的多核可扩展性，避免由不必要的context switch, data copy, cache false sharing，则可以减少烧钱。
-数据局部性。todo
-特化分为硬件特化和软件特化：用专业的硬件做专业的事，用直接的软件解决方案解决直接需求，毫无疑问可以提升效率，是高性能架构设计的必然选择，值得考虑的仅仅是技术风险。
-HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU tuning、CUDA、Hybrid model、模型压缩等话题，只讨论CPU相关的NUMA、OpenMP、Cache、SIMD、μArch。
-我所在的互联网AI技术部门，GPU显然是目前更热门的话题。但如果把视角拉高俯瞰所有互联网计算系统，不难发现目前互联网场景中大部分计算密集应用实际上仍有着相当高的访存密度和访存不规则性(memory reference intensity &amp;amp; irregularity)：
-很多CPU-bound服务纯计算部分耗时不足一半，严格地更适合用CPU商用硬件，比如MIR、OLAP、全文检索。 一些真正计算密集的领域，往往在业务上只有近实时约束，相对来说延迟不敏感，同样在实践中大量应用CPU而非GPU以硬件节省成本，如中小模型的推理、多媒体转码、特征提取。 甚至某些GPU主导的算子优化领域，在CPU tuning做得足够深入之后，也能用更低总价达到近似的效果，比如稀疏科列斯基分解(sparse Cholesky factorization)，快速多极子算法(FMM)。 利用硬件拓扑局部性最大化众核效率 todo
-被忽视的质量指标：透明度 </description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-&lt;p&gt;当一个计算密集服务成为互联网规模的基础设施时，高性能计算(HPC)的需求就变得迫切，因为性能意味着时间、能源和金钱。&lt;/p&gt;
-&lt;p&gt;本文主要讨论现代商用硬件上高性能架构的若干设计原则，其中重点在于NUMA和hardware locality——拥有更深memory hierarchy的NUMA物理机与SMP上的高性能编程截然不同，需要充分利用hardware locality来释放它们的潜力。&lt;/p&gt;
-&lt;h2 id=&#34;商用硬件的现实&#34;&gt;商用硬件的现实&lt;/h2&gt;
-&lt;p&gt;时代变了，服务端SMP已是过去时，曾经的众核异构未来已成为商用硬件的现实。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。&lt;/li&gt;
-&lt;li&gt;&amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。&lt;/li&gt;
-&lt;li&gt;todo&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;高性能架构的heuristics&#34;&gt;高性能架构的Heuristics&lt;/h2&gt;
-&lt;p&gt;HPC三板斧分别是并行性(parallelism)，数据局部性(data locality)，特化(specialization)：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;并行是无处不在的，cpu层面上、物理机层面上、机房层面上均可横向扩展，因此充分利用硬件的并行性是提升系统整体性能的有效手段。“堆硬件”、“堆机器”是我们快速发展阶段(move fast and break nothing)，简单、粗暴、安全、稳定且烧钱的做法。并行性不仅可以简单利用，也可以更精细化地finetune：优化并行算法，提升内存分配的多核可扩展性，避免由不必要的context switch, data copy, cache false sharing，则可以减少烧钱。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;数据局部性。todo&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;特化分为硬件特化和软件特化：用专业的硬件做专业的事，用直接的软件解决方案解决直接需求，毫无疑问可以提升效率，是高性能架构设计的必然选择，值得考虑的仅仅是技术风险。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;HPC从学习角度看，一般有CPU、GPU两个分支，后文暂且搁置GPU tuning、CUDA、Hybrid model、模型压缩等话题，只讨论CPU相关的NUMA、OpenMP、Cache、SIMD、μArch。&lt;/p&gt;
-&lt;p&gt;我所在的互联网AI技术部门，GPU显然是目前更热门的话题。但如果把视角拉高俯瞰所有互联网计算系统，不难发现目前互联网场景中大部分计算密集应用实际上仍有着相当高的访存密度和访存不规则性(memory reference intensity &amp;amp; irregularity)：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;很多CPU-bound服务纯计算部分耗时不足一半，严格地更适合用CPU商用硬件，比如MIR、OLAP、全文检索。&lt;/li&gt;
-&lt;li&gt;一些真正计算密集的领域，往往在业务上只有近实时约束，相对来说延迟不敏感，同样在实践中大量应用CPU而非GPU以硬件节省成本，如中小模型的推理、多媒体转码、特征提取。&lt;/li&gt;
-&lt;li&gt;甚至某些GPU主导的算子优化领域，在CPU tuning做得足够深入之后，也能用更低总价达到近似的效果，比如稀疏科列斯基分解(sparse Cholesky factorization)，快速多极子算法(FMM)。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;利用硬件拓扑局部性最大化众核效率&#34;&gt;利用硬件拓扑局部性最大化众核效率&lt;/h2&gt;
-&lt;p&gt;todo&lt;/p&gt;
-&lt;h2 id=&#34;被忽视的质量指标透明度&#34;&gt;被忽视的质量指标：透明度&lt;/h2&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Desired Properties of a Modern Vector Database</title>
-      <link>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</link>
-      <pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/desired-properties-of-a-large-scale-search-index/</guid>
-      <description>[WIP]
-RoadMap</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-&lt;p&gt;RoadMap&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
       <title>A Decade of Tussle between CPU and GPU</title>
-      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
+      <link>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</link>
       <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
+      <guid>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</guid>
       <description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
 这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
 GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？

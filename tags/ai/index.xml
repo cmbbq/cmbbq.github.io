@@ -26,10 +26,10 @@
     
     <item>
       <title>A Decade of Tussle between CPU and GPU</title>
-      <link>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</link>
+      <link>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</link>
       <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/hpc-heterogeneous-computing/</guid>
+      <guid>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</guid>
       <description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
 这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
 GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
