@@ -6,8 +6,6 @@ description = "联邦学习(Federated Learning)是指许多移动设备在一个
 showFullContent = false
 +++
 
-[WIP]
-
 # 联邦学习
 [联邦学习](https://arxiv.org/pdf/1602.05629.pdf)由McMahan于2016年提出，指的是许多移动设备在一个中央服务器的编排下协作训练模型，保持训练数据离散，避免对用户数据进行收集，仅将客户端模型更新上传中央服务器汇总成新的全局模型的机器学习模式。
 
