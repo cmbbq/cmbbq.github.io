@@ -2,10 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cmbbq.github.io/tags/ai/</loc>
+    <lastmod>2023-06-07T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://cmbbq.github.io/</loc>
     <lastmod>2023-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/distributed-computing-systems/</loc>
+    <lastmod>2023-06-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/posts/reality-knowledge/</loc>
     <lastmod>2023-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/</loc>
@@ -35,9 +41,6 @@
     <loc>https://cmbbq.github.io/tags/pl/</loc>
     <lastmod>2022-11-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://cmbbq.github.io/tags/ai/</loc>
-    <lastmod>2022-10-12T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://cmbbq.github.io/posts/on-nco/</loc>
     <lastmod>2022-10-12T00:00:00+00:00</lastmod>
   </url><url>
@@ -49,9 +52,6 @@
   </url><url>
     <loc>https://cmbbq.github.io/posts/a-taxonomy-of-stateful-distributed-systems/</loc>
     <lastmod>2021-07-08T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/posts/reality-knowledge/</loc>
-    <lastmod>2021-06-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/categories/</loc>
   </url>

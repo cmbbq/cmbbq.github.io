@@ -6,52 +6,11 @@
     <description>Recent content in ai on Cmbbq Wiki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>On NCO</title>
-      <link>https://cmbbq.github.io/posts/on-nco/</link>
-      <pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/on-nco/</guid>
-      <description>凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。
-非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。
-深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。
-随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。</description>
-      <content>&lt;p&gt;凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。&lt;/p&gt;
-&lt;p&gt;非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。&lt;/p&gt;
-&lt;p&gt;深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。&lt;/p&gt;
-&lt;p&gt;随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>A Decade of Tussle between CPU and GPU</title>
-      <link>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</link>
-      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</guid>
-      <description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
-这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
-GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
-摩尔定律是两年翻倍，而黄氏定律则是宣称通过软硬件协同能达到1.08年翻倍。
-甚至如果我们考虑成本因素，根据经验数据，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。</description>
-      <content>&lt;h2 id=&#34;gpu和cpu方法的边界何在&#34;&gt;GPU和CPU方法的边界何在？&lt;/h2&gt;
-&lt;p&gt;做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？&lt;/p&gt;
-&lt;p&gt;这个问题可以归约为&lt;a href=&#34;https://www.usenix.org/legacy/event/hotpar10/tech/full_papers/main.pdf&#34;&gt;On the Limits of GPU Acceleration(2010)&lt;/a&gt;中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。&lt;/p&gt;
-&lt;h2 id=&#34;gpu和cpu的价格-性能趋势&#34;&gt;GPU和CPU的价格-性能趋势&lt;/h2&gt;
-&lt;p&gt;上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？&lt;/p&gt;
-&lt;p&gt;摩尔定律是两年翻倍，而&lt;a href=&#34;https://en.wikipedia.org/wiki/Huang%27s_law&#34;&gt;黄氏定律&lt;/a&gt;则是宣称通过软硬件协同能达到1.08年翻倍。&lt;/p&gt;
-&lt;p&gt;甚至如果我们考虑成本因素，根据&lt;a href=&#34;https://epochai.org/blog/trends-in-gpu-price-performance&#34;&gt;经验数据&lt;/a&gt;，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/4.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar1&#34;&gt;
-&lt;img src=&#34;https://cmbbq.github.io/img/5.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar2&#34;&gt;
-&lt;img src=&#34;https://cmbbq.github.io/img/6.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar3&#34;&gt;&lt;/p&gt;
-</content>
-    </item>
-    
+    <lastBuildDate>Wed, 07 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Knowledge is Embeddings of Reality</title>
       <link>https://cmbbq.github.io/posts/reality-knowledge/</link>
-      <pubDate>Mon, 07 Jun 2021 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/reality-knowledge/</guid>
       <description>现实有无限维度，现实的背后还有潜在现实，结构的边缘会涌现出新的深层结构。
@@ -90,6 +49,47 @@ GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去
 &lt;p&gt;翻唱识别服务能通过一个学习了歌曲旋律的神经网络对音频信号进行处理，产出一定程度上表达旋律特征的embedding，将曲库里的翻唱embedding存入向量数据库，通过KNN/ANN召回的结果往往不限于原曲，还能容忍变调、音色上的改变。&lt;/p&gt;
 &lt;p&gt;哼唱识别服务可以基于Whisper这样的音频大模型实现，这种深层网络学习了人类的自然语言，因此对音频信号处理时，提取了表达歌词信息的embedding。基于这样的embedding，可以在跑调非常严重，且没有伴奏的情况下，依然能识别出用户在哼什么歌。&lt;/p&gt;
 &lt;p&gt;考虑未来的多模态大模型，更是可以直接将embedding存在transformer的ffn层，不必借助外部的向量数据库或倒排索引，直接在模型内部刻画embedding之间的复杂关系，让更多概念之间产生关联：识别出歌曲的意境、歌唱者的情绪、歌词内容的图片，甚至联系用户交互的上下文，衍生出更客制化、场景相关的输出。当这种knowledge-based AI足够强大时，就接近人的意识的了。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>On NCO</title>
+      <link>https://cmbbq.github.io/posts/on-nco/</link>
+      <pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/on-nco/</guid>
+      <description>凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。
+非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。
+深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。
+随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。</description>
+      <content>&lt;p&gt;凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。&lt;/p&gt;
+&lt;p&gt;非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。&lt;/p&gt;
+&lt;p&gt;深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。&lt;/p&gt;
+&lt;p&gt;随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>A Decade of Tussle between CPU and GPU</title>
+      <link>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</link>
+      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</guid>
+      <description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
+这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
+GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
+摩尔定律是两年翻倍，而黄氏定律则是宣称通过软硬件协同能达到1.08年翻倍。
+甚至如果我们考虑成本因素，根据经验数据，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。</description>
+      <content>&lt;h2 id=&#34;gpu和cpu方法的边界何在&#34;&gt;GPU和CPU方法的边界何在？&lt;/h2&gt;
+&lt;p&gt;做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？&lt;/p&gt;
+&lt;p&gt;这个问题可以归约为&lt;a href=&#34;https://www.usenix.org/legacy/event/hotpar10/tech/full_papers/main.pdf&#34;&gt;On the Limits of GPU Acceleration(2010)&lt;/a&gt;中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。&lt;/p&gt;
+&lt;h2 id=&#34;gpu和cpu的价格-性能趋势&#34;&gt;GPU和CPU的价格-性能趋势&lt;/h2&gt;
+&lt;p&gt;上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？&lt;/p&gt;
+&lt;p&gt;摩尔定律是两年翻倍，而&lt;a href=&#34;https://en.wikipedia.org/wiki/Huang%27s_law&#34;&gt;黄氏定律&lt;/a&gt;则是宣称通过软硬件协同能达到1.08年翻倍。&lt;/p&gt;
+&lt;p&gt;甚至如果我们考虑成本因素，根据&lt;a href=&#34;https://epochai.org/blog/trends-in-gpu-price-performance&#34;&gt;经验数据&lt;/a&gt;，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/4.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar1&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/5.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar2&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/6.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar3&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
