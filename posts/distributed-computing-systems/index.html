@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="读研时的专业方向是计算系统，如今工作的领域则是各类大规模音频检索，即分布式计算系统。纷乱的分布式现象、繁琐的工程实践容易遮蔽对分布式计算系统本质的理解，遂手动将这个领域的知识抽象内化成一篇短文，期望它能作为指导未来工作的一些启迪。" />
+<meta name="description" content="读研时的专业方向是计算系统，如今工作的领域则是分布式计算系统。纷乱的分布式现象、繁琐的工程实践容易遮蔽对分布式计算系统本质的理解，遂手动将这个领域的知识抽象内化成一篇短文，期望它能作为指导未来工作的一些启迪。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/distributed-computing-systems/" />
@@ -36,7 +36,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Distributed Computing Systems At Scale">
-<meta property="og:description" content="读研时的专业方向是计算系统，如今工作的领域则是各类大规模音频检索，即分布式计算系统。纷乱的分布式现象、繁琐的工程实践容易遮蔽对分布式计算系统本质的理解，遂手动将这个领域的知识抽象内化成一篇短文，期望它能作为指导未来工作的一些启迪。" />
+<meta property="og:description" content="读研时的专业方向是计算系统，如今工作的领域则是分布式计算系统。纷乱的分布式现象、繁琐的工程实践容易遮蔽对分布式计算系统本质的理解，遂手动将这个领域的知识抽象内化成一篇短文，期望它能作为指导未来工作的一些启迪。" />
 <meta property="og:url" content="https://cmbbq.github.io/posts/distributed-computing-systems/" />
 <meta property="og:site_name" content="Cmbbq Wiki" />
 
@@ -138,7 +138,7 @@
 <p>如果是全新的问题，或对已有问题产生了非凡洞察，对其施加更有效结构，就产生了新的架构，新的计算和IO形态：</p>
 <ul>
 <li>大模型时代来临后，模型参数本身就已经放不进顶级的GPU，更不用说神经网络计算所需的额外内存了，这就使原本在系统效率和正确性之间平衡的非常好的Parameter Server架构面临挑战，不得不用全新的架构和策略解决大模型训练的问题：Node内（8卡组一个Node）的权重切分和模型并行，算子内的数据和指令并行，子图切分、算子摆布和流水线并行（8个Node做8级流水）、16组8*8做Batch16的数据并行，于是产生了Alpa over Ray训练大模型的解决方案。这又间接导致带宽需求激增，以至于需要Google的光学交换机OCS这样的网络解决方案，避免光电模块和解析报文计算的开销——光交换劣势在于切换慢，但训练周期里数据交换的主要流量路由是固定的，用来建设AI DC正好规避了这个缺点。</li>
-<li>KVM的作者由于hypervisor在NUMA系统上的性能瓶颈的经验，很容易就发现应用层共享内存的并行模型是有缺陷的，在众核时代尤其严重，因此创造了seastar。利用hardware locality，避免线程切换、数据拷贝、NUMA远端内存访问，对访存密集型CPU-bound应用来说，是非常重要的性能路径。</li>
+<li>KVM的作者根据hypervisor在NUMA系统上的性能瓶颈的经验，很容易就发现应用层共享内存的并行模型是有缺陷的，在众核时代尤其严重，因此创造了seastar。利用hardware locality，避免线程切换、数据拷贝、NUMA远端内存访问，对访存密集型CPU-bound应用来说，是非常重要的性能路径。</li>
 </ul>
 
       </div></div>
