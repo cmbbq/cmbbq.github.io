@@ -1,11 +1,10 @@
 +++
 title = "Knowledge is Embeddings of Reality"
 date = "2021-06-07"
-tags = ["sys"]
+tags = ["ai"]
 description = "现实无限广博，无限深邃，将其嵌入我们有限的认知空间后，就形成了知识。"
 showFullContent = false
 +++
-
 
 现实有无限维度，现实的背后还有潜在现实，结构的边缘会涌现出新的深层结构。
 
