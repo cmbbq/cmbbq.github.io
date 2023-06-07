@@ -1,6 +1,6 @@
 +++
 title = "GPU vs DSA"
-date = "2023-07-28"
+date = "2027-07-28"
 tags = ["sys"]
 description = "比较GPU和DSA(ASIC, FPGA, SoC)。"
 showFullContent = false
