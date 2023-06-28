@@ -1,6 +1,6 @@
 +++
 title = "Take Full Advantage of the Manycore NUMA Reality"
-date = "2023-06-13"
+date = "2023-07-23"
 tags = ["sys"]
 description = "当一个计算密集服务成为互联网规模的基础设施时，高性能计算的需求就变得迫切，因为性能意味着时间、能源和金钱。本文主要讨论现代商用硬件上如何通过share-nothing架构最大化众核+深内存层次结构时代的访存密集型CPU-bound应用的性能。"
 showFullContent = false

@@ -6,30 +6,7 @@
     <description>Recent content in sys on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Take Full Advantage of the Manycore NUMA Reality</title>
-      <link>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</link>
-      <pubDate>Tue, 13 Jun 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</guid>
-      <description>[WIP] [WIP] [WIP]
-NUMA和众核：曾经的超算概念，如今商用硬件的现实 时代变了，服务端SMP已是过去时，曾经的众核未来已成为商用硬件的现实。
-&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。 &amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。 todo 网络IO密集应用语境下的share-nothing架构 访存密集应用语境下的share-nothing架构 虚拟化语境下hypervisor和vm如何利用hardware-locality最大化众核效率 </description>
-      <content>&lt;p&gt;[WIP] [WIP] [WIP]&lt;/p&gt;
-&lt;h2 id=&#34;numa和众核曾经的超算概念如今商用硬件的现实&#34;&gt;NUMA和众核：曾经的超算概念，如今商用硬件的现实&lt;/h2&gt;
-&lt;p&gt;时代变了，服务端SMP已是过去时，曾经的众核未来已成为商用硬件的现实。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。&lt;/li&gt;
-&lt;li&gt;&amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。&lt;/li&gt;
-&lt;li&gt;todo&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;网络io密集应用语境下的share-nothing架构&#34;&gt;网络IO密集应用语境下的share-nothing架构&lt;/h2&gt;
-&lt;h2 id=&#34;访存密集应用语境下的share-nothing架构&#34;&gt;访存密集应用语境下的share-nothing架构&lt;/h2&gt;
-&lt;h2 id=&#34;虚拟化语境下hypervisor和vm如何利用hardware-locality最大化众核效率&#34;&gt;虚拟化语境下hypervisor和vm如何利用hardware-locality最大化众核效率&lt;/h2&gt;
-</content>
-    </item>
-    
+    <lastBuildDate>Mon, 12 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>White-Box Transformers via Sparse Rate Reduction</title>
       <link>https://cmbbq.github.io/posts/white-box-transformers/</link>
