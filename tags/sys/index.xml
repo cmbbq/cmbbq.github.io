@@ -36,9 +36,9 @@ CRATE 这篇论文试图用一个设计transformer-like网络结构的通用框�
 &lt;li&gt;transformer块中多头自注意力层后面的多层感知机可以被解释为（并被替代为）一个层次，该层通过构建token表征的稀疏编码，逐步优化了稀疏速率降低目标的剩余部分。&lt;/li&gt;
 &lt;li&gt;利用上述理解，创建了一种新的白盒（完全数学可解释）transformer架构，称为CRATE（即Coding RAte reduction TransformEr），其中每个层执行交替最小化算法的单步以优化稀疏速率降低目标。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cate0.png&#34; alt=&#34;crate&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/crate0.png&#34; alt=&#34;crate&#34;&gt;&lt;/p&gt;
 &lt;p&gt;综上，这篇论文的框架内，目标函数、深度学习架构、最终的表征都白盒化了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cate.png&#34; alt=&#34;crate&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/crate.png&#34; alt=&#34;crate&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     

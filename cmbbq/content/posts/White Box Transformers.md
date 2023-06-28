@@ -27,8 +27,8 @@ Transformer的第一个block把语料库、图片、音频等输入转化成toke
 3. transformer块中多头自注意力层后面的多层感知机可以被解释为（并被替代为）一个层次，该层通过构建token表征的稀疏编码，逐步优化了稀疏速率降低目标的剩余部分。
 4. 利用上述理解，创建了一种新的白盒（完全数学可解释）transformer架构，称为CRATE（即Coding RAte reduction TransformEr），其中每个层执行交替最小化算法的单步以优化稀疏速率降低目标。
 
-![crate](https://cmbbq.github.io/img/cate0.png)
+![crate](https://cmbbq.github.io/img/crate0.png)
 
 综上，这篇论文的框架内，目标函数、深度学习架构、最终的表征都白盒化了。
 
-![crate](https://cmbbq.github.io/img/cate.png)
+![crate](https://cmbbq.github.io/img/crate.png)
