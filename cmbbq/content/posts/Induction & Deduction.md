@@ -6,7 +6,7 @@ description = "人的无知，可分为神秘和问题。人的理性，也可�
 showFullContent = false
 +++
 
-诺姆·乔姆斯基说：人的无知，可分为神秘和问题(problems & mysteries)。
+诺姆·乔姆斯基说：人的无知，可分为神秘和问题(mysteries & problems)。
 
 诚哉斯言，为了对抗无知，人的理性，也可分为归纳和演绎(induction & deduction)。
 

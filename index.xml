@@ -13,7 +13,7 @@
       <pubDate>Wed, 28 Jun 2023 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/induction-deduction/</guid>
-      <description>诺姆·乔姆斯基说：人的无知，可分为神秘和问题(problems &amp;amp; mysteries)。
+      <description>诺姆·乔姆斯基说：人的无知，可分为神秘和问题(mysteries &amp;amp; problems)。
 诚哉斯言，为了对抗无知，人的理性，也可分为归纳和演绎(induction &amp;amp; deduction)。
 前者推断神秘，后者解决问题。
 前者完备而不可计算，后者可计算而不完备。
@@ -34,7 +34,7 @@
 在决策和博弈型任务上，强化学习对比基于规则的方法，取得了惊人的效果。目前的强化学习基本上能求解任意人类游戏/博弈，DeepMind的星际争霸AI AlphaStar击败MaNa，Dota2的OpenAI Five击败OG，围棋的AlphaGo击败柯洁。这是此前基于规则的方法几乎不可能实现的。
 在理解和生成型任务上，大语言模型对比传统的NLP方法，达到了超出训练目标的额外效果，涌现出种种惊喜，比如单步逻辑推理能力，以及某些简单复合问题的逻辑推理能力。
 前文Knowledge is Embeddings of Reality中提到对音频的理解可以是不同深度，不同角度的，音乐信息检索可以用信号处理的基于规则的方法，也可以用resnet这样的深度神经网络，或whisper这样的大模型。理解愈深邃，愈不精确，应用也就愈发灵活，愈发贴近人类思维。这是理解的视角，若是从计算的视角讲，基于信号处理的系统是在做演绎推理，因此可计算性最强，但天然具有不完备性，无论我们给代码里增加多少个公理，增加多少执行路径，设计多么巧妙的手工特征，注入多么鬼斧神工的专家洞察，都总有覆盖不到的场景，甚至可以说只能覆盖到很小很小的一部分，因为音频数据来自于现实，原始数据具备极高的整体复杂度和细微结构精致度，超越了人类思考和编程的能力极限，人类专家设计的音频特征能考虑抗噪，具备简单的鲁棒性，就已经是sota了。而基于深度模型、乃至大模型的方法则是对贝叶斯推断的近似，放弃精确性、增加计算成本的同时，从演绎转变成了归纳，从收敛走向开放，哪怕仅仅是对贝叶斯的近似，也换取了一定程度上的完备性——不局限于简单的抗噪、抗变调，开始在旋律、情绪、风格，甚至歌词的语言逻辑层面上考虑音频的相似度。</description>
-      <content>&lt;p&gt;诺姆·乔姆斯基说：人的无知，可分为神秘和问题(problems &amp;amp; mysteries)。&lt;/p&gt;
+      <content>&lt;p&gt;诺姆·乔姆斯基说：人的无知，可分为神秘和问题(mysteries &amp;amp; problems)。&lt;/p&gt;
 &lt;p&gt;诚哉斯言，为了对抗无知，人的理性，也可分为归纳和演绎(induction &amp;amp; deduction)。&lt;/p&gt;
 &lt;p&gt;前者推断神秘，后者解决问题。&lt;/p&gt;
 &lt;p&gt;前者&lt;a href=&#34;(https://en.wikipedia.org/wiki/Complete_theory)&#34;&gt;完备&lt;/a&gt;而不可计算，后者&lt;a href=&#34;https://en.wikipedia.org/wiki/Computability_theory&#34;&gt;可计算&lt;/a&gt;而不完备。&lt;/p&gt;
