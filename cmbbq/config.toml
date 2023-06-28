@@ -55,7 +55,7 @@ paginate = 15000
 [languages]
   [languages.en]
     languageName = "English"
-    title = "Cmbbq Wiki"
+    title = "Cmbbq's Encyclopedia"
     owner = ""
     keywords = ""
     copyright = ""
@@ -68,7 +68,7 @@ paginate = 15000
     missingBackButtonLabel = "回到主页"
 
     [languages.en.params.logo]
-      logoText = "Cmbbq Wiki"
+      logoText = "Cmbbq's Encyclopedia"
       logoHomeLink = "/"
 
 

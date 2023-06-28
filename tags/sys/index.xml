@@ -1,12 +1,70 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sys on Cmbbq Wiki</title>
+    <title>sys on Cmbbq&#39;s Encyclopedia</title>
     <link>https://cmbbq.github.io/tags/sys/</link>
-    <description>Recent content in sys on Cmbbq Wiki</description>
+    <description>Recent content in sys on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Take Full Advantage of the Manycore NUMA Reality</title>
+      <link>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</link>
+      <pubDate>Tue, 13 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/take-full-advantage-of-the-manycore-numa-reality/</guid>
+      <description>[WIP] [WIP] [WIP]
+NUMA和众核：曾经的超算概念，如今商用硬件的现实 时代变了，服务端SMP已是过去时，曾经的众核未来已成为商用硬件的现实。
+&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。 &amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。 todo 网络IO密集应用语境下的share-nothing架构 访存密集应用语境下的share-nothing架构 虚拟化语境下hypervisor和vm如何利用hardware-locality最大化众核效率 </description>
+      <content>&lt;p&gt;[WIP] [WIP] [WIP]&lt;/p&gt;
+&lt;h2 id=&#34;numa和众核曾经的超算概念如今商用硬件的现实&#34;&gt;NUMA和众核：曾经的超算概念，如今商用硬件的现实&lt;/h2&gt;
+&lt;p&gt;时代变了，服务端SMP已是过去时，曾经的众核未来已成为商用硬件的现实。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;Memory wall&amp;quot;成为性能的厚障壁: CPU和内存性能的差异实际上是在指数级增长。如今NUMA机器上的DRAM实际上可以看成当年的磁盘，所以以前的ordered map用红黑树(C++ std::map)，现代的ordered map用B树(Rust BTreeMap)以求cache性能。&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;CPUs are networked devices&amp;rdquo;：把如今的高性能物理机CPU拆开来看，其实就是一个计算节点组成的网络，目前司内的icelake机器有2个numa sockets，128个虚拟核。核间通信、NUMA远端内存访问均是代价高昂的。既然网络算法需要考虑减少不必要的通信和数据拷贝，那么现代的高性能计算算法也需要。&lt;/li&gt;
+&lt;li&gt;todo&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;网络io密集应用语境下的share-nothing架构&#34;&gt;网络IO密集应用语境下的share-nothing架构&lt;/h2&gt;
+&lt;h2 id=&#34;访存密集应用语境下的share-nothing架构&#34;&gt;访存密集应用语境下的share-nothing架构&lt;/h2&gt;
+&lt;h2 id=&#34;虚拟化语境下hypervisor和vm如何利用hardware-locality最大化众核效率&#34;&gt;虚拟化语境下hypervisor和vm如何利用hardware-locality最大化众核效率&lt;/h2&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>White-Box Transformers via Sparse Rate Reduction</title>
+      <link>https://cmbbq.github.io/posts/white-box-transformers/</link>
+      <pubDate>Mon, 12 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/white-box-transformers/</guid>
+      <description>White-Box Transformers via Sparse Rate Reduction一文是伯克利马毅团队5年研究的集成，提出了数学上完全可解释的白盒transformer结构，有助于理解智能的本质。
+论文认为表征学习（表征学习指的是通过学习将原始数据转换为更有意义，更易于处理的表示）的目标是压缩、转换数据的分布，生成不相干子空间上的低维高斯分布的混合。最终表征的质量可以通过稀疏率降低的统一目标函数来度量。从这个视角来看，流行的深度网络，如transformers可以自然而然地被视作用迭代方法逐步优化这一目标。论文展示了标准的transformer块可以从对此目标的互补部分进行交替优化推导出。多头自注意力操作可以被视为通过最小化其有损编码率来压缩token集的梯度下降步骤，随后的多层感知机可以被视为使token表示稀疏化的尝试。这种洞察指向了一族数学上完全可解释的白盒transformer式深度网络结构。尽管它们很简单，但实验表明这些网络确实学会了优化设计的目标：它们压缩和稀疏化了大规模真实世界视觉数据集（如ImageNet），并且表现非常接近经过彻底设计的transformer，例如ViT（视觉处理的transformer模型）。
+Transformer Transformer的第一个block把语料库、图片、音频等输入转化成tokens，后续再对tokens进行处理，因此是媒介无关的。Transformer的基石是自注意力层，利用token序列之间的统计学关系提炼新的token表示。Transformer可以有效地学习出紧凑并且在很多下游应用中表现良好的token表示。不过transformer结构设计是基于经验的，缺乏数学解释。
+扩散模型 扩散模型从一个高斯噪声分布（或其他标准模板）中采样的特征开始，持续不断地降噪，扭曲现有分布，直到收敛到原来的数据分布。这一过程如果单步建模会有计算上的困难，所以拆分成了很多步，每一步有score function(optimal denoising function)——实践中这个函数是用一个通用的黑盒深度网络来拟合的。扩散模型已经展现出在学习和从数据分布中抽样方面的效力。但它们通常并没有在初始特征和数据样本之间建立任何明确的对应关系。因此，扩散模型本身并不提供数据分布的简洁或可解释性的表征。
+结构寻求模型和速率降低 在前两种方法中，表征是通过使用深度网络解决下游任务（例如分类或生成/采样）隐式构建的副产物。然而也可以将数据分布的表征作为任务本身显式地学习；最常见的方法是尝试识别和表示输入数据中的低维结构。这种范式的经典例子包括稀疏编码和字典学习这样基于模型的方法，这些工作中出现了对深度网络体系结构进行设计和解释的早期尝试。更近期的方法则从无模型的角度出发，通过足够信息丰富的前提任务（如在对比学习中压缩相似数据并分离不同数据，或在最大编码率降低方法中的最大化信息增益）来学习表征。与黑盒深度学习方法相比，基于模型和无模型的表征学习方案有更强的可解释性优势：它们允许用户明确设计所学习表征的期望属性。此外，它们还允许用户通过展开表征学习目标的优化策略来构建新的白盒的前向构建深度网络体系结构，这样构造的网络每一层实现一次优化算法的迭代。不幸的是，在这种范例中，如果期望属性定义得过于狭窄，可能会难以在大型实际数据集上实现良好的实用性能。
+CRATE 这篇论文试图用一个设计transformer-like网络结构的通用框架来弥补现有方法的局限，兼具数学可解释性和良好的实际性能。为了达到这个目的，论文提出可学习一系列增量映射，以获得一种最压缩、最稀疏的表示形式，优化一个统一的目标函数，即稀疏速率降低函数。该框架将上述三种看似不相关的方法统一起来，并展示transformer-like深度网络层可以自然地由展开(针对稀疏率下降的)迭代优化方案得出。
+使用token分布的理想化模型时，如果将标记迭代地降噪到低维子空间族中，相应的得分函数会呈现出一种类似于transformers中的自注意力算子的显式形式。 然后将多头自注意力层推导为展开的梯度下降步骤，以最小化降低速率中的有损编码率部分，给出自注意力层的另一种解释——token表征压缩器。 transformer块中多头自注意力层后面的多层感知机可以被解释为（并被替代为）一个层次，该层通过构建token表征的稀疏编码，逐步优化了稀疏速率降低目标的剩余部分。 利用上述理解，创建了一种新的白盒（完全数学可解释）transformer架构，称为CRATE（即Coding RAte reduction TransformEr），其中每个层执行交替最小化算法的单步以优化稀疏速率降低目标。 综上，这篇论文的框架内，目标函数、深度学习架构、最终的表征都白盒化了。</description>
+      <content>&lt;p&gt;&lt;a href=&#34;https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2306.01129&#34;&gt;White-Box Transformers via Sparse Rate Reduction&lt;/a&gt;一文是伯克利马毅团队5年研究的集成，提出了数学上完全可解释的白盒transformer结构，有助于理解智能的本质。&lt;/p&gt;
+&lt;p&gt;论文认为表征学习（表征学习指的是通过学习将原始数据转换为更有意义，更易于处理的表示）的目标是压缩、转换数据的分布，生成不相干子空间上的低维高斯分布的混合。最终表征的质量可以通过稀疏率降低的统一目标函数来度量。从这个视角来看，流行的深度网络，如transformers可以自然而然地被视作用迭代方法逐步优化这一目标。论文展示了标准的transformer块可以从对此目标的互补部分进行交替优化推导出。多头自注意力操作可以被视为通过最小化其有损编码率来压缩token集的梯度下降步骤，随后的多层感知机可以被视为使token表示稀疏化的尝试。这种洞察指向了一族数学上完全可解释的白盒transformer式深度网络结构。尽管它们很简单，但实验表明这些网络确实学会了优化设计的目标：它们压缩和稀疏化了大规模真实世界视觉数据集（如ImageNet），并且表现非常接近经过彻底设计的transformer，例如ViT（视觉处理的transformer模型）。&lt;/p&gt;
+&lt;h2 id=&#34;transformer&#34;&gt;Transformer&lt;/h2&gt;
+&lt;p&gt;Transformer的第一个block把语料库、图片、音频等输入转化成tokens，后续再对tokens进行处理，因此是媒介无关的。Transformer的基石是自注意力层，利用token序列之间的统计学关系提炼新的token表示。Transformer可以有效地学习出紧凑并且在很多下游应用中表现良好的token表示。不过transformer结构设计是基于经验的，缺乏数学解释。&lt;/p&gt;
+&lt;h2 id=&#34;扩散模型&#34;&gt;扩散模型&lt;/h2&gt;
+&lt;p&gt;扩散模型从一个高斯噪声分布（或其他标准模板）中采样的特征开始，持续不断地降噪，扭曲现有分布，直到收敛到原来的数据分布。这一过程如果单步建模会有计算上的困难，所以拆分成了很多步，每一步有score function(optimal denoising function)——实践中这个函数是用一个通用的黑盒深度网络来拟合的。扩散模型已经展现出在学习和从数据分布中抽样方面的效力。但它们通常并没有在初始特征和数据样本之间建立任何明确的对应关系。因此，扩散模型本身并不提供数据分布的简洁或可解释性的表征。&lt;/p&gt;
+&lt;h2 id=&#34;结构寻求模型和速率降低&#34;&gt;结构寻求模型和速率降低&lt;/h2&gt;
+&lt;p&gt;在前两种方法中，表征是通过使用深度网络解决下游任务（例如分类或生成/采样）隐式构建的副产物。然而也可以将数据分布的表征作为任务本身显式地学习；最常见的方法是尝试识别和表示输入数据中的低维结构。这种范式的经典例子包括稀疏编码和字典学习这样基于模型的方法，这些工作中出现了对深度网络体系结构进行设计和解释的早期尝试。更近期的方法则从无模型的角度出发，通过足够信息丰富的前提任务（如在对比学习中压缩相似数据并分离不同数据，或在最大编码率降低方法中的最大化信息增益）来学习表征。与黑盒深度学习方法相比，基于模型和无模型的表征学习方案有更强的可解释性优势：它们允许用户明确设计所学习表征的期望属性。此外，它们还允许用户通过展开表征学习目标的优化策略来构建新的白盒的前向构建深度网络体系结构，这样构造的网络每一层实现一次优化算法的迭代。不幸的是，在这种范例中，如果期望属性定义得过于狭窄，可能会难以在大型实际数据集上实现良好的实用性能。&lt;/p&gt;
+&lt;h2 id=&#34;crate&#34;&gt;CRATE&lt;/h2&gt;
+&lt;p&gt;这篇论文试图用一个设计transformer-like网络结构的通用框架来弥补现有方法的局限，兼具数学可解释性和良好的实际性能。为了达到这个目的，论文提出可学习一系列增量映射，以获得一种最压缩、最稀疏的表示形式，优化一个统一的目标函数，即稀疏速率降低函数。该框架将上述三种看似不相关的方法统一起来，并展示transformer-like深度网络层可以自然地由展开(针对稀疏率下降的)迭代优化方案得出。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用token分布的理想化模型时，如果将标记迭代地降噪到低维子空间族中，相应的得分函数会呈现出一种类似于transformers中的自注意力算子的显式形式。&lt;/li&gt;
+&lt;li&gt;然后将多头自注意力层推导为展开的梯度下降步骤，以最小化降低速率中的有损编码率部分，给出自注意力层的另一种解释——token表征压缩器。&lt;/li&gt;
+&lt;li&gt;transformer块中多头自注意力层后面的多层感知机可以被解释为（并被替代为）一个层次，该层通过构建token表征的稀疏编码，逐步优化了稀疏速率降低目标的剩余部分。&lt;/li&gt;
+&lt;li&gt;利用上述理解，创建了一种新的白盒（完全数学可解释）transformer架构，称为CRATE（即Coding RAte reduction TransformEr），其中每个层执行交替最小化算法的单步以优化稀疏速率降低目标。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cate0.png&#34; alt=&#34;crate&#34;&gt;&lt;/p&gt;
+&lt;p&gt;综上，这篇论文的框架内，目标函数、深度学习架构、最终的表征都白盒化了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cate.png&#34; alt=&#34;crate&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Distributed Computing Systems At Scale</title>
       <link>https://cmbbq.github.io/posts/distributed-computing-systems/</link>
