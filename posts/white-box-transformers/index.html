@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="马毅团队的研究揭示了score function, rate reduction和transformers本质上是在做同样的事，设计了一个完全可用数学解释的白盒Transformer模型。" />
+<meta name="description" content="近期对表征学习的白盒化研究揭示了score function, rate reduction和transformers本质上是在做同样的事，设计了一个完全可用数学解释的白盒Transformer模型。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/white-box-transformers/" />
@@ -36,7 +36,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="White-Box Transformers via Sparse Rate Reduction">
-<meta property="og:description" content="马毅团队的研究揭示了score function, rate reduction和transformers本质上是在做同样的事，设计了一个完全可用数学解释的白盒Transformer模型。" />
+<meta property="og:description" content="近期对表征学习的白盒化研究揭示了score function, rate reduction和transformers本质上是在做同样的事，设计了一个完全可用数学解释的白盒Transformer模型。" />
 <meta property="og:url" content="https://cmbbq.github.io/posts/white-box-transformers/" />
 <meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
 
@@ -112,8 +112,9 @@
   
 
   <div class="post-content"><div>
-        <p><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2306.01129">White-Box Transformers via Sparse Rate Reduction</a>一文是伯克利马毅团队5年研究的集成，提出了数学上完全可解释的白盒transformer结构，有助于理解智能的本质。</p>
-<p>论文认为表征学习（表征学习指的是通过学习将原始数据转换为更有意义，更易于处理的表示）的目标是压缩、转换数据的分布，生成不相干子空间上的低维高斯分布的混合。最终表征的质量可以通过稀疏率降低的统一目标函数来度量。从这个视角来看，流行的深度网络，如transformers可以自然而然地被视作用迭代方法逐步优化这一目标。论文展示了标准的transformer块可以从对此目标的互补部分进行交替优化推导出。多头自注意力操作可以被视为通过最小化其有损编码率来压缩token集的梯度下降步骤，随后的多层感知机可以被视为使token表示稀疏化的尝试。这种洞察指向了一族数学上完全可解释的白盒transformer式深度网络结构。尽管它们很简单，但实验表明这些网络确实学会了优化设计的目标：它们压缩和稀疏化了大规模真实世界视觉数据集（如ImageNet），并且表现非常接近经过彻底设计的transformer，例如ViT（视觉处理的transformer模型）。</p>
+        <p>近期对表征学习和transformer的白盒化研究，如<a href="https://arxiv.org/abs/2306.01129">White-Box Transformers via Sparse Rate Reduction</a>揭示表征学习的本质是在追求表征稀疏性(子空间内的特征相对表征空间而言稀疏，少了很多维度)和Rate Reduction，即整体表征空间与子空间的编码率（和熵一样，是对信息量的度量）之差，这个差值刻画了特征的异类强区分性和同类可压缩性。这个研究，以及其前置工作<a href="https://arxiv.org/pdf/2006.08558.pdf">Learning Diverse and Discriminative Representations via the Principle of Maximal Coding Rate Reduction</a>从信息论出发，给出了完全可解释的表征学习的形式化规则。将归纳推断问题转化为Sparse Rate Reduction指标的优化问题。</p>
+<p><a href="https://arxiv.org/abs/2306.01129">White-Box Transformers via Sparse Rate Reduction</a>以及其前置工作<a href="https://arxiv.org/pdf/2006.08558.pdf">Learning Diverse and Discriminative Representations via the Principle of Maximal Coding Rate Reduction</a>，从信息论出发，给出了完全可解释的表征学习框架，提出理论上等价经验上效果良好的白盒transformer-like结构，有助于理解智能的本质。</p>
+<p>论文认为表征学习（表征学习指的是通过学习将原始数据转换为更有意义，更易于处理的表示）的目标是压缩、转换数据的分布，生成不相干子空间（子空间之间越不相干，不同子空间的特征距离更远，系统子空间内部特征可压缩性更强）上的低维高斯分布（即正态分布）的混合。最终表征的质量可以通过追求稀疏性（所谓稀疏，是相对于表征空间坐标系而言的，很多维度上为0）和整体表征空间与子空间编码率差（原文rate reduction，rate指的是编码率，即平均每个样本的期望编码长度。子空间比整体表征空间更稀疏，可压缩到更低维。整体编码率与子空间编码率和的差值刻画了特征的异类强区分性和同类可压缩性）的统一目标函数来度量。从这个视角来看，流行的深度网络，如transformers可以自然而然地被视作用迭代方法逐步优化这一目标。论文展示了标准的transformer块可以从对此目标的互补部分进行交替优化推导出。多头自注意力操作可以被视为通过最小化其有损编码率来压缩token集的梯度下降步骤，随后的多层感知机可以被视为使token表示稀疏化的尝试。这种洞察指向了一族数学上完全可解释的白盒transformer式深度网络结构。尽管它们很简单，但实验表明这些网络确实学会了优化设计的目标：它们压缩和稀疏化了大规模真实世界视觉数据集（如ImageNet），并且表现非常接近经过精心设计的transformer，例如ViT（视觉处理的transformer模型）。</p>
 <h2 id="transformer">Transformer<a href="#transformer" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Transformer的第一个block把语料库、图片、音频等输入转化成tokens，后续再对tokens进行处理，因此是媒介无关的。Transformer的基石是自注意力层，利用token序列之间的统计学关系提炼新的token表示。Transformer可以有效地学习出紧凑并且在很多下游应用中表现良好的token表示。不过transformer结构设计是基于经验的，缺乏数学解释。</p>
 <h2 id="扩散模型">扩散模型<a href="#扩散模型" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
@@ -121,12 +122,12 @@
 <h2 id="结构寻求模型和速率降低">结构寻求模型和速率降低<a href="#结构寻求模型和速率降低" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>在前两种方法中，表征是通过使用深度网络解决下游任务（例如分类或生成/采样）隐式构建的副产物。然而也可以将数据分布的表征作为任务本身显式地学习；最常见的方法是尝试识别和表示输入数据中的低维结构。这种范式的经典例子包括稀疏编码和字典学习这样基于模型的方法，这些工作中出现了对深度网络体系结构进行设计和解释的早期尝试。更近期的方法则从无模型的角度出发，通过足够信息丰富的前提任务（如在对比学习中压缩相似数据并分离不同数据，或在最大编码率降低方法中的最大化信息增益）来学习表征。与黑盒深度学习方法相比，基于模型和无模型的表征学习方案有更强的可解释性优势：它们允许用户明确设计所学习表征的期望属性。此外，它们还允许用户通过展开表征学习目标的优化策略来构建新的白盒的前向构建深度网络体系结构，这样构造的网络每一层实现一次优化算法的迭代。不幸的是，在这种范例中，如果期望属性定义得过于狭窄，可能会难以在大型实际数据集上实现良好的实用性能。</p>
 <h2 id="crate">CRATE<a href="#crate" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>这篇论文试图用一个设计transformer-like网络结构的通用框架来弥补现有方法的局限，兼具数学可解释性和良好的实际性能。为了达到这个目的，论文提出可学习一系列增量映射，以获得一种最压缩、最稀疏的表示形式，优化一个统一的目标函数，即稀疏速率降低函数。该框架将上述三种看似不相关的方法统一起来，并展示transformer-like深度网络层可以自然地由展开(针对稀疏率下降的)迭代优化方案得出。</p>
+<p>这篇论文试图用一个设计transformer-like网络结构的通用框架来弥补现有方法的局限，兼具数学可解释性和良好的实际性能。为了达到这个目的，论文提出可学习一系列增量映射，以获得一种最压缩、最稀疏的表示形式，优化一个统一的目标函数，即稀疏编码率差函数。该框架将上述三种看似不相关的方法统一起来，并展示transformer-like深度网络层可以自然地由展开(针对稀疏编码率差的)迭代优化方案得出。</p>
 <ol>
 <li>使用token分布的理想化模型时，如果将标记迭代地降噪到低维子空间族中，相应的得分函数会呈现出一种类似于transformers中的自注意力算子的显式形式。</li>
 <li>然后将多头自注意力层推导为展开的梯度下降步骤，以最小化降低速率中的有损编码率部分，给出自注意力层的另一种解释——token表征压缩器。</li>
-<li>transformer块中多头自注意力层后面的多层感知机可以被解释为（并被替代为）一个层次，该层通过构建token表征的稀疏编码，逐步优化了稀疏速率降低目标的剩余部分。</li>
-<li>利用上述理解，创建了一种新的白盒（完全数学可解释）transformer架构，称为CRATE（即Coding RAte reduction TransformEr），其中每个层执行交替最小化算法的单步以优化稀疏速率降低目标。</li>
+<li>transformer块中多头自注意力层后面的多层感知机可以被解释为（并被替代为）一个层次，该层通过构建token表征的稀疏编码，逐步优化了稀疏编码率差目标的剩余部分。</li>
+<li>利用上述理解，创建了一种新的白盒（完全数学可解释）transformer架构，称为CRATE（即Coding RAte reduction TransformEr），其中每个层执行交替最小化算法的单步以优化稀疏编码率差目标。</li>
 </ol>
 <p><img src="https://cmbbq.github.io/img/crate0.png" alt="crate"></p>
 <p>综上，这篇论文的框架内，目标函数、深度学习架构、最终的表征都白盒化了。</p>

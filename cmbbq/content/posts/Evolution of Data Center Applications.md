@@ -35,8 +35,6 @@ showFullContent = false
 
 
 
-
-
 ## 架构演化的两个相逆方向：资源解聚，或量体裁衣？
 本文中“解聚”指代disaggregation，中文语境下的存算分离中的“分离”就是disaggregation，但分离二字过于通俗常用，按照中文的表达习惯，不适合指代某种范式、流派，因此将disaggregation呼作“解聚”。
 
