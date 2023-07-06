@@ -2,13 +2,13 @@
 title = "White-Box Transformers via Sparse Rate Reduction"
 date = "2023-06-12"
 tags = ["sys"]
-description = "近期对表征学习的白盒化研究揭示了score function, rate reduction和transformers本质上是在做同样的事，设计了一个完全可用数学解释的白盒Transformer模型。"
+description = "近期对表征学习的白盒化研究揭示了score function, rate reduction和transformers本质上是在做同样的事。"
 showFullContent = false
 +++
 
-[White-Box Transformers via Sparse Rate Reduction](https://arxiv.org/abs/2306.01129)以及其前置工作[Learning Diverse and Discriminative Representations via the Principle of Maximal Coding Rate Reduction](https://arxiv.org/pdf/2006.08558.pdf)，从信息论出发，给出了完全可解释的表征学习框架，提出理论上等价经验上效果良好的白盒transformer-like结构，有助于理解智能的本质。
+[White-Box Transformers via Sparse Rate Reduction](https://arxiv.org/abs/2306.01129)以及其前置工作[Learning Diverse and Discriminative Representations via the Principle of Maximal Coding Rate Reduction](https://arxiv.org/pdf/2006.08558.pdf)，从信息论出发，给出了完全可解释的表征学习框架，有助于理解智能的本质。
 
-论文认为表征学习（表征学习指的是通过学习将原始数据转换为更有意义，更易于处理的表示）的目标是压缩、转换数据的分布，生成不相干子空间（子空间之间越不相干，不同子空间的特征距离更远，系统子空间内部特征可压缩性更强）上的低维高斯分布（即正态分布）的混合。最终表征的质量可以通过追求稀疏性（所谓稀疏，是相对于表征空间坐标系而言的，很多维度上为0）和整体表征空间与子空间编码率差（原文rate reduction，rate指的是编码率，即平均每个样本的期望编码长度。子空间比整体表征空间更稀疏，可压缩到更低维。整体编码率与子空间编码率和的差值刻画了特征的异类强区分性和同类可压缩性）的统一目标函数来度量。从这个视角来看，流行的深度网络，如transformers可以自然而然地被视作用迭代方法逐步优化这一目标。论文展示了标准的transformer块可以从对此目标的互补部分进行交替优化推导出。多头自注意力操作可以被视为通过最小化其有损编码率来压缩token集的梯度下降步骤，随后的多层感知机可以被视为使token表示稀疏化的尝试。这种洞察指向了一族数学上完全可解释的白盒transformer式深度网络结构。尽管它们很简单，但实验表明这些网络确实学会了优化设计的目标：它们压缩和稀疏化了大规模真实世界视觉数据集（如ImageNet），并且表现非常接近经过精心设计的transformer，例如ViT（视觉处理的transformer模型）。
+论文认为表征学习（表征学习指的是通过学习将原始数据转换为更有意义，更易于处理的表示）的目标是压缩、转换数据的分布，生成不相干子空间（子空间之间越不相干，不同子空间的特征距离更远，系统子空间内部特征可压缩性更强）上的低维高斯分布（即正态分布）的混合。最终表征的质量可以通过追求稀疏性（所谓稀疏，是相对于表征空间坐标系而言的，很多维度上为0）和整体表征空间与子空间编码率差（原文rate reduction，rate指的是编码率，即平均每个样本的期望编码长度。reduction指的是整体表征空间rate和子空间rate和的差值。子空间比整体表征空间更稀疏，可压缩到更低维。整体编码率与子空间编码率和的差值刻画了特征的异类强区分性和同类可压缩性）的统一目标函数来度量。从这个视角来看，流行的深度网络，如transformers可以自然而然地被视作用迭代方法逐步优化这一目标。论文展示了标准的transformer块可以从对此目标的互补部分进行交替优化推导出。多头自注意力操作可以被视为通过最小化其有损编码率来压缩token集的梯度下降步骤，随后的多层感知机可以被视为使token表示稀疏化的尝试。这种洞察指向了一族数学上完全可解释的白盒transformer式深度网络结构。尽管它们很简单，但实验表明这些网络确实学会了优化设计的目标：它们压缩和稀疏化了大规模真实世界视觉数据集（如ImageNet），并且表现非常接近经过精心设计的transformer，例如ViT（视觉处理的transformer模型）。
 
 ## Transformer
 Transformer的第一个block把语料库、图片、音频等输入转化成tokens，后续再对tokens进行处理，因此是媒介无关的。Transformer的基石是自注意力层，利用token序列之间的统计学关系提炼新的token表示。Transformer可以有效地学习出紧凑并且在很多下游应用中表现良好的token表示。不过transformer结构设计是基于经验的，缺乏数学解释。
