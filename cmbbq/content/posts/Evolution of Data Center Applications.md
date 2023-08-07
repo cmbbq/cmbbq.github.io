@@ -64,7 +64,7 @@ Chiplets同时受到业界和学术界的关注，被IBM research称为"what’s
 
 所谓chiplet partitioning就是将电路切分成模块化的子系统，每个子系统都是一个独立晶粒（die），即chiplet，多个chiplet用2.5D/3D技术封装成一个芯片(package)。
 
-![Chiplet](https://cmbbq.github.io/img/chiplet.jpeg)
+![Chiplet](https://cmbbq.github.io/img/chiplet.png)
 
 Chiplet-reuse范式相比传统的IP-reuse（IP在芯片语境下指的是具有独立功能和成熟设计的电路模块）的优势如下：
 1. 先进CMOS制程（7nm以下）由于技术原因不太可能在大晶粒上获得高yield，die size越小成本越低。
@@ -141,21 +141,21 @@ NVIDIA宣称Grace Hopper Superchip是世界上第一个真正支持HPC和AI负�
 总之，NV的方案作为生态(GPU + CUDA)与生物(ChatGPT根据A100量体裁衣的训练方案)互相作用下的best-of-breed，远远没达到理想最优，甚至也不在正确的技术路线上，AMD的所谓APU以及国内的AI DSA（如Biren）仍有弯道超车的希望。
 
 讨论计算系统的新机会
-1. （应用）端到（硬件）端的全栈优化，或者说软硬件协同。
+- （应用）端到（硬件）端的全栈优化，或者说软硬件协同。
   - TVM: deep learning compiler stack for cpu, gpu and specialized accelerators
   - GPU + CUDA
   - GH20 Grace Hopper + 新的CUDA NUMA内存API+异构编程API
   - 司内的LavaRecord全链路优化项目，向下(LavaUOS)对接新存储硬件，试图在nvme ssd上建立高效的用户态IO软件栈。
-2. 应用机器学习方法对参数空间较大的系统做auto-tuning。
+- 应用机器学习方法对参数空间较大的系统做auto-tuning。
   - 存储引擎如rocksdb调参
   - 深度学习模型在异构硬件上的auto TVM
-3. 先进互连技术支持下的资源解聚架构设计。
+- 先进互连技术支持下的资源解聚架构设计。
   - LegoOS
   - PolarDB-X的存算分离和memory pooling
-4. 计算节点上的Share-nothing架构，以及data-oriented设计。
+- 计算节点上的Share-nothing架构，以及data-oriented设计。
   - 应用框架层面已有Libtorque、DragonFly、Seastar、Scylladb等先例，主要是IO密集应用——不过只要是内存占用大的CPU应用，大多可以视为IO密集的，因为cache miss上来之后访存占比往往会远超计算。
   - 虚拟化方向，交大IPADS实验室的CPS: A Cooperative Para-virtualized Scheduling Framework for Manycore Machines，提出协作式半虚拟化调度机制，大幅提升众核虚拟机可扩展性。
-5. 基于深度模型白盒化研究和已有的数学工具，用direct math solution取代黑盒模型的近似。
+- 基于深度模型白盒化研究和已有的数学工具，用direct math solution取代黑盒模型的近似。
   - 例如“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors用压缩+信息距离+KNN的简洁解决方案。
   - 用异类不相干性、同类可压缩性（稀疏性）衡量embedding效果，不必借助某种端到端应用的指标间接衡量。
   

@@ -151,7 +151,7 @@
 <p>近期芯片设计领域一个显著变革是Chiplets+SiP(System in Package)范式取代die size较大的SoC+PCB合封。
 Chiplets同时受到业界和学术界的关注，被IBM research称为&quot;what’s next in computing&quot;，后续章节中对计算、IO、内存等技术的讨论也都涉及chiplets和co-packaging，因此我们首先讨论芯片层次的迭代。</p>
 <p>所谓chiplet partitioning就是将电路切分成模块化的子系统，每个子系统都是一个独立晶粒（die），即chiplet，多个chiplet用2.5D/3D技术封装成一个芯片(package)。</p>
-<p><img src="https://cmbbq.github.io/img/chiplet.jpeg" alt="Chiplet"></p>
+<p><img src="https://cmbbq.github.io/img/chiplet.png" alt="Chiplet"></p>
 <p>Chiplet-reuse范式相比传统的IP-reuse（IP在芯片语境下指的是具有独立功能和成熟设计的电路模块）的优势如下：</p>
 <ol>
 <li>先进CMOS制程（7nm以下）由于技术原因不太可能在大晶粒上获得高yield，die size越小成本越低。</li>
@@ -198,42 +198,39 @@ Chiplets同时受到业界和学术界的关注，被IBM research称为&quot;wha
 <p>但这是一个低风险高执行力的集成方案，正如扎克伯格所说，&ldquo;Move fast and break nothing&rdquo;，把原本优秀的组件原封不动地合封起来，不做侵入式修改，只要动作足够快，就能迅速占领市场，构建生态，并支撑溢价。市场上有更完美的memory coherence方案（比如AMD MI300X），更好的CPU-GPU超融合方案，也有比不得不为图形负载妥协的GPU效率更高的AI芯片，但就是没有CUDA异构编程体系，以及Grace Hooper这样把计算、内存和IO瓶颈都解决得差不多的完整解决方案。</p>
 <p>总之，NV的方案作为生态(GPU + CUDA)与生物(ChatGPT根据A100量体裁衣的训练方案)互相作用下的best-of-breed，远远没达到理想最优，甚至也不在正确的技术路线上，AMD的所谓APU以及国内的AI DSA（如Biren）仍有弯道超车的希望。</p>
 <p>讨论计算系统的新机会</p>
-<ol>
-<li>（应用）端到（硬件）端的全栈优化，或者说软硬件协同。</li>
-</ol>
+<ul>
+<li>（应用）端到（硬件）端的全栈优化，或者说软硬件协同。
 <ul>
 <li>TVM: deep learning compiler stack for cpu, gpu and specialized accelerators</li>
 <li>GPU + CUDA</li>
 <li>GH20 Grace Hopper + 新的CUDA NUMA内存API+异构编程API</li>
 <li>司内的LavaRecord全链路优化项目，向下(LavaUOS)对接新存储硬件，试图在nvme ssd上建立高效的用户态IO软件栈。</li>
 </ul>
-<ol start="2">
-<li>应用机器学习方法对参数空间较大的系统做auto-tuning。</li>
-</ol>
+</li>
+<li>应用机器学习方法对参数空间较大的系统做auto-tuning。
 <ul>
 <li>存储引擎如rocksdb调参</li>
 <li>深度学习模型在异构硬件上的auto TVM</li>
 </ul>
-<ol start="3">
-<li>先进互连技术支持下的资源解聚架构设计。</li>
-</ol>
+</li>
+<li>先进互连技术支持下的资源解聚架构设计。
 <ul>
 <li>LegoOS</li>
 <li>PolarDB-X的存算分离和memory pooling</li>
 </ul>
-<ol start="4">
-<li>计算节点上的Share-nothing架构，以及data-oriented设计。</li>
-</ol>
+</li>
+<li>计算节点上的Share-nothing架构，以及data-oriented设计。
 <ul>
 <li>应用框架层面已有Libtorque、DragonFly、Seastar、Scylladb等先例，主要是IO密集应用——不过只要是内存占用大的CPU应用，大多可以视为IO密集的，因为cache miss上来之后访存占比往往会远超计算。</li>
 <li>虚拟化方向，交大IPADS实验室的CPS: A Cooperative Para-virtualized Scheduling Framework for Manycore Machines，提出协作式半虚拟化调度机制，大幅提升众核虚拟机可扩展性。</li>
 </ul>
-<ol start="5">
-<li>基于深度模型白盒化研究和已有的数学工具，用direct math solution取代黑盒模型的近似。</li>
-</ol>
+</li>
+<li>基于深度模型白盒化研究和已有的数学工具，用direct math solution取代黑盒模型的近似。
 <ul>
 <li>例如“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors用压缩+信息距离+KNN的简洁解决方案。</li>
 <li>用异类不相干性、同类可压缩性（稀疏性）衡量embedding效果，不必借助某种端到端应用的指标间接衡量。</li>
+</ul>
+</li>
 </ul>
 <h2 id="参考文献和进一步阅读">参考文献和进一步阅读<a href="#参考文献和进一步阅读" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ul>
