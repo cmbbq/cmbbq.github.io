@@ -43,12 +43,11 @@ AI时代来临之后，通过更多的权重（作为公理）和由大量算子
 而那些已经能用规则系统高效解决的问题则不必强行应用归纳推断模型，那样只会增加成本和错误率，比如音乐指纹识别、关系型数据库、图片旋转变形、无损压缩。甚至某些看似“神秘”的领域，如OOD text classification，基于表征学习白盒化研究成果和信息论，也能给出直接的数学解，比如近期一个研究（“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors）就用14行代码超过了百亿参数的bert，（后来被发现实验代码有误，实际上效果没那么好）这个论文里提出用gzip等无损压缩工具去近似文本数据的柯氏复杂性，用信息距离（原理类似马毅提出的rate reduction）做KNN，效果非常好，在音频领域也可以做类似的尝试。
 
 ## 数据中心硬件基础设施
-先简单介绍一下司内数据中心硬件基础设施：
+先简单介绍一下常见的数据中心硬件基础设施：
 - 比较老的是Cascade Lake 14nm的24核per die的机器，一个芯片24核，两个就是48个物理核，也就是我们平时说的96核机器。也有其他套餐，最多是每个die上28核，总共112个逻辑核。
 - 比较新的Ice Lake是10nm工艺一般是32核的，对应128个逻辑核，最贵的套餐可以到40核。仍然是基于Monolithic die，巨大的晶粒上用mesh总线把40个核放到一起。
-- 最新的7nm工艺Sapphire Rapids，以及对标它的AMD Genoa今年已经量产，也开始进入司内套餐，不过应该还处于灰度测试阶段。
-- 关于GPU，国内因为禁运政策，所以没有H100，NVLInk也有限速。但是海外机房可以看到有H100套餐，在马来机房，8个NVLink，8个H100，8个200G网卡。
-- 关于网卡，目前我们用的比较多的是Mellanox 25G  CX4/CX5卡，也有相当多的100G dual-port CX6卡，都是支持RDMA的，不用RDMA也能提供相当好的高速以太网性能。如果是做虚拟化的，比如AWS，阿里云，还可以把这些网卡的smartNiC能力利用起来，offload虚拟化开销。
+- 最新的7nm工艺Sapphire Rapids，以及对标它的AMD Genoa今年已经量产。
+- 关于网卡，现在用的比较多的是Mellanox 25G  CX4/CX5卡，也有相当多的100G dual-port CX6卡，都是支持RDMA的，不用RDMA也能提供相当好的高速以太网性能。如果是做虚拟化的，比如AWS，阿里云，还可以把这些网卡的smartNiC能力利用起来，offload虚拟化开销。
 
 相对之前的Lakes，Sapphire Rapids变化非常大，此前的monolithic die路线确实走到了极限，Sapphire Rapids也进入了multi-die时代：芯片内部分为4个die，这也可以视作向chiplet方向演化。
 
