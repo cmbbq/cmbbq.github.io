@@ -144,20 +144,23 @@
 <p>不同的sampling机制对文本生成有显著影响，本地LLM的可玩性来源很大程度上就是客制sampling。</p>
 <p>Transformer模型根据前n个token，预测下一个token。每个token都有其next tokens的score，而next tokens的取值范围就是vocabulary（transformer架构最后有一个linear layer，将输出映射到vocabulary上，每个词都有对应的），这些score经过softmax将score数组转化成probability数组，根据probability挑选下一个token的过程就称为token sampling。</p>
 <ul>
-<li>Greedy采样： 如果每次都确定性地选择probability最高的那个token，单步决策，就是greedy sampler，优势是速度快，劣势是牺牲了模型的多样性，容易陷入重复循环和对训练数据的过拟合。llama.cpp里设置&ndash;top_p 0.0 &ndash;top_k 1就相当于开greedy采样。</li>
+<li>Greedy采样： 如果每次都确定性地选择probability最高的那个token，单步决策，就是greedy sampler，优势是速度快，劣势是牺牲了模型的多样性，容易陷入重复循环和对训练数据的过拟合。llama.cpp里设置&ndash;top_p 0就相当于开greedy采样。</li>
 <li>Top-k采样： 从概率分布的前k个token里面进行随机采样。</li>
 <li>Top-p采样： 引入超参p，把token probability降序排序后，选取前面一部分，使这部分概率和为p，而不是固定选前k个token。</li>
 </ul>
 <p>在使用LLM时，采样机制不同，效果也会大不相同。想要更高的确定性，更朴实无华的预测，则可以尝试greedy、低k的topk、低p的top-p采样。想要多样性和新颖性，则可尝试高k的top-k和高p的top-p。</p>
-<p>此外，llama.cpp还实现了一些额外的采样机制：</p>
+<p>除了top-k，top-p外，llama.cpp还实现了一些额外的采样机制：</p>
 <ul>
 <li>Min p filter：允许采样环节剔除低于阈值的低分候选。</li>
 <li>Tail free sampling：根据概率的二阶导数之和采样，即根据概率降速剔除尾部低概率tokens。</li>
 <li>Locally typical samplling：参数控制是否倾向局部语境内的典型的tokens。</li>
 <li>Mirostat sampling：<a href="https://arxiv.org/abs/2007.14966">Mirostat算法</a>会调整top-k的k，避免陷入boredom trap（模式崩塌）和perplexity trap（不一致）。</li>
 <li>logit bias: 人为指定某个token的优先级，比如&ndash;logit-bias 29905-inf就把&quot;&quot;token设为负无穷。</li>
+<li>temperature: 在对score向量（logits）做softmax前，把logits/temperature，则temp越高，softmax后概率分布的高低悬殊就会越接近，也就更有利于低概率tokens崭露头角。</li>
 </ul>
 <h2 id="prompting">Prompting<a href="#prompting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>让llm假装自己是一个javascript console，然后进行交互式的指令应答，甚至还能进行简单的算术计算，理解函数调用的返回值类型。当然，不能对正确性抱有期待。
+<img src="https://cmbbq.github.io/img/js_console.png" alt="console"></p>
 <p>用一大段prompt，让llm假装自己是一个爱说emoji，语言风格浮夸的音乐推荐bot，效果相当不错。
 <img src="https://cmbbq.github.io/img/music_bot.png" alt="bot"></p>
 
