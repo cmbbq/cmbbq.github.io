@@ -11,7 +11,7 @@ showFullContent = false
 
 在预训练模型中，极简主义的代表是小而美的“大模型”Mistral7B。在推理框架中，极简主义的代表是对抗各种大公司重量级项目的llama.cpp。
 
-Mistral7B是开源模型领域的新近进展，模型虽小，却展示了惊人的能力。根据Mistral AI自己的benchmark和一些社区的测试反馈，几乎在各方面击败Llama2 13B。
+Mistral7B是开源模型领域的新近进展，模型虽小，却展示了惊人的能力。根据Mistral AI自己的benchmark和一些社区的测试反馈，几乎在各方面击败llama2 13B。
 
 ![mistral](https://cmbbq.github.io/img/mistral.png)
 
