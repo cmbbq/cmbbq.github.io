@@ -36,8 +36,6 @@ llama.cpp和whisper.cpp都是C++程序员Georgi Gerganov的个人项目，基于
 2. 直接```make```就默认启用metal gpu加速和Accelerated Framework。
 3. ```./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p "xx"```
 
-./main -m ../mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p "hello, please introduce the concept of system1 vs system2"
-
 M1 GPU打到90%（剩下还有10%WindowServer在用），采样速率9000t/s，prompt处理速率60t/s，生成速率20t/s。
 
 一边看视频（chrome GPU占用约20%），一边跑mistral也能有19.69t/s。
@@ -61,7 +59,7 @@ Transformer模型根据前n个token，预测下一个token。每个token都有�
 
 ## Prompting
 用一大段prompt，让llm假装自己是一个爱说emoji，语言风格浮夸的音乐推荐bot，效果相当不错。
-![mistral](https://cmbbq.github.io/img/mistral.png)
+![bot](https://cmbbq.github.io/img/music_bot.png)
 
 
 

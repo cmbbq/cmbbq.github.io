@@ -45,7 +45,6 @@ Apple M1 Pro + macOS Monterey 下载模型和llama.cpp repo。 直接make就默�
 &lt;li&gt;直接&lt;code&gt;make&lt;/code&gt;就默认启用metal gpu加速和Accelerated Framework。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p &amp;quot;xx&amp;quot;&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;./main -m ../mistral-7b-instruct-v0.1.Q5_K_M.gguf &amp;ndash;color -c 2048 &amp;ndash;temp 0.8 &amp;ndash;repeat_penalty 1.1 -n -1 -i -p &amp;ldquo;hello, please introduce the concept of system1 vs system2&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;M1 GPU打到90%（剩下还有10%WindowServer在用），采样速率9000t/s，prompt处理速率60t/s，生成速率20t/s。&lt;/p&gt;
 &lt;p&gt;一边看视频（chrome GPU占用约20%），一边跑mistral也能有19.69t/s。&lt;/p&gt;
 &lt;h2 id=&#34;token-sampling&#34;&gt;Token Sampling&lt;/h2&gt;
@@ -67,7 +66,7 @@ Apple M1 Pro + macOS Monterey 下载模型和llama.cpp repo。 直接make就默�
 &lt;/ul&gt;
 &lt;h2 id=&#34;prompting&#34;&gt;Prompting&lt;/h2&gt;
 &lt;p&gt;用一大段prompt，让llm假装自己是一个爱说emoji，语言风格浮夸的音乐推荐bot，效果相当不错。
-&lt;img src=&#34;https://cmbbq.github.io/img/mistral.png&#34; alt=&#34;mistral&#34;&gt;&lt;/p&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/music_bot.png&#34; alt=&#34;bot&#34;&gt;&lt;/p&gt;
 </content>
     </item>
     
