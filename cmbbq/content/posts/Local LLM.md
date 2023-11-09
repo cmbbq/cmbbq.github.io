@@ -19,7 +19,7 @@ Mistral AI提供了在本地GPU、云端跑Mistral7B的官方支持。
 
 不过这么小的模型，其实也可以在本地CPU上跑的——借助llama.cpp。
 
-llama.cpp和whisper.cpp都是C++程序员Georgi Gerganov的个人项目，基于自己的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。
+llama.cpp和whisper.cpp大体上是Georgi Gerganov的个人项目，基于自己写的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。
 
 ## Intel Xeon Platinum 8336C + Debian10
 1. 从TheBloke上下载特定量化版本的模型：https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF

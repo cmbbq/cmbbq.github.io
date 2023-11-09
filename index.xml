@@ -18,7 +18,7 @@
 Mistral7B是开源模型领域的新近进展，模型虽小，却展示了惊人的能力。根据Mistral AI自己的benchmark和一些社区的测试反馈，几乎在各方面击败llama2 13B。
 Mistral AI提供了在本地GPU、云端跑Mistral7B的官方支持。
 不过这么小的模型，其实也可以在本地CPU上跑的——借助llama.cpp。
-llama.cpp和whisper.cpp都是C++程序员Georgi Gerganov的个人项目，基于自己的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。
+llama.cpp和whisper.cpp大体上是Georgi Gerganov的个人项目，基于自己写的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。
 Intel Xeon Platinum 8336C + Debian10 从TheBloke上下载特定量化版本的模型：https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF git clone https://github.com/ggerganov/llama.cpp.git apt-get install libopenblas-dev 安装blas库，这里选用openblas。 修改pkgconfig/openblas.pc或Makefile解决llama.cpp对openblas的依赖问题。最终要保证给编译期提供正确的LD Flags。 make LLAMA_OPENBLAS=1 完成编译。 ./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p &amp;quot;xx&amp;quot; 64物理核打满，采样速率4000t/s，prompt处理速率80t/s，生成速率20t/s。
 Apple M1 Pro + macOS Monterey 下载模型和llama.cpp repo。 直接make就默认启用metal gpu加速和Accelerated Framework。 ./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.</description>
       <content>&lt;h2 id=&#34;minimalist-local-llm&#34;&gt;Minimalist Local LLM&lt;/h2&gt;
@@ -28,7 +28,7 @@ Apple M1 Pro + macOS Monterey 下载模型和llama.cpp repo。 直接make就默�
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/mistral.png&#34; alt=&#34;mistral&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Mistral AI提供了在本地GPU、云端跑Mistral7B的官方支持。&lt;/p&gt;
 &lt;p&gt;不过这么小的模型，其实也可以在本地CPU上跑的——借助llama.cpp。&lt;/p&gt;
-&lt;p&gt;llama.cpp和whisper.cpp都是C++程序员Georgi Gerganov的个人项目，基于自己的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。&lt;/p&gt;
+&lt;p&gt;llama.cpp和whisper.cpp大体上是Georgi Gerganov的个人项目，基于自己写的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。&lt;/p&gt;
 &lt;h2 id=&#34;intel-xeon-platinum-8336c--debian10&#34;&gt;Intel Xeon Platinum 8336C + Debian10&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;从TheBloke上下载特定量化版本的模型：https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF&lt;/li&gt;
