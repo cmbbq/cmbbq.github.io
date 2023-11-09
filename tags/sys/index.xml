@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 02 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Personal GPT</title>
-      <link>https://cmbbq.github.io/posts/run-llm-with-local-cpu/</link>
+      <title>Local LLM</title>
+      <link>https://cmbbq.github.io/posts/local-llm/</link>
       <pubDate>Thu, 02 Nov 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/run-llm-with-local-cpu/</guid>
+      <guid>https://cmbbq.github.io/posts/local-llm/</guid>
       <description>Minimalist Local LLM 新一轮AI热潮中，stable diffusion和LLM均呈现出了前所未有的社区繁荣。繁荣的同时带来了信息的爆炸和臃肿，极简主义显得尤为珍贵。
 在预训练模型中，极简主义的代表是小而美的“大模型”Mistral7B。在推理框架中，极简主义的代表是对抗各种大公司重量级项目的llama.cpp。
 Mistral7B是开源模型领域的新近进展，模型虽小，却展示了惊人的能力。根据Mistral AI自己的benchmark和一些社区的测试反馈，几乎在各方面击败Llama2 13B。

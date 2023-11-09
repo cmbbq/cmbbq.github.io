@@ -1,5 +1,5 @@
 +++
-title = "Personal GPT"
+title = "Local LLM"
 date = "2023-11-02"
 tags = ["ai", "sys"]
 description = "用llama.cpp在本地cpu上跑ggul格式的mistral7b的简明教程。"
