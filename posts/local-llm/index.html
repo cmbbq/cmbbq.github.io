@@ -142,7 +142,7 @@
 <p>一边看视频（chrome GPU占用约20%），一边跑mistral也能有19.69t/s。</p>
 <h2 id="token-sampling">Token Sampling<a href="#token-sampling" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>不同的sampling机制对文本生成有显著影响，本地LLM的可玩性来源很大程度上就是客制sampling。</p>
-<p>Transformer模型根据前n个token，预测下一个token。每个token都有其next tokens的score，而next tokens的取值范围就是vocabulary（transformer架构最后有一个linear layer，将输出映射到vocabulary上，每个词都有对应的），这些score经过softmax将score数组转化成probability数组，根据probability挑选下一个token的过程就称为token sampling。</p>
+<p>Transformer模型根据前n个token，预测下一个token。每个token都有其next tokens的score，而next tokens的取值范围就是vocabulary（transformer架构最后有一个linear layer，将输出映射到vocabulary上，所有tokens都有对应的scores/logits），这些score经过softmax将score数组转化成probability数组，根据probability挑选下一个token的过程就称为token sampling。</p>
 <ul>
 <li>Greedy采样： 如果每次都确定性地选择probability最高的那个token，单步决策，就是greedy sampler，优势是速度快，劣势是牺牲了模型的多样性，容易陷入重复循环和对训练数据的过拟合。llama.cpp里设置&ndash;top_p 0就相当于开greedy采样。</li>
 <li>Top-k采样： 从概率分布的前k个token里面进行随机采样。</li>
@@ -155,7 +155,7 @@
 <li>Tail free sampling：根据概率的二阶导数之和采样，即根据概率降速剔除尾部低概率tokens。</li>
 <li>Locally typical samplling：参数控制是否倾向局部语境内的典型的tokens。</li>
 <li>Mirostat sampling：<a href="https://arxiv.org/abs/2007.14966">Mirostat算法</a>会调整top-k的k，避免陷入boredom trap（模式崩塌）和perplexity trap（不一致）。</li>
-<li>logit bias: 人为指定某个token的优先级，比如&ndash;logit-bias 29905-inf就把&quot;&quot;token设为负无穷。</li>
+<li>logit bias: 人为指定某个token的优先级，比如&ndash;logit-bias 29905-inf就把&quot;\&ldquo;token设为负无穷。</li>
 <li>temperature: 在对score向量（logits）做softmax前，把logits/temperature，则temp越高，softmax后概率分布的高低悬殊就会越接近，也就更有利于低概率tokens崭露头角。</li>
 </ul>
 <h2 id="prompting">Prompting<a href="#prompting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
