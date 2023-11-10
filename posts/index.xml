@@ -62,7 +62,7 @@ Apple M1 Pro + macOS Monterey 下载模型和llama.cpp repo。 直接make就默�
 &lt;li&gt;Tail free sampling：根据概率的二阶导数之和采样，即根据概率降速剔除尾部低概率tokens。&lt;/li&gt;
 &lt;li&gt;Locally typical samplling：参数控制是否倾向局部语境内的典型的tokens。&lt;/li&gt;
 &lt;li&gt;Mirostat sampling：&lt;a href=&#34;https://arxiv.org/abs/2007.14966&#34;&gt;Mirostat算法&lt;/a&gt;会调整top-k的k，避免陷入boredom trap（模式崩塌）和perplexity trap（不一致）。&lt;/li&gt;
-&lt;li&gt;logit bias: 人为指定某个token的优先级，比如&amp;ndash;logit-bias 29905-inf就把&amp;quot;\&amp;ldquo;token设为负无穷。&lt;/li&gt;
+&lt;li&gt;logit bias: 人为指定某个token的优先级，比如&amp;ndash;logit-bias 29905-inf就把&amp;rsquo;\&amp;rsquo; token设为负无穷。&lt;/li&gt;
 &lt;li&gt;temperature: 在对score向量（logits）做softmax前，把logits/temperature，则temp越高，softmax后概率分布的高低悬殊就会越接近，也就更有利于低概率tokens崭露头角。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;prompting&#34;&gt;Prompting&lt;/h2&gt;

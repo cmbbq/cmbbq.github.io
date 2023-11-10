@@ -55,7 +55,7 @@ Transformer模型根据前n个token，预测下一个token。每个token都有�
 - Tail free sampling：根据概率的二阶导数之和采样，即根据概率降速剔除尾部低概率tokens。
 - Locally typical samplling：参数控制是否倾向局部语境内的典型的tokens。
 - Mirostat sampling：[Mirostat算法](https://arxiv.org/abs/2007.14966)会调整top-k的k，避免陷入boredom trap（模式崩塌）和perplexity trap（不一致）。
-- logit bias: 人为指定某个token的优先级，比如--logit-bias 29905-inf就把"\\"token设为负无穷。
+- logit bias: 人为指定某个token的优先级，比如--logit-bias 29905-inf就把'\\' token设为负无穷。
 - temperature: 在对score向量（logits）做softmax前，把logits/temperature，则temp越高，softmax后概率分布的高低悬殊就会越接近，也就更有利于低概率tokens崭露头角。
 
 ## Prompting
