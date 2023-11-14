@@ -10,7 +10,9 @@ showFullContent = false
 - Can Large Language Models Really Improve by Self-critiquing Their Own Plans?
 - Can Large Language Models Infer Causation from Correlation?
 - Large Language Models Cannot Self-Correct Reasoning Yet
+- Language Models can be Logical Solvers[^2]
 
 An example.[^1]
 
-[^1]: A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions
+[^1]: [A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions](https://arxiv.org/pdf/2311.05232.pdf)
+[^2]: [Language Models can be Logical Solvers](https://arxiv.org/pdf/2311.06158.pdf)
