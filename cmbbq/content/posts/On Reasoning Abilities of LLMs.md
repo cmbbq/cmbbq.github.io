@@ -1,5 +1,5 @@
 +++
-title = "Limitations of LLMs"
+title = "On Reasoning Abilities of LLMs"
 date = "2023-11-13"
 tags = ["ai"]
 description = "对近期对LLM的调研文献进行梳理总结，讨论目前大语言模型架构的局限性。"
