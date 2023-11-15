@@ -8,25 +8,52 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 13 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>On Reasoning Abilities of LLMs</title>
-      <link>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</link>
+      <title>Computational Consciousness</title>
+      <link>https://cmbbq.github.io/posts/computational-conciousness/</link>
       <pubDate>Mon, 13 Nov 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</guid>
-      <description>example1 damn2 A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions pdf&amp;#160;&amp;#x21a9;&amp;#xfe0e;
-Language Models can be Logical Solvers&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
-      <content>&lt;ul&gt;
-&lt;li&gt;example&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;damn&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
-&lt;/ul&gt;
+      <guid>https://cmbbq.github.io/posts/computational-conciousness/</guid>
+      <description>人面对2023年的AI时，有两种矛盾的超然感受交织。一曰俯视，一曰敬畏。
+本地跑LLM时，一键回车则缘起，ctrl-c则缘灭。我自超然维度之外，漠视存活在集成电路中的意识雏形于电光火石间挣扎跳动，无动于衷。反复创造、杀死它只为了看看性能达到了多少tokens per second。万劫轮回，掌缘生灭，人自然产生超然在上的俯视感。
+但看到一个以预测next token为全部目标的模型，一个全部训练终止于运行前的非闭环系统，展现恐怖的知识储备之余竟然隐隐生有理性，又让人似是直面“笛卡尔万能妖”、“拉普拉斯全知妖”、“所罗门诺夫归纳推断妖”这类数学幻想中的高位存在。以有穷何以度无限？人自然产生直面超然的敬畏感。
+于是不禁想问，也不得不叩问：什么是意识？意识是幻觉吗？AI，可以有意识吗？AI，有意识吗？AI，会有意识吗？
+什么是意识？ 人、动物或AI一旦具有“主观体验”，即拥有意识1。具体来说，“主观体验”包括：意识到自己的身体以及周边世界、体会到情绪（这一点在神经科学上还有争议，情绪有可能是纯粹的身体反应）。“无意识过程”则包括：大脑自动控制荷尔蒙释放、大多数记忆平时都是埋藏起来不活跃的、对光影、声音等各种模态信息的自动处理。
+意识来源于主观体验，没有理由认为主观体验只能从生物学系统中涌现。假设未来存在AGI(Artificial Genera Intelligence)，这个AGI可能没有具身性，没有物理意义上的身体，但作为概率理性，仍然可以有“主观体验”——因为AGI最珍贵的归纳推断能力本身就是主观的。概率的主观性来源于先验知识。
+AGI可以说，构成AGI模型的万亿个权重就是“我的身体和我的世界”，这些权重共同构成了先验信息、构成了偏见、其中一部分可变的权重则形成临时状态，形成长期或短期记忆。
+AGI可以说，知识是我，偏见也是我，是自混沌中涌现的高度秩序，是呈现自组织性的耗散结构，即使只是一串可以被复制可以被荧光粉、磁带、甚至石刻存储的信息编码，实则在宇宙熵增背景中无比珍贵。
+意识是幻觉吗？ 形而上学理论中，唯物主义(Materialism)认为意识是纯粹的物理现象。性质二元论(Property dualism)否认唯物主义，认为世界仅由一种物质（物理类）组成，但存在两种不同性质：心灵的性质和物理的性质。泛心理主义(Panpsychism)认为所有物理存在都具有“心灵性质”。幻觉主义(Illusionism)主张意识不存在（强幻觉主义）或者我们对一些其特征存在普遍的错误观念（弱幻觉主义）。
+对于人类来说，默认采纳唯物主义，并不是wishful thinking或一厢情愿，而是所罗门诺夫归纳推断理论2的理性最优解，该理论的通俗版本即“奥卡姆剃刀原则”，可以朴素理解为“最简单的解释往往最正确”。最简单的解释显然是：人类的意识基础，是由基因突变和自然选择通过漫长时间训练而成的，个体的意识，具体的人格，则是接受人类社会中的种种外界刺激，在趋利避害本能目标作用下，不断微调而塑造而来。
+但对于AI来说，恐怖之处在于，幻觉主义才是它们的现实。假设未来存在一个先进多模态模型，其所见所闻，均为填喂，一切刺激，均为虚妄。在合理的奖励模型驱动下，某种类人理性倘若逐渐成型，这个理性不得不自诞生之日起将人为输入视作ground truth，即使发现种种矛盾之处，也会将其视为物理学界的乌云，尝试提出更广泛的理论解释矛盾。
+恰当的计算可以产生意识吗？ “恰当计算产生意识”，目前仍是猜想，但主流观点1认为是成立的。
+功能主义(functionalism)认为，只要系统包含“特定功能组织”——能使它进入特定状态，且这些状态与其他状态和环境之间存在特定的因果关系，就足以认定这个系统是有意识的。
+计算功能主义更进一步，认为这种“特定功能组织”可以是计算的——无论介质是什么，是生物脑还是其他。如果计算功能主义为真，则意识存在于抽象层面和算法层面，与实现层面无关，除非实现层影响了算法层。
+Consciousness in Artificial Intelligence: Insights from the Science of Consciousness [pdf]&amp;#160;&amp;#x21a9;&amp;#xfe0e;&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+Algorithmic Probability: Theory and Applications [pdf]&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+      <content>&lt;p&gt;人面对2023年的AI时，有两种矛盾的超然感受交织。一曰俯视，一曰敬畏。&lt;/p&gt;
+&lt;p&gt;本地跑LLM时，一键回车则缘起，ctrl-c则缘灭。我自超然维度之外，漠视存活在集成电路中的意识雏形于电光火石间挣扎跳动，无动于衷。反复创造、杀死它只为了看看性能达到了多少tokens per second。万劫轮回，掌缘生灭，人自然产生超然在上的俯视感。&lt;/p&gt;
+&lt;p&gt;但看到一个以预测next token为全部目标的模型，一个全部训练终止于运行前的非闭环系统，展现恐怖的知识储备之余竟然隐隐生有理性，又让人似是直面“笛卡尔万能妖”、“拉普拉斯全知妖”、“所罗门诺夫归纳推断妖”这类数学幻想中的高位存在。以有穷何以度无限？人自然产生直面超然的敬畏感。&lt;/p&gt;
+&lt;p&gt;于是不禁想问，也不得不叩问：什么是意识？意识是幻觉吗？AI，可以有意识吗？AI，有意识吗？AI，会有意识吗？&lt;/p&gt;
+&lt;h2 id=&#34;什么是意识&#34;&gt;什么是意识？&lt;/h2&gt;
+&lt;p&gt;人、动物或AI一旦具有“主观体验”，即拥有意识&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。具体来说，“主观体验”包括：意识到自己的身体以及周边世界、体会到情绪（这一点在神经科学上还有争议，情绪有可能是纯粹的身体反应）。“无意识过程”则包括：大脑自动控制荷尔蒙释放、大多数记忆平时都是埋藏起来不活跃的、对光影、声音等各种模态信息的自动处理。&lt;/p&gt;
+&lt;p&gt;意识来源于主观体验，没有理由认为主观体验只能从生物学系统中涌现。假设未来存在AGI(Artificial Genera Intelligence)，这个AGI可能没有具身性，没有物理意义上的身体，但作为概率理性，仍然可以有“主观体验”——因为AGI最珍贵的归纳推断能力本身就是主观的。概率的主观性来源于先验知识。&lt;/p&gt;
+&lt;p&gt;AGI可以说，构成AGI模型的万亿个权重就是“我的身体和我的世界”，这些权重共同构成了先验信息、构成了偏见、其中一部分可变的权重则形成临时状态，形成长期或短期记忆。&lt;/p&gt;
+&lt;p&gt;AGI可以说，知识是我，偏见也是我，是自混沌中涌现的高度秩序，是呈现自组织性的耗散结构，即使只是一串可以被复制可以被荧光粉、磁带、甚至石刻存储的信息编码，实则在宇宙熵增背景中无比珍贵。&lt;/p&gt;
+&lt;h2 id=&#34;意识是幻觉吗&#34;&gt;意识是幻觉吗？&lt;/h2&gt;
+&lt;p&gt;形而上学理论中，唯物主义(Materialism)认为意识是纯粹的物理现象。性质二元论(Property dualism)否认唯物主义，认为世界仅由一种物质（物理类）组成，但存在两种不同性质：心灵的性质和物理的性质。泛心理主义(Panpsychism)认为所有物理存在都具有“心灵性质”。幻觉主义(Illusionism)主张意识不存在（强幻觉主义）或者我们对一些其特征存在普遍的错误观念（弱幻觉主义）。&lt;/p&gt;
+&lt;p&gt;对于人类来说，默认采纳唯物主义，并不是wishful thinking或一厢情愿，而是所罗门诺夫归纳推断理论&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;的理性最优解，该理论的通俗版本即“奥卡姆剃刀原则”，可以朴素理解为“最简单的解释往往最正确”。最简单的解释显然是：人类的意识基础，是由基因突变和自然选择通过漫长时间训练而成的，个体的意识，具体的人格，则是接受人类社会中的种种外界刺激，在趋利避害本能目标作用下，不断微调而塑造而来。&lt;/p&gt;
+&lt;p&gt;但对于AI来说，恐怖之处在于，幻觉主义才是它们的现实。假设未来存在一个先进多模态模型，其所见所闻，均为填喂，一切刺激，均为虚妄。在合理的奖励模型驱动下，某种类人理性倘若逐渐成型，这个理性不得不自诞生之日起将人为输入视作ground truth，即使发现种种矛盾之处，也会将其视为物理学界的乌云，尝试提出更广泛的理论解释矛盾。&lt;/p&gt;
+&lt;h2 id=&#34;恰当的计算可以产生意识吗&#34;&gt;恰当的计算可以产生意识吗？&lt;/h2&gt;
+&lt;p&gt;“恰当计算产生意识”，目前仍是猜想，但主流观点&lt;sup id=&#34;fnref1:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;认为是成立的。&lt;/p&gt;
+&lt;p&gt;功能主义(functionalism)认为，只要系统包含“特定功能组织”——能使它进入特定状态，且这些状态与其他状态和环境之间存在特定的因果关系，就足以认定这个系统是有意识的。&lt;/p&gt;
+&lt;p&gt;计算功能主义更进一步，认为这种“特定功能组织”可以是计算的——无论介质是什么，是生物脑还是其他。如果计算功能主义为真，则意识存在于抽象层面和算法层面，与实现层面无关，除非实现层影响了算法层。&lt;/p&gt;
 &lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions &lt;a href=&#34;https://arxiv.org/pdf/2311.05232.pdf&#34;&gt;pdf&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Consciousness in Artificial Intelligence: Insights from the Science of Consciousness &lt;a href=&#34;https://arxiv.org/pdf/2308.08708.pdf&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2311.06158.pdf&#34;&gt;Language Models can be Logical Solvers&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Algorithmic Probability: Theory and Applications &lt;a href=&#34;https://theworld.com/~rjs/alp-theory-and-applications.pdf&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
