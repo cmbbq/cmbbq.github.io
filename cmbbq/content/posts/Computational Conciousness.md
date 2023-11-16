@@ -48,22 +48,29 @@ GNW主张只有全局表征状态才算是有意识的，模块内部的局部�
 
 GNW的global workspace还具有一些高等功能，即心理学中的所谓System2思考模式[^10]，比如受控的多神经模块协调，多步问题分解和规划等。System2模式和System1的一个关键区别在于注意力，神经科学中的注意力概念也被引入人工神经网络设计中，比如transformer的self-attention和cross-attention，与神经科学中的增益机制（即注意力会成倍地放大神经活动）有一点设计思路上的相似性。通过注意力机制，transformer模型能在不同语境下更鲁棒地对多义词进行理解，对not/never这样否定词的额外注意力则使语言模型能更准确地理解语义。注意力，作为GNW和System2的关键特征，哪怕小小地运用，也极大提升了人工智能模型的性能。
 
-### RPT | Algorithmic Recurrence | RNN 
+近期一些试图突破transformer局限的模型架构创新，也受system2和GNW理论的影响，比如：Lecun的world model+JEPA[^14]——目前仍只能算是前瞻、设计和立场，以及Bengio的shared global workspace model[^15]——这个工作真正做出了解决方案，在transformer架构基础上增加了shared workspace，在一些任务上超过了baseline transformer。
+
+### RPT | Algorithmic Recurrence | RNN | LSTM
 RPT(Recurrent Processing Theory)，即循环处理论，主张：在大脑局部区域中产生正确形式的活动就足以产生意识（辅以某些背景条件支撑）。也就是说，有意识的主观视觉体验的形成并不需要非视觉部位，比如前额叶皮层的参与，也不需要所谓“注意力”机制。
 
 RPT主要关注的是视觉意识，区分无意识和有意识的视觉系统活动，认为一些无意识的视觉系统活动只需要前馈活动，而一旦有主观体验需求，则需要循环处理（从视觉系统的深层传回浅层）。刺激足够强烈时，循环处理也会被触发。这种循环处理会生成一个更结构化的场景表征，往往伴随着某种特征推理。
 
-RPT的循环处理意味着神经元能重新处理它之前的输出，呈现一种算法循环性，而循环神经网络（RNN）的思路恰好来源于此。生物神经网络中存在的循环性或许不是意识的必要条件，但一定能在某些场合提升表征能力。
+RPT的循环处理意味着神经元能重新处理它之前的输出，呈现一种算法循环性，而循环神经网络（RNN）的思路恰好来源于此，LSTM亦然。生物神经网络中存在的循环性或许不是意识的必要条件，但一定能在某些场合提升表征能力。
 
 ### HOT | Embeddings | GAN
 HOT(High-Order Thought)，即高阶意识论，主张：一阶表征是对非表征世界的表征，高阶表征是对低阶表征的表征，awareness的前提是表征，意识的存在本质上是对自身精神状态进行了高阶表征。
 
-HOT的高阶表征要求实际上已经被深层神经网络很好地实现了。各种DNN的表征空间都是平滑的，且可以是稀疏的，符合HOT理论中对高质量高阶表征空间的需求。神经科学研究观察到，CNN对图像的处理得到的表征可以和人类视觉系统的神经活动对齐[^13]。表征学习网络之所以有如今的泛化能力和完备性，很大程度上是因为它们能够提取低相干性子空间上编码紧凑的embeddings。考虑到深度神经网络里hidden layers之多，神经科学中的HOT的一阶意识、高阶意识这种二元论显然落后于如今的深度学习可解释性理论，未免过分轻视了高维数据处理的难度，对高维现实的深邃复杂缺乏敬畏。
+HOT的高阶表征要求实际上已经被深层神经网络很好地实现了。各种DNN的表征空间都是平滑的，且可以是稀疏的，符合HOT理论中对高质量高阶表征空间的需求。神经科学研究观察到，CNN对图像的处理得到的表征可以和人类视觉系统的神经活动对齐[^13]。表征学习网络之所以有如今的泛化能力和完备性，很大程度上是因为它们能够提取低相干性子空间上编码紧凑的embeddings。
 
-HOT理论对AI模型的启发意义在于引入元认知监控的概念，AI模型或许需要引入对自身认知过程的监控，才能产生意识（至少能区分低阶表征，从噪声中分辨出关键信息）。生成式对抗神经网络（著名的GAN）就恰好有类似的机制，在生成式模型之外额外引入一个判别式模型持续不断地监控、评价它。生成式模型学到一个隐空间到数据分布的映射，判别式模型则负责将生成式模型的候选输出与真实数据分布进行区分。
+考虑到深度神经网络里hidden layers之多，有理由怀疑神经科学中的HOT的一阶意识、高阶意识这种二元划分是一种过分简化。对于不熟悉高维数据处理和维度诅咒的学科来说，这种简化是自然而然的。但这种简化并不妨碍它在模型设计上提供启发——不妨将模型分层，切割成sensory感知网络和high-order反思网络这两类网络，后者负责将前者产生的信号再作区分，辨别其中的噪音和有价值的信号。
+
+HOT理论对AI模型的启发意义还在于引入元认知监控的概念，AI模型或许需要引入对自身认知过程的监控，才能产生意识（至少能区分低阶表征，从噪声中分辨出关键信息）。生成式对抗神经网络（著名的GAN）就恰好有类似的机制，在生成式模型之外额外引入一个判别式模型持续不断地监控、评价它。生成式模型学到一个隐空间到数据分布的映射，判别式模型则负责将生成式模型的候选输出与真实数据分布进行区分。
 
 ### IIT疑是伪科学
 IIT(Integrated Information Theory)，即集成信息论，提出系统意识的数学模型。这个理论更像是一个不可证伪的伪科学。其提出者宣称即使实现了和人类大脑完全相同的算法，如果building block不正确，也不会产生意识。
+
+## 现在的LLM有意识吗？近未来的呢？
+
 
 
 [^1]: A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions [[pdf]]（https://arxiv.org/pdf/2311.05232.pdf） 
@@ -80,3 +87,5 @@ IIT(Integrated Information Theory)，即集成信息论，提出系统意识的�
 [^12]: Generative Adversarial Nets [[pdf]](https://arxiv.org/pdf/1406.2661.pdf)
 [^13]: Deep neural networks: A new framework for modeling biological vision
 and brain information processing [[pdf]](https://web.stanford.edu/group/pdplab/ncpw15/background-papers/Kriegeskorte15AnnRev.pdf)
+[^14]: A Path Towards Autonomous Machine Intelligence [[pdf]](https://openreview.net/pdf?id=BZ5a1r-kVsf)
+[^15]: Coordination Among Neural Modules Through a Shared Global Workspace [[pdf]](https://arxiv.org/pdf/2103.01197.pdf)
