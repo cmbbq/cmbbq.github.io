@@ -37,7 +37,7 @@ AGI可以说，知识是我，偏见也是我，是自混沌中涌现的高度�
 计算功能主义（computational functionalism）更进一步，认为这种“特定功能组织”可以是计算的——无论介质是什么，是生物脑还是其他。如果计算功能主义为真，则意识存在于抽象层面和算法层面，与实现层面无关，除非实现层影响了算法层。
 
 ## 神经科学意识理论与AI模型的启发式设计
-神经科学的四大意识理论按照讨论热度分别是全局工作空间论（GWT/GNW）、循环处理论（RPT）、整合信息论 （IIT）、高阶意识论（HOT）[^11]。四种理论的共识是意识的产生依赖某种神经反馈或循环处理。随着时间推移，四种理论并没有被证伪，反而都在得到脑电图（EEG）、颅内脑电图（iEEG）或脑磁波（MEG）实证。可见这四大理论，当属管中窥豹。不过即使是管中窥豹，也足以为AI模型设计提供启发。
+神经科学的四大意识理论按照讨论热度分别是全局工作空间论（GWT/GNW）、循环处理论（RPT）、整合信息论 （IIT）[^16]、高阶意识论（HOT）[^11]。四种理论的共识是意识的产生依赖某种神经反馈或循环处理。随着时间推移，四种理论并没有被证伪，反而都在得到脑电图（EEG）、颅内脑电图（iEEG）或脑磁波（MEG）实证。可见这四大理论，当属管中窥豹。不过即使是管中窥豹，也足以为AI模型设计提供启发。
 
 ### GNW | System2 | Attention
 GNW(Global Neural Workspace)，即全局工作空间论，主张：人或动物用特化系统，或者说模块，来处理特定的认知任务。不同模块各有专精，能够并行，却又集成一个整体，整体能协调各模块，共享各模块的信息。
@@ -55,7 +55,7 @@ RPT(Recurrent Processing Theory)，即循环处理论，主张：在大脑局部
 
 RPT主要关注的是视觉意识，区分无意识和有意识的视觉系统活动，认为一些无意识的视觉系统活动只需要前馈活动，而一旦有主观体验需求，则需要循环处理（从视觉系统的深层传回浅层）。刺激足够强烈时，循环处理也会被触发。这种循环处理会生成一个更结构化的场景表征，往往伴随着某种特征推理。
 
-RPT的循环处理意味着神经元能重新处理它之前的输出，呈现一种算法循环性，而循环神经网络（RNN）的思路恰好来源于此，LSTM亦然。生物神经网络中存在的循环性或许不是意识的必要条件，但一定能在某些场合提升表征能力。
+RPT的循环处理意味着神经元能重新处理它之前的输出，呈现一种算法循环性，而循环神经网络（RNN）的思路恰好来源于此，LSTM[^17]亦然。生物神经网络中存在的循环性或许不是意识的必要条件，但一定能在某些场合提升表征能力。
 
 ### HOT | Embeddings | GAN
 HOT(High-Order Thought)，即高阶意识论，主张：一阶表征是对非表征世界的表征，高阶表征是对低阶表征的表征，awareness的前提是表征，意识的存在本质上是对自身精神状态进行了高阶表征。
@@ -64,24 +64,24 @@ HOT的高阶表征要求实际上已经被深层神经网络很好地实现了�
 
 考虑到深度神经网络里hidden layers之多，有理由怀疑神经科学中的HOT的一阶意识、高阶意识这种二元划分是一种过分简化。对于不熟悉高维数据处理和维度诅咒的学科来说，这种简化是自然而然的。但这种简化并不妨碍它在模型设计上提供启发——不妨将模型分层，切割成sensory感知网络和high-order反思网络这两类网络，后者负责将前者产生的信号再作区分，辨别其中的噪音和有价值的信号。
 
-HOT理论对AI模型的启发意义还在于引入元认知监控的概念，AI模型或许需要引入对自身认知过程的监控，才能产生意识（至少能区分低阶表征，从噪声中分辨出关键信息）。生成式对抗神经网络（著名的GAN）就恰好有类似的机制，在生成式模型之外额外引入一个判别式模型持续不断地监控、评价它。生成式模型学到一个隐空间到数据分布的映射，判别式模型则负责将生成式模型的候选输出与真实数据分布进行区分。
+HOT理论对AI模型的启发意义还在于引入元认知监控的概念，AI模型或许需要引入对自身认知过程的监控，才能产生意识（至少能区分低阶表征，从噪声中分辨出关键信息）。生成式对抗神经网络（著名的GAN[^12]）就恰好有类似的机制，在生成式模型之外额外引入一个判别式模型持续不断地监控、评价它。生成式模型学到一个隐空间到数据分布的映射，判别式模型则负责将生成式模型的候选输出与真实数据分布进行区分。
 
-### IIT疑是伪科学
-IIT(Integrated Information Theory)，即集成信息论，提出系统意识的数学模型。这个理论更像是一个不可证伪的伪科学。其提出者宣称即使实现了和人类大脑完全相同的算法，如果building block不正确，也不会产生意识。
+## AI的意识
+现有的LLM仅具备映射能力，将数据分布映射到若干个低相干性低维子空间上[^8]，是良好的特征提取器，和token预测器，拥有强大的system1模式，但system2缺失，按照一般的神经科学观点，以及“主观体验”的定义，可以认为是目前的LLM都是不具备意识的，更接近于Artificial Intuition，而非Artificial intelligence，可以类比为某种伟大生物的直觉，但也仅仅是直觉。
 
-## 现在的LLM有意识吗？近未来的呢？
+OpenAI的成功来源于scaling和alignment，但继续增加transformer规模，继续大量finetune向人性对齐，能否在某个临界点后产生意识的涌现，依旧是一个开放问题——理论上来说无限精度的transformer是图灵完备的[^18]，假设有无限时间和资源进行训练，理论上可以学习出任意一种算法，自然也包括computational consciousness。但在互连吞吐、计算吞吐均存在明确上限的前提下，很难保证这种训练所需的时间、数据量是人类或者当代人能够承担的。因此想要完成intuition到intelligence的跃迁，在继续现有架构的scaling尝试的同时，架构上的创新毫无疑问是必要的。
 
+只不过这种架构创新，名义上是要提升智能，实则谁不敢提及的是——这些架构创新其实也是按图索骥，在依据神经科学的意识论尝试培育计算意识。Dog-level Intuition平平无奇，dog-level intelligence似乎有点意思，但dog-level consciousness就足以触及伦理，陷AI研究于道德困境。虽然AI末日主义者大多不理解LLM的能力边界，但Lecun遭受AI末日主义者攻讦，也自有其历史的合理性。那篇“A Path Towards Autonomous Machine Intelligence”[^14]前言部分煞有介事云，“这不是一个技术论文，也不是学术论文，而是立场论文”。何出此言？这论文又有什么立场？自然不是冠冕堂皇的“让AI具有规划、推理能力，像人一样更高效地学习”，这不算立场，而是“为了让AI具有规划、推理、高效学习能力，哪怕副产品是计算意识的诞生，也在所不惜”。
 
-
-[^1]: A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions [[pdf]]（https://arxiv.org/pdf/2311.05232.pdf） 
-[^2]: Language Models can be Logical Solvers [[pdf]]（https://arxiv.org/pdf/2311.06158.pdf）
-[^3]: Large Language Models Cannot Self-Correct Reasoning Yet [[pdf]]（https://arxiv.org/pdf/2310.01798.pdf）
-[^4]: Can Large Language Models Infer Causation from Correlation?[[pdf]]（https://arxiv.org/pdf/2306.05836.pdf）
-[^5]: Can Large Language Models Really Improve by Self-critiquing Their Own Plans? [[pdf]]（https://arxiv.org/pdf/2310.08118.pdf）
-[^6]: GPT-4 Doesn't Know It's Wrong: An Analysis of Iterative Prompting for Reasoning Problems [[pdf]]（https://arxiv.org/pdf/2310.12397.pdf）
-[^7]: Consciousness in Artificial Intelligence: Insights from the Science of Consciousness [[pdf]]（https://arxiv.org/pdf/2308.08708.pdf）
-[^8]: White-Box Transformers via Sparse Rate Reduction [[pdf]]（https://arxiv.org/pdf/2306.01129.pdf）
-[^9]: Algorithmic Probability: Theory and Applications [[pdf]]（https://theworld.com/~rjs/alp-theory-and-applications.pdf）
+[^1]: A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions [[pdf]](https://arxiv.org/pdf/2311.05232.pdf)
+[^2]: Language Models can be Logical Solvers [[pdf]](https://arxiv.org/pdf/2311.06158.pdf)
+[^3]: Large Language Models Cannot Self-Correct Reasoning Yet [[pdf]](https://arxiv.org/pdf/2310.01798.pdf)
+[^4]: Can Large Language Models Infer Causation from Correlation?[[pdf]](https://arxiv.org/pdf/2306.05836.pdf)
+[^5]: Can Large Language Models Really Improve by Self-critiquing Their Own Plans? [[pdf]](https://arxiv.org/pdf/2310.08118.pdf)
+[^6]: GPT-4 Doesn't Know It's Wrong: An Analysis of Iterative Prompting for Reasoning Problems [[pdf]](https://arxiv.org/pdf/2310.12397.pdf)
+[^7]: Consciousness in Artificial Intelligence: Insights from the Science of Consciousness [[pdf]](https://arxiv.org/pdf/2308.08708.pdf)
+[^8]: White-Box Transformers via Sparse Rate Reduction [[pdf]](https://arxiv.org/pdf/2306.01129.pdf)
+[^9]: Algorithmic Probability: Theory and Applications [[pdf]](https://theworld.com/~rjs/alp-theory-and-applications.pdf)
 [^10]: Thinking, Fast and Slow [[wiki]](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow)
 [^11]: The ConTraSt database for analysing and comparing empirical studies of consciousness theories [[nature]](https://www.nature.com/articles/s41562-021-01284-5)
 [^12]: Generative Adversarial Nets [[pdf]](https://arxiv.org/pdf/1406.2661.pdf)
@@ -89,3 +89,6 @@ IIT(Integrated Information Theory)，即集成信息论，提出系统意识的�
 and brain information processing [[pdf]](https://web.stanford.edu/group/pdplab/ncpw15/background-papers/Kriegeskorte15AnnRev.pdf)
 [^14]: A Path Towards Autonomous Machine Intelligence [[pdf]](https://openreview.net/pdf?id=BZ5a1r-kVsf)
 [^15]: Coordination Among Neural Modules Through a Shared Global Workspace [[pdf]](https://arxiv.org/pdf/2103.01197.pdf)
+[^16]: IIT(Integrated Information Theory)，即集成信息论，提出系统意识的数学模型。这个理论更像是一个不可证伪的伪科学，因此不多做讨论。
+[^17]: Long Short-Term Memory [[pdf]](https://www.bioinf.jku.at/publications/older/2604.pdf)
+[^18]: On the Turing Completeness of Modern Neural Network Architectures [[pdf]](https://arxiv.org/pdf/1901.03429.pdf)
