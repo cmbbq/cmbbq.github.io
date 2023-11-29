@@ -1,6 +1,6 @@
 +++
 title = "The Little Book Review"
-date = "2023-11-27"
+date = "2023-12-17"
 tags = ["sys"]
 description = "正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。"
 showFullContent = false
@@ -8,13 +8,11 @@ showFullContent = false
 
 "The Little Book of Deep Learning"([lbdl](https://fleuret.org/francois/lbdl.html))是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。
 
+![tlb](https://cmbbq.github.io/img/tlb.jpg)
+
 精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。
 
-<p float="left">
-  <img src="https://cmbbq.github.io/img/tlb.jpg" width="32%" />
-  <img src="https://cmbbq.github.io/img/tlb1.jpg" width="32%" /> 
-  <img src="https://cmbbq.github.io/img/tlb2.jpg" width="32%" />
-</p>
+![tlb1](https://cmbbq.github.io/img/tlb1.jpg)
 
 ---
 
@@ -58,4 +56,9 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 
 训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。
 
+训练时，每个时刻都需要重新计算之前已经算过的，考虑到总体逻辑时间/步骤数目往往相当长，成百上千，甚至上万，这样的计算显然非常低效。解决方案是设计一个一次性预测所有逻辑时间（T）上的logits向量的模型——```f: {1,...,K}^T -> R^(T×K)```，并确保t时刻的输入```x_t```对应的logits ```l_t```只依赖于```x_1, x_2, x_3, ... x_(t-1)```。这种模型即因果模型（causal models），其原则是不让未来影响过去。
  
+![causal](https://cmbbq.github.io/img/causal.png)
+
+因果模型训练时可以用完整的序列计算output，一次性最大化序列中所有token的概率，最终也等价于最小化per-token交叉熵。
+
