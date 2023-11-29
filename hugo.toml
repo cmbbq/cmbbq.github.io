@@ -1,0 +1,4 @@
+baseURL = 'http://cmbbq.github.io'
+languageCode = 'en-us'
+title = "CMBBQ's Blog"
+theme = 'terminal'
