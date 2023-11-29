@@ -13,7 +13,7 @@ System1和System2的划分来源于心理学家Daniel Kahneman的理论[^8]，�
 
 LLM横空出世之初，有很多狂野声明，比如"LLM as zero-shot planner"，"LLMs are zero-shot reasoner"，但这些声音在现在看来更像是一时跟风和hype。
 
-现在，无论是普通从业者，还是知名学者，如Yann Lecun，Yoshua Bengio，马毅，Subbarao Kambhampati逐渐形成共识，认为LLM不具备System2，很多研究也通过一些reasoning benchmark对这一观点进行佐证，比如Huang et al., 2023[^3]，Jin et al., 2023[^4]，Can Large Language Models Really Improve by Self-critiquing Their Own Plans?[^5]，Stechly et al., 2023[^6]。
+现在，无论是普通从业者，还是知名学者，如Yann Lecun，Yoshua Bengio，马毅，Subbarao Kambhampati逐渐形成共识，认为LLM不具备System2，很多研究也通过一些reasoning benchmark对这一观点进行佐证，比如Huang et al., 2023[^3]，Jin et al., 2023[^4]，Valmeekam, Marquez, 2023[^5]，Stechly et al., 2023[^6]。
 
 也有少数学者，比如Ilya Sutskever在访谈中说scaling足以产生System2能力，无需架构创新，但Ilya似乎并不坦诚，动机不明[^11]。有研究者认为LLM加上Chain-of-Thought prompting是具有推理能力，如Saparov & He, 2023[^9]，Feng et al., 2023[^2]，但终究依赖了外界的prompting，且实验方法上并不能排除近似信息提取模拟了逻辑推理的可能。
 
