@@ -53,8 +53,7 @@
       <pubDate>Mon, 27 Nov 2023 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/drafts/the-little-book-review-no-bullshit-deep-learning-101/</guid>
-      <description>[WIP]
-&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(lbdl)是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。
+      <description>&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(lbdl)是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。
 精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。
 接下来是知识内化和梳理。
 概述 高维信号难以用规则系统分析，而深度网络则克服了这个困难，用具有大量权重的深层映射拟合出一个足够好（loss足够低）的近似函数——这个函数可以是高维信号到连续向量（回归）或离散值（分类）的映射，也可以是一种概率密度函数，总之，它能从数据分布中学习到某种紧凑且有区分能力的表征。
@@ -70,8 +69,7 @@
 𝑃(𝐴∩𝐵)=𝑃(𝐴)𝑃(𝐵|𝐴), 𝑃(𝐴∩𝐵∩𝐶)=𝑃(𝐴)𝑃(𝐵|𝐴)𝑃(𝐶|𝐴∩𝐵) 自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。
 token词汇域有限的场景是可计算的，条件概率的链式分解又使计算量降低——采样下一个token时，可以利用上一个token的概率，最终能生成符合联合概率分布的token序列。
 训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-&lt;p&gt;&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(&lt;a href=&#34;https://fleuret.org/francois/lbdl.html&#34;&gt;lbdl&lt;/a&gt;)是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。&lt;/p&gt;
+      <content>&lt;p&gt;&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(&lt;a href=&#34;https://fleuret.org/francois/lbdl.html&#34;&gt;lbdl&lt;/a&gt;)是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。&lt;/p&gt;
 &lt;p&gt;精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;hr&gt;

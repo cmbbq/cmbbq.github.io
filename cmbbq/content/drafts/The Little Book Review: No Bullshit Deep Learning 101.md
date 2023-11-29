@@ -6,8 +6,6 @@ description = "正如ddia可被视为分布式系统方向的入门教程，lbdl
 showFullContent = false
 +++
 
-[WIP]
-
 "The Little Book of Deep Learning"([lbdl](https://fleuret.org/francois/lbdl.html))是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。
 
 精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。
