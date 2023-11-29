@@ -1,0 +1,2 @@
+rm ../img/favicon/green.png
+hugo -d ..
