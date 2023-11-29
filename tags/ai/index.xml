@@ -6,7 +6,34 @@
     <description>Recent content in ai on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Artificial Intuition: Reasoning Abilities of LLMs Today</title>
+      <link>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</link>
+      <pubDate>Sun, 19 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</guid>
+      <description>System1 vs System2 System1和System2的划分来源于心理学家Daniel Kahneman的理论1，描述了思考的两种模式，System1指的是快速、自动、直觉且不费力的模式，System2则是慢速、刻意、分析性且有意识的模式。
+现有的LLM除了已被证明的“将数据分布映射到不相干低维子空间2的反射式推理能力”(System1)，是否具有一定的“慢速思考”、多步推理和规划能力(System2)?
+Thinking, Fast and Slow&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+White-Box Transformers via Sparse Rate Reduction [pdf]&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+      <content>&lt;h2 id=&#34;system1-vs-system2&#34;&gt;System1 vs System2&lt;/h2&gt;
+&lt;p&gt;System1和System2的划分来源于心理学家Daniel Kahneman的理论&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;，描述了思考的两种模式，System1指的是快速、自动、直觉且不费力的模式，System2则是慢速、刻意、分析性且有意识的模式。&lt;/p&gt;
+&lt;p&gt;现有的LLM除了已被证明的“将数据分布映射到不相干低维子空间&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;的反射式推理能力”(System1)，是否具有一定的“慢速思考”、多步推理和规划能力(System2)?&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;Thinking, Fast and Slow&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;White-Box Transformers via Sparse Rate Reduction &lt;a href=&#34;https://arxiv.org/pdf/2306.01129.pdf&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
     <item>
       <title>Computational Consciousness</title>
       <link>https://cmbbq.github.io/posts/computational-conciousness/</link>
@@ -634,16 +661,6 @@ PGC和UGC的差别主要是信噪比，毕竟录音的时候连手机都不能�
 &lt;p&gt;有了频谱图，就可以尝试从较长的数据中提炼出简短的信息作为这段音频的指纹了。在频谱图上可以逐帧找到各帧上显著的高能频率点（salient peaks，能量超过一定阈值，且比周围所有点都高）——这些点本身已经可以作为音频的指纹特征了，只是不够鲁棒，因为点与点之间是无关的，满屏都是噪点的情况下就会有误匹配。一个改进方案是这些点右侧划定一个目标区域，在区域内找出一些点，形成几个pair，这些pair叫做landmark特征，即[t1, f1, t2, f2]，其抗噪能力增强了很多。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/spec4.png&#34; alt=&#34;sp&#34;&gt;&lt;/p&gt;
 </content>
-    </item>
-    
-    <item>
-      <title>Order Emerges from Self-Assembly of Dissipative Structures</title>
-      <link>https://cmbbq.github.io/posts/on-order/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/on-order/</guid>
-      <description></description>
-      <content></content>
     </item>
     
   </channel>

@@ -2,11 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cmbbq.github.io/tags/ai/</loc>
-    <lastmod>2023-11-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://cmbbq.github.io/</loc>
-    <lastmod>2023-11-13T00:00:00+00:00</lastmod>
+    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/posts/</loc>
+    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/tags/sys/</loc>
+    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/tags/</loc>
+    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/posts/wipthe-little-book-review-no-bullshit-deep-learning-101wip/</loc>
+    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/tags/ai/</loc>
+    <lastmod>2023-11-19T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</loc>
+    <lastmod>2023-11-19T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/computational-conciousness/</loc>
     <lastmod>2023-11-13T00:00:00+00:00</lastmod>
@@ -14,16 +29,7 @@
     <loc>https://cmbbq.github.io/tags/philosophy/</loc>
     <lastmod>2023-11-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://cmbbq.github.io/posts/</loc>
-    <lastmod>2023-11-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/tags/</loc>
-    <lastmod>2023-11-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://cmbbq.github.io/posts/local-llm/</loc>
-    <lastmod>2023-11-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/tags/sys/</loc>
     <lastmod>2023-11-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/efficient-anns-at-scale/</loc>
@@ -76,7 +82,7 @@
   </url><url>
     <loc>https://cmbbq.github.io/categories/</loc>
   </url><url>
-    <loc>https://cmbbq.github.io/posts/on-order/</loc>
+    <loc>https://cmbbq.github.io/posts/wipon-order/</loc>
   </url><url>
     <loc>https://cmbbq.github.io/tags/physics/</loc>
   </url>
