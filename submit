@@ -1,5 +1,5 @@
-rm img/green.png
-cp img/fav.png img/green.png
+rm img/favicon/green.png
+cp img/favicon/fav.png img/favicon/green.png
 git add .
 git commit -m "."
 git push
