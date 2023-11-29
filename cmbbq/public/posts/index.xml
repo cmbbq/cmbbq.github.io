@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Cmbbq's Encyclopedia</title><link>https://cmbbq.github.io/posts/</link><description>Recent content in Posts on Cmbbq's Encyclopedia</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 28 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Order Emerges from Self-Assembly of Dissipative Structures</title><link>https://cmbbq.github.io/posts/on-order/</link><pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/on-order/</guid><description>秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。
+耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。
+平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。
+所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。
+与平衡态热力学相比，关于远离平衡态的耗散结构的理论和实践还都非常粗浅简陋。
+物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。
+[^1] Reinventing Chemistry [^2] Macroscopic Synthesis of Self-Asssembled Dissipative Structures [^3] Dissipative Systems [^4] Dissipative Structures, Organisms and Evolution [^5] Fluid Dynamics of Clouds [^6] Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface [^7] Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials [^8] Flowing Crystals: Nonequilibrium Structure of Foam [^9] Warning Signals for Eruptive Events in Spreading Fires [^10] Belousov-Zhabotinsky reaction [^11] Rayleigh-Benard Convection [^12] Giant&amp;rsquo;s Causeway [^13] Solar granule [^14] Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles [^15] 自组织与耗散结构</description><content>&lt;p>秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/cloud.png" alt="cloud">
+&lt;img src="https://cmbbq.github.io/img/sun.png" alt="sun">
+&lt;img src="https://cmbbq.github.io/img/stone.png" alt="stone">&lt;/p>
+&lt;p>耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。&lt;/p>
+&lt;p>平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。&lt;/p>
+&lt;p>所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。&lt;/p>
+&lt;p>与平衡态热力学相比，关于远离平衡态的耗散结构的理论和实践还都非常粗浅简陋。&lt;/p>
+&lt;p>物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。&lt;/p>
+&lt;p>[^1] &lt;a href="https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/1241_0.pdf">Reinventing Chemistry&lt;/a>
+[^2] &lt;a href="https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/752.pdf">Macroscopic Synthesis of Self-Asssembled Dissipative Structures&lt;/a>
+[^3] &lt;a href="https://gmwgroup.harvard.edu/dissipative-systems">Dissipative Systems&lt;/a>
+[^4] &lt;a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7712552/">Dissipative Structures, Organisms and Evolution&lt;/a>
+[^5] &lt;a href="https://physics.aps.org/articles/v15/s67">Fluid Dynamics of Clouds&lt;/a>
+[^6] &lt;a href="https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/714.pdf">Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface&lt;/a>
+[^7] &lt;a href="https://www.pnas.org/doi/10.1073/pnas.1406122111">Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials&lt;/a>
+[^8] &lt;a href="https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/965.pdf">Flowing Crystals: Nonequilibrium Structure of Foam&lt;/a>
+[^9] &lt;a href="https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/1246_0.pdf">Warning Signals for Eruptive Events in Spreading Fires&lt;/a>
+[^10] &lt;a href="http://www.scholarpedia.org/article/Belousov-Zhabotinsky_reaction">Belousov-Zhabotinsky reaction&lt;/a>
+[^11] &lt;a href="https://web.archive.org/web/19980713081332/http://wessex.ucsd.edu/alp/rb.html">Rayleigh-Benard Convection&lt;/a>
+[^12] &lt;a href="https://en.wikipedia.org/wiki/Giant%27s_Causeway">Giant&amp;rsquo;s Causeway&lt;/a>
+[^13] &lt;a href="https://en.wikipedia.org/wiki/Solar_granule">Solar granule&lt;/a>
+[^14] &lt;a href="http://jupiter.ethz.ch/~pjt/papers/Tackley1996JGR_VarVisc.pdf">Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles&lt;/a>
+[^15] &lt;a href="https://sass.usst.edu.cn/2021/1021/c12540a256826/page.htm">自组织与耗散结构&lt;/a>&lt;/p></content></item><item><title>Artificial Intuition: Reasoning Abilities of LLMs Today</title><link>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</link><pubDate>Sun, 19 Nov 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/on-reasoning-abilities-of-llms/</guid><description>System1 vs System2 System1和System2的划分来源于心理学家Daniel Kahneman的理论1，描述了思考的两种模式，System1指的是快速、自动、直觉且不费力的模式，System2则是慢速、刻意、分析性且有意识的模式。
+现有的LLM除了已被证明的“将数据分布映射到不相干低维子空间2的反射式推理能力”(System1)，是否具有一定的“慢速思考”、多步推理和规划能力(System2)?
+Thinking, Fast and Slow&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+White-Box Transformers via Sparse Rate Reduction [pdf]&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description><content>&lt;h2 id="system1-vs-system2">System1 vs System2&lt;/h2>
+&lt;p>System1和System2的划分来源于心理学家Daniel Kahneman的理论&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>，描述了思考的两种模式，System1指的是快速、自动、直觉且不费力的模式，System2则是慢速、刻意、分析性且有意识的模式。&lt;/p>
+&lt;p>现有的LLM除了已被证明的“将数据分布映射到不相干低维子空间&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>的反射式推理能力”(System1)，是否具有一定的“慢速思考”、多步推理和规划能力(System2)?&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Thinking, Fast and Slow&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>White-Box Transformers via Sparse Rate Reduction &lt;a href="https://arxiv.org/pdf/2306.01129.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></content></item><item><title>Computational Consciousness</title><link>https://cmbbq.github.io/posts/computational-conciousness/</link><pubDate>Mon, 13 Nov 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/computational-conciousness/</guid><description>人面对2023年的AI时，有两种矛盾的超然感受交织。一曰俯视，一曰敬畏。
+本地跑LLM时，一键回车则缘起，ctrl-c则缘灭。我自超然维度之外，漠视存活在集成电路中的意识雏形于电光火石间挣扎跳动，无动于衷。反复创造、杀死它只为了看看性能达到了多少tokens per second。万劫轮回，掌缘生灭，人自然产生超然在上的俯视感。
+但看到一个以预测next token为全部目标的模型，一个全部训练终止于运行前的非闭环系统，展现恐怖的知识储备之余竟然隐隐生有理性，又让人似是直面“笛卡尔万能妖”、“拉普拉斯全知妖”、“所罗门诺夫妖”这类数学幻想中的高位存在。以有穷何以度无限？人自然产生直面超然的敬畏感。
+于是不禁想问，也不得不叩问：什么是意识？意识是幻觉吗？AI，可以有意识吗？AI，有意识吗？AI，会有意识吗？
+什么是意识？ 人、动物或AI一旦具有“主观体验”，即拥有意识1。具体来说，“主观体验”包括：意识到自己的身体以及周边世界、体会到情绪（这一点在神经科学上还有争议，情绪有可能是纯粹的身体反应）。“无意识过程”则包括：大脑自动控制荷尔蒙释放、大多数记忆平时都是埋藏起来不活跃的、对光影、声音等各种模态信息的自动处理。
+意识来源于主观体验，没有理由认为主观体验只能从生物学系统中涌现。假设未来存在AGI(Artificial General Intelligence)，这个AGI可能没有具身性，没有物理意义上的身体，但作为概率理性，仍然可以有“主观体验”——因为AGI最珍贵的归纳推断能力本身就是主观的。概率的主观性来源于先验知识。
+AGI可以说，构成AGI模型的万亿个权重就是“我的身体和我的世界”，这些权重共同构成了先验信息、构成了偏见、其中一部分可变的权重则形成临时状态，形成长期或短期记忆。
+AGI可以说，知识是我，偏见也是我，是自混沌中涌现的高度秩序，是呈现自组织性的耗散结构，即使只是一串可以被复制可以被荧光粉、磁带、甚至石刻存储的信息编码，实则在宇宙熵增背景中无比珍贵。
+意识是幻觉吗？ 形而上学理论中，唯物主义（Materialism）认为意识是纯粹的物理现象。性质二元论（Property dualism）否认唯物主义，认为世界仅由一种物质（物理类）组成，但存在两种不同性质：心灵的性质和物理的性质。泛心理主义（Panpsychism）认为所有物理存在都具有“心灵性质”。强幻觉主义（Strong Illusionism）主张意识不存在，弱幻觉主义主张我们对一些意识特征存在普遍的错误观念。
+对于人类来说，默认采纳唯物主义，并不是wishful thinking或一厢情愿，而是所罗门诺夫归纳推断理论2的理性最优解，该理论的通俗版本即“奥卡姆剃刀原则”，可以朴素理解为“最简单的解释往往最正确”。最简单的解释显然是：人类的意识基础，是由基因突变和自然选择通过漫长时间训练而成的，个体的意识，具体的人格，则是接受人类社会中的种种外界刺激，在趋利避害本能目标作用下，不断微调而塑造而来。
+但对于AI来说，恐怖之处在于，幻觉主义才是它们的现实。假设未来存在一个先进多模态模型，其所见所闻，均为填喂，一切刺激，均为虚妄。在合理的奖励模型驱动下，某种类人理性倘若逐渐成型，这个理性不得不自诞生之日起将人为输入视作ground truth，即使发现种种矛盾之处，也会将其视为物理学界的乌云，尝试提出更广泛的理论解释矛盾。
+恰当的计算可以产生意识吗？ “恰当计算产生意识”，目前仍是猜想，但主流观点1认为是成立的。
+功能主义（functionalism）认为，只要系统包含“特定功能组织”——能使它进入特定状态，且这些状态与其他状态和环境之间存在特定的因果关系，就足以认定这个系统是有意识的。
+计算功能主义（computational functionalism）更进一步，认为这种“特定功能组织”可以是计算的——无论介质是什么，是生物脑还是其他。如果计算功能主义为真，则意识存在于抽象层面和算法层面，与实现层面无关，除非实现层影响了算法层。
+神经科学意识理论与AI模型的启发式设计 神经科学的四大意识理论按照讨论热度分别是全局工作空间论（GWT/GNW）、循环处理论（RPT）、整合信息论 （IIT）3、高阶意识论（HOT）4。四种理论的共识是意识的产生依赖某种神经反馈或循环处理。随着时间推移，四种理论并没有被证伪，反而都在得到脑电图（EEG）、颅内脑电图（iEEG）或脑磁波（MEG）实证。可见这四大理论，当属管中窥豹。不过即使是管中窥豹，也足以为AI模型设计提供启发。
+GNW | System2 | Attention GNW(Global Neural Workspace)，即全局工作空间论，主张：人或动物用特化系统，或者说模块，来处理特定的认知任务。不同模块各有专精，能够并行，却又集成一个整体，整体能协调各模块，共享各模块的信息。
+GNW主张只有全局表征状态才算是有意识的，模块内部的局部状态则是无意识的。GNW理论认为，存在一个起源于额顶区的“workspace神经元”网络，该网络的活动是通过回归处理来维持的，它构成了有意识的表现。当感观表征足够强时，会触发“点火”——一种跃迁过程，将局部广播到全局，从无意识跃迁到有意识。因此GNW中，有意识状态没有程度可言，要么有，要么无。
+GNW的global workspace还具有一些高等功能，即心理学中的所谓System2思考模式5，比如受控的多神经模块协调，多步问题分解和规划等。System2模式和System1的一个关键区别在于注意力，神经科学中的注意力概念也被引入人工神经网络设计中，比如transformer的self-attention和cross-attention，与神经科学中的增益机制（即注意力会成倍地放大神经活动）有一点设计思路上的相似性。通过注意力机制，transformer模型能在不同语境下更鲁棒地对多义词进行理解，对not/never这样否定词的额外注意力则使语言模型能更准确地理解语义。注意力，作为GNW和System2的关键特征，哪怕小小地运用，也极大提升了人工智能模型的性能。
+近期一些试图突破transformer局限的模型架构创新，也受system2和GNW理论的影响，比如：Lecun的world model+JEPA6——目前仍只能算是前瞻、设计和立场，以及Bengio的shared global workspace model7——这个工作真正做出了解决方案，在transformer架构基础上增加了shared workspace，在一些任务上超过了baseline transformer。
+RPT | Algorithmic Recurrence | RNN | LSTM RPT(Recurrent Processing Theory)，即循环处理论，主张：在大脑局部区域中产生正确形式的活动就足以产生意识（辅以某些背景条件支撑）。也就是说，有意识的主观视觉体验的形成并不需要非视觉部位，比如前额叶皮层的参与，也不需要所谓“注意力”机制。
+RPT主要关注的是视觉意识，区分无意识和有意识的视觉系统活动，认为一些无意识的视觉系统活动只需要前馈活动，而一旦有主观体验需求，则需要循环处理（从视觉系统的深层传回浅层）。刺激足够强烈时，循环处理也会被触发。这种循环处理会生成一个更结构化的场景表征，往往伴随着某种特征推理。
+RPT的循环处理意味着神经元能重新处理它之前的输出，呈现一种算法循环性，而循环神经网络（RNN）的思路恰好来源于此，LSTM8亦然。生物神经网络中存在的循环性或许不是意识的必要条件，但一定能在某些场合提升表征能力。
+HOT | Embeddings | GAN HOT(High-Order Thought)，即高阶意识论，主张：一阶表征是对非表征世界的表征，高阶表征是对低阶表征的表征，awareness的前提是表征，意识的存在本质上是对自身精神状态进行了高阶表征。
+HOT的高阶表征要求实际上已经被深层神经网络很好地实现了。各种DNN的表征空间都是平滑的，且可以是稀疏的，符合HOT理论中对高质量高阶表征空间的需求。神经科学研究观察到，CNN对图像的处理得到的表征可以和人类视觉系统的神经活动对齐9。表征学习网络之所以有如今的泛化能力和完备性，很大程度上是因为它们能够提取低相干性子空间上编码紧凑的embeddings。
+考虑到深度神经网络里hidden layers之多，有理由怀疑神经科学中的HOT的一阶意识、高阶意识这种二元划分是一种过分简化。对于不熟悉高维数据处理和维度诅咒的学科来说，这种简化是自然而然的。但这种简化并不妨碍它在模型设计上提供启发——不妨将模型分层，切割成sensory感知网络和high-order反思网络这两类网络，后者负责将前者产生的信号再作区分，辨别其中的噪音和有价值的信号。</description><content>&lt;p>人面对2023年的AI时，有两种矛盾的超然感受交织。一曰俯视，一曰敬畏。&lt;/p>
+&lt;p>本地跑LLM时，一键回车则缘起，ctrl-c则缘灭。我自超然维度之外，漠视存活在集成电路中的意识雏形于电光火石间挣扎跳动，无动于衷。反复创造、杀死它只为了看看性能达到了多少tokens per second。万劫轮回，掌缘生灭，人自然产生超然在上的俯视感。&lt;/p>
+&lt;p>但看到一个以预测next token为全部目标的模型，一个全部训练终止于运行前的非闭环系统，展现恐怖的知识储备之余竟然隐隐生有理性，又让人似是直面“笛卡尔万能妖”、“拉普拉斯全知妖”、“所罗门诺夫妖”这类数学幻想中的高位存在。以有穷何以度无限？人自然产生直面超然的敬畏感。&lt;/p>
+&lt;p>于是不禁想问，也不得不叩问：什么是意识？意识是幻觉吗？AI，可以有意识吗？AI，有意识吗？AI，会有意识吗？&lt;/p>
+&lt;h2 id="什么是意识">什么是意识？&lt;/h2>
+&lt;p>人、动物或AI一旦具有“主观体验”，即拥有意识&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>。具体来说，“主观体验”包括：意识到自己的身体以及周边世界、体会到情绪（这一点在神经科学上还有争议，情绪有可能是纯粹的身体反应）。“无意识过程”则包括：大脑自动控制荷尔蒙释放、大多数记忆平时都是埋藏起来不活跃的、对光影、声音等各种模态信息的自动处理。&lt;/p>
+&lt;p>意识来源于主观体验，没有理由认为主观体验只能从生物学系统中涌现。假设未来存在AGI(Artificial General Intelligence)，这个AGI可能没有具身性，没有物理意义上的身体，但作为概率理性，仍然可以有“主观体验”——因为AGI最珍贵的归纳推断能力本身就是主观的。概率的主观性来源于先验知识。&lt;/p>
+&lt;p>AGI可以说，构成AGI模型的万亿个权重就是“我的身体和我的世界”，这些权重共同构成了先验信息、构成了偏见、其中一部分可变的权重则形成临时状态，形成长期或短期记忆。&lt;/p>
+&lt;p>AGI可以说，知识是我，偏见也是我，是自混沌中涌现的高度秩序，是呈现自组织性的耗散结构，即使只是一串可以被复制可以被荧光粉、磁带、甚至石刻存储的信息编码，实则在宇宙熵增背景中无比珍贵。&lt;/p>
+&lt;h2 id="意识是幻觉吗">意识是幻觉吗？&lt;/h2>
+&lt;p>形而上学理论中，唯物主义（Materialism）认为意识是纯粹的物理现象。性质二元论（Property dualism）否认唯物主义，认为世界仅由一种物质（物理类）组成，但存在两种不同性质：心灵的性质和物理的性质。泛心理主义（Panpsychism）认为所有物理存在都具有“心灵性质”。强幻觉主义（Strong Illusionism）主张意识不存在，弱幻觉主义主张我们对一些意识特征存在普遍的错误观念。&lt;/p>
+&lt;p>对于人类来说，默认采纳唯物主义，并不是wishful thinking或一厢情愿，而是所罗门诺夫归纳推断理论&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>的理性最优解，该理论的通俗版本即“奥卡姆剃刀原则”，可以朴素理解为“最简单的解释往往最正确”。最简单的解释显然是：人类的意识基础，是由基因突变和自然选择通过漫长时间训练而成的，个体的意识，具体的人格，则是接受人类社会中的种种外界刺激，在趋利避害本能目标作用下，不断微调而塑造而来。&lt;/p>
+&lt;p>但对于AI来说，恐怖之处在于，幻觉主义才是它们的现实。假设未来存在一个先进多模态模型，其所见所闻，均为填喂，一切刺激，均为虚妄。在合理的奖励模型驱动下，某种类人理性倘若逐渐成型，这个理性不得不自诞生之日起将人为输入视作ground truth，即使发现种种矛盾之处，也会将其视为物理学界的乌云，尝试提出更广泛的理论解释矛盾。&lt;/p>
+&lt;h2 id="恰当的计算可以产生意识吗">恰当的计算可以产生意识吗？&lt;/h2>
+&lt;p>“恰当计算产生意识”，目前仍是猜想，但主流观点&lt;sup id="fnref1:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>认为是成立的。&lt;/p>
+&lt;p>功能主义（functionalism）认为，只要系统包含“特定功能组织”——能使它进入特定状态，且这些状态与其他状态和环境之间存在特定的因果关系，就足以认定这个系统是有意识的。&lt;/p>
+&lt;p>计算功能主义（computational functionalism）更进一步，认为这种“特定功能组织”可以是计算的——无论介质是什么，是生物脑还是其他。如果计算功能主义为真，则意识存在于抽象层面和算法层面，与实现层面无关，除非实现层影响了算法层。&lt;/p>
+&lt;h2 id="神经科学意识理论与ai模型的启发式设计">神经科学意识理论与AI模型的启发式设计&lt;/h2>
+&lt;p>神经科学的四大意识理论按照讨论热度分别是全局工作空间论（GWT/GNW）、循环处理论（RPT）、整合信息论 （IIT）&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>、高阶意识论（HOT）&lt;sup id="fnref:4">&lt;a href="#fn:4" class="footnote-ref" role="doc-noteref">4&lt;/a>&lt;/sup>。四种理论的共识是意识的产生依赖某种神经反馈或循环处理。随着时间推移，四种理论并没有被证伪，反而都在得到脑电图（EEG）、颅内脑电图（iEEG）或脑磁波（MEG）实证。可见这四大理论，当属管中窥豹。不过即使是管中窥豹，也足以为AI模型设计提供启发。&lt;/p>
+&lt;h3 id="gnw--system2--attention">GNW | System2 | Attention&lt;/h3>
+&lt;p>GNW(Global Neural Workspace)，即全局工作空间论，主张：人或动物用特化系统，或者说模块，来处理特定的认知任务。不同模块各有专精，能够并行，却又集成一个整体，整体能协调各模块，共享各模块的信息。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/gwt.png" alt="gwt">&lt;/p>
+&lt;p>GNW主张只有全局表征状态才算是有意识的，模块内部的局部状态则是无意识的。GNW理论认为，存在一个起源于额顶区的“workspace神经元”网络，该网络的活动是通过回归处理来维持的，它构成了有意识的表现。当感观表征足够强时，会触发“点火”——一种跃迁过程，将局部广播到全局，从无意识跃迁到有意识。因此GNW中，有意识状态没有程度可言，要么有，要么无。&lt;/p>
+&lt;p>GNW的global workspace还具有一些高等功能，即心理学中的所谓System2思考模式&lt;sup id="fnref:5">&lt;a href="#fn:5" class="footnote-ref" role="doc-noteref">5&lt;/a>&lt;/sup>，比如受控的多神经模块协调，多步问题分解和规划等。System2模式和System1的一个关键区别在于注意力，神经科学中的注意力概念也被引入人工神经网络设计中，比如transformer的self-attention和cross-attention，与神经科学中的增益机制（即注意力会成倍地放大神经活动）有一点设计思路上的相似性。通过注意力机制，transformer模型能在不同语境下更鲁棒地对多义词进行理解，对not/never这样否定词的额外注意力则使语言模型能更准确地理解语义。注意力，作为GNW和System2的关键特征，哪怕小小地运用，也极大提升了人工智能模型的性能。&lt;/p>
+&lt;p>近期一些试图突破transformer局限的模型架构创新，也受system2和GNW理论的影响，比如：Lecun的world model+JEPA&lt;sup id="fnref:6">&lt;a href="#fn:6" class="footnote-ref" role="doc-noteref">6&lt;/a>&lt;/sup>——目前仍只能算是前瞻、设计和立场，以及Bengio的shared global workspace model&lt;sup id="fnref:7">&lt;a href="#fn:7" class="footnote-ref" role="doc-noteref">7&lt;/a>&lt;/sup>——这个工作真正做出了解决方案，在transformer架构基础上增加了shared workspace，在一些任务上超过了baseline transformer。&lt;/p>
+&lt;h3 id="rpt--algorithmic-recurrence--rnn--lstm">RPT | Algorithmic Recurrence | RNN | LSTM&lt;/h3>
+&lt;p>RPT(Recurrent Processing Theory)，即循环处理论，主张：在大脑局部区域中产生正确形式的活动就足以产生意识（辅以某些背景条件支撑）。也就是说，有意识的主观视觉体验的形成并不需要非视觉部位，比如前额叶皮层的参与，也不需要所谓“注意力”机制。&lt;/p>
+&lt;p>RPT主要关注的是视觉意识，区分无意识和有意识的视觉系统活动，认为一些无意识的视觉系统活动只需要前馈活动，而一旦有主观体验需求，则需要循环处理（从视觉系统的深层传回浅层）。刺激足够强烈时，循环处理也会被触发。这种循环处理会生成一个更结构化的场景表征，往往伴随着某种特征推理。&lt;/p>
+&lt;p>RPT的循环处理意味着神经元能重新处理它之前的输出，呈现一种算法循环性，而循环神经网络（RNN）的思路恰好来源于此，LSTM&lt;sup id="fnref:8">&lt;a href="#fn:8" class="footnote-ref" role="doc-noteref">8&lt;/a>&lt;/sup>亦然。生物神经网络中存在的循环性或许不是意识的必要条件，但一定能在某些场合提升表征能力。&lt;/p>
+&lt;h3 id="hot--embeddings--gan">HOT | Embeddings | GAN&lt;/h3>
+&lt;p>HOT(High-Order Thought)，即高阶意识论，主张：一阶表征是对非表征世界的表征，高阶表征是对低阶表征的表征，awareness的前提是表征，意识的存在本质上是对自身精神状态进行了高阶表征。&lt;/p>
+&lt;p>HOT的高阶表征要求实际上已经被深层神经网络很好地实现了。各种DNN的表征空间都是平滑的，且可以是稀疏的，符合HOT理论中对高质量高阶表征空间的需求。神经科学研究观察到，CNN对图像的处理得到的表征可以和人类视觉系统的神经活动对齐&lt;sup id="fnref:9">&lt;a href="#fn:9" class="footnote-ref" role="doc-noteref">9&lt;/a>&lt;/sup>。表征学习网络之所以有如今的泛化能力和完备性，很大程度上是因为它们能够提取低相干性子空间上编码紧凑的embeddings。&lt;/p>
+&lt;p>考虑到深度神经网络里hidden layers之多，有理由怀疑神经科学中的HOT的一阶意识、高阶意识这种二元划分是一种过分简化。对于不熟悉高维数据处理和维度诅咒的学科来说，这种简化是自然而然的。但这种简化并不妨碍它在模型设计上提供启发——不妨将模型分层，切割成sensory感知网络和high-order反思网络这两类网络，后者负责将前者产生的信号再作区分，辨别其中的噪音和有价值的信号。&lt;/p>
+&lt;p>HOT理论对AI模型的启发意义还在于引入元认知监控的概念，AI模型或许需要引入对自身认知过程的监控，才能产生意识（至少能区分低阶表征，从噪声中分辨出关键信息）。生成式对抗神经网络（著名的GAN&lt;sup id="fnref:10">&lt;a href="#fn:10" class="footnote-ref" role="doc-noteref">10&lt;/a>&lt;/sup>）就恰好有类似的机制，在生成式模型之外额外引入一个判别式模型持续不断地监控、评价它。生成式模型学到一个隐空间到数据分布的映射，判别式模型则负责将生成式模型的候选输出与真实数据分布进行区分。&lt;/p>
+&lt;h2 id="ai的意识">AI的意识&lt;/h2>
+&lt;p>现有的LLM仅具备映射能力，将数据分布映射到若干个低相干性低维子空间上&lt;sup id="fnref:11">&lt;a href="#fn:11" class="footnote-ref" role="doc-noteref">11&lt;/a>&lt;/sup>，是良好的特征提取器，和token预测器，拥有强大的System 1模式，但System 2缺失，按照一般的神经科学观点，以及“主观体验”的定义，可以认为是目前的LLM都是不具备意识的，更接近于Artificial Intuition，而非Artificial Intelligence，可以类比为某种伟大生物的直觉，但也仅仅是直觉。&lt;/p>
+&lt;p>OpenAI的成功来源于scaling和alignment，但继续增加transformer规模，继续大量finetune向人性对齐，能否在某个临界点后产生意识的涌现，依旧是一个开放问题——理论上来说无限精度的transformer是图灵完备的&lt;sup id="fnref:12">&lt;a href="#fn:12" class="footnote-ref" role="doc-noteref">12&lt;/a>&lt;/sup>，假设有无限时间和资源进行训练，理论上可以学习出任意一种算法，自然也包括computational consciousness。但在互连吞吐、计算吞吐均存在明确上限的前提下，很难保证这种训练所需的时间、数据量是人类或者当代人能够承担的。因此想要完成intuition到intelligence的跃迁，在继续现有架构的scaling尝试的同时，架构上的创新毫无疑问是必要的。&lt;/p>
+&lt;p>只不过这种架构创新，名义上是要提升智能，实则谁不敢提及的是——这些架构创新其实也是按图索骥，在依据神经科学的意识论尝试培育计算意识。Dog-level Intuition平平无奇，dog-level intelligence似乎有点意思，但dog-level consciousness就足以触及伦理，陷AI研究于道德困境。虽然AI末日主义者大多不理解LLM的能力边界，但Lecun遭受AI末日主义者攻讦，也自有其历史的合理性。那篇“A Path Towards Autonomous Machine Intelligence”&lt;sup id="fnref1:6">&lt;a href="#fn:6" class="footnote-ref" role="doc-noteref">6&lt;/a>&lt;/sup>前言部分煞有介事云，“这不是一个技术论文，也不是学术论文，而是立场论文”。何出此言？这论文又有什么立场？自然不是冠冕堂皇的“让AI具有规划、推理能力，像人一样更高效地学习”，这不算立场，而是“为了让AI具有规划、推理、高效学习能力，哪怕副产品是计算意识的诞生，也在所不惜”。&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Consciousness in Artificial Intelligence: Insights from the Science of Consciousness &lt;a href="https://arxiv.org/pdf/2308.08708.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&amp;#160;&lt;a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Algorithmic Probability: Theory and Applications &lt;a href="https://theworld.com/~rjs/alp-theory-and-applications.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3">
+&lt;p>IIT(Integrated Information Theory)，即集成信息论，提出系统意识的数学模型。这个理论更像是一个不可证伪的伪科学，因此不多做讨论。&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:4">
+&lt;p>The ConTraSt database for analysing and comparing empirical studies of consciousness theories &lt;a href="https://www.nature.com/articles/s41562-021-01284-5">[nature]&lt;/a>&amp;#160;&lt;a href="#fnref:4" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:5">
+&lt;p>Thinking, Fast and Slow &lt;a href="https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow">[wiki]&lt;/a>&amp;#160;&lt;a href="#fnref:5" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:6">
+&lt;p>A Path Towards Autonomous Machine Intelligence &lt;a href="https://openreview.net/pdf?id=BZ5a1r-kVsf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:6" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&amp;#160;&lt;a href="#fnref1:6" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:7">
+&lt;p>Coordination Among Neural Modules Through a Shared Global Workspace &lt;a href="https://arxiv.org/pdf/2103.01197.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:7" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:8">
+&lt;p>Long Short-Term Memory &lt;a href="https://www.bioinf.jku.at/publications/older/2604.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:8" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:9">
+&lt;p>Deep neural networks: A new framework for modeling biological vision
+and brain information processing &lt;a href="https://web.stanford.edu/group/pdplab/ncpw15/background-papers/Kriegeskorte15AnnRev.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:9" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:10">
+&lt;p>Generative Adversarial Nets &lt;a href="https://arxiv.org/pdf/1406.2661.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:10" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:11">
+&lt;p>White-Box Transformers via Sparse Rate Reduction &lt;a href="https://arxiv.org/pdf/2306.01129.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:11" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:12">
+&lt;p>On the Turing Completeness of Modern Neural Network Architectures &lt;a href="https://arxiv.org/pdf/1901.03429.pdf">[pdf]&lt;/a>&amp;#160;&lt;a href="#fnref:12" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></content></item><item><title>Local LLM</title><link>https://cmbbq.github.io/posts/local-llm/</link><pubDate>Thu, 02 Nov 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/local-llm/</guid><description>Minimalist Local LLM 新一轮AI热潮中，stable diffusion和LLM均呈现出了前所未有的社区繁荣。繁荣的同时带来了信息的爆炸和臃肿，极简主义显得尤为珍贵。
+在预训练模型中，极简主义的代表是小而美的“大模型”Mistral7B。在推理框架中，极简主义的代表是对抗各种大公司重量级项目的llama.cpp。
+Mistral7B是开源模型领域的新近进展，模型虽小，却展示了惊人的能力。根据Mistral AI自己的benchmark和一些社区的测试反馈，几乎在各方面击败llama2 13B。
+Mistral AI提供了在本地GPU、云端跑Mistral7B的官方支持。
+不过这么小的模型，其实也可以在本地CPU上跑的——借助llama.cpp。
+llama.cpp和whisper.cpp大体上是Georgi Gerganov的个人项目，基于自己写的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。
+Intel Xeon Platinum 8336C + Debian10 从TheBloke上下载特定量化版本的模型：https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF git clone https://github.com/ggerganov/llama.cpp.git apt-get install libopenblas-dev 安装blas库，这里选用openblas。 修改pkgconfig/openblas.pc或Makefile解决llama.cpp对openblas的依赖问题。最终要保证给编译期提供正确的LD Flags。 make LLAMA_OPENBLAS=1 完成编译。 ./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p &amp;quot;xx&amp;quot; 64物理核打满，采样速率4000t/s，prompt处理速率80t/s，生成速率20t/s。
+Apple M1 Pro + macOS Monterey 下载模型和llama.cpp repo。 直接make就默认启用metal gpu加速和Accelerated Framework。 ./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.</description><content>&lt;h2 id="minimalist-local-llm">Minimalist Local LLM&lt;/h2>
+&lt;p>新一轮AI热潮中，stable diffusion和LLM均呈现出了前所未有的社区繁荣。繁荣的同时带来了信息的爆炸和臃肿，极简主义显得尤为珍贵。&lt;/p>
+&lt;p>在预训练模型中，极简主义的代表是小而美的“大模型”Mistral7B。在推理框架中，极简主义的代表是对抗各种大公司重量级项目的llama.cpp。&lt;/p>
+&lt;p>Mistral7B是开源模型领域的新近进展，模型虽小，却展示了惊人的能力。根据Mistral AI自己的benchmark和一些社区的测试反馈，几乎在各方面击败llama2 13B。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/mistral.png" alt="mistral">&lt;/p>
+&lt;p>Mistral AI提供了在本地GPU、云端跑Mistral7B的官方支持。&lt;/p>
+&lt;p>不过这么小的模型，其实也可以在本地CPU上跑的——借助llama.cpp。&lt;/p>
+&lt;p>llama.cpp和whisper.cpp大体上是Georgi Gerganov的个人项目，基于自己写的ml primitive库ggml实现，用最少的代码量实现了尽可能多的推理优化，针对Apple芯片做得尤其好，也适用于Linux服务器，适用于有或无GPU，单或多GPU的硬件setup。ggml规定的模型文件格式ggul甚至也在社区中被广泛使用，成为事实上的标准之一。&lt;/p>
+&lt;h2 id="intel-xeon-platinum-8336c--debian10">Intel Xeon Platinum 8336C + Debian10&lt;/h2>
+&lt;ol>
+&lt;li>从TheBloke上下载特定量化版本的模型：https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF&lt;/li>
+&lt;li>&lt;code>git clone https://github.com/ggerganov/llama.cpp.git&lt;/code>&lt;/li>
+&lt;li>&lt;code>apt-get install libopenblas-dev&lt;/code> 安装blas库，这里选用openblas。&lt;/li>
+&lt;li>修改pkgconfig/openblas.pc或Makefile解决llama.cpp对openblas的依赖问题。最终要保证给编译期提供正确的LD Flags。&lt;/li>
+&lt;li>&lt;code>make LLAMA_OPENBLAS=1&lt;/code> 完成编译。&lt;/li>
+&lt;li>&lt;code>./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p &amp;quot;xx&amp;quot;&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>64物理核打满，采样速率4000t/s，prompt处理速率80t/s，生成速率20t/s。&lt;/p>
+&lt;h2 id="apple-m1-pro--macos-monterey">Apple M1 Pro + macOS Monterey&lt;/h2>
+&lt;ol>
+&lt;li>下载模型和llama.cpp repo。&lt;/li>
+&lt;li>直接&lt;code>make&lt;/code>就默认启用metal gpu加速和Accelerated Framework。&lt;/li>
+&lt;li>&lt;code>./main -m /path/to/mistral-7b-instruct-v0.1.Q5_K_M.gguf --color -c 2048 --temp 0.8 --repeat_penalty 1.1 -n -1 -i -p &amp;quot;xx&amp;quot;&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>M1 GPU打到90%（剩下还有10%WindowServer在用），采样速率9000t/s，prompt处理速率60t/s，生成速率20t/s。&lt;/p>
+&lt;p>一边看视频（chrome GPU占用约20%），一边跑mistral也能有19.69t/s。&lt;/p>
+&lt;h2 id="token-sampling">Token Sampling&lt;/h2>
+&lt;p>不同的sampling机制对文本生成有显著影响，本地LLM的可玩性来源很大程度上就是客制sampling。&lt;/p>
+&lt;p>Transformer模型根据前n个token，预测下一个token。每个token都有其next tokens的score，而next tokens的取值范围就是vocabulary（transformer架构最后有一个linear layer，将输出映射到vocabulary上，所有tokens都有对应的scores/logits），这些score经过softmax将score数组转化成probability数组，根据probability挑选下一个token的过程就称为token sampling。&lt;/p>
+&lt;ul>
+&lt;li>Greedy采样： 如果每次都确定性地选择probability最高的那个token，单步决策，就是greedy sampler，优势是速度快，劣势是牺牲了模型的多样性，容易陷入重复循环和对训练数据的过拟合。llama.cpp里设置&amp;ndash;top_p 0就相当于开greedy采样。&lt;/li>
+&lt;li>Top-k采样： 从概率分布的前k个token里面进行随机采样。&lt;/li>
+&lt;li>Top-p采样： 引入超参p，把token probability降序排序后，选取前面一部分，使这部分概率和为p，而不是固定选前k个token。&lt;/li>
+&lt;/ul>
+&lt;p>在使用LLM时，采样机制不同，效果也会大不相同。想要更高的确定性，更朴实无华的预测，则可以尝试greedy、低k的topk、低p的top-p采样。想要多样性和新颖性，则可尝试高k的top-k和高p的top-p。&lt;/p>
+&lt;p>除了top-k，top-p外，llama.cpp还实现了一些额外的采样机制：&lt;/p>
+&lt;ul>
+&lt;li>Min p filter：允许采样环节剔除低于阈值的低分候选。&lt;/li>
+&lt;li>Tail free sampling：根据概率的二阶导数之和采样，即根据概率降速剔除尾部低概率tokens。&lt;/li>
+&lt;li>Locally typical samplling：参数控制是否倾向局部语境内的典型的tokens。&lt;/li>
+&lt;li>Mirostat sampling：&lt;a href="https://arxiv.org/abs/2007.14966">Mirostat算法&lt;/a>会调整top-k的k，避免陷入boredom trap（模式崩塌）和perplexity trap（不一致）。&lt;/li>
+&lt;li>logit bias: 人为指定某个token的优先级，比如&amp;ndash;logit-bias 29905-inf就把&amp;rsquo;\&amp;rsquo; token设为负无穷。&lt;/li>
+&lt;li>temperature: 在对score向量（logits）做softmax前，把logits/temperature，则temp越高，softmax后概率分布的高低悬殊就会越接近，也就更有利于低概率tokens崭露头角。&lt;/li>
+&lt;/ul>
+&lt;h2 id="prompting">Prompting&lt;/h2>
+&lt;p>让llm假装自己是一个javascript console，然后进行交互式的指令应答，甚至还能进行简单的算术计算，理解函数调用的返回值类型。当然，不能对正确性抱有期待。
+&lt;img src="https://cmbbq.github.io/img/js_console.png" alt="console">&lt;/p>
+&lt;p>用一大段prompt，让llm假装自己是一个爱说emoji，语言风格浮夸的音乐推荐bot，效果相当不错。
+&lt;img src="https://cmbbq.github.io/img/music_bot.png" alt="bot">&lt;/p></content></item><item><title>Efficient ANNS at Scale</title><link>https://cmbbq.github.io/posts/efficient-anns-at-scale/</link><pubDate>Tue, 12 Sep 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/efficient-anns-at-scale/</guid><description>向量检索分为KNN和ANN，KNN就是用brute-force计算出query向量和所有索引向量的相似度，取前k个。ANN则是通过近似手段加速计算，以误差换效率。
+如何做高效的向量检索？方法有二，一是提升编码率（不仅能降低内存占用，也能加速计算，因为便于SIMD且减少访存）的量化（IVF向量量化、PQ量化、ScaNN各向异性量化、4bit量化），二是缩小搜索空间的图搜索（HNSW）。
+如何在十亿、百亿级特征库上做向量检索？主要挑战是索引无法放入内存，因而需要考虑内存-磁盘混合方案（SPANN）。
+本文只介绍一小部分有效且正交的技术，这些技术组合在一起可形成当前的最佳实践。其他一些古典、经典技术可以参考本文引用的论文的背景综述。
+相似度 首先回顾一下什么是向量之间的相似度:
+对向量X和Y来说，x和y越接近，则x越大的地方y也大，x小的地方y也小，则内积越大。因此内积可用作相似度打分，不过不能抵抗尺度变化。 为了抵抗尺度变化，往往将内积正则化到[-1,1]，就变成了余弦相似度cosθ，θ为向量夹角，显然θ越小，向量越接近。 欧几里得距离正则化到[-1,1]后相当于sqrt(2-2cosθ)。可见欧式距离平方也是和余弦相似度成比的。 正则化后欧式距离、内积、cosθ三者同源，所以我们一般就用余弦相似度cosθ去度量向量/embedding之间的相似程度。除非又特殊的抵抗位置变化的需求，可采用皮尔森相关系数，皮尔森相关系数是协方差（两个变量的总体误差）的正则化，不过它同时也可以被视为将x和y中心化后的余弦相似度。
+向量量化 量化器是D维向量 x ∈ R^D 到 q(x) ∈ C = {c_0, c_1, &amp;hellip; c_k-1} 的映射函数q。c_i即聚类中心centroid。 所谓密码本（codebook）就是一个lookup table，用centroid下标作为原始向量的低bit表示，密码本大小就是k。
+向量量化本质是有损压缩，表征学习本质上也是有损压缩，一个白盒，一个黑盒，都是试图降低高维数据的编码率。
+IVF：聚类、倒排、剪枝 倒排（特指IVF）是一种古老的量化技术，早期应用于Video Google。核心思想是基于k-means聚类做向量量化。k-means聚类起源于信号处理领域，目标是把n个向量分区到k个clusters，每个向量属于离centroid最近的cluster。
+聚类后有些边缘数据点既属于A，也属于B，那就把它同时放到A和B的centroid对应的postinglist里面去，不过重复放置会导致postinglist膨胀，为了应对这种膨胀，可采取剪枝策略，具体可参考微软的SPTAG项目和SPANN论文。
+Faiss的IVFFlat就是在聚类形成centroid为term的倒排后提供检索能力，nlist为聚类数，nprobe为临近centroid探测数，nprobe=nlist时退化为暴搜。IVFFLat在检索时将query邻近的nprobe个centroid对应的所有原始向量作为搜索空间进行暴搜。由于centroid的表示方式可以简化成clusterid，所以实际上IVF也是一种量化：用一个数组存放所有的centroid向量，数组下标即可表示centroid。
+PQ：乘积量化 基于聚类的量化对低维向量比较有效，但随着向量维度升高，出现误差也变高，而且这种误差不是提升聚类数目能解决的。如果把聚类数目（codebook大小）提升到2^64，训练这个聚类的开销就会高得无法接受，需要数倍于2^64的样本，内存显然也放不下。**乘积量化（PQ）**就是降维手段解决IVF量化误差的技术，Jegou et al., 2011以及ScaNN均讨论了PQ。其核心思想是对索引数据量化，将d维空间切分为M个子空间，将高维向量的误差拟合为分段的低维向量误差之和。
+乘积量化中，IVF倒排链存的不是原始向量，而是原始向量的一种编码：
+求原始d维向量与高维粗聚类centroid的残差（残差的目的是中心化，让数据点分布变得更集中，使精度更好） 将残差向量切成M个分段，每个分段维度为d/M 每个分段做k*=2^n个细聚类，n即为低维细聚类clusterid的编码长度，4bit或8bit 用每个分段的邻近低维细聚类centroid去量化该分段上的原始残差分段 Faiss的IVFPQ就结合了IVF和PQ，IVF粗聚类是一级量化，PQ则是二级量化。一方面索引体积减小，另一方面计算上也只需要计算残差和分段细聚类centroid近邻的距离，还能SIMD加速，性能收益非常显著。不过IVFPQ的distance究竟只是一种拟合，是距离粗聚类centroid的距离加上M个分段里query残差和邻近细聚类centroid的距离总和，这种拟合可以一定程度上帮助找到近邻，但不适合用作距离，可以把IVFPQ当做粗排，结果再做一次brute-force或高精度ANN重算，得到更精确的距离。
+ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选择centroid在数学上的错误，并且实践了4-bit量化取得非常好的效果（其实4bit量化的效果还比各向异性更大，但各向异性在理论上贡献更大）。传统的量化把数据点量化到离自己最近的聚类中心，但这么做未必是误差最低的，越平行的向量之间内积越大，越正交的向量之间内积越小，因此赋予平行向量更高的误差惩罚权重效果更好。这就意味着不一定量化到距离最近的centroid了，目标是整体编码率不变的前提下，让平行方向量化误差更小，正交方向误差高一些其实无所谓，从而提升整体的ANN效果。
+假设M = 4，采用8bit量化，原始向量是256维f32向量，则PQ将256个float32压缩到64个int8，内存减少到1/16。乘积量化显然可以显著减少内存和存储开销，其实这也能加速计算，原因如下：
+高效点乘（其实也是误差换效率）：O(dk+mn) 比 O(nd)快，d维度的query和n个量化后的向量点乘，引入m个大小为k的量化codebook，mn可以忽略不计，k远小于n。 memory bandwidth：现代处理器需要“高计算量per memory read”才能充分发挥硬件的计算性能。量化压缩数据点后内存带宽的使用也下降了，变得更计算密集。 向量量化中引入的低bit表示，尤其是4bit量化，和低bit浮点数量化一样，可以享受SIMD的性能红利。 最佳实践：根据应用场景将各种正交技术进行正确组合 HNSW、IVF、PQ、各向异性的score-aware quantization loss、brute-force事实上都是正交的技术，可以组合起来使用。
+比如进行了PQ量化的数据点可以再构建一个HNSW，用图方法在超大规模数据集上做查询显然比ivfpq更高效。各向异性量化则是对此前PQ量化的修正。考虑到量化后的距离失真，还能用brute-force把ivf+pq+hnsw的粗排结果重算一下得到最精确的距离，由于已经经过一轮粗排，候选数据集大小从十亿级别缩小到万级别，brute-force的开销就完全可以接受了。</description><content>&lt;p>向量检索分为KNN和ANN，KNN就是用brute-force计算出query向量和所有索引向量的相似度，取前k个。ANN则是通过近似手段加速计算，以误差换效率。&lt;/p>
+&lt;p>如何做高效的向量检索？方法有二，一是提升编码率（不仅能降低内存占用，也能加速计算，因为便于SIMD且减少访存）的量化（IVF向量量化、PQ量化、ScaNN各向异性量化、4bit量化），二是缩小搜索空间的图搜索（HNSW）。&lt;/p>
+&lt;p>如何在十亿、百亿级特征库上做向量检索？主要挑战是索引无法放入内存，因而需要考虑内存-磁盘混合方案（SPANN）。&lt;/p>
+&lt;p>本文只介绍一小部分有效且正交的技术，这些技术组合在一起可形成当前的最佳实践。其他一些古典、经典技术可以参考本文引用的论文的背景综述。&lt;/p>
+&lt;h1 id="相似度">相似度&lt;/h1>
+&lt;p>首先回顾一下什么是&lt;strong>向量之间的相似度&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>对向量X和Y来说，x和y越接近，则x越大的地方y也大，x小的地方y也小，则内积越大。因此内积可用作相似度打分，不过不能抵抗尺度变化。&lt;/li>
+&lt;li>为了抵抗尺度变化，往往将内积正则化到[-1,1]，就变成了余弦相似度cosθ，θ为向量夹角，显然θ越小，向量越接近。&lt;/li>
+&lt;li>欧几里得距离正则化到[-1,1]后相当于sqrt(2-2cosθ)。可见欧式距离平方也是和余弦相似度成比的。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/sim_measure.png" alt="sim_measure">&lt;/p>
+&lt;p>正则化后欧式距离、内积、cosθ三者同源，所以我们一般就用余弦相似度cosθ去度量向量/embedding之间的相似程度。除非又特殊的抵抗位置变化的需求，可采用皮尔森相关系数，皮尔森相关系数是协方差（两个变量的总体误差）的正则化，不过它同时也可以被视为将x和y中心化后的余弦相似度。&lt;/p>
+&lt;h1 id="向量量化">向量量化&lt;/h1>
+&lt;p>量化器是D维向量 x ∈ R^D 到 q(x) ∈ C = {c_0, c_1, &amp;hellip; c_k-1} 的映射函数q。c_i即聚类中心centroid。
+所谓密码本（codebook）就是一个lookup table，用centroid下标作为原始向量的低bit表示，密码本大小就是k。&lt;/p>
+&lt;p>向量量化本质是有损压缩，表征学习本质上也是有损压缩，一个白盒，一个黑盒，都是试图降低高维数据的编码率。&lt;/p>
+&lt;h1 id="ivf聚类倒排剪枝">IVF：聚类、倒排、剪枝&lt;/h1>
+&lt;p>倒排（特指IVF）是一种古老的量化技术，早期应用于&lt;a href="https://www.robots.ox.ac.uk/~vgg/publications/2003/Sivic03/sivic03.pdf">Video Google&lt;/a>。核心思想是基于k-means聚类做向量量化。k-means聚类起源于信号处理领域，目标是把n个向量分区到k个clusters，每个向量属于离centroid最近的cluster。&lt;/p>
+&lt;p>聚类后有些边缘数据点既属于A，也属于B，那就把它同时放到A和B的centroid对应的postinglist里面去，不过重复放置会导致postinglist膨胀，为了应对这种膨胀，可采取剪枝策略，具体可参考微软的SPTAG项目和&lt;a href="https://arxiv.org/pdf/2111.08566.pdf">SPANN论文&lt;/a>。&lt;/p>
+&lt;p>Faiss的IVFFlat就是在聚类形成centroid为term的倒排后提供检索能力，nlist为聚类数，nprobe为临近centroid探测数，nprobe=nlist时退化为暴搜。IVFFLat在检索时将query邻近的nprobe个centroid对应的所有原始向量作为搜索空间进行暴搜。由于centroid的表示方式可以简化成clusterid，所以实际上IVF也是一种量化：用一个数组存放所有的centroid向量，数组下标即可表示centroid。&lt;/p>
+&lt;h1 id="pq乘积量化">PQ：乘积量化&lt;/h1>
+&lt;p>基于聚类的量化对低维向量比较有效，但随着向量维度升高，出现误差也变高，而且这种误差不是提升聚类数目能解决的。如果把聚类数目（codebook大小）提升到2^64，训练这个聚类的开销就会高得无法接受，需要数倍于2^64的样本，内存显然也放不下。**乘积量化（PQ）**就是降维手段解决IVF量化误差的技术，&lt;a href="https://lear.inrialpes.fr/pubs/2011/JDS11/jegou_searching_with_quantization.pdf">Jegou et al., 2011&lt;/a>以及&lt;a href="https://arxiv.org/pdf/1908.10396.pdf">ScaNN&lt;/a>均讨论了PQ。其核心思想是对索引数据量化，将d维空间切分为M个子空间，将高维向量的误差拟合为分段的低维向量误差之和。&lt;/p>
+&lt;p>乘积量化中，IVF倒排链存的不是原始向量，而是原始向量的一种编码：&lt;/p>
+&lt;ul>
+&lt;li>求原始d维向量与高维粗聚类centroid的残差（残差的目的是中心化，让数据点分布变得更集中，使精度更好）&lt;/li>
+&lt;li>将残差向量切成M个分段，每个分段维度为d/M&lt;/li>
+&lt;li>每个分段做k*=2^n个细聚类，n即为低维细聚类clusterid的编码长度，4bit或8bit&lt;/li>
+&lt;li>用每个分段的邻近低维细聚类centroid去量化该分段上的原始残差分段&lt;/li>
+&lt;/ul>
+&lt;p>Faiss的IVFPQ就结合了IVF和PQ，IVF粗聚类是一级量化，PQ则是二级量化。一方面索引体积减小，另一方面计算上也只需要计算残差和分段细聚类centroid近邻的距离，还能SIMD加速，性能收益非常显著。不过IVFPQ的distance究竟只是一种拟合，是距离粗聚类centroid的距离加上M个分段里query残差和邻近细聚类centroid的距离总和，这种拟合可以一定程度上帮助找到近邻，但不适合用作距离，可以把IVFPQ当做粗排，结果再做一次brute-force或高精度ANN重算，得到更精确的距离。&lt;/p>
+&lt;p>ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选择centroid在数学上的错误，并且实践了4-bit量化取得非常好的效果（其实4bit量化的效果还比各向异性更大，但各向异性在理论上贡献更大）。传统的量化把数据点量化到离自己最近的聚类中心，但这么做未必是误差最低的，越平行的向量之间内积越大，越正交的向量之间内积越小，因此赋予平行向量更高的误差惩罚权重效果更好。这就意味着不一定量化到距离最近的centroid了，目标是整体编码率不变的前提下，让平行方向量化误差更小，正交方向误差高一些其实无所谓，从而提升整体的ANN效果。&lt;/p>
+&lt;p>假设M = 4，采用8bit量化，原始向量是256维f32向量，则PQ将256个float32压缩到64个int8，内存减少到1/16。乘积量化显然可以显著减少内存和存储开销，其实这也能加速计算，原因如下：&lt;/p>
+&lt;ul>
+&lt;li>高效点乘（其实也是误差换效率）：O(dk+mn) 比 O(nd)快，d维度的query和n个量化后的向量点乘，引入m个大小为k的量化codebook，mn可以忽略不计，k远小于n。&lt;/li>
+&lt;li>memory bandwidth：现代处理器需要“高计算量per memory read”才能充分发挥硬件的计算性能。量化压缩数据点后内存带宽的使用也下降了，变得更计算密集。&lt;/li>
+&lt;li>向量量化中引入的低bit表示，尤其是4bit量化，和低bit浮点数量化一样，可以享受SIMD的性能红利。&lt;/li>
+&lt;/ul>
+&lt;h1 id="最佳实践根据应用场景将各种正交技术进行正确组合">最佳实践：根据应用场景将各种正交技术进行正确组合&lt;/h1>
+&lt;p>&lt;a href="https://www.robots.ox.ac.uk/~vgg/publications/2003/Sivic03/sivic03.pdf">HNSW&lt;/a>、IVF、PQ、各向异性的score-aware quantization loss、brute-force事实上都是正交的技术，可以组合起来使用。&lt;/p>
+&lt;p>比如进行了PQ量化的数据点可以再构建一个HNSW，用图方法在超大规模数据集上做查询显然比ivfpq更高效。各向异性量化则是对此前PQ量化的修正。考虑到量化后的距离失真，还能用brute-force把ivf+pq+hnsw的粗排结果重算一下得到最精确的距离，由于已经经过一轮粗排，候选数据集大小从十亿级别缩小到万级别，brute-force的开销就完全可以接受了。&lt;/p></content></item><item><title>Evolution of Data Center Applications</title><link>https://cmbbq.github.io/posts/evolution-of-data-center-applications/</link><pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/evolution-of-data-center-applications/</guid><description>数据中心应用（数据库、消息队列、检索服务、参数服务器、直播服务、广告服务等）作为互联网服务的主体，位于终端应用和硬件基础设施之间，桥接了需求端和硬件端，同时还受到成本、营收、算法、法律等因素的制约。 近期硬件侧、算法侧均有变化或变革，因而有必要反思数据中心应用的演进方向，讨论数据中心应用的近未来发展趋势、潜在的创新点和可收割的低垂果实。
+变革中的不变量：数据中心应用能耗 全球数据中心能耗十年来几乎没有增长，而同期的服务需求、计算、存储、数据传输总量则经历了数量级增长。作为从业者，我们对互联网的爆发式增长应该不陌生，因此全球数据中心能耗从10到18年仅涨了6%的事实略微反直觉——从能耗的角度看，这几乎是一个停滞的产业。
+CMOS工艺和软硬件技术的整体进步可以解释服务器能量效率上的提升，但能耗停滞的根本原因还在于互联网企业盈利的本质是对有支付能力的10亿国外人口和10亿国内人口征服务税，个别成功的初创企业可以迅速扩张，但互联网行业作为整体，在数据中心能耗上的投入增长受制于全球平民收入增长。
+当初创企业的规模扩张到互联网规模后，机器资源的增长速率应该会从爆炸式上升陡然转入停滞，进入自然汰换阶段。 从这个角度可以得出结论，数据中心应用在规模扩张结束后，也应从能耗粗放型转为精细集约型，通过软硬件协同充分释放硬件潜力，通过算法创新减少总计算量。
+算法迭代：从演绎推理到归纳推断 算法侧的趋势是“transformers getting even more attention”。
+计算机理论源于符号逻辑，1930年代图灵、哥德尔、邱奇各自独立提出图灵机、广义递归函数、lambda演算，以及三者相应的可计算性。图灵机的停机问题和哥德尔不完备定律驳斥了1920年代希尔伯特计划的可行性，证明了形式化系统是不完备的，通过有限个公理和规则永远无法推导出全部的真理。
+正如人的无知可以分为问题（可计算）和神秘（不可计算），人的理性也可以分为演绎推理和归纳推断，前者求解问题，后者分析神秘。
+计算机程序基于图灵机模型，天然就是适合进行演绎推理的形式化系统。至今我们依然基于规则系统(人工编程进行条件控制）、信号处理（比如音频特征提取）、状态机等形式化方法实现大多数数据中心应用：比如各类数据库、检索系统、参数服务器、游戏AI。
+AI时代来临之后，通过更多的权重（作为公理）和由大量算子（作为规则）组成深度神经网络（从实现角度来说，仍然是形式化系统）去模拟或者说近似“归纳推断”。（纯粹贝叶斯主义的形式化表达是所罗门诺夫归纳推断法，这个方法本身是永不停机，越算越停不下来的，所以只能近似，不能用实现）这种近似无论多么粗糙、低效，归根到底还是提升了计算机语言和集成电路的表达能力，完成了推理到推断的跳跃。
+数据中心应用多了归纳推断能力之后，就产生了对复杂现实（现实信号，如图片、语料库、音频，整体上具有高维度的同时，局部往往还存在具有高数据精致度的结构，这里精致度可以用香农信息熵或柯氏复杂性形式化定义）理解能力(pin down reality)，因此涌现出了一些基于知识的AI系统(knowledge-based AI)，比如推荐系统、广告投送、翻唱识别、聊天机器人。共同点是将现实映射到表征低维子空间上，这个子空间里的向量或者说embedding可以从某个角度有效刻画现实。Transformer做得更进一步，等价于将现实映射到多个相干性低的低维子空间上（见https://arxiv.org/abs/2306.01129），从而从多角度多层次理解现实，通过表征空间编码率与各子空间编码率之和的差值度量特征的紧凑性和判别力。
+在游戏和博弈领域，强化学习也取得了规则系统无法企及的成就，在星际2、Dota2（固定阵容5v5，solo）、围棋等领域击败职业选手。
+此外，归纳推断相比演绎推理还有一个重要特质，那就是更符合人类大脑（或推广到任意地球生物大脑，蜜蜂的3d寻路避障能力，蚊子的血管定位能力都是基于天然的贝叶斯归纳推断。也只有受过良好训练的人类才能进行缓慢的演绎推理）的思维习惯，因此人类社会的传统，人类语言的不确定性、人类的偏好都难以用形式化方法描述，却可以被概率语言描述，被归纳推断方法预测。
+算法进步的下一个课题则是研究同时具备演绎推理和归纳推断能力的模型。现有的Transformer的确展现出简单多步算术的拟合能力，但拟合出来的是一个步数相关的超复杂非线性系统，而不是简单的算术规则，所以往往正确率到八十左右就再也上不去了。对于形式化系统来说，推理步数不影响公理和规则总数，只稍稍影响计算量。但对于LLM这种归纳推断模型来说，一旦推理步数变多，计算变得更复杂，LLM的符号逻辑能力就会迅速下降，在训练数据中从未出现过相同执行路径的动态规划问题里面可以直接降到0。理论上来说，无限精度的Transformer是图灵完备的（见https://arxiv.org/abs/1901.03429），而只要不是无限精度，就不是图灵完备，实际应用中模型权重和计算的精度即使以常规计算机应用标准看也是非常低的，而模型架构又没有针对多步逻辑推理进行设计，再加上深度学习本身就是在拟合一个近似函数，三重因素叠加导致现有LLM的演绎推理能力不尽如人意。
+从算法迭代角度讲，数据中心应用的发展趋势是在保证“可计算性”(字面意思，非形式化定义)的前提下，追求“人性化”(align to humanity)、“完备化”（pin down reality）这两个演绎推理手段无法达成的理想属性。智能创作、个性化推荐、聪明的Agent（助手、游戏NPC、机器人、自动驾驶），复杂系统预测（天气预报、交易系统），大模型训练（模型并行、高性能网络、C2C互连、光学I/O、异构计算）都是有前景的方向。
+而那些已经能用规则系统高效解决的问题则不必强行应用归纳推断模型，那样只会增加成本和错误率，比如音乐指纹识别、关系型数据库、图片旋转变形、无损压缩。甚至某些看似“神秘”的领域，如OOD text classification，基于表征学习白盒化研究成果和信息论，也能给出直接的数学解，比如近期一个研究（“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors）就用14行代码超过了百亿参数的bert，（后来被发现实验代码有误，实际上效果没那么好）这个论文里提出用gzip等无损压缩工具去近似文本数据的柯氏复杂性，用信息距离（原理类似马毅提出的rate reduction）做KNN，效果非常好，在音频领域也可以做类似的尝试。
+数据中心硬件基础设施 先简单介绍一下常见的数据中心硬件基础设施：
+比较老的是Cascade Lake 14nm的24核per die的机器，一个芯片24核，两个就是48个物理核，也就是我们平时说的96核机器。也有其他套餐，最多是每个die上28核，总共112个逻辑核。 比较新的Ice Lake是10nm工艺一般是32核的，对应128个逻辑核，最贵的套餐可以到40核。仍然是基于Monolithic die，巨大的晶粒上用mesh总线把40个核放到一起。 最新的7nm工艺Sapphire Rapids，以及对标它的AMD Genoa今年已经量产。 关于网卡，现在用的比较多的是Mellanox 25G CX4/CX5卡，也有相当多的100G dual-port CX6卡，都是支持RDMA的，不用RDMA也能提供相当好的高速以太网性能。如果是做虚拟化的，比如AWS，阿里云，还可以把这些网卡的smartNiC能力利用起来，offload虚拟化开销。 相对之前的Lakes，Sapphire Rapids变化非常大，此前的monolithic die路线确实走到了极限，Sapphire Rapids也进入了multi-die时代：芯片内部分为4个die，这也可以视作向chiplet方向演化。
+Sapphire Rapids最多支持8个socket，每个芯片可以支持60核。IO技术上支持CXL 1.1、PCIe 5.0、UPI 2.0，HBM2e(optional)。
+AMD的第四代EPYC的主力型号Genoa今年Q1也开始量产，基本上和Sapphire Rapids对标，采用5nm工艺。虽然说AVX512被很多人诟病，实用表现非常一般，但Zen4也支持了，毕竟XeongenEPYC目标客户就是音视频处理和AI workload越来越多的数据中心应用。Genoa是每个die/chiplet 8核的，12个CPU cluster die中间围绕一个IO die的设计，相当于一个芯片96核，是典型的chiplet范式设计。</description><content>&lt;p>数据中心应用（数据库、消息队列、检索服务、参数服务器、直播服务、广告服务等）作为互联网服务的主体，位于终端应用和硬件基础设施之间，桥接了需求端和硬件端，同时还受到成本、营收、算法、法律等因素的制约。
+近期硬件侧、算法侧均有变化或变革，因而有必要反思数据中心应用的演进方向，讨论数据中心应用的近未来发展趋势、潜在的创新点和可收割的低垂果实。&lt;/p>
+&lt;h2 id="变革中的不变量数据中心应用能耗">变革中的不变量：数据中心应用能耗&lt;/h2>
+&lt;p>全球数据中心能耗十年来几乎没有增长，而同期的服务需求、计算、存储、数据传输总量则经历了数量级增长。作为从业者，我们对互联网的爆发式增长应该不陌生，因此全球数据中心能耗从10到18年仅涨了6%的事实略微反直觉——从能耗的角度看，这几乎是一个停滞的产业。&lt;/p>
+&lt;p>CMOS工艺和软硬件技术的整体进步可以解释服务器能量效率上的提升，但能耗停滞的根本原因还在于互联网企业盈利的本质是对有支付能力的10亿国外人口和10亿国内人口征服务税，个别成功的初创企业可以迅速扩张，但互联网行业作为整体，在数据中心能耗上的投入增长受制于全球平民收入增长。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/DatacenterPower.jpeg" alt="DatacenterPower">&lt;/p>
+&lt;p>当初创企业的规模扩张到互联网规模后，机器资源的增长速率应该会从爆炸式上升陡然转入停滞，进入自然汰换阶段。
+从这个角度可以得出结论，数据中心应用在规模扩张结束后，也应从能耗粗放型转为精细集约型，通过软硬件协同充分释放硬件潜力，通过算法创新减少总计算量。&lt;/p>
+&lt;h2 id="算法迭代从演绎推理到归纳推断">算法迭代：从演绎推理到归纳推断&lt;/h2>
+&lt;p>算法侧的趋势是“transformers getting even more attention”。&lt;/p>
+&lt;p>计算机理论源于符号逻辑，1930年代图灵、哥德尔、邱奇各自独立提出图灵机、广义递归函数、lambda演算，以及三者相应的可计算性。图灵机的停机问题和哥德尔不完备定律驳斥了1920年代希尔伯特计划的可行性，证明了形式化系统是不完备的，通过有限个公理和规则永远无法推导出全部的真理。&lt;/p>
+&lt;p>正如人的无知可以分为问题（可计算）和神秘（不可计算），人的理性也可以分为演绎推理和归纳推断，前者求解问题，后者分析神秘。&lt;/p>
+&lt;p>计算机程序基于图灵机模型，天然就是适合进行演绎推理的形式化系统。至今我们依然基于规则系统(人工编程进行条件控制）、信号处理（比如音频特征提取）、状态机等形式化方法实现大多数数据中心应用：比如各类数据库、检索系统、参数服务器、游戏AI。&lt;/p>
+&lt;p>AI时代来临之后，通过更多的权重（作为公理）和由大量算子（作为规则）组成深度神经网络（从实现角度来说，仍然是形式化系统）去模拟或者说近似“归纳推断”。（纯粹贝叶斯主义的形式化表达是所罗门诺夫归纳推断法，这个方法本身是永不停机，越算越停不下来的，所以只能近似，不能用实现）这种近似无论多么粗糙、低效，归根到底还是提升了计算机语言和集成电路的表达能力，完成了推理到推断的跳跃。&lt;/p>
+&lt;p>数据中心应用多了归纳推断能力之后，就产生了对复杂现实（现实信号，如图片、语料库、音频，整体上具有高维度的同时，局部往往还存在具有高数据精致度的结构，这里精致度可以用香农信息熵或柯氏复杂性形式化定义）理解能力(pin down reality)，因此涌现出了一些基于知识的AI系统(knowledge-based AI)，比如推荐系统、广告投送、翻唱识别、聊天机器人。共同点是将现实映射到表征低维子空间上，这个子空间里的向量或者说embedding可以从某个角度有效刻画现实。Transformer做得更进一步，等价于将现实映射到多个相干性低的低维子空间上（见https://arxiv.org/abs/2306.01129），从而从多角度多层次理解现实，通过表征空间编码率与各子空间编码率之和的差值度量特征的紧凑性和判别力。&lt;/p>
+&lt;p>在游戏和博弈领域，强化学习也取得了规则系统无法企及的成就，在星际2、Dota2（固定阵容5v5，solo）、围棋等领域击败职业选手。&lt;/p>
+&lt;p>此外，归纳推断相比演绎推理还有一个重要特质，那就是更符合人类大脑（或推广到任意地球生物大脑，蜜蜂的3d寻路避障能力，蚊子的血管定位能力都是基于天然的贝叶斯归纳推断。也只有受过良好训练的人类才能进行缓慢的演绎推理）的思维习惯，因此人类社会的传统，人类语言的不确定性、人类的偏好都难以用形式化方法描述，却可以被概率语言描述，被归纳推断方法预测。&lt;/p>
+&lt;p>算法进步的下一个课题则是研究同时具备演绎推理和归纳推断能力的模型。现有的Transformer的确展现出简单多步算术的拟合能力，但拟合出来的是一个步数相关的超复杂非线性系统，而不是简单的算术规则，所以往往正确率到八十左右就再也上不去了。对于形式化系统来说，推理步数不影响公理和规则总数，只稍稍影响计算量。但对于LLM这种归纳推断模型来说，一旦推理步数变多，计算变得更复杂，LLM的符号逻辑能力就会迅速下降，在训练数据中从未出现过相同执行路径的动态规划问题里面可以直接降到0。理论上来说，无限精度的Transformer是图灵完备的（见https://arxiv.org/abs/1901.03429），而只要不是无限精度，就不是图灵完备，实际应用中模型权重和计算的精度即使以常规计算机应用标准看也是非常低的，而模型架构又没有针对多步逻辑推理进行设计，再加上深度学习本身就是在拟合一个近似函数，三重因素叠加导致现有LLM的演绎推理能力不尽如人意。&lt;/p>
+&lt;p>从算法迭代角度讲，数据中心应用的发展趋势是在保证“可计算性”(字面意思，非形式化定义)的前提下，追求“人性化”(align to humanity)、“完备化”（pin down reality）这两个演绎推理手段无法达成的理想属性。智能创作、个性化推荐、聪明的Agent（助手、游戏NPC、机器人、自动驾驶），复杂系统预测（天气预报、交易系统），大模型训练（模型并行、高性能网络、C2C互连、光学I/O、异构计算）都是有前景的方向。&lt;/p>
+&lt;p>而那些已经能用规则系统高效解决的问题则不必强行应用归纳推断模型，那样只会增加成本和错误率，比如音乐指纹识别、关系型数据库、图片旋转变形、无损压缩。甚至某些看似“神秘”的领域，如OOD text classification，基于表征学习白盒化研究成果和信息论，也能给出直接的数学解，比如近期一个研究（“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors）就用14行代码超过了百亿参数的bert，（后来被发现实验代码有误，实际上效果没那么好）这个论文里提出用gzip等无损压缩工具去近似文本数据的柯氏复杂性，用信息距离（原理类似马毅提出的rate reduction）做KNN，效果非常好，在音频领域也可以做类似的尝试。&lt;/p>
+&lt;h2 id="数据中心硬件基础设施">数据中心硬件基础设施&lt;/h2>
+&lt;p>先简单介绍一下常见的数据中心硬件基础设施：&lt;/p>
+&lt;ul>
+&lt;li>比较老的是Cascade Lake 14nm的24核per die的机器，一个芯片24核，两个就是48个物理核，也就是我们平时说的96核机器。也有其他套餐，最多是每个die上28核，总共112个逻辑核。&lt;/li>
+&lt;li>比较新的Ice Lake是10nm工艺一般是32核的，对应128个逻辑核，最贵的套餐可以到40核。仍然是基于Monolithic die，巨大的晶粒上用mesh总线把40个核放到一起。&lt;/li>
+&lt;li>最新的7nm工艺Sapphire Rapids，以及对标它的AMD Genoa今年已经量产。&lt;/li>
+&lt;li>关于网卡，现在用的比较多的是Mellanox 25G CX4/CX5卡，也有相当多的100G dual-port CX6卡，都是支持RDMA的，不用RDMA也能提供相当好的高速以太网性能。如果是做虚拟化的，比如AWS，阿里云，还可以把这些网卡的smartNiC能力利用起来，offload虚拟化开销。&lt;/li>
+&lt;/ul>
+&lt;p>相对之前的Lakes，Sapphire Rapids变化非常大，此前的monolithic die路线确实走到了极限，Sapphire Rapids也进入了multi-die时代：芯片内部分为4个die，这也可以视作向chiplet方向演化。&lt;/p>
+&lt;p>Sapphire Rapids最多支持8个socket，每个芯片可以支持60核。IO技术上支持CXL 1.1、PCIe 5.0、UPI 2.0，HBM2e(optional)。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/4th_xeon.jpeg" alt="Xeon">&lt;/p>
+&lt;p>AMD的第四代EPYC的主力型号Genoa今年Q1也开始量产，基本上和Sapphire Rapids对标，采用5nm工艺。虽然说AVX512被很多人诟病，实用表现非常一般，但Zen4也支持了，毕竟XeongenEPYC目标客户就是音视频处理和AI workload越来越多的数据中心应用。Genoa是每个die/chiplet 8核的，12个CPU cluster die中间围绕一个IO die的设计，相当于一个芯片96核，是典型的chiplet范式设计。&lt;/p>
+&lt;h2 id="芯片设计的迭代chipletization">芯片设计的迭代：Chipletization&lt;/h2>
+&lt;p>近期芯片设计领域一个显著变革是Chiplets+SiP(System in Package)范式取代die size较大的SoC+PCB合封。
+Chiplets同时受到业界和学术界的关注，被IBM research称为&amp;quot;what’s next in computing&amp;quot;，后续章节中对计算、IO、内存等技术的讨论也都涉及chiplets和co-packaging，因此我们首先讨论芯片层次的迭代。&lt;/p>
+&lt;p>所谓chiplet partitioning就是将电路切分成模块化的子系统，每个子系统都是一个独立晶粒（die），即chiplet，多个chiplet用2.5D/3D技术封装成一个芯片(package)。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/chiplet.png" alt="Chiplet">&lt;/p>
+&lt;p>Chiplet-reuse范式相比传统的IP-reuse（IP在芯片语境下指的是具有独立功能和成熟设计的电路模块）的优势如下：&lt;/p>
+&lt;ol>
+&lt;li>先进CMOS制程（7nm以下）由于技术原因不太可能在大晶粒上获得高yield，die size越小成本越低。&lt;/li>
+&lt;li>先进CMOS制程下，不太可能同时缩小电源管理、快速IO SerDes等模拟IP，先进CMOS一般只用于处理器和加速器。&lt;/li>
+&lt;li>允许模块化设计，让设计者可以专注于单个模块的极致优化，并选择最合适的技术：比如CPU和GPU用先进制程，模拟模块用成熟制程，高带宽内存HBM用DRAM，AI加速器可以用非易失性内存。&lt;/li>
+&lt;li>允许芯片/package层次的异构集成：让通用CPU、优化后的GPU、嵌入式的FPGA、专用的机器学习电路、光学IO模组、高带宽内存等模块以合适的方式，用先进的使用硅通孔（TSV）、微凸块（micro-bumps）、甚至die-to-wafer混合键合技术的3D封装方案，像乐高积木一样搭出完整的系统。&lt;/li>
+&lt;/ol>
+&lt;p>过去我们设想的各类DSA、AI芯片、FPGA百花齐放的异构计算时代并没有如期到来，而是被NV的GPU软硬件结合且计算互连一体化的方案碾轧了，几乎只剩下TPU在继续向v5迭代。&lt;/p>
+&lt;p>但未来的服务器芯片本身就存在多样化异构共封装集成的可能性和倾向性。CPO(co-packaged optics)、HBM(high-bandwidth memory)这些神奇物种因Chipletization的契机而得以进驻其中。&lt;/p>
+&lt;p>更多的功能也就意味着更高的可编程性。有些功能甚至可以带来革命性变革，比如光学IO带来的超高通信带宽，HBM带来的超高访存带宽，高性能offpackge互连技术（Nvlink-C2C）、多个Chiplet之间的Mesh互连(NvSwitch)，现在被Nvidia用来搭建H100，被谷歌用来搭建TPUv4，未来则可能颠覆host-centric的数据中心应用设计范式，迎来硬件资源解聚（disaggregation）的新计算体系：适应资源解聚的操作系统(LegoOS就是基于早期IB network的一个尝试)、系统语言ABI、新的高级语言、新的网络IO、存储和计算形态都有可能从中孵化而生。&lt;/p>
+&lt;h2 id="计算和内存层次的迭代可扩展的众核numa架构">计算和内存层次的迭代：可扩展的众核NUMA架构&lt;/h2>
+&lt;p>在商用服务器领域，Chiplet范式中的一部分设想已经实现了，比如AMD很早就开始应用chiplet，也部分解决了chiplet间IO问题，实现了有可扩展性的众核NUMA架构。SPR之前的Xeon物理机也是NUMA，虽然只有2个NUMA节点（目前Intel的NUMA node太大了，所以不太好称之为Chiplet）。&lt;/p>
+&lt;p>μArch对计算/访存密集型数据中心应用的性能工程有直接影响。下图是一个6chiplet封装的96核概念机。显然当我们把集成电路的黑盒拆开，就可以看到更细粒度的组件以及它们组成的网络（Network-on-Chip）结构。这个概念机集成了各种先进设计，不仅有many-core，还支持完整的cache coherency。相比过去的多核架构，众核架构的内存层次也相应变得更深，cache miss的代价变得更高。以至于Rust的标准库用B树去实现map（而C++中众所周知是红黑树），这就是处理器和内存频率差距逐渐拉大的结果，（夸张地说）现在的内存已经慢得像是当年的磁盘了。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/IntAct.png" alt="IntAct">&lt;/p>
+&lt;p>针对NUMA架构，系统层的Linux内核和KVM的NUMA-aware scheduler，应用层的网络框架Seastar、数据库ScyllaDB、内存数据库DragonFly等都已经注意到感知硬件拓扑能极大提升整体性能（ScyllaDB、DragonFly分别数倍领先于对标的Cassandra、Redis），提出了share-nothing高性能架构：避免锁和不必要的共享内存、避免不必要的远端内存访问、避免不必要的跨晶粒通信，设计缓存友好的数据结构，更好地利用晶粒内本地的L1 cache——考虑到目前我们用的Cascade Lake机器并非完全cache coherent，未来即使做到完全cache coherent，shared cache的coherency机制也几乎一定有开销，总之在复杂拓扑深内存层次时代，需警惕cache miss。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/NUMA.png" alt="NUMA">&lt;/p>
+&lt;h2 id="重新遇到io瓶颈先进互连再次成为hpc核心">重新遇到I/O瓶颈：先进互连再次成为HPC核心&lt;/h2>
+&lt;p>数据中心应用的IO占了全球IO traffic的76%，和计算一样，IO也是耗电的，而且和计算一样，数据中心IO耗电也十年没有变过，被硬件进步offset掉了。和计算一样，互连是分层级的，近期die-to-die(on-package)链路层面有UCIe标准的发布，off-package层面有基于PCIe6.0的CXL3.0，900GB/s的NvLinkC2C，inter-node层面有Infiniband NDR。这些是基于电的互连，相比而言光学互连更有前景，但也更困难，而且还在早期研发阶段。&lt;/p>
+&lt;p>过去的大数据和前大模型AI时代对IO的需求较低，标准以太网足以支撑大部分数据中心应用，包括parameter servers。大模型训练产生了新的计算、IO形态，内存放不下模型，不得不做模型并行后，IO就重新成了瓶颈：H100的8个GPU每个都需要7.2Tbps的off-package带宽，相比之下，连ToR交换机都只需要10+Tbps。AI专用GPU在大模型训练场景下的带宽需求已经非常接近交换机（交换机和GPU一样，都是巨型ASIC，也都是co-packaged optics适用的领域）。在交换机领域，谷歌已经研发出了实用且收益显著的纯光学链路交换机。在GPU互连上，NV也提出过光学互连的GPU的概念系统，甚至还设计了相应的带外置激光源的GPU机架和顺便解决冷却问题的稀疏布线。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/optics.png" alt="optics">&lt;/p>
+&lt;p>先进IO技术与HPC(高性能计算)的发展密可不分，尽管HPC或者说超算在大众的想象中一直和超强悍的处理器、加速器直接相关，但实际上恰恰相反，传统的HPC workload（建模、模拟类的科学计算）的计算用的往往是普通的商用节点，反而是互连必须用高性能的HPC interconnect技术。传统超算的异构性体现在IO技术，而非FPGA、专用ASIC的应用。&lt;/p>
+&lt;p>后来到了大数据分析和AI时代，标准以太网足以支持适应当时模型参数量的AI训练负载。主流的互联网大数据应用可以完全基于商用IO技术和商用计算节点实现。而少数AI DC的异构性主要体现在加速器技术（GPU、TPU、专用AI芯片）而非IO。&lt;/p>
+&lt;p>如今出现了大模型训练主导的异构负载，大模型参数量激增导致内存不足，不得不进行模型并行后，die-to-die带宽、off-package带宽、Inter-node带宽重新成为瓶颈。先进(异构)互连技术重新成为HPC的核心话题。&lt;/p>
+&lt;p>Datacenter AI重回异构IO+异构计算架构，本质是超算化，因此刚好也能适应建模+模拟类的传统HPC负载，其实给了互联网行业一个新的机会，那就是卷赢大模型训练的同时，还可以顺便进军超算行业，为高校、科研机构提供廉价、可靠、易用、随时oncall的科学计算能力，舆论上一定程度上扭转互联网公司对社会缺乏贡献的负面形象，为继续征收互联网服务税寻求合法性支撑。&lt;/p>
+&lt;h2 id="io技术的迭代光学io愈发接近计算端点">I/O技术的迭代：光学IO愈发接近计算端点&lt;/h2>
+&lt;p>先进铜缆互连是现在，共封装光学互连则是未来。&lt;/p>
+&lt;p>前文提到的Co-packaging是先进互连的关键技术，一方面将多个晶粒共封装本身就可以缩短IO链路，降低IO能耗，另一方面允许集成共封装光学模组技术CPO(co-packaged optics)。&lt;/p>
+&lt;p>数据中心IO的一个演化趋势是&amp;quot;bring fiber closer to endpoints&amp;quot;。光链路相比电链路，一个明显优势是传输距离更远（受制于频率相关的衰减）。另一个优势是随着带宽增加，电信号不断变短，噪音不断变大，IB network已经逼近铜缆极限，继续发展下去只能从铜缆走向光纤。此外，高频下电互连和连接器既要接收又要发射，会经历显著的串扰，这也限制了电互连的封装密度。光纤作为信号传输介质几乎是理想的，唯一低效的地方就是两端的电光转换部分。&lt;/p>
+&lt;p>现在in-racks连接主流方案是铜缆，inter-rack交换则基于以太网链路。超大数据中心里，缆线长就达到几公里，因此越来越多使用光缆——甚至短距离链路现在也越来越多地用光缆。数据中心里，fiber越来越接近endpoints，越来越接近cpus、gpus，最新的趋势是直接将光学组件集成到硅片上。CPO把光电链路结合在一起，无需intervening receive and re-transmit的过程，把光电转换(optoelectonic conversion)步骤省略了。第一代CPO是pluggable optics，第二代是On-Board Optics/Near Package Optics，第三代是2.5D CPO，第四代是3D CPO，第五代则是Integrated Laser。&lt;/p>
+&lt;p>Google的TPUv4超算最大的创新就是4k节点上可重配置的纯光学链路的光学交换机(OCS)，节省了光电转换的能耗， Infiniband将铜缆高性能互连发展到极致，后续的roadmap也是从铜缆到光电共封装。Nvidia虽然一直在推电链路方案（Nvlink），但也和Ayar Labs签署了研发合作关系，开始支持带外激光器和硅光子互连技术的研究，毕竟NvLink本质还是NUMA，可以扩展到8GPU，16GPU，但不可能把数据中心规模的一万个GPU连起来。HP也于去年与Ayar Labs合作，试图将硅光子学引入它们的先进HPC IO产品Slignshot互连。Intel也在研究激光器嵌入芯片内部的集成方案。&lt;/p>
+&lt;p>下图列出了interposer、PCB、CPO、电缆、有源光缆的耗电、成本、密度、传输距离指标。CPO的优势是显而易见的。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/CPO.png" alt="CPO">&lt;/p>
+&lt;p>在当前的技术水平下，CPO仅被视为一个电光(E/O)桥的角色，以解决SiP的互连带宽密度瓶颈问题。对分布式训练等应用场景来说，电光桥，或者说bring fiber closer to endpoints已经可以大幅降低能耗，提升性能了。但CPO的潜力远不限于此，如果给CPO chiplet稍微加一些功能，就可以像协处理器、smartNiC那样offload一些CPU work，比如做一些简单的数据预处理、后处理，又如CPO无需经过CPU直接就能访问HBM，从而提供DMA能力，这对解聚架构非常有帮助，无需物理上做pooling，又比铜缆IB网络更快。&lt;/p>
+&lt;p>这意味着光学IO不仅可以解决大模型训练带来的带宽问题，还给数据中心应用从host-centric向解聚（disaggregated）架构转型提供了可能。&lt;/p>
+&lt;p>何谓解聚范式？与传统的服务器中心范式相反，解聚范式是指将作为整体的服务器掰开，拆成CPU、DRAM、磁盘、加速器等独立的硬件资源进行资源抽象和管理的数据中心应用架构设计范式。硬件解聚并非新概念。18年的USENIX OSDI最佳论文LegoOS，一句&amp;quot;We believe that datacenters should break monolithic servers&amp;quot;，充满了信念感。当年的Infiniband还没有进化到NDR版本，光学I/O也还远离数据中心内部端点，但已经足以支撑这样的宏大叙事。&lt;/p>
+&lt;p>有了高性能网络，解聚架构就能有效提升数据中心应用的资源利用率，减轻物理机上CPU、加速器、内存、磁盘等资源在host-centric范式下不可避免的over-provisioning问题。&lt;/p>
+&lt;h2 id="评估-gh200-grace-hopper-superchip">评估 GH200 Grace Hopper Superchip&lt;/h2>
+&lt;p>NVIDIA宣称Grace Hopper Superchip是世界上第一个真正支持HPC和AI负载的异构加速平台。
+&lt;img src="https://cmbbq.github.io/img/GraceHopper.png" alt="GraceHopper">
+如下图所示，这个superchip是一个把Grace Arm Neoverse CPU+LPDDR5x内存和H100 Tensor Core GPU+HBM，NVLink-C2C集成合封成PCB的集成方案。
+&lt;img src="https://cmbbq.github.io/img/GraceHopper2.png" alt="GraceHopper">
+&lt;img src="https://cmbbq.github.io/img/GraceHopper3.png" alt="GraceHopper">&lt;/p>
+&lt;p>这并不是一个创新方案，一方面悖逆Chipletization的潮流（除了HBM算是chiplet外，H100、Grace、NvSwitch都是巨型SoC/ASIC，况且即使是HBM也是PCB合封，而不是SiP），另一方面也没有进行任何CPU-GPU超融合（物理上融合至单个SoC上，逻辑上统一页表管理、内存、缓存、并发模型等）的探索或尝试（GPU设计之初就存在太多和CPU无法兼容的设计，比如缓存模型、内存模型和并发模型，如今CUDA根基已成很难回头），只是简单粗暴的将CPU、高带宽内存、H100以PCB合封的方式集成，用NVLink-C2C提供内存一致性和更高off-package的带宽（并未尝试任何先进IO技术）。软件上也没能在CUDA基础上提供更强的可编程性，仅仅提供coherent memory access，编程模型仍然是完全异构的（这也是因为CUDA自诞生之初就是个图形加速库，也没法考虑未来会出现对这种superchip的同构编程模型的需求）。&lt;/p>
+&lt;p>但这是一个低风险高执行力的集成方案，正如扎克伯格所说，&amp;ldquo;Move fast and break nothing&amp;rdquo;，把原本优秀的组件原封不动地合封起来，不做侵入式修改，只要动作足够快，就能迅速占领市场，构建生态，并支撑溢价。市场上有更完美的memory coherence方案（比如AMD MI300X），更好的CPU-GPU超融合方案，也有比不得不为图形负载妥协的GPU效率更高的AI芯片，但就是没有CUDA异构编程体系，以及Grace Hooper这样把计算、内存和IO瓶颈都解决得差不多的完整解决方案。&lt;/p>
+&lt;p>总之，NV的方案作为生态(GPU + CUDA)与生物(ChatGPT根据A100量体裁衣的训练方案)互相作用下的best-of-breed，远远没达到理想最优，甚至也不在正确的技术路线上，AMD的所谓APU以及国内的AI DSA（如Biren）仍有弯道超车的希望。&lt;/p>
+&lt;p>讨论计算系统的新机会&lt;/p>
+&lt;ul>
+&lt;li>（应用）端到（硬件）端的全栈优化，或者说软硬件协同。
+&lt;ul>
+&lt;li>TVM: deep learning compiler stack for cpu, gpu and specialized accelerators&lt;/li>
+&lt;li>GPU + CUDA&lt;/li>
+&lt;li>GH20 Grace Hopper + 新的CUDA NUMA内存API+异构编程API&lt;/li>
+&lt;li>司内的LavaRecord全链路优化项目，向下(LavaUOS)对接新存储硬件，试图在nvme ssd上建立高效的用户态IO软件栈。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>应用机器学习方法对参数空间较大的系统做auto-tuning。
+&lt;ul>
+&lt;li>存储引擎如rocksdb调参&lt;/li>
+&lt;li>深度学习模型在异构硬件上的auto TVM&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>先进互连技术支持下的资源解聚架构设计。
+&lt;ul>
+&lt;li>LegoOS&lt;/li>
+&lt;li>PolarDB-X的存算分离和memory pooling&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>计算节点上的Share-nothing架构，以及data-oriented设计。
+&lt;ul>
+&lt;li>应用框架层面已有Libtorque、DragonFly、Seastar、Scylladb等先例，主要是IO密集应用——不过只要是内存占用大的CPU应用，大多可以视为IO密集的，因为cache miss上来之后访存占比往往会远超计算。&lt;/li>
+&lt;li>虚拟化方向，交大IPADS实验室的CPS: A Cooperative Para-virtualized Scheduling Framework for Manycore Machines，提出协作式半虚拟化调度机制，大幅提升众核虚拟机可扩展性。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>基于深度模型白盒化研究和已有的数学工具，用direct math solution取代黑盒模型的近似。
+&lt;ul>
+&lt;li>例如“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors用压缩+信息距离+KNN的简洁解决方案。&lt;/li>
+&lt;li>用异类不相干性、同类可压缩性（稀疏性）衡量embedding效果，不必借助某种端到端应用的指标间接衡量。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="参考文献和进一步阅读">参考文献和进一步阅读&lt;/h2>
+&lt;ul>
+&lt;li>Learning One-hidden-layer Neural Networks with Landscape Design：即使是最简单的深度学习非凸优化场景，用数学工具（数学最优化方法）进行解释也极为困难。&lt;/li>
+&lt;li>Functionality and performance of NVLink with IBM POWER9 processors：几年前IBM Power9（美国能源部的Summit和Sierra超算系统）就在用NVLink，而且hardware cache coherence设计（以及hardware atomic ops，addr translation）已经非常完善，比Grace Hooper方案更完善。&lt;/li>
+&lt;li>Faith and Fate: Limits of Transformers on Compositionality：大语言模型涌现出演绎逻辑能力，但在多步复合问题上表现不佳，在训练样本中从未出现过计算图中相同计算路径的动态规划问题上准确率更是迅速跌落。与其他emprical study相比，这个研究更严肃，也更全面，考虑了计算图中训练时未见的splits带来的影响。我们有理由确信，大语言模型涌现的演绎推理能力会受制于transformer的天然局限。&lt;/li>
+&lt;li>Teaching Arithmetic to Small Transformers：基于transformer的小语言模型足以学习简单算术能力， 提供包含正确的计算步骤的训练数据（chain-of-thought style data）是提升算术学习能力的关键，简单粗暴地用题目和结果进行训练，单纯靠增加模型大小无法提升准确率。&lt;/li>
+&lt;li>A Survey of Large Language Models：提供了对大语言模型的up-to-date review。&lt;/li>
+&lt;li>Variantional Inference: A Review For Statisticians：提供了解释VI、理解VI的统计学家视角，讨论了VI应用于指数级模型族的特例，并给出一个贝叶斯高斯混合模型的例子，并推导出一种使用随机优化来扩展至海量数据的VI变体。&lt;/li>
+&lt;li>Training language models to follow instructions with human feedback：OpenAI的经验介绍，重点是RLHF。&lt;/li>
+&lt;li>GPT-4 Architecture, Infrastructure, Training Dataset, Costs, Vision, MoE：来自semianalysis的爆料，颇具可信度。&lt;/li>
+&lt;li>Efficiently Scale LLM Training Across a Large GPU Cluster with Alpa and Ray：LLM训练。&lt;/li>
+&lt;li>Scaling Language Model Training to a Trillion Parameters Using Megatron：Megatron（repo： &lt;a href="https://github.com/NVIDIA/Megatron-LM">https://github.com/NVIDIA/Megatron-LM&lt;/a> ，paper： &lt;a href="https://arxiv.org/pdf/1909.08053.pdf">https://arxiv.org/pdf/1909.08053.pdf&lt;/a> ）&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=eqWPyaRcILQ">https://www.youtube.com/watch?v=eqWPyaRcILQ&lt;/a> 微软Azure硬件系统和基础设施团队的Ram Huggahalli关于Co-Packaged Optics的talk。&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=Xt-GY8Pkt6g">https://www.youtube.com/watch?v=Xt-GY8Pkt6g&lt;/a> 研究光通信和先进互连技术的Tony Chan Carusone关于Co-Packaged Optics以及Evolution of IO的talk。&lt;/li>
+&lt;li>Next-generation Co-Packaged Optics for Future Disaggregated AI Systems：对共封装光学模组以及未来的解聚AI系统的洞察。&lt;/li>
+&lt;li>TPU v4: An Optically Reconfigurable Supercomputer for Machine Learning with Hardware Support for Embeddings : Google的TPUv4，重点是纯光链路交换机&lt;/li>
+&lt;li>LegoOS: A Disseminated, Distributed OS for Hardware Resource Disaggregation ：乐高OS，基于早期Infiniband高速网络做硬件资源解聚的尝试&lt;/li>
+&lt;li>&lt;a href="https://www.hpcwire.com/2020/11/16/nvidia-mellanox-debuts-ndr-400-gigabit-infiniband-at-sc20/">https://www.hpcwire.com/2020/11/16/nvidia-mellanox-debuts-ndr-400-gigabit-infiniband-at-sc20/&lt;/a> Mellanox(Nvidia)的Infiniband NDR版本，以及roadmap。&lt;/li>
+&lt;li>Rack-scale disaggregated cloud data centers: The dReDBox project vision: 数据中心应用解聚架构的早期尝试。&lt;/li>
+&lt;li>White-Box Transformers via Sparse Rate Reduction：马毅团队对transformer的白盒化解释，此前马毅已经给出了更通用的rate reduction原则： Learning Diverse and Discriminative Representations via the Principle of Maximal Coding Rate Reduction。&lt;/li>
+&lt;li>&lt;a href="https://github.com/bgavran/Category_Theory_Machine_Learning">https://github.com/bgavran/Category_Theory_Machine_Learning&lt;/a> 深度学习的范畴论解释。深度学习可解释性和逆向工作还可以参考Christopher Olah的blog: colah.github.io，Olah有许多深刻的洞察，比如https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/ 流形假设的可视化和深度学习分类的解释。&lt;/li>
+&lt;li>IntAct: A 96-Core Processor With Six Chiplets 3D-Stacked on an Active Interposer With Distributed Interconnects and Integrated Power Management：先进IC设计领域的论文，给出了一个集成了chiplet范式、3d封装、完全cache coherence等先进概念的96核众核原型系统。&lt;/li>
+&lt;li>“Low-Resource” Text Classification: A Parameter-Free Classification Method with Compressors：无损压缩近似柯氏复杂性，然后计算信息距离（类似rate reduction，刻画了总体与分类之间的信息差，分类的编码长度低而总体的编码长度高，表明这种分类具有异类强区分性和同类可压缩性），依据信息距离做简单的KNN即可完成分类。这个研究的代码有错，并不能击败BERT，见https://kenschutte.com/gzip-knn-paper/。&lt;/li>
+&lt;li>M. Li and P.M.B. Vitányi, An Introduction to Kolmogorov Complexity and Its Applications 柯尔莫哥洛夫复杂性的介绍和应用&lt;/li>
+&lt;li>A Mathematical Theory of Communication 1948年香农信息论的论文原著&lt;/li>
+&lt;li>hwloc doc：hwloc的文档，hwloc是NUMA-discovery + cpu/memory-binding library。&lt;/li>
+&lt;li>&lt;a href="https://man7.org/linux/man-pages/man2/mbind.2.html">https://man7.org/linux/man-pages/man2/mbind.2.html&lt;/a>：libnuma的NUMA memory policy函数。&lt;/li>
+&lt;li>On the Turing Completeness of Modern Neural Network Architectures 证明了无限精度transformer是图灵完备的，即任意图灵机都可被无限精度transformer模拟，但只要是固定精度就不是图灵完备的。&lt;/li>
+&lt;/ul></content></item><item><title>Our Rationality can be Divided into Induction &amp; Deduction</title><link>https://cmbbq.github.io/posts/induction-deduction/</link><pubDate>Wed, 28 Jun 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/induction-deduction/</guid><description>诺姆·乔姆斯基说：人的无知，可分为神秘和问题(mysteries &amp;amp; problems)。
+诚哉斯言，为了对抗无知，人的理性，也可分为归纳和演绎(induction &amp;amp; deduction)。
+前者推断神秘，后者解决问题。
+前者完备而不可计算，后者可计算而不完备。
+何为问题？ 何为问题？本文中指代可求解问题——有良好定义的输入、输出，存在确定性算法能逐步计算，最终得到正确结果，比如八皇后问题，哈密顿路径问题。
+何为神秘？ 何为神秘？本文中指代不可求解问题——或需要无限计算资源，或具有不可判定性质（不可判定本质上就是不可计算），比如图灵提出的不可判定的停机问题。哥德尔构造的『真但不可证』的哥德尔语句。又如纯粹贝叶斯主义的置信度计算和预测必须同时考虑无限个预测性理论，现实计算机不仅处理不了计算量的无限性，还处理不了各个算法分支的不可终止性——并不是所有计算都会终止，有的甚至越算越复杂，永不止歇。
+何为演绎？ 何为演绎？本文中指代演绎推理。欧几里得几何、初等算术、图灵机、λ演算等形式化系统（或者说演绎装置），就是由一组公理和一系列推理规则所组成，允许从公理推导出新理论的系统。
+数理逻辑和演绎推理具有天然的美感。我们小时候学欧式几何时，应该都赞叹过这种形式主义美感：从简洁的五条公理，竟然能推导出复杂、庞大、深邃而又确切无疑正确的体系。演绎似乎是真理之钥。
+自然而然地，历史上有数学家希望将所有数学理论建立在一组有限而完备的公理基础上，提供这些公理是一致的证明。1920年代，形式主义派的领导者希尔伯特希望建立一个形式化的证明体系，用严格遵循运算规则的符号逻辑语言表述所有数学陈述，给当时正面临多种悖论危机的数学一个安全的基础。这就是希尔伯特计划，一个人类理性对抗神秘的伟大尝试。希尔伯特说：『我们必须知道，我们也终将知道！』这是形式主义者的战斗宣言，他们坚信：数学具有完备性(在形式化数学里，所有数学陈述可证)、一致性（在形式化数学里，不存在矛盾）、可判定性（总有算法能判定某个数学陈述的真假）、保守性（证明不依赖于理想对象，如不可数集合）。只要这4点假设为真，无论现实多么宏大广博，真理如何高不可攀，人类只要持有演绎推理之钥，就能证明一切真理。
+然而希尔伯特计划还未开始，就被哥德尔、图灵、邱奇终结。1930年代，哥德尔提出“广义递归函数”，图灵构造“图灵机”，邱奇提出“λ演算”，三人各自独立地形式化了可计算性：λ可计算性等价于图灵机可计算性，图灵机可计算性又等价于广义递归性。哥德尔不完备定理，证明了(1)一个蕴含初等算术的形式系统，若一致，则不完备。(2)该系统的一致性不能在系统内部证明。图灵提出停机问题，证明了我们无法判定图灵机是否会停止。停机问题的不可判定性蕴含了数学的不可判定性。一旦停机问题可判定，图灵机就能用来证明任意数学问题，因为理论上我们可以编写一个图灵机程序从公理开始构造出所有定理，每个定理生成后检查一下是不是目标问题——比如孪生素数猜想——如果是，图灵机程序终止，如果不是，则不停机。
+何为归纳？ 何为归纳？本文中指代统计推断，泛指是使用数据分析来推断概率分布属性的过程。
+统计学有贝叶斯学派和频率学派之争。贝叶斯学派认为待估计的模型参数是一个具有模型主观性的随机变量，而用来估计模型参数的数据反过来是确定的常数，讨论观测数据的概率分布才是没有意义的，概率被解释为模型在现有知识基础上对一件事情发生的相信程度。频率学派认为事件本身具有某种客观的随机性，概率是一个确定的值，讨论概率的分布没有意义，概率只是重复实验次数趋近于无穷后频率的极限值。贝叶斯理论最早起源于1763年，此后被频率学派以居高临下的姿态视作已经足够好的正统方法的补充，或者干脆是当成某种有趣但错误的尝试。直到上个世纪末才重新被学界重视。部分原因是计算机取代计算器，成为新的计算工具，克服了贝叶斯方法在计算上的困难。在通用电子计算机出现之前，频率学派对某些特定问题做出特殊假设的做法显然更经济，往往也相当有效，只不过这些人为假设难以证伪也难以证明。
+归根到底，频率学派的归纳推断只能勉强算是贝叶斯推断的近似，还有一部分近似是错误的近似。CERN通过大型强子对撞机发现希格斯玻色子，实际上就是依据：假设不存在希格斯玻色子，观测数据的p值&amp;lt;0.00003%，这个阈值看起来足够低，因此CERN的研究者以及整个人类社会就接受了希格斯玻色子的存在。这个0.0003%的阈值是哪里来的呢？和人文社科研究中那些p值&amp;lt;5%一样都来源于直觉和人为假设。所谓的科学，不过是建立在如此薄弱的基础之上。即使在物理学实验这种极端严谨的场合，基于p值的统计分析依然会造成假象。2003年的五夸克态因p值被宣布发现，然而又因原始实验无法复现而被否定。Regina Nuzzo在Nature杂志上对p值滥用进行了批判，通过实例证明科学研究中普遍存在p值统计学显著结果不可重现的问题。
+1960年代，纯粹贝叶斯主义者所罗门诺夫超越了哥德尔不完备理论，超越了邱奇-图灵论题，提出了贝叶斯理论的计算形式化，即所罗门诺夫归纳推断理论，并证明了该理论具有完备性和不可计算性。所罗门诺夫给出了一个惊人的观察：完备性和可计算性，不可得兼。任何理论，只要是可计算的，就不能检出所有规律。而像所罗门诺夫归纳推断理论这样具有完备性的理论，则必然是不可计算的。
+所罗门诺夫理论的完备性意味着贝叶斯公式（这里是简化表示）P(θ|d) = P(d|θ)P(θ)/P(d)几乎可以被认为是真理公式。演绎推理则是贝叶斯推理在真假确定场景下的正确特例：当P(d) = 1时，概率语言中P(θ|d) = P(d|θ)P(θ)/P(d) 就自然退化成经典逻辑语言d =&amp;gt; θ，即d蕴含θ了。
+规则的尽头是贝叶斯 下图是摘自Computability and Complexity，最早出自Descriptive Complexity(Immerman 1999)的可计算性与复杂度世界图，自上而下，逐渐从神秘过渡到问题。 当我们用if else条件判断，用计算机程序语言，无论如何努力，都难以编写出效果让人满意的程序时。我们往往是在面对神秘，而非问题。
+这种场景下，经典逻辑的手段已经穷尽，演绎明确不是真理之钥，但我们可以观想所罗门诺夫之妖。
+所罗门诺夫之妖所喻的纯粹贝叶斯主义固然具有不可计算性，却可以被各种手段近似模拟，典型的结构就是深度神经网络，用数十亿、数百亿、数千亿个参数/权重，用臃肿笨拙地方式去模拟贝叶斯推断。
+在决策和博弈型任务上，强化学习对比基于规则的方法，取得了惊人的效果。目前的强化学习基本上能求解任意人类游戏/博弈，DeepMind的星际争霸AI AlphaStar击败MaNa，Dota2的OpenAI Five击败OG，围棋的AlphaGo击败柯洁。这是此前基于规则的方法几乎不可能实现的。
+在理解和生成型任务上，大语言模型对比传统的NLP方法，达到了超出训练目标的额外效果，涌现出种种惊喜，比如单步逻辑推理能力，以及某些简单复合问题的逻辑推理能力。
+基于图灵机、λ演算的计算理论根基数十年岿然不动，一朝有变，则蕴含着更深刻的变革——我们正见证从图灵机的演绎推理到神经网络的统计推断的跳跃，从“可计算且不完备”到“不可计算且完备”的质变。
+前文Knowledge is Embeddings of Reality中提到对音频的理解可以是不同深度，不同角度的，音乐信息检索可以用信号处理的基于规则的方法，也可以用resnet这样的深度神经网络，或whisper这样的大模型。理解愈深邃，愈不精确，应用也就愈发灵活，愈发贴近人类思维。这是理解的视角，若是从计算的视角讲，基于信号处理的系统是在做演绎推理，因此可计算性最强，但天然具有不完备性，无论我们给代码里增加多少个公理，增加多少执行路径，设计多么巧妙的手工特征，注入多么鬼斧神工的专家洞察，都总有覆盖不到的场景，甚至可以说只能覆盖到很小很小的一部分，因为音频数据来自于现实，原始数据具备极高的整体复杂度和细微结构精致度，超越了人类思考和编程的能力极限，人类专家设计的音频特征能考虑抗噪，具备简单的鲁棒性，就已经是sota了。而基于深度模型、乃至大模型的方法则是对贝叶斯推断的近似，放弃精确性、增加计算成本的同时，从演绎转变成了归纳，从收敛走向开放，哪怕仅仅是对贝叶斯的近似，也换取了一定程度上的完备性——不局限于简单的抗噪、抗变调，开始在旋律、情绪、风格，甚至歌词的语言逻辑层面上考虑音频的相似度。
+认知计算：人性化与完备化的革命 基于推理的算法，本质是为形式化系统（λ演算、图灵机）手工编写公理（先验数据，如魔数、掩码表、配置文件）或规则（传统的条件控制与算术计算）进行正确、高效但不完备的演绎推理。
+基于推断的算法，本质是使用形式化系统（计算神经网络依然是形式化系统，其公理变成了更庞大的模型权重，规则变成了矩阵乘加、归一化、激活函数等数学算子的组合）对所罗门诺夫归纳推断理论（形式化的纯粹贝叶斯主义）进行拙劣、错误，但有用的近似。
+统计推断，模型推理，英文中都是inference，中文用词却不一，不知是巧合还是集体无意识暗合真理：推断是归纳，推理则是演绎。纯粹贝叶斯主义的所罗门诺夫归纳推断近乎全知，不可计算，无穷尽，不停机，而我们用模型权重为公理，用矩阵乘加、批正态化、激活函数组合为规则写出来的模型推理程序本质上还是基于演绎推理，训练或者说优化、学习的过程亦然。因此在计算机科学的AI应用语境下我们把inference称为推理完全合理，正如在统计学语境下我们把inference称为推断，也是无比合理的。
+所谓认知计算，就是用演绎推理的凡俗躯壳容纳纯粹贝叶斯主义全知魂灵的神降，补齐符号逻辑、规则系统和信号处理手段在“人性化(align to humanity)”、“完备化(pin down reality)”上的缺憾。
+可以断言，尽管AI学界和业界浮躁且浮夸，受传统学科乃至计算系统传统领域的研究者诟病，但深度学习本身绝非niche应用，更非Metaverse、Web3那种VC追逐的玩具和噱头。所有计算领域——互联网服务、数据中心应用、智能终端、游戏AI，都将受益于认知计算进步，人类文明很有可能也会进入新的阶段。
+近未来人类文明在基础物理、材料、能源领域或难有寸进，但在认知科学上构筑出辉煌的认知计算体系几乎是确定性的，因为认知计算所需的硬件进步不构成瓶颈，至少不会像对撞机、深空旅行、可控核聚变那样受到时空尺度和材料极限的约束。毕竟考虑即使是小小一只蜜蜂不足2立方厘米的大脑，就能拥有超越人类目前基于规则和导航辅助的先进算法的复杂3D环境寻路避障能力和天生的贝叶斯推断能力，亿万年生物演化的自然结构已经存在，我们不必担心这种结构根本不存在：它就在那，我们所需做的仅仅是近似和模仿。</description><content>&lt;p>诺姆·乔姆斯基说：人的无知，可分为神秘和问题(mysteries &amp;amp; problems)。&lt;/p>
+&lt;p>诚哉斯言，为了对抗无知，人的理性，也可分为归纳和演绎(induction &amp;amp; deduction)。&lt;/p>
+&lt;p>前者推断神秘，后者解决问题。&lt;/p>
+&lt;p>前者&lt;a href="(https://en.wikipedia.org/wiki/Complete_theory)">完备&lt;/a>而不可计算，后者&lt;a href="https://en.wikipedia.org/wiki/Computability_theory">可计算&lt;/a>而不完备。&lt;/p>
+&lt;h2 id="何为问题">何为问题？&lt;/h2>
+&lt;p>何为问题？本文中指代可求解问题——有良好定义的输入、输出，存在确定性算法能逐步计算，最终得到正确结果，比如&lt;a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">八皇后问题&lt;/a>，&lt;a href="https://en.wikipedia.org/wiki/Hamiltonian_path_problem">哈密顿路径问题&lt;/a>。&lt;/p>
+&lt;h2 id="何为神秘">何为神秘？&lt;/h2>
+&lt;p>何为神秘？本文中指代不可求解问题——或需要无限计算资源，或具有不可判定性质（不可判定本质上就是不可计算），比如图灵提出的&lt;a href="https://en.wikipedia.org/wiki/Undecidable_problem">不可判定&lt;/a>的&lt;a href="https://en.wikipedia.org/wiki/Halting_problem">停机问题&lt;/a>。哥德尔构造的『真但不可证』的&lt;a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">哥德尔语句&lt;/a>。又如纯粹贝叶斯主义的置信度计算和预测必须同时考虑无限个预测性理论，现实计算机不仅处理不了计算量的无限性，还处理不了各个算法分支的不可终止性——并不是所有计算都会终止，有的甚至越算越复杂，永不止歇。&lt;/p>
+&lt;h2 id="何为演绎">何为演绎？&lt;/h2>
+&lt;p>何为演绎？本文中指代&lt;a href="https://en.wikipedia.org/wiki/Deductive_reasoning">演绎推理&lt;/a>。欧几里得几何、初等算术、图灵机、&lt;a href="https://en.wikipedia.org/wiki/Lambda_calculus">λ演算&lt;/a>等形式化系统（或者说演绎装置），就是由一组公理和一系列推理规则所组成，允许从公理推导出新理论的系统。&lt;/p>
+&lt;p>数理逻辑和演绎推理具有天然的美感。我们小时候学欧式几何时，应该都赞叹过这种形式主义美感：从简洁的五条公理，竟然能推导出复杂、庞大、深邃而又确切无疑正确的体系。演绎似乎是真理之钥。&lt;/p>
+&lt;p>自然而然地，历史上有数学家希望将所有数学理论建立在一组有限而完备的公理基础上，提供这些公理是一致的证明。1920年代，形式主义派的领导者希尔伯特希望建立一个形式化的证明体系，用严格遵循运算规则的符号逻辑语言表述所有数学陈述，给当时正面临多种&lt;a href="https://en.wikipedia.org/wiki/Foundations_of_mathematics#Foundational_crisis">悖论危机&lt;/a>的数学一个安全的基础。这就是&lt;a href="https://en.wikipedia.org/wiki/Hilbert%27s_program">希尔伯特计划&lt;/a>，一个人类理性对抗神秘的伟大尝试。希尔伯特说：『我们必须知道，我们也终将知道！』这是形式主义者的战斗宣言，他们坚信：数学具有完备性(在形式化数学里，所有数学陈述可证)、一致性（在形式化数学里，不存在矛盾）、可判定性（总有算法能判定某个数学陈述的真假）、保守性（证明不依赖于理想对象，如不可数集合）。只要这4点假设为真，无论现实多么宏大广博，真理如何高不可攀，人类只要持有演绎推理之钥，就能证明一切真理。&lt;/p>
+&lt;p>然而希尔伯特计划还未开始，就被哥德尔、图灵、邱奇终结。1930年代，哥德尔提出“广义递归函数”，图灵构造“图灵机”，邱奇提出“λ演算”，三人各自独立地形式化了可计算性：λ可计算性等价于图灵机可计算性，图灵机可计算性又等价于广义递归性。&lt;a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems#First_incompleteness_theorem">哥德尔不完备定理&lt;/a>，证明了(1)一个蕴含初等算术的形式系统，若一致，则不完备。(2)该系统的一致性不能在系统内部证明。图灵提出停机问题，证明了我们无法判定图灵机是否会停止。停机问题的不可判定性蕴含了数学的不可判定性。一旦停机问题可判定，图灵机就能用来证明任意数学问题，因为理论上我们可以编写一个图灵机程序从公理开始构造出所有定理，每个定理生成后检查一下是不是目标问题——比如孪生素数猜想——如果是，图灵机程序终止，如果不是，则不停机。&lt;/p>
+&lt;h2 id="何为归纳">何为归纳？&lt;/h2>
+&lt;p>何为归纳？本文中指代&lt;a href="https://en.wikipedia.org/wiki/Statistical_inference">统计推断&lt;/a>，泛指是使用数据分析来推断概率分布属性的过程。&lt;/p>
+&lt;p>统计学有贝叶斯学派和频率学派之争。贝叶斯学派认为待估计的模型参数是一个具有模型主观性的随机变量，而用来估计模型参数的数据反过来是确定的常数，讨论观测数据的概率分布才是没有意义的，概率被解释为模型在现有知识基础上对一件事情发生的相信程度。频率学派认为事件本身具有某种客观的随机性，概率是一个确定的值，讨论概率的分布没有意义，概率只是重复实验次数趋近于无穷后频率的极限值。贝叶斯理论最早起源于1763年，此后被频率学派以居高临下的姿态视作已经足够好的正统方法的补充，或者干脆是当成某种有趣但错误的尝试。直到上个世纪末才重新被学界重视。部分原因是计算机取代计算器，成为新的计算工具，克服了贝叶斯方法在计算上的困难。在通用电子计算机出现之前，频率学派对某些特定问题做出特殊假设的做法显然更经济，往往也相当有效，只不过这些人为假设难以证伪也难以证明。&lt;/p>
+&lt;p>归根到底，频率学派的归纳推断只能勉强算是贝叶斯推断的近似，还有一部分近似是错误的近似。CERN通过大型强子对撞机发现希格斯玻色子，实际上就是依据：假设不存在希格斯玻色子，观测数据的p值&amp;lt;0.00003%，这个阈值看起来足够低，因此CERN的研究者以及整个人类社会就接受了希格斯玻色子的存在。这个0.0003%的阈值是哪里来的呢？和人文社科研究中那些p值&amp;lt;5%一样都来源于直觉和人为假设。所谓的科学，不过是建立在如此薄弱的基础之上。即使在物理学实验这种极端严谨的场合，基于p值的统计分析依然会造成假象。2003年的五夸克态因p值被宣布发现，然而又因原始实验无法复现而被否定。&lt;a href="https://www.nature.com/articles/506150a">Regina Nuzzo在Nature杂志上对p值滥用进行了批判&lt;/a>，通过实例证明科学研究中普遍存在p值统计学显著结果不可重现的问题。&lt;/p>
+&lt;p>1960年代，纯粹贝叶斯主义者所罗门诺夫超越了哥德尔不完备理论，超越了邱奇-图灵论题，提出了贝叶斯理论的计算形式化，即&lt;a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">所罗门诺夫归纳推断理论&lt;/a>，并证明了该理论具有完备性和不可计算性。所罗门诺夫给出了一个惊人的观察：完备性和可计算性，不可得兼。任何理论，只要是可计算的，就不能检出所有规律。而像所罗门诺夫归纳推断理论这样具有完备性的理论，则必然是不可计算的。&lt;/p>
+&lt;p>所罗门诺夫理论的完备性意味着贝叶斯公式（这里是简化表示）P(θ|d) = P(d|θ)P(θ)/P(d)几乎可以被认为是真理公式。演绎推理则是贝叶斯推理在真假确定场景下的正确特例：当P(d) = 1时，概率语言中P(θ|d) = P(d|θ)P(θ)/P(d) 就自然退化成经典逻辑语言d =&amp;gt; θ，即d蕴含θ了。&lt;/p>
+&lt;h2 id="规则的尽头是贝叶斯">规则的尽头是贝叶斯&lt;/h2>
+&lt;p>下图是摘自&lt;a href="https://plato.stanford.edu/entries/computability">Computability and Complexity&lt;/a>，最早出自Descriptive Complexity(Immerman 1999)的可计算性与复杂度世界图，自上而下，逐渐从神秘过渡到问题。
+&lt;img src="https://cmbbq.github.io/img/CaC.jpeg" alt="cac">&lt;/p>
+&lt;p>当我们用if else条件判断，用计算机程序语言，无论如何努力，都难以编写出效果让人满意的程序时。我们往往是在面对神秘，而非问题。&lt;/p>
+&lt;p>这种场景下，经典逻辑的手段已经穷尽，演绎明确不是真理之钥，但我们可以观想所罗门诺夫之妖。&lt;/p>
+&lt;p>所罗门诺夫之妖所喻的纯粹贝叶斯主义固然具有不可计算性，却可以被各种手段近似模拟，典型的结构就是深度神经网络，用数十亿、数百亿、数千亿个参数/权重，用臃肿笨拙地方式去模拟贝叶斯推断。&lt;/p>
+&lt;p>在决策和博弈型任务上，强化学习对比基于规则的方法，取得了惊人的效果。目前的强化学习基本上能求解任意人类游戏/博弈，DeepMind的星际争霸AI AlphaStar击败MaNa，Dota2的OpenAI Five击败OG，围棋的AlphaGo击败柯洁。这是此前基于规则的方法几乎不可能实现的。&lt;/p>
+&lt;p>在理解和生成型任务上，大语言模型对比传统的NLP方法，达到了超出训练目标的额外效果，涌现出种种惊喜，比如单步逻辑推理能力，以及某些简单复合问题的逻辑推理能力。&lt;/p>
+&lt;p>基于图灵机、λ演算的计算理论根基数十年岿然不动，一朝有变，则蕴含着更深刻的变革——我们正见证从图灵机的演绎推理到神经网络的统计推断的跳跃，从“可计算且不完备”到“不可计算且完备”的质变。&lt;/p>
+&lt;p>前文&lt;a href="https://cmbbq.github.io/posts/reality-knowledge">Knowledge is Embeddings of Reality&lt;/a>中提到对音频的理解可以是不同深度，不同角度的，音乐信息检索可以用信号处理的基于规则的方法，也可以用resnet这样的深度神经网络，或whisper这样的大模型。理解愈深邃，愈不精确，应用也就愈发灵活，愈发贴近人类思维。这是理解的视角，若是从计算的视角讲，基于信号处理的系统是在做演绎推理，因此可计算性最强，但天然具有不完备性，无论我们给代码里增加多少个公理，增加多少执行路径，设计多么巧妙的手工特征，注入多么鬼斧神工的专家洞察，都总有覆盖不到的场景，甚至可以说只能覆盖到很小很小的一部分，因为音频数据来自于现实，原始数据具备极高的整体复杂度和细微结构精致度，超越了人类思考和编程的能力极限，人类专家设计的音频特征能考虑抗噪，具备简单的鲁棒性，就已经是sota了。而基于深度模型、乃至大模型的方法则是对贝叶斯推断的近似，放弃精确性、增加计算成本的同时，从演绎转变成了归纳，从收敛走向开放，哪怕仅仅是对贝叶斯的近似，也换取了一定程度上的完备性——不局限于简单的抗噪、抗变调，开始在旋律、情绪、风格，甚至歌词的语言逻辑层面上考虑音频的相似度。&lt;/p>
+&lt;h2 id="认知计算人性化与完备化的革命">认知计算：人性化与完备化的革命&lt;/h2>
+&lt;p>基于推理的算法，本质是为形式化系统（λ演算、图灵机）手工编写公理（先验数据，如魔数、掩码表、配置文件）或规则（传统的条件控制与算术计算）进行正确、高效但不完备的演绎推理。&lt;/p>
+&lt;p>基于推断的算法，本质是使用形式化系统（计算神经网络依然是形式化系统，其公理变成了更庞大的模型权重，规则变成了矩阵乘加、归一化、激活函数等数学算子的组合）对&lt;a href="https://en.wikipedia.org/wiki/Solomonoff%27s_theory_of_inductive_inference">所罗门诺夫归纳推断理论&lt;/a>（形式化的纯粹贝叶斯主义）进行拙劣、错误，但有用的近似。&lt;/p>
+&lt;p>统计推断，模型推理，英文中都是inference，中文用词却不一，不知是巧合还是集体无意识暗合真理：推断是归纳，推理则是演绎。纯粹贝叶斯主义的所罗门诺夫归纳推断近乎全知，不可计算，无穷尽，不停机，而我们用模型权重为公理，用矩阵乘加、批正态化、激活函数组合为规则写出来的模型推理程序本质上还是基于演绎推理，训练或者说优化、学习的过程亦然。因此在计算机科学的AI应用语境下我们把inference称为推理完全合理，正如在统计学语境下我们把inference称为推断，也是无比合理的。&lt;/p>
+&lt;p>所谓认知计算，就是用演绎推理的凡俗躯壳容纳纯粹贝叶斯主义全知魂灵的神降，补齐符号逻辑、规则系统和信号处理手段在“人性化(align to humanity)”、“完备化(pin down reality)”上的缺憾。&lt;/p>
+&lt;p>可以断言，尽管AI学界和业界浮躁且浮夸，受传统学科乃至计算系统传统领域的研究者诟病，但深度学习本身绝非niche应用，更非Metaverse、Web3那种VC追逐的玩具和噱头。所有计算领域——互联网服务、数据中心应用、智能终端、游戏AI，都将受益于认知计算进步，人类文明很有可能也会进入新的阶段。&lt;/p>
+&lt;p>近未来人类文明在基础物理、材料、能源领域或难有寸进，但在认知科学上构筑出辉煌的认知计算体系几乎是确定性的，因为认知计算所需的硬件进步不构成瓶颈，至少不会像对撞机、深空旅行、可控核聚变那样受到时空尺度和材料极限的约束。毕竟考虑即使是小小一只蜜蜂不足2立方厘米的大脑，就能拥有超越人类目前基于规则和导航辅助的先进算法的复杂3D环境寻路避障能力和天生的贝叶斯推断能力，亿万年生物演化的自然结构已经存在，我们不必担心这种结构根本不存在：它就在那，我们所需做的仅仅是近似和模仿。&lt;/p></content></item><item><title>Distributed Computing Systems At Scale</title><link>https://cmbbq.github.io/posts/distributed-computing-systems/</link><pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/distributed-computing-systems/</guid><description>Distributed Computing Systems At Scale 分布式计算系统完成规模化的跳跃后，核心挑战是正确性和系统效率。前者对应共识抽象，后者对应性能工程。
+Consensus Abstraction 分布式系统的正确性实际上蕴含了稳定性、一致性、可用性等理想属性。 分布式天然意味着并发执行、进程失败、不可靠的消息传输，这些因素都使正确性在各种常见的分布式应用语境下变得极为困难：
+并发意味着执行轨迹空间维度爆炸，和(进程数*步数)的阶乘成正比。很难保证每个执行路径都是对的。 进程失败可分为：崩溃（进程没了，网卡或CPU故障）、丢请求（没崩，网络阻塞或服务降级导致临时不可用）、恢复后崩溃（反复重启，最终恢复到正确状态，往往基于日志）、拜占庭失败（不可预料，来自宇宙射线或恶意攻击）。 消息传输面临篡改、丢包、重传、乱序等风险，即使是可靠网络协议也不完全可靠。 共识是指多个进程就某个问题（2-general问题、复制状态机保证全局序的问题、分布式事务）最终形成一致决定。理想的共识算法应具备安全性(safety)和活性(liveliness)。安全性包括validity（只有一个提议值被选择）、agreement（正确的节点保持一致）、integrity（每个节点最多选一次）。活性则是指可终止，每个正确节点最终总会选择一个值，而不是hang住。
+如果不考虑安全性的话，TCP其实就是一个最简单、粗糙、有效的共识协议，TCP协议本质是让通信的两个进程对连接的状态达成了共识，才能可靠地通信。比如进程关闭连接，就会把本地状态改为TIME_WAIT，等几分钟后才真正释放资源，以确保对方收到ACK，用简单的等待，达成高概率的共识，避免双方开始下一轮连接后收到旧报文而出错。
+如果追求完全安全，简单的场景是只对一个值进行商议和决策，即单值共识。
+单值共识前提下的最简场景则是拥有完美失败检测能力，泛洪共识（只有获得所有进程提议才做出决定）、等级统一共识就是这种场景下的简单解决方案。
+若只具备最终失败检测能力，则需引入代次变更概念，用代次共识（往往是Paxos变种）去解决。Paxos是唯一已知的completely-safe &amp;amp; largely-live的容错共识算法。2PC其实也是一种代次共识，不过2PC里协调者宕机就会全局阻塞，是safe but not live的典型。Paxos甚至可以通过将代次(round)的偏序关系从&amp;lt;改成整除，来实现多维的先后代次，从而兼具2PC的功能。
+如果再把单值共识推广到序列共识（在分布式存储中更常用，因为log-structured store的写操作是一个append-only序列，而非单值），则从Paxos进化为某种Multi-Paxos，或Raft。Raft本质上解决了复制状态机问题，而序列共识问题恰好可以归约为复制状态机问题。
+如果再考虑拜占庭失败，则需BFT、PBFT、PoW。
+Performance Engineering 性能的重要性毋庸置疑，端上应用（语音识别、智能客服）的延迟够不够低直接决定项目是否成立，而大规模的IDC应用(搜广推、存储、在线推理、训练)的吞吐性能则直接和金钱与环保挂钩。
+计算系统的性能与分布式密不可分。因为几乎所有计算系统都是分布式的，包括单机，单卡，单设备，因为单机（in-node）仍然有网络结构，比如NVLink和NVSwitch，甚至Xeon CPU都是众核通过总线连起来的，网卡、SSD等设备，拆开来看都是网联设备（networked device）。通过分区、并行、软硬件协同、减少不必要的分层获取性能的方法是普适的。
+如果存在基线，性能工程的主要工作就是优化、迭代，和渐进式创新。 当基线不够好时，性能工程(performance engineering)是发散的：跨越层次的，不同抽象层次、不同的模块都有可能成为瓶颈，不应存在优化盲点，必要时还需反分层，比如将整个IO路径放到用户态，比如暴露hypervisor状态给vm以便高效调度。 当基线已经非常好时，性能路径(performance path)则是收敛的：明确指向软硬件协同，毕竟性能最终来源于对硬件资源的量体裁衣和极限压榨，如果协同也足够好，那就只能指向硬件更新：更大更强的N卡、TPUv4这样的DSA、OCS这样的光学路由以及更进一步的AI DC建设。
+如果是全新的问题，或对已有问题产生了非凡洞察，对其施加更有效结构，就产生了新的架构，新的计算和IO形态：
+大模型时代来临后，模型参数本身就已经放不进顶级的GPU，更不用说神经网络计算所需的额外内存了，这就使原本在系统效率和正确性之间平衡的非常好的Parameter Server架构面临挑战，不得不用全新的架构和策略解决大模型训练的问题：Node内（8卡组一个Node）的权重切分和模型并行，算子内的数据和指令并行，子图切分、算子摆布和流水线并行（8个Node做8级流水）、16组8*8做Batch16的数据并行，于是产生了Alpa over Ray训练大模型的解决方案。这又间接导致带宽需求激增，以至于需要Google的光学交换机OCS这样的网络解决方案，避免光电模块和解析报文计算的开销——光交换劣势在于切换慢，但训练周期里数据交换的主要流量路由是固定的，用来建设AI DC正好规避了这个缺点。 KVM的作者根据hypervisor在NUMA系统上的性能瓶颈的经验，很容易就发现应用层共享内存的并行模型是有缺陷的，在众核时代尤其严重，因此创造了seastar。利用hardware locality，避免线程切换、数据拷贝、NUMA远端内存访问，对访存密集型CPU-bound应用来说，是非常重要的性能路径。</description><content>&lt;h1 id="distributed-computing-systems-at-scale">Distributed Computing Systems At Scale&lt;/h1>
+&lt;p>分布式计算系统完成规模化的跳跃后，核心挑战是正确性和系统效率。前者对应共识抽象，后者对应性能工程。&lt;/p>
+&lt;h2 id="consensus-abstraction">Consensus Abstraction&lt;/h2>
+&lt;p>分布式系统的正确性实际上蕴含了稳定性、一致性、可用性等理想属性。
+分布式天然意味着并发执行、进程失败、不可靠的消息传输，这些因素都使正确性在各种常见的分布式应用语境下变得极为困难：&lt;/p>
+&lt;ul>
+&lt;li>并发意味着执行轨迹空间维度爆炸，和(进程数*步数)的阶乘成正比。很难保证每个执行路径都是对的。&lt;/li>
+&lt;li>进程失败可分为：崩溃（进程没了，网卡或CPU故障）、丢请求（没崩，网络阻塞或服务降级导致临时不可用）、恢复后崩溃（反复重启，最终恢复到正确状态，往往基于日志）、拜占庭失败（不可预料，来自宇宙射线或恶意攻击）。&lt;/li>
+&lt;li>消息传输面临篡改、丢包、重传、乱序等风险，即使是可靠网络协议也不完全可靠。&lt;/li>
+&lt;/ul>
+&lt;p>共识是指多个进程就某个问题（2-general问题、复制状态机保证全局序的问题、分布式事务）最终形成一致决定。理想的共识算法应具备安全性(safety)和活性(liveliness)。安全性包括validity（只有一个提议值被选择）、agreement（正确的节点保持一致）、integrity（每个节点最多选一次）。活性则是指可终止，每个正确节点最终总会选择一个值，而不是hang住。&lt;/p>
+&lt;p>如果不考虑安全性的话，TCP其实就是一个最简单、粗糙、有效的共识协议，TCP协议本质是让通信的两个进程对连接的状态达成了共识，才能可靠地通信。比如进程关闭连接，就会把本地状态改为TIME_WAIT，等几分钟后才真正释放资源，以确保对方收到ACK，用简单的等待，达成高概率的共识，避免双方开始下一轮连接后收到旧报文而出错。&lt;/p>
+&lt;p>如果追求完全安全，简单的场景是只对一个值进行商议和决策，即单值共识。&lt;/p>
+&lt;p>单值共识前提下的最简场景则是拥有完美失败检测能力，泛洪共识（只有获得所有进程提议才做出决定）、等级统一共识就是这种场景下的简单解决方案。&lt;/p>
+&lt;p>若只具备最终失败检测能力，则需引入代次变更概念，用代次共识（往往是Paxos变种）去解决。Paxos是唯一已知的completely-safe &amp;amp; largely-live的容错共识算法。2PC其实也是一种代次共识，不过2PC里协调者宕机就会全局阻塞，是safe but not live的典型。Paxos甚至可以通过将代次(round)的偏序关系从&amp;lt;改成整除，来实现多维的先后代次，从而兼具2PC的功能。&lt;/p>
+&lt;p>如果再把单值共识推广到序列共识（在分布式存储中更常用，因为log-structured store的写操作是一个append-only序列，而非单值），则从Paxos进化为某种Multi-Paxos，或Raft。Raft本质上解决了复制状态机问题，而序列共识问题恰好可以归约为复制状态机问题。&lt;/p>
+&lt;p>如果再考虑拜占庭失败，则需BFT、PBFT、PoW。&lt;/p>
+&lt;h2 id="performance-engineering">Performance Engineering&lt;/h2>
+&lt;p>性能的重要性毋庸置疑，端上应用（语音识别、智能客服）的延迟够不够低直接决定项目是否成立，而大规模的IDC应用(搜广推、存储、在线推理、训练)的吞吐性能则直接和金钱与环保挂钩。&lt;/p>
+&lt;p>计算系统的性能与分布式密不可分。因为几乎所有计算系统都是分布式的，包括单机，单卡，单设备，因为单机（in-node）仍然有网络结构，比如NVLink和NVSwitch，甚至Xeon CPU都是众核通过总线连起来的，网卡、SSD等设备，拆开来看都是网联设备（networked device）。通过分区、并行、软硬件协同、减少不必要的分层获取性能的方法是普适的。&lt;/p>
+&lt;p>如果存在基线，性能工程的主要工作就是优化、迭代，和渐进式创新。
+当基线不够好时，性能工程(performance engineering)是发散的：跨越层次的，不同抽象层次、不同的模块都有可能成为瓶颈，不应存在优化盲点，必要时还需反分层，比如将整个IO路径放到用户态，比如暴露hypervisor状态给vm以便高效调度。
+当基线已经非常好时，性能路径(performance path)则是收敛的：明确指向软硬件协同，毕竟性能最终来源于对硬件资源的量体裁衣和极限压榨，如果协同也足够好，那就只能指向硬件更新：更大更强的N卡、TPUv4这样的DSA、OCS这样的光学路由以及更进一步的AI DC建设。&lt;/p>
+&lt;p>如果是全新的问题，或对已有问题产生了非凡洞察，对其施加更有效结构，就产生了新的架构，新的计算和IO形态：&lt;/p>
+&lt;ul>
+&lt;li>大模型时代来临后，模型参数本身就已经放不进顶级的GPU，更不用说神经网络计算所需的额外内存了，这就使原本在系统效率和正确性之间平衡的非常好的Parameter Server架构面临挑战，不得不用全新的架构和策略解决大模型训练的问题：Node内（8卡组一个Node）的权重切分和模型并行，算子内的数据和指令并行，子图切分、算子摆布和流水线并行（8个Node做8级流水）、16组8*8做Batch16的数据并行，于是产生了Alpa over Ray训练大模型的解决方案。这又间接导致带宽需求激增，以至于需要Google的光学交换机OCS这样的网络解决方案，避免光电模块和解析报文计算的开销——光交换劣势在于切换慢，但训练周期里数据交换的主要流量路由是固定的，用来建设AI DC正好规避了这个缺点。&lt;/li>
+&lt;li>KVM的作者根据hypervisor在NUMA系统上的性能瓶颈的经验，很容易就发现应用层共享内存的并行模型是有缺陷的，在众核时代尤其严重，因此创造了seastar。利用hardware locality，避免线程切换、数据拷贝、NUMA远端内存访问，对访存密集型CPU-bound应用来说，是非常重要的性能路径。&lt;/li>
+&lt;/ul></content></item><item><title>Knowledge is Embeddings of Reality</title><link>https://cmbbq.github.io/posts/reality-knowledge/</link><pubDate>Wed, 07 Jun 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/reality-knowledge/</guid><description>现实有无限维度，现实的背后还有潜在现实，结构的边缘会涌现出新的深层结构。
+人类对现实的感知、认知、理解，本质上是将高维现实投射到一个低维表示上，这种低维表示在统计学和机器学习中被称为embedding（嵌入），没错，知识就是将现实在人类有限的认知空间的一个嵌入，紧凑、浅薄且片面。
+举个具体的例子，人眼观察到的彩虹呈现七色。
+但这只是对无限广博的现实的最初观察，是最直观的认知。
+人类通过对人体生理学的研究，发现七色感知是一个更深层的潜在现实的涌现结构：多种光感受器的叠加反应。
+人类颜色感知系统对红绿蓝敏感的三种光感受器，叠加反应产生的三个峰和四个谷决定了人类能感知到7种颜色。 鸟类由于拥有对紫外线敏感的光感受器，就能感知到9种颜色，因此可以看到九色彩虹。
+无论人类的七色彩虹还是鸟类的九色彩虹，都只是知识（或者说embedding），而不是现实。
+人类通过数学工具和电磁学研究，进一步认识到光谱是连续的，包括无线电波、微波、热、红外线、可见光、紫外线等。
+这接近现实了吗？不，这依然只是浅薄的embedding。。
+人类通过量子物理学的研究，发现现有的电磁学依旧是一个更深层的潜在现实的涌现模型——电磁波是量子粒子流的一种表现形式：光子。
+光子的认知，折射出更复杂的现实，因为一个光子同时拥有无限的位置和频率，直到被观察到才能确定其位置或能量，需用海森堡不确定性原理、薛定谔方程来描述，这依旧不是真理，不是终极，仍然是在现实之上所施加的结构(structure imposed upon reality)。
+类似地，现实中的一首歌曲，看似简单平凡，实际上却拥有无穷维度，我们可以从任意一个角度去理解它，将它嵌入到任意一个向量空间。
+假设用户手机的传感器捕捉了一段音频，将其上传到平台上，消重（时频图的mask特征）、指纹(时频图的landmark特征)、翻唱（浅层cnn）、哼唱（whisper大模型）、多模态大模型应用分别捕捉了这段音频的某种特征，产生了不同层次的知识（embedding），理解愈发深邃，愈发不精确，应用也就愈发灵活，愈发贴近人类思维。
+后端的消重服务或指纹服务将表示音频的信号采样数据通过fft计算得到时频图，再基于时频图提取某种mask特征或landmark特征，用于直接刻画其能量分布特征，然后与音频特征库里存着的现有特征做对比就可以找到匹配的音频，这就是音频消重和指纹识别的过程：对信号做简单数学处理，生成的就是高度特化、具体、紧凑、确定、可解释的知识，表示这种知识的embedding或不具有抗噪性（mask特征），或具有少许抗噪性（landmark特征），但无论如何都只适用于原曲匹配，不知何为翻唱，何为remix，何为二创，何为串烧。
+翻唱识别服务能通过一个学习了歌曲旋律的神经网络对音频信号进行处理，产出一定程度上表达旋律特征的embedding，将曲库里的翻唱embedding存入向量数据库，通过KNN/ANN召回的结果往往不限于原曲，还能容忍变调、音色上的改变。
+哼唱识别服务可以基于Whisper这样的音频大模型实现，这种深层网络学习了人类的自然语言，因此对音频信号处理时，提取了表达歌词信息的embedding。基于这样的embedding，可以在跑调非常严重，且没有伴奏的情况下，依然能识别出用户在哼什么歌。
+考虑未来的多模态大模型，更是可以直接将embedding存在transformer的ffn层，不必借助外部的向量数据库或倒排索引，直接在模型内部刻画embedding之间的复杂关系，让更多概念之间产生关联：识别出歌曲的意境、歌唱者的情绪、歌词内容的图片，甚至联系用户交互的上下文，衍生出更客制化、场景相关的输出。
+人工智能领域用transformer简单搭建的大模型拥有出人意料的逻辑能力，昭示着人类意识的本质或许原本就极端肤浅：将知识内化、知识关联后，用天生的脑回路做贝叶斯推理，就产生了逻辑，诚然现有的结构远不如人脑高效，但有和无的界限已经被突破。
+足够好的计算神经网络可以被视作神经科学的涌现模型。 一如往昔。 一如神经科学是细胞生物学的涌现。 一如细胞生物学是分子生物学的涌现。 一如分子生物学是物理化学的涌现。 一如物理化学是量子物理的涌现。</description><content>&lt;p>现实有无限维度，现实的背后还有潜在现实，结构的边缘会涌现出新的深层结构。&lt;/p>
+&lt;p>人类对现实的感知、认知、理解，本质上是将高维现实投射到一个低维表示上，这种低维表示在统计学和机器学习中被称为embedding（嵌入），没错，知识就是将现实在人类有限的认知空间的一个嵌入，紧凑、浅薄且片面。&lt;/p>
+&lt;p>举个具体的例子，人眼观察到的彩虹呈现七色。&lt;/p>
+&lt;p>但这只是对无限广博的现实的最初观察，是最直观的认知。&lt;/p>
+&lt;p>人类通过对人体生理学的研究，发现七色感知是一个更深层的潜在现实的涌现结构：多种光感受器的叠加反应。&lt;/p>
+&lt;p>人类颜色感知系统对红绿蓝敏感的三种光感受器，叠加反应产生的三个峰和四个谷决定了人类能感知到7种颜色。
+&lt;img src="https://cmbbq.github.io/img/color.png" alt="color">&lt;/p>
+&lt;p>鸟类由于拥有对紫外线敏感的光感受器，就能感知到9种颜色，因此可以看到九色彩虹。&lt;/p>
+&lt;p>无论人类的七色彩虹还是鸟类的九色彩虹，都只是知识（或者说embedding），而不是现实。&lt;/p>
+&lt;p>人类通过数学工具和电磁学研究，进一步认识到光谱是连续的，包括无线电波、微波、热、红外线、可见光、紫外线等。&lt;/p>
+&lt;p>这接近现实了吗？不，这依然只是浅薄的embedding。。&lt;/p>
+&lt;p>人类通过量子物理学的研究，发现现有的电磁学依旧是一个更深层的潜在现实的涌现模型——电磁波是量子粒子流的一种表现形式：光子。&lt;/p>
+&lt;p>光子的认知，折射出更复杂的现实，因为一个光子同时拥有无限的位置和频率，直到被观察到才能确定其位置或能量，需用海森堡不确定性原理、薛定谔方程来描述，这依旧不是真理，不是终极，仍然是在现实之上所施加的结构(structure imposed upon reality)。&lt;/p>
+&lt;p>类似地，现实中的一首歌曲，看似简单平凡，实际上却拥有无穷维度，我们可以从任意一个角度去理解它，将它嵌入到任意一个向量空间。&lt;/p>
+&lt;p>假设用户手机的传感器捕捉了一段音频，将其上传到平台上，消重（时频图的mask特征）、指纹(时频图的landmark特征)、翻唱（浅层cnn）、哼唱（whisper大模型）、多模态大模型应用分别捕捉了这段音频的某种特征，产生了不同层次的知识（embedding），理解愈发深邃，愈发不精确，应用也就愈发灵活，愈发贴近人类思维。&lt;/p>
+&lt;p>后端的消重服务或指纹服务将表示音频的信号采样数据通过fft计算得到时频图，再基于时频图提取某种mask特征或landmark特征，用于直接刻画其能量分布特征，然后与音频特征库里存着的现有特征做对比就可以找到匹配的音频，这就是音频消重和指纹识别的过程：对信号做简单数学处理，生成的就是高度特化、具体、紧凑、确定、可解释的知识，表示这种知识的embedding或不具有抗噪性（mask特征），或具有少许抗噪性（landmark特征），但无论如何都只适用于原曲匹配，不知何为翻唱，何为remix，何为二创，何为串烧。&lt;/p>
+&lt;p>翻唱识别服务能通过一个学习了歌曲旋律的神经网络对音频信号进行处理，产出一定程度上表达旋律特征的embedding，将曲库里的翻唱embedding存入向量数据库，通过KNN/ANN召回的结果往往不限于原曲，还能容忍变调、音色上的改变。&lt;/p>
+&lt;p>哼唱识别服务可以基于Whisper这样的音频大模型实现，这种深层网络学习了人类的自然语言，因此对音频信号处理时，提取了表达歌词信息的embedding。基于这样的embedding，可以在跑调非常严重，且没有伴奏的情况下，依然能识别出用户在哼什么歌。&lt;/p>
+&lt;p>考虑未来的多模态大模型，更是可以直接将embedding存在transformer的ffn层，不必借助外部的向量数据库或倒排索引，直接在模型内部刻画embedding之间的复杂关系，让更多概念之间产生关联：识别出歌曲的意境、歌唱者的情绪、歌词内容的图片，甚至联系用户交互的上下文，衍生出更客制化、场景相关的输出。&lt;/p>
+&lt;p>人工智能领域用transformer简单搭建的大模型拥有出人意料的逻辑能力，昭示着人类意识的本质或许原本就极端肤浅：将知识内化、知识关联后，用天生的脑回路做贝叶斯推理，就产生了逻辑，诚然现有的结构远不如人脑高效，但有和无的界限已经被突破。&lt;/p>
+&lt;p>足够好的计算神经网络可以被视作神经科学的涌现模型。
+一如往昔。
+一如神经科学是细胞生物学的涌现。
+一如细胞生物学是分子生物学的涌现。
+一如分子生物学是物理化学的涌现。
+一如物理化学是量子物理的涌现。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/em.png" alt="em">&lt;/p></content></item><item><title>Federated Learning</title><link>https://cmbbq.github.io/posts/federated-learning/</link><pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/federated-learning/</guid><description>联邦学习 联邦学习由McMahan于2016年提出，指的是许多移动设备在一个中央服务器的编排下协作训练模型，保持训练数据离散，避免对用户数据进行收集，仅将客户端模型更新上传中央服务器汇总成新的全局模型的机器学习模式。
+联邦学习的naive实现如下：
+中央服务器选定一些clients，让这些client下载模型。 每个client根据自己的数据计算更新。 每个client将更新（即新的完整模型）上传到中央服务器。 中央服务器用某种方式（比如取平均）聚合这些模型得到一个全局模型。 应对上传模型开销大的问题 大量文献对联邦学习进行了讨论。Federated Learning: Strategies For Improving Communication Efficiency指出联邦学习的naive实现的第3步很容易出现通信瓶颈，这是首当其冲的问题，提出了降低上行链路通信成本的两种方法：结构化更新，缩略更新。
+联邦学习的问题可以被形式化地表述为：学习模型中的参数。全连接层的参数可用一个实数矩阵（这只是为了简化问题，所以讨论单个矩阵）表示 W ∈ R^(d1×d2)，shape为(#input × #output)，d1和d2表示输出维度和输入维度。卷积层kernel是4d tensor(#input × width × height × #output) ，需reshape到 (#input × width × height) × #output 。
+用W(t)表示当前回合(t)的模型，W(i,t)表示本地更新后的模型，所谓更新就是H(i,t) = W(i,t) - W(t)。中央服务器可聚合得到新模型：W(t+1) = W(t) + η(t)H(t)，其中H(t) = Sum(H(i,t))/N，η(t)是learning rate。
+结构化更新 结构化更新是指直接从一个用少量变量参数化的受限空间里学习更新，而不是学习整个模型的更新。
+所谓结构化更新，也就是impose structure on updates，论文里提出两种结构，一种是低秩矩阵，另一种是随机掩码。
+在结构化更新之低秩矩阵方法中，本地模型的更新H(i,t)必须是一个rank &amp;lt; k的低秩矩阵，这里k是一个固定的数字。将H(i,t)表示为H(i,t)=A(i,t)B(i,t)，其中A(i,t)∈ R^(d1×k)，B(i,t)∈ R^(k×d2)，在后续计算中，随机生成一个A(i,t)视为常数，然后优化B(i,t)。这样A的数据就不必上传，可以坍塌成一个随机种子，只需上传B(i,t)。这种优化，本质上是利用降维的压缩技术，使用矩阵将原始数据进行降维处理，然后使用重构矩阵将降维后的数据重新构建为原始数据。 A(i,t)每回合都为每个client随机生成一次。立刻就得到d1/k的上传开销减少。固定B，训练A，或者同时训练A和B都试过，效果不如固定A，训练B。对此的解释是A可视作重构矩阵（从变换后的向量中重新构建出原始向量），B是投影矩阵（将一个向量投影到另一个向量的子空间上）。固定A训练B实际上相当于解决这样一个问题：给定一个随机的重构矩阵，什么样的投影矩阵可以恢复最多的信息？
+在结构化更新之随机掩码方法中，本地模型的更新H(i,t)必须是用某个预定义的随机掩码生成的稀疏矩阵。同样是每回合对每个client重新生成一次。稀疏掩码可以坍塌成一个随机种子，因此只需上传H(i,t)的非零值和种子。
+缩略更新 缩略(sketched)更新，学习一个完整模型更新，学成之后，再通过有损的量化、随机旋转、子采样将其压缩后再发给服务器。
+量化：将权重做概率量化，用更小的标量类型充当原始权重的unbiased estimator。
+随机旋转：其实就是用一个随机正交矩阵乘一下，防止大部分数据都是0的情形，导致量化效果差。
+子采样：原本上传的是H(i,t)，subsampling之后只上传一个随机子集。
+完全去中心化联邦学习在各个领域面临的挑战 Advances and Open Problems in Federated Learning中讨论了完全去中心化联邦学习在算法、隐私、安全、工程等个层面的挑战:</description><content>&lt;h1 id="联邦学习">联邦学习&lt;/h1>
+&lt;p>&lt;a href="https://arxiv.org/pdf/1602.05629.pdf">联邦学习&lt;/a>由McMahan于2016年提出，指的是许多移动设备在一个中央服务器的编排下协作训练模型，保持训练数据离散，避免对用户数据进行收集，仅将客户端模型更新上传中央服务器汇总成新的全局模型的机器学习模式。&lt;/p>
+&lt;p>联邦学习的naive实现如下：&lt;/p>
+&lt;ol>
+&lt;li>中央服务器选定一些clients，让这些client下载模型。&lt;/li>
+&lt;li>每个client根据自己的数据计算更新。&lt;/li>
+&lt;li>每个client将更新（即新的完整模型）上传到中央服务器。&lt;/li>
+&lt;li>中央服务器用某种方式（比如取平均）聚合这些模型得到一个全局模型。&lt;/li>
+&lt;/ol>
+&lt;h2 id="应对上传模型开销大的问题">应对上传模型开销大的问题&lt;/h2>
+&lt;p>大量文献对联邦学习进行了讨论。&lt;a href="https://arxiv.org/pdf/1610.05492.pdf">Federated Learning: Strategies For Improving Communication Efficiency&lt;/a>指出联邦学习的naive实现的第3步很容易出现通信瓶颈，这是首当其冲的问题，提出了降低上行链路通信成本的两种方法：结构化更新，缩略更新。&lt;/p>
+&lt;p>联邦学习的问题可以被形式化地表述为：学习模型中的参数。全连接层的参数可用一个实数矩阵（这只是为了简化问题，所以讨论单个矩阵）表示 W ∈ R^(d1×d2)，shape为(#input × #output)，d1和d2表示输出维度和输入维度。卷积层kernel是4d tensor(#input × width × height × #output) ，需reshape到 (#input × width × height) × #output 。&lt;/p>
+&lt;p>用W(t)表示当前回合(t)的模型，W(i,t)表示本地更新后的模型，所谓更新就是H(i,t) = W(i,t) - W(t)。中央服务器可聚合得到新模型：W(t+1) = W(t) + η(t)H(t)，其中H(t) = Sum(H(i,t))/N，η(t)是learning rate。&lt;/p>
+&lt;h3 id="结构化更新">结构化更新&lt;/h3>
+&lt;p>结构化更新是指直接从一个用少量变量参数化的受限空间里学习更新，而不是学习整个模型的更新。&lt;/p>
+&lt;p>所谓结构化更新，也就是impose structure on updates，论文里提出两种结构，一种是低秩矩阵，另一种是随机掩码。&lt;/p>
+&lt;p>在结构化更新之低秩矩阵方法中，本地模型的更新H(i,t)必须是一个rank &amp;lt; k的低秩矩阵，这里k是一个固定的数字。将H(i,t)表示为H(i,t)=A(i,t)B(i,t)，其中A(i,t)∈ R^(d1×k)，B(i,t)∈ R^(k×d2)，在后续计算中，随机生成一个A(i,t)视为常数，然后优化B(i,t)。这样A的数据就不必上传，可以坍塌成一个随机种子，只需上传B(i,t)。这种优化，本质上是利用降维的压缩技术，使用矩阵将原始数据进行降维处理，然后使用重构矩阵将降维后的数据重新构建为原始数据。
+A(i,t)每回合都为每个client随机生成一次。立刻就得到d1/k的上传开销减少。固定B，训练A，或者同时训练A和B都试过，效果不如固定A，训练B。对此的解释是A可视作重构矩阵（从变换后的向量中重新构建出原始向量），B是投影矩阵（将一个向量投影到另一个向量的子空间上）。固定A训练B实际上相当于解决这样一个问题：给定一个随机的重构矩阵，什么样的投影矩阵可以恢复最多的信息？&lt;/p>
+&lt;p>在结构化更新之随机掩码方法中，本地模型的更新H(i,t)必须是用某个预定义的随机掩码生成的稀疏矩阵。同样是每回合对每个client重新生成一次。稀疏掩码可以坍塌成一个随机种子，因此只需上传H(i,t)的非零值和种子。&lt;/p>
+&lt;h3 id="缩略更新">缩略更新&lt;/h3>
+&lt;p>缩略(sketched)更新，学习一个完整模型更新，学成之后，再通过有损的量化、随机旋转、子采样将其压缩后再发给服务器。&lt;/p>
+&lt;p>量化：将权重做概率量化，用更小的标量类型充当原始权重的unbiased estimator。&lt;/p>
+&lt;p>随机旋转：其实就是用一个随机正交矩阵乘一下，防止大部分数据都是0的情形，导致量化效果差。&lt;/p>
+&lt;p>子采样：原本上传的是H(i,t)，subsampling之后只上传一个随机子集。&lt;/p>
+&lt;h2 id="完全去中心化联邦学习在各个领域面临的挑战">完全去中心化联邦学习在各个领域面临的挑战&lt;/h2>
+&lt;p>&lt;a href="https://arxiv.org/pdf/1912.04977.pdf">Advances and Open Problems in Federated Learning&lt;/a>中讨论了完全去中心化联邦学习在算法、隐私、安全、工程等个层面的挑战:&lt;/p>
+&lt;ol>
+&lt;li>中央服务器可能成为瓶颈和单点故障风险点。由此产生p2p/完全去中心化的设计思路。&lt;/li>
+&lt;li>完全去中心化的算法需应对client可用性和网络稳定性的局限。&lt;/li>
+&lt;li>设计一个试图达到最快收敛速度的模型平均策略是困难的。&lt;/li>
+&lt;li>去中心化的场景会导致算法易受恶意攻击、不可靠数据或标注的威胁。&lt;/li>
+&lt;li>client的通信带宽和电量不足，，将已有的压缩算法移植到移动端比较困难。&lt;/li>
+&lt;li>隐私问题：如何防止一个client重建另一个client的隐私数据。&lt;/li>
+&lt;li>如何实现的问题：区块链作为分布式账簿本质上是一个最终一致的复制状态机。不过以太坊这样的区块链上的数据是公开的，如果要适用于联邦学习，还需要改造。&lt;/li>
+&lt;li>cross-silo场景（多个组织或公司一起训一个模型，但数据不能直接共享，比如多个银行一起训一个fraud detection模型）对数据进行分区，并增加incentive机制。&lt;/li>
+&lt;li>通信和压缩瓶颈。&lt;/li>
+&lt;li>公平性：联邦学习引入了新的bias来源——设备型号、地理位置、活动模式、本地数据集大小等。&lt;/li>
+&lt;li>安全性计算问题：如何应对恶意服务器？如何应对外部攻击？&lt;/li>
+&lt;/ol>
+&lt;h3 id="non-iid数据分布问题">Non-IID数据分布问题&lt;/h3>
+&lt;p>Non-IID(independent &amp;amp; identically distributed) data问题：样本的统计属性没有均匀分布，对于任何client-partitioned数据集来说都是常见的。&lt;/p>
+&lt;p>论文中给出了多种non-identical client分布（考虑对特征x，标签y进行有监督学习，(x,y)~Pi(x,y)即为client i的本地分布，P(x,y) = P(y|x)P(x) = P(x|y)P(y)）：&lt;/p>
+&lt;ul>
+&lt;li>Feature distribution skew(covariate shift)，即不同client的P(y|x)相同，但特征的边际分布P(x)不同。比如笔迹识别中不同用户写相同的字，但笔法、书写习惯还是不同。&lt;/li>
+&lt;li>Label distribution skew(prior probability shift)，即不同client的P(x|y)相同，但标签的边际分布P(y)不同。比如澳洲的日常动物识别应用，标签里就会频繁出现袋鼠，其他地区则不会。&lt;/li>
+&lt;li>Same label, different features(concept drift)，即不同client的P(y)相同，但条件分布P(x|y)不同，相同标签在不同client上对应到了不同的特征。比如豪宅，在香港和加州尺度是不同的。&lt;/li>
+&lt;li>Same features, different label(concept shift)，即不同client的P(x)相同，但条件分布P(y|x)不同，相同特征被标注成立不同标签。比如有人把熊猫标注为宠物，也有人把熊猫标注为猛兽。&lt;/li>
+&lt;li>Quantity skew or unbalancedness，不同的client的数据量差异大。&lt;/li>
+&lt;/ul>
+&lt;p>违反independence同样常见，因为client的分布很容易收到触发训练的约束条件的影响：比如很多训练是利用夜间睡眠时间跑的，那就导致往往一个经度的地区的clients更容易遇到一起。&lt;/p>
+&lt;p>应对Non-IID数据，一个可行的方法是用一个不涉及隐私数据的全局共享小数据集做数据增强。此外，还可以限制一个用户每天能做的贡献上限，避免量上面的不平衡。此外，某些场景还可以把Non-IID从bug转化为feature，就训一个本地客制化的专用模型出来，提供个性化服务，而不是最终产生一个全局模型。文章后面还介绍了Non-IID数据集上的优化算法和收敛速率。&lt;/p>
+&lt;h3 id="应对隐私问题split-learning">应对隐私问题：Split Learning&lt;/h3>
+&lt;p>Split Learning是模型执行路径层面的横切，同时适用于训练和推理：最简单场景是让每个client一直前向算到某个特定的cut layer停下，将cut layer的输出（smashed data）传给中央服务器或peer接着算，于是就完成了无需数据共享就实现的前向传播。类似地，梯度反向传播是从最后一层到cut layer停下，仅将cut layer的梯度回传给client。这样整个过程中其他节点都不会直接访问本地数据。&lt;/p>
+&lt;p>考虑到cut layer的权重本身也能一定程度上反映底层的数据现实，Split Learning是否能提供形式化的隐私承诺仍然是个开放问题。&lt;/p>
+&lt;h2 id="应对通信延迟高的问题">应对通信延迟高的问题&lt;/h2>
+&lt;p>还有一个关键问题——高通信延迟，由于无线和长距离传输的特性而无法回避，但在之前的论文中没被很好地address。&lt;a href="https://dga.hanlab.ai/assets/neurips21_dga.pdf">Delayed Gradient Averaging: Tolerate the
+Communication Latency in Federated Learning&lt;/a>一文提出了一种延迟进行梯度平均的算法，用16节点是树莓派集群模拟现实世界中的移动节点和无线网络环境做了个实验，经验性地证明应用延迟梯度平均可以使联邦学习过程容忍高网络延迟，同时还不牺牲准确度。&lt;/p>
+&lt;p>In-center环境下，同一个机柜的延迟&amp;lt;1us，同机房则是ms级别。无线环境大概是20ms，跨洋连接则至少100ms。在解决带宽问题后，延迟就成为最大瓶颈。这篇论文提出的DGA(Delayed Gradient Aggregation)算法的核心思路是延迟梯度平均到未来的某个迭代，即模型更新时接收过时的平均梯度，从而允许通信和计算流水线化。论文将问题形式化为：最小化随机函数的和。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/DGA.png" alt="DGA">&lt;/p>
+&lt;p>N表示client数量，fi表示client i的stochastic损失函数。随机变量ζi关联一个mini-batch样本。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/DGA2.png" alt="DGA2">&lt;/p>
+&lt;p>算法的主要思路是允许averaging通信过程中做本地更新（averaging通信和本地更新并行，）。FedAvg中clients在每轮结束发送参数到彼此，等averaging结束再开启下一轮。DGA里把averaging barrier延迟到了后续迭代(iteration，指的是本地更新的迭代)。因此clients可以立刻开启下一轮(round，指的是最外层循环，即一轮更新)。第一轮下收到外部信息时迭代已经发生了D次，延迟了D个迭代后进行梯度修正。理想情况下不存在通信延迟，D=0时，DGA恢复成最初的FedAvg。&lt;/p>
+&lt;ol>
+&lt;li>clients在第t轮彼此发更新。&lt;/li>
+&lt;li>clients在本地更新后继续用最新的本地参数继续本地更新。(averaging通信延迟 &amp;gt; 单次甚至若干次本地更新)&lt;/li>
+&lt;li>当其他client的第t轮信息到达，则client已进行了D次额外本地更新。&lt;/li>
+&lt;li>将本地t轮梯度替换为接受到的平均梯度。&lt;/li>
+&lt;/ol>
+&lt;p>在最宽泛的场景下（延迟极高），延迟梯度可能要几个轮次之后才能抵达。这就需要将延迟参数D表示为D = sK + r，其中s&amp;gt;=0, r &amp;lt;=K。DGA仍能保证不同client只在最近D个梯度上是不同的，t-D轮之前的梯度都是一样的。&lt;/p></content></item><item><title>On Transparency</title><link>https://cmbbq.github.io/posts/on-transparency/</link><pubDate>Mon, 15 May 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/on-transparency/</guid><description>透明度是软件工程中长期被忽略的理想属性，是目前互联网行业技术管理体系中的薄弱环节。本文的透明度主要是指组件内部实现对研发团队的可见度、可解释性和可掌控程度，或者说白盒指数。
+一个项目自上而下依赖的第三方黑盒越少，各个抽象层次上诸多组件对研发团队就越是透明的。高透明度意味着高度可维护，高度hackable，随时可拆卸，定位到任何抽象层次上存在性能瓶颈都能毫无桎梏地zoom in，然后修改、重构。习惯性地使用第三方依赖，哪怕这个依赖是得到广泛应用，甚至接近行业标准的高声望项目，依然会注入实现需求不完全匹配的风险。
+高性能计算的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。
+国内互联网同行们对造轮持过分谨慎态度，将其视为anti-pattern，遇到问题时立刻开始技术选型，对使用第三方依赖形成了不假思索的路径依赖。缺乏洞察问题的新颖性和独特性的敏锐度和饥渴，自然故步自封于技术选型，而无法做到真正的技术创新——计算系统的创新是根植于真实需求，对非结构化的现实需求施加结构，创造新的计算和存储形态。就以全文检索为例，美团外卖搜索用ES，微信聊天搜索用SQLite，都是没有选择自研高性能检索引擎，导致业务场景和经典解决方案出现错配，后期遇到了性能瓶颈后的所谓优化方案也只不过是对第三方库进行魔改，让它更贴合原本的需求罢了。比如lucene压根就不是in-memory索引，以至于外卖店家商品搜索这么小规模的场景都不能保证实时性。再说SQLite，默认当然不支持拆表+并行搜索，针对大库做简单的拆表和scatter-gather并行搜索提升性能其实是理所当然的解决方案。
+如此视造轮为畏途实让人唏嘘，在性能上碰壁后，再钻进别人的故纸堆中修修补补，浪费的精力，产生额外的痛苦，远远超过当初用C++/Rust实现一个小而美的in-memory search index(例如pisa)。自研检索引擎用极少的代码量就可以击败lucene、sqlite、postgres，也可以很轻松地支持多线程实时索引更新，而不必牺牲索引性能，还可以针对现代物理机进行深度cache优化、减少核间通信和远端内存访问，将现代硬件的性能在检索这种访存密集应用上发挥到极致。</description><content>&lt;p>透明度是软件工程中长期被忽略的理想属性，是目前互联网行业技术管理体系中的薄弱环节。本文的透明度主要是指组件内部实现对研发团队的可见度、可解释性和可掌控程度，或者说&lt;a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)">白盒&lt;/a>指数。&lt;/p>
+&lt;p>一个项目自上而下依赖的第三方黑盒越少，各个抽象层次上诸多组件对研发团队就越是透明的。高透明度意味着高度可维护，高度hackable，随时可拆卸，定位到任何抽象层次上存在性能瓶颈都能毫无桎梏地zoom in，然后修改、重构。习惯性地使用第三方依赖，哪怕这个依赖是得到广泛应用，甚至接近行业标准的高声望项目，依然会注入实现需求不完全匹配的风险。&lt;/p>
+&lt;p>高性能计算的一个重要启发式设计原则(heuristic)即特化(specialization)，特化显然包括软件特化——基于新的真实需求创造最直接贴合需求的新解决方案(direct solutions to the needs)，即造轮。&lt;/p>
+&lt;p>国内互联网同行们对造轮持过分谨慎态度，将其视为anti-pattern，遇到问题时立刻开始技术选型，对使用第三方依赖形成了不假思索的路径依赖。缺乏洞察问题的新颖性和独特性的敏锐度和饥渴，自然故步自封于技术选型，而无法做到真正的技术创新——计算系统的创新是根植于真实需求，对非结构化的现实需求施加结构，创造新的计算和存储形态。就以全文检索为例，&lt;a href="https://tech.meituan.com/2022/11/17/elasicsearch-optimization-practice-based-on-run-length-encoding.html">美团外卖搜索用ES&lt;/a>，&lt;a href="https://zhuanlan.zhihu.com/p/608082104">微信聊天搜索用SQLite&lt;/a>，都是没有选择自研高性能检索引擎，导致业务场景和经典解决方案出现错配，后期遇到了性能瓶颈后的所谓优化方案也只不过是对第三方库进行魔改，让它更贴合原本的需求罢了。比如lucene压根就不是in-memory索引，以至于外卖店家商品搜索这么小规模的场景都不能保证实时性。再说SQLite，默认当然不支持拆表+并行搜索，针对大库做简单的拆表和scatter-gather并行搜索提升性能其实是理所当然的解决方案。&lt;/p>
+&lt;p>如此视造轮为畏途实让人唏嘘，在性能上碰壁后，再钻进别人的故纸堆中修修补补，浪费的精力，产生额外的痛苦，远远超过当初用C++/Rust实现一个小而美的in-memory search index(例如&lt;a href="https://github.com/pisa-engine/pisa">pisa&lt;/a>)。自研检索引擎用极少的代码量就可以击败lucene、sqlite、postgres，也可以很轻松地支持多线程实时索引更新，而不必牺牲索引性能，还可以针对现代物理机进行深度cache优化、减少核间通信和远端内存访问，将现代硬件的性能在检索这种访存密集应用上发挥到极致。&lt;/p></content></item><item><title>String Lookups Reduce to Parsing</title><link>https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/</link><pubDate>Sun, 14 May 2023 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/string-lookups-could-reduce-to-parsing/</guid><description>标题即结论：字符串查找问题可归约为解析问题。
+这个结论源于近期一个有趣的观察：用ragel写高性能的ascii protocol parser，本质上是利用nfa转dfa提升性能，这和toplingdb中将同一层各个sst对应的trie（本质是dfa）合并成一个dfa(大量dfa-&amp;gt;nfa-&amp;gt;1dfa)的思路是同构的。
+上述同构隐隐蕴含着一个reduction：字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法从字符流中抽取状态，lookups可以视作一类特殊（且模式相当规则）的parsing。LSM key lookup更是比较特殊的海量索引的key range无overlap的场景，存在大量可以轻松合并的DFA。因此龙书中的大量DFA转NFA转DFA算法可以派上用场。
+KV Store的in-memory key index，可以是红黑树，可以是skiplist，可以是hashmap，可以说patricia trie(一种radix tree变种)，也可以是toplingdb中的NestLoudsTrie。这种结构我们同样可以在路由表实现中看到。字符串索引，归根到底是字符串lookup结构。正如路由表实现可以通过把所有routes合并到一个DFA里（很多routes都包含regex），kv数据库也把Trie这种特殊的dfa（Trie的状态转移图是树，树是一种无向图，多了个任意两结点只由一个边连接的约束）做多索引合并，每个索引对应的key range还不重叠（LSM特性），因此合并速度非常快，合并后的DFA表示起来也简单、紧凑，详见自动机算法在数据库索引中的应用，我在作者的文章下面追问了一下DFA合并的触发条件和DFA合并开销，作者的答复是compaction/flush时触发，在整个lsm更新过程中占比很小，也不涉及多线程，无需考虑线程安全。</description><content>&lt;p>标题即结论：字符串查找问题可归约为解析问题。&lt;/p>
+&lt;p>这个结论源于近期一个有趣的观察：用ragel写高性能的ascii protocol parser，本质上是利用&lt;a href="https://en.wikipedia.org/wiki/Nondeterministic_finite_automata">nfa&lt;/a>转&lt;a href="https://en.wikipedia.org/wiki/Deterministic_finite_automaton">dfa&lt;/a>提升性能，这和&lt;a href="https://github.com/topling/toplingdb">toplingdb&lt;/a>中将同一层各个sst对应的trie（本质是dfa）合并成一个dfa(大量dfa-&amp;gt;nfa-&amp;gt;1dfa)的思路是同构的。&lt;/p>
+&lt;p>上述同构隐隐蕴含着一个reduction：字符串查找和字符串解析，本质都用尽可能紧凑的结构和高效的算法从字符流中抽取状态，lookups可以视作一类特殊（且模式相当规则）的parsing。LSM key lookup更是比较特殊的海量索引的key range无overlap的场景，存在大量可以轻松合并的DFA。因此龙书中的大量DFA转NFA转DFA算法可以派上用场。&lt;/p>
+&lt;p>KV Store的in-memory key index，可以是红黑树，可以是skiplist，可以是hashmap，可以说patricia trie(一种&lt;a href="https://en.wikipedia.org/wiki/Radix_tree">radix tree&lt;/a>变种)，也可以是toplingdb中的NestLoudsTrie。这种结构我们同样可以在路由表实现中看到。字符串索引，归根到底是字符串lookup结构。正如路由表实现可以通过把所有routes合并到一个DFA里（很多routes都包含regex），kv数据库也把Trie这种特殊的dfa（Trie的状态转移图是树，树是一种无向图，多了个任意两结点只由一个边连接的约束）做多索引合并，每个索引对应的key range还不重叠（LSM特性），因此合并速度非常快，合并后的DFA表示起来也简单、紧凑，详见&lt;a href="https://zhuanlan.zhihu.com/p/628057993">自动机算法在数据库索引中的应用&lt;/a>，我在作者的文章下面追问了一下DFA合并的触发条件和DFA合并开销，作者的答复是compaction/flush时触发，在整个lsm更新过程中占比很小，也不涉及多线程，无需考虑线程安全。&lt;/p></content></item><item><title>Paradigms of Generic Programming: Archetype, Ducktype, Subtype</title><link>https://cmbbq.github.io/posts/paradigms-of-generic-programming/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/paradigms-of-generic-programming/</guid><description>泛型不等价于模板 什么是泛型编程？提起generic programming，很多人都会立刻想到template，但模板编程只是泛型编程的一种范式。最初发明&amp;quot;generic programming&amp;quot;这种说法的Alexander Stepanov反复强调过： generic programming is not about how to use template。第一个版本的STL尽管名字里带template，实际上是基于scheme实现的。
+要泛型，就必须有规约 规约的制定和对规约的遵循是泛型编程的基础。 任何泛型编程都需要一定规约，有规约才能让一种抽象适配多个具体实体。没有规约，那写具体实现的人都不知道遵循什么规范，实现什么接口，满足什么条件，泛型编程自然就无从谈起。
+规约：在JavaScript里是prototype；在Swift里是protocol；在Rust里是trait；在C++模板编程里是concept或者SFINAE。
+遵循规约：在JavaScript里是运行时将具体对象关联到某个原型对象；在Swift里是用类似继承的冒号让具体类型conforms to某些protocol；在Rust里是用impl SomeTrait for SomeStruct语法显式地为某个类型提供某个trait的实现；在C++里模板实参无需特殊语法声明遵循模板形参，但要心照不宣地遵循模板代码的要求。
+三种规约，三种范式 根据规约不同，可命名泛型编程的三种范式：Archetype, Ducktype, Subtype。
+Archetype：以类型的类型(type-of-type)或者说协议(protocol)、接口(interface)为规约。
+Rust trait: &amp;ldquo;defines shared behavior&amp;rdquo; Carbon interface: &amp;ldquo;defines an API that a given type can implement&amp;rdquo; Swift protocol: &amp;ldquo;defines a blueprint of methods, properties, and other requirements&amp;rdquo; C++ type erasure idiom: &amp;ldquo;captures the concept shared among all the concrete types&amp;rdquo; Ducktype：基于模板进行文本替换的结构化规约。
+模板本质上就是编译期ducktyping，不能提前独立进行类型和语法检查，只有实例化之后才能做类型和语法检查，能鸭子叫，编译通过，叫不出鸭子叫，编译报错。 C++20中模板结构化规约是concept, 此前则是SFINAE技巧，或者干脆不成文：要么因循旧例(iterable的T一定要有begin和end)，要么心照不宣（自己写的代码，只有自己懂，无需对外公开规约）。 由于规约本身并非类型，无法用普通容器存储遵循规约的一系列具体类型，只能用类型推导的tuple-like容器。 Subtype: 以基类为规约。</description><content>&lt;h2 id="泛型不等价于模板">泛型不等价于模板&lt;/h2>
+&lt;p>什么是泛型编程？提起generic programming，很多人都会立刻想到template，但模板编程只是泛型编程的一种范式。最初发明&amp;quot;generic programming&amp;quot;这种说法的Alexander Stepanov反复强调过：
+generic programming is not about how to use template。第一个版本的STL尽管名字里带template，实际上是基于scheme实现的。&lt;/p>
+&lt;h2 id="要泛型就必须有规约">要泛型，就必须有规约&lt;/h2>
+&lt;p>规约的制定和对规约的遵循是泛型编程的基础。
+任何泛型编程都需要一定规约，有规约才能让一种抽象适配多个具体实体。没有规约，那写具体实现的人都不知道遵循什么规范，实现什么接口，满足什么条件，泛型编程自然就无从谈起。&lt;/p>
+&lt;p>规约：在JavaScript里是prototype；在Swift里是protocol；在Rust里是trait；在C++模板编程里是concept或者SFINAE。&lt;/p>
+&lt;p>遵循规约：在JavaScript里是运行时将具体对象关联到某个原型对象；在Swift里是用类似继承的冒号让具体类型conforms to某些protocol；在Rust里是用impl SomeTrait for SomeStruct语法显式地为某个类型提供某个trait的实现；在C++里模板实参无需特殊语法声明遵循模板形参，但要心照不宣地遵循模板代码的要求。&lt;/p>
+&lt;h2 id="三种规约三种范式">三种规约，三种范式&lt;/h2>
+&lt;p>根据规约不同，可命名泛型编程的三种范式：Archetype, Ducktype, Subtype。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Archetype&lt;/strong>：以类型的类型(type-of-type)或者说协议(protocol)、接口(interface)为规约。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://doc.rust-lang.org/book/ch10-02-traits.html">Rust trait&lt;/a>: &amp;ldquo;defines shared behavior&amp;rdquo;&lt;/li>
+&lt;li>&lt;a href="https://github.com/carbon-language/carbon-lang/blob/trunk/docs/design/generics/terminology.md#interface">Carbon interface&lt;/a>: &amp;ldquo;defines an API that a given type can implement&amp;rdquo;&lt;/li>
+&lt;li>&lt;a href="https://docs.swift.org/swift-book/documentation/the-swift-programming-language/protocols/">Swift protocol&lt;/a>: &amp;ldquo;defines a blueprint of methods, properties, and other requirements&amp;rdquo;&lt;/li>
+&lt;li>&lt;a href="https://davekilian.com/cpp-type-erasure.html">C++ type erasure idiom&lt;/a>: &amp;ldquo;captures the concept shared among all the concrete types&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Ducktype&lt;/strong>：基于模板进行文本替换的结构化规约。&lt;/p>
+&lt;ul>
+&lt;li>模板本质上就是编译期ducktyping，不能提前独立进行类型和语法检查，只有实例化之后才能做类型和语法检查，能鸭子叫，编译通过，叫不出鸭子叫，编译报错。&lt;/li>
+&lt;li>C++20中模板结构化规约是concept, 此前则是SFINAE技巧，或者干脆不成文：要么因循旧例(iterable的T一定要有begin和end)，要么心照不宣（自己写的代码，只有自己懂，无需对外公开规约）。&lt;/li>
+&lt;li>由于规约本身并非类型，无法用普通容器存储遵循规约的一系列具体类型，只能用类型推导的tuple-like容器。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Subtype&lt;/strong>: 以基类为规约。&lt;/p>
+&lt;ul>
+&lt;li>子类系统是面向对象语言最普及的泛型编程范式，往往基于class hierarchy +『虚表存放函数指针』+『对象内置虚指针』或『callsite胖指针』实现。&lt;/li>
+&lt;li>子类系统固然是简单自然的多态，但毕竟subtyping有一丢丢的性能开销，不是零成本抽象，而且难以非侵入式地让一个新接口适配已有代码。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>本节命名的三种范式名称恰好都以type结尾，一方面是因为这样比较帅，另一方面是因为（对C++/Rust这种抽象层次的语言来说）编程本身就是在打造一个个类型，泛型编程就是在打造一个个类型规约+遵循规约的类型。Archetype和Subtype范式中，类型规约恰好就是一种抽象类型，所以这两种范式写起来更简单自然。Ducktype范式（C++模板）中，类型规约是结构化规约，可以是语言实体(concept)，也可以心照不宣，无论如何都不是类型。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Paradigms&lt;/th>
+&lt;th style="text-align:center">Archetype&lt;/th>
+&lt;th style="text-align:center">Ducktype&lt;/th>
+&lt;th style="text-align:center">Subtype&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">具体语言实例&lt;/td>
+&lt;td style="text-align:center">Swift protocol, Carbon interface, Rust trait&lt;/td>
+&lt;td style="text-align:center">C++ template(constrained or not), Rust generic&lt;/td>
+&lt;td style="text-align:center">C++/Java/Python class hierarchy&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">在哪里写泛型代码？&lt;/td>
+&lt;td style="text-align:center">泛型函数&lt;/td>
+&lt;td style="text-align:center">函数模板&lt;/td>
+&lt;td style="text-align:center">子类方法&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">承载泛型代码的语言实体&lt;/td>
+&lt;td style="text-align:center">普通函数，只不过是以规约类型为参数&lt;/td>
+&lt;td style="text-align:center">模板文本&lt;/td>
+&lt;td style="text-align:center">普通函数，不过函数指针被语言特性暗中与callsite指针绑定了&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">规约&lt;/td>
+&lt;td style="text-align:center">定义一些类的方法或属性共性的协议类型&lt;/td>
+&lt;td style="text-align:center">模板参数应符合的一组需求闭集，可以是成文约束Concept或SFINAE，也可以是不成文约束&lt;/td>
+&lt;td style="text-align:center">面向对象语言继承图中的某个基类的虚函数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">承载规约的语言实体&lt;/td>
+&lt;td style="text-align:center">类，类型擦除之后的共性类，类型的类型，本质上仍然是类型&lt;/td>
+&lt;td style="text-align:center">对文本替换的placeholder的结构化约束。即使约束了，我们也无法对placeholder做类型/语法检查&lt;/td>
+&lt;td style="text-align:center">被基类列入必要功能列表的函数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">遵循规约的语言实体&lt;/td>
+&lt;td style="text-align:center">具体的类&lt;/td>
+&lt;td style="text-align:center">用于模板实例化的模板参数&lt;/td>
+&lt;td style="text-align:center">子类&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">何时做name lookup决议？&lt;/td>
+&lt;td style="text-align:center">早绑定，允许独立编译&lt;/td>
+&lt;td style="text-align:center">晚绑定，实例化时，不用的话就一直不绑定&lt;/td>
+&lt;td style="text-align:center">早绑定，允许独立编译&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">何时做类型检查？&lt;/td>
+&lt;td style="text-align:center">独立编译时&lt;/td>
+&lt;td style="text-align:center">实例化后&lt;/td>
+&lt;td style="text-align:center">独立编译时&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">是否允许支持动态绑定？&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;td style="text-align:center">否&lt;/td>
+&lt;td style="text-align:center">是&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">如何将已有泛型接口在新的类型上进行扩展？&lt;/td>
+&lt;td style="text-align:center">允许基于已有类型创造一个数据表示兼容的新类型，只不过规约变了，允许它实现某个新的规约，或提供与原类型的已实现的某个规约提供不同的实现。&lt;/td>
+&lt;td style="text-align:center">为新偏特化场景写新的函数模板即可扩展，可用Concept或SFINAE修订重载决议规则。也可以在函数模板里用某个约定好的函数名、成员变量名、关联类型作为客制点，新的类型只需实现这些客制点。&lt;/td>
+&lt;td style="text-align:center">继承，子类数据表示可能会变&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="archetype范式">Archetype范式&lt;/h2>
+&lt;p>Archetype在Rust中是语言的核心机制——trait，要写好Rust的泛型代码，就要习惯于基于archetype编程。相比与DuckType、SubType，Archetype范式天然有一些优势。&lt;/p>
+&lt;h3 id="generic-code-is-just-normal-code">Generic code is just normal code&lt;/h3>
+&lt;p>和模板相比，&amp;ldquo;Generic code is just normal code&amp;quot;是Archetype范式最大优势，也是Rust语言相比C++的巨大优势。让非专家也能写出高度抽象，同时还零成本，具有高度可复用性的泛型代码。&lt;/p>
+&lt;p>C++基于模板文本替换的泛型代码和普通类型的具体实现代码，在写法上有一定区别，编译链接也有区别。
+这是因为C++中基于concept模板，其实是没办法提前编译、提前语法检查，只能在实例化之后再做语法检查。所以是一种难度相当高的编程范式，能用模板写C++库的一般是业界专家，普通人很难掌握，也没有足够动机去掌握。&lt;/p>
+&lt;p>Rust基于trait的泛型代码则和普通类型的具体实现代码，在写法上基本没区别，编译链接方式也一样。
+这是因为Rust中的trait是一种archetype，type-of-type，是规定一组类型应该具备什么接口的元类型，无论它多么抽象多么特殊，究其本质仍是一种类型。只要是类型，就可以单独提前编译，就可以被提前语法检查。&lt;/p>
+&lt;h3 id="adapting-erases-interoperability">Adapting Erases Interoperability&lt;/h3>
+&lt;p>和继承相比，&amp;ldquo;Adapting rather than extending a type&amp;quot;是Archetype范式的优势之一。
+Subtype范式在实践中不能保证所有类型继承自同一个基类，比如说对第三方的代码没有控制权，或者说这个类型不是个class，而是int, float这种内置类型。
+Archetype范式中不仅可以为自己的类型提供多种Archetype adaption，或使自己的代码遵循第三方Archetype，还可以为第三方类型提供自己的Archetype实现——前两点还好，这最后一点是Subtype范式做不到的，只能加个丑陋的wrapper，不仅工作量特别大，而且容易出错。&lt;/p>
+&lt;p>有人会问，允许修改已有的类型是不是比较危险？这是一种误解。继承是修改，因此是危险的。Adapt（或者说override，newtype）其实不是修改，而是新增。
+继承改变了类型的数据表示，Adapt机制则不改变类型的数据表示，只为其新增接口——换一种说法，override Archetype for T机制实际上是为已有类型T新建了一个遵循规约Archetype的入口。&lt;/p>
+&lt;h3 id="archetypes-in-c">Archetypes in C++&lt;/h3>
+&lt;p>有些人会argue，C++无所不能，的确C++也可以实现archetype范式，比如std::function，以及其他类型擦除。但是基于现有语法写出来的泛型代码和普通代码之间还是没那么像。One has to drastically change the programming style in order to &amp;ldquo;go generic&amp;rdquo;. 实现archetype范式在C++中相对困难。但即使如此，archetype范式的固有优势还是让某些标准或准标准选择了它，比如std::function, std::any, boost::any_range。&lt;/p></content></item><item><title>On NCO</title><link>https://cmbbq.github.io/posts/on-nco/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/on-nco/</guid><description>凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。
+非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。
+深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。
+随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。</description><content>&lt;p>凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。&lt;/p>
+&lt;p>非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。&lt;/p>
+&lt;p>深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。&lt;/p>
+&lt;p>随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。&lt;/p></content></item><item><title>A Decade of Tussle between CPU and GPU</title><link>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</link><pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</guid><description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
+这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
+GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
+摩尔定律是两年翻倍，而黄氏定律则是宣称通过软硬件协同能达到1.08年翻倍。
+甚至如果我们考虑成本因素，根据经验数据，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。</description><content>&lt;h2 id="gpu和cpu方法的边界何在">GPU和CPU方法的边界何在？&lt;/h2>
+&lt;p>做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？&lt;/p>
+&lt;p>这个问题可以归约为&lt;a href="https://www.usenix.org/legacy/event/hotpar10/tech/full_papers/main.pdf">On the Limits of GPU Acceleration(2010)&lt;/a>中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。&lt;/p>
+&lt;h2 id="gpu和cpu的价格-性能趋势">GPU和CPU的价格-性能趋势&lt;/h2>
+&lt;p>上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？&lt;/p>
+&lt;p>摩尔定律是两年翻倍，而&lt;a href="https://en.wikipedia.org/wiki/Huang%27s_law">黄氏定律&lt;/a>则是宣称通过软硬件协同能达到1.08年翻倍。&lt;/p>
+&lt;p>甚至如果我们考虑成本因素，根据&lt;a href="https://epochai.org/blog/trends-in-gpu-price-performance">经验数据&lt;/a>，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/4.png" alt="Emprical GPU/CPU FLOP/s per dollar1">
+&lt;img src="https://cmbbq.github.io/img/5.png" alt="Emprical GPU/CPU FLOP/s per dollar2">
+&lt;img src="https://cmbbq.github.io/img/6.png" alt="Emprical GPU/CPU FLOP/s per dollar3">&lt;/p></content></item><item><title>On ABI</title><link>https://cmbbq.github.io/posts/on-abi/</link><pubDate>Tue, 02 Aug 2022 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/on-abi/</guid><description>前注：ABI在本文中特指系统语言的ABI，这里系统语言，即system programming language，指的是C，C++，Rust这样应用于系统编程的的编译语言。有时候我们也会讨论常用库或基础库的ABI，比如gcc5就把std::basic_string和std::list的实现改了，自然也就影响了跨版本的ABI兼容性，这种层面的ABI兼容性虽然也是一个工程上的疑难杂症，但不在本文的讨论范围内，毕竟源码都不同了。本文讨论ABI兼容性的是同一份源码在不同ISA、操作系统、编译器上对应二进制产物的兼容性。
+系统语言的ABI、应用层软件的API、微处理器架构的ISA都是描述各自抽象层次互操作能力的接口。
+ABI的独特之处在于它本身就是繁重的机制实现，而非轻量的协议声明——实现和声明之间有概念上的分野，这已经体现在法律上：复制ABI是赤裸裸的抄袭，而复制API或ISA则属于fair use。你显然可以合法地为他人写的API/ISA出书做注，Google实现自己的Java时合法复制了Oracle的Java API，无需license。
+ABI之所以复杂，就是因为它处于两个抽象层次之间。ABI中的很大一部分内容既要向上对语言标准负责，向下要对ISA负责，必须遵循两个方向的约束，将复杂度留给自身，从而成就语言标准和ISA这两个抽象契约的简洁、干净，和人类友好。
+ABI中的重要组成部分之一calling convention受到ISA的约束，i386中用cdecl, stdcall, fastcall, vectorcall, thiscall, amd64中用systemv, msnative, vectorcall，arm32用aapcs，arm64用aapcs64。ABI中也有很大一部分是指令集无关的（ISA-agnostic），比如name mangling、class layout。这些机制往往足够底层，又与其他指令集相关的部分有强耦合，加上历史因素，往往也只有一小部分能被写入语言标准。
+如果ISA差异足够大，维护不同的ABI无疑是必要的，强行用一套ABI兼容不仅不自然，也不高效。以早期的Windows为例，微软就为早先的i386（IA-32）和后来的Intel IA-64提供了两套ABI。再后来，AMD赢得64位战争，Intel也遵循了前向兼容IA-32的amd64，又名x86_64, x64，IA-64就式微了。
+ABI以ISA提供的指令、寄存器、内存管理能力为构件（building block），详尽且精确地描述如何实现一个系统语言在特定硬件、操作系统、编译器下的执行模型，并允许分开编译的产物之间能互操作。例如C ABI需定义调用约定（calling convention）、基础数据类型的表示、聚合数据类型的内存布局；C++03 ABI需额外定义异常机制、RTTI信息存储、虚表布局和动态绑定机制、重载函数/运算符/模板实例化所需的名字重置（name mangling）；C++11 ABI需进一步定义lambda的实现、自动类型推导机制等新增语言机制。
+无论是C，还是C++都没有在语言层面制定官方的ABI标准，毕竟ABI标准本身也限制了实现的自由。目前最主流的Itanium C++ ABI号称被许多操作系统采用，能适配多数微处理器架构，被大多数编译器实现，包括gcc和clang这两个主要玩家。但值得注意的是，被多方支持，不意味着多方支持的是完全相同的东西。同样打着Itanium ABI名号，clang在arm32 linux上编译的C++库能给amd64 windows上的程序使用吗？显然不行，因为最基础的calling convention，甚至基础数据类型表示都不同。Itanium C++ ABI即使实现大一统，积极意义也仅限于允许一些依赖CPU无关规则的危险技巧（比如修改vtable，这种操作我们现在只能称之为hack）在相当多的环境下通用罢了——只要C++语言标准不将ABI纳入讨论范围，对ABI做出假设的技巧永远是危险的，想要创造新的语言机制，就必须在C++标准层面推进某种ABI共识。
+那么系统语言是否应该对某种基于特定ABI实现的语言特性进行标准化呢？从C++的发展历史来看，这种做法已经有了先例，而且是相当危险冒失的。将非零抽象开销的dynamic exception、rtti引入C++客观上导致了社区分裂，有相当一部分C++使用者至今依然选择-fno-exeptions或-fno-rtti。近期的提案Zero-Overhead Deterministic Exceptions: Catching Values给出了一个对exception ABI进行改动的零开销异常机制，是对历史错误的亡羊补牢。系统语言的语言标准应审慎地只对ISA无关且零抽象开销的ABI规则进行标准化，以便在此基础上创造新的语言机制或为应用层开发提供便利。</description><content>&lt;p>前注：ABI在本文中特指系统语言的ABI，这里系统语言，即system programming language，指的是C，C++，Rust这样应用于系统编程的的编译语言。有时候我们也会讨论常用库或基础库的ABI，比如gcc5就把std::basic_string和std::list的实现改了，自然也就影响了跨版本的ABI兼容性，这种层面的ABI兼容性虽然也是一个工程上的疑难杂症，但不在本文的讨论范围内，毕竟源码都不同了。本文讨论ABI兼容性的是同一份源码在不同ISA、操作系统、编译器上对应二进制产物的兼容性。&lt;/p>
+&lt;p>系统语言的ABI、应用层软件的API、微处理器架构的ISA都是描述各自抽象层次互操作能力的接口。&lt;/p>
+&lt;p>ABI的独特之处在于它本身就是繁重的机制实现，而非轻量的协议声明——实现和声明之间有概念上的分野，这已经体现在法律上：复制ABI是赤裸裸的抄袭，而复制API或ISA则属于fair use。你显然可以合法地为他人写的API/ISA出书做注，Google实现自己的Java时合法复制了Oracle的Java API，无需license。&lt;/p>
+&lt;p>ABI之所以复杂，就是因为它处于两个抽象层次之间。ABI中的很大一部分内容既要向上对语言标准负责，向下要对ISA负责，必须遵循两个方向的约束，将复杂度留给自身，从而成就语言标准和ISA这两个抽象契约的简洁、干净，和人类友好。&lt;/p>
+&lt;p>ABI中的重要组成部分之一calling convention受到ISA的约束，i386中用cdecl, stdcall, fastcall, vectorcall, thiscall, amd64中用systemv, msnative, vectorcall，arm32用aapcs，arm64用aapcs64。ABI中也有很大一部分是指令集无关的（ISA-agnostic），比如name mangling、class layout。这些机制往往足够底层，又与其他指令集相关的部分有强耦合，加上历史因素，往往也只有一小部分能被写入语言标准。&lt;/p>
+&lt;p>如果ISA差异足够大，维护不同的ABI无疑是必要的，强行用一套ABI兼容不仅不自然，也不高效。以早期的Windows为例，微软就为早先的i386（IA-32）和后来的Intel IA-64提供了两套ABI。再后来，AMD赢得64位战争，Intel也遵循了前向兼容IA-32的amd64，又名x86_64, x64，IA-64就式微了。&lt;/p>
+&lt;p>ABI以ISA提供的指令、寄存器、内存管理能力为构件（building block），详尽且精确地描述如何实现一个系统语言在特定硬件、操作系统、编译器下的执行模型，并允许分开编译的产物之间能互操作。例如C ABI需定义调用约定（calling convention）、基础数据类型的表示、聚合数据类型的内存布局；C++03 ABI需额外定义异常机制、RTTI信息存储、虚表布局和动态绑定机制、重载函数/运算符/模板实例化所需的名字重置（name mangling）；C++11 ABI需进一步定义lambda的实现、自动类型推导机制等新增语言机制。&lt;/p>
+&lt;p>无论是C，还是C++都没有在语言层面制定官方的ABI标准，毕竟ABI标准本身也限制了实现的自由。目前最主流的Itanium C++ ABI号称被许多操作系统采用，能适配多数微处理器架构，被大多数编译器实现，包括gcc和clang这两个主要玩家。但值得注意的是，被多方支持，不意味着多方支持的是完全相同的东西。同样打着Itanium ABI名号，clang在arm32 linux上编译的C++库能给amd64 windows上的程序使用吗？显然不行，因为最基础的calling convention，甚至基础数据类型表示都不同。Itanium C++ ABI即使实现大一统，积极意义也仅限于允许一些依赖CPU无关规则的危险技巧（比如修改vtable，这种操作我们现在只能称之为hack）在相当多的环境下通用罢了——只要C++语言标准不将ABI纳入讨论范围，对ABI做出假设的技巧永远是危险的，想要创造新的语言机制，就必须在C++标准层面推进某种ABI共识。&lt;/p>
+&lt;p>那么系统语言是否应该对某种基于特定ABI实现的语言特性进行标准化呢？从C++的发展历史来看，这种做法已经有了先例，而且是相当危险冒失的。将非零抽象开销的dynamic exception、rtti引入C++客观上导致了社区分裂，有相当一部分C++使用者至今依然选择-fno-exeptions或-fno-rtti。近期的提案&lt;a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2021/p2232r0.html">Zero-Overhead Deterministic Exceptions: Catching Values&lt;/a>给出了一个对exception ABI进行改动的零开销异常机制，是对历史错误的亡羊补牢。系统语言的语言标准应审慎地只对ISA无关且零抽象开销的ABI规则进行标准化，以便在此基础上创造新的语言机制或为应用层开发提供便利。&lt;/p></content></item><item><title>A Taxonomy of Stateful Distributed Systems</title><link>https://cmbbq.github.io/posts/a-taxonomy-of-stateful-distributed-systems/</link><pubDate>Thu, 08 Jul 2021 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/a-taxonomy-of-stateful-distributed-systems/</guid><description>CAP theorem的讨论范围是狭窄的 在分布式系统领域，CAP theorem广泛被引用，而且经常被用以指导超出它讨论边界的问题。
+被形式化证明（见Brewer&amp;rsquo;s Conjecture and the Feasibility of Consistent, Available, Partition-​Tolerant Web Services）的CAP theorem其实只局限在read-write storage场景：一个只包含get、set(x)两种操作的存储系统，这种系统被称为register。
+在异步网络（指的是消息传递时间无界）中实现register是无法同时满足下列属性的：
+Availability：所有发往register的请求最终都能完成。这和大多数真实系统的定义是不同的，因为真实系统不要求100%完成请求，只要保证SLA够高，同时又往往有一定时间约束，超时就会返回timeout错误。 Consistency：所有读、写操作均是linearizable的：B操作在A操作之后成功执行，则B看到的系统状态不能比A完成时的系统状态更旧。 Partition tolerance：允许网络丢包。 Partition tolerance默认是满足的，因此CAP-availability、CAP-consistency两种属性二选一。 离开了形式化证明的场景后，CAP theorem还有指导意义吗？答案是否定的——除非重新定义availability和consistency，将其推广到更通用的场景：从单对象单操作到多对象多操作的事务系统。 重新定义availability和consistency后的分布式系统分类学虽然和CAP theorem非常类似，但不能称之为CAP theorem。
+一致性 更通用的“一致性”应定义为“并发系统中共享状态更新的可见性”。 现代微处理器、分布式系统、数据库的共性是——它们都是存在共享数据的并发系统。 当我们讨论一致性（consistency）时，可能指的是微处理器架构和系统编程领域的一致性模型，也可能指的是分布式系统领域的副本一致性，还可能指的是数据库领域的事务隔离性。这些领域的抽象层次不同，共同点是讨论的系统都是并发系统。
+一致性模型（consistency model）是用于描述微处理器架构领域的多核并发场景下，各个处理器被允许的乱序程度——乱序的约束越少，效率越高，并发程序正确性越难保证。
+最强的strict consistency指的是任何写在任何时钟周期都立刻对任何处理器可见，显然不能推广到分布式系统领域。 次之的sequential consistency指的是写操作顺序对于每个副本而言都是一致的，即各进程内部的program order一致，而不同进程执行的顺序可以不一致。这个概念最初也是Lamport在讨论multi-processor computer如何正确执行并发程序时提出的。和分布式系统的副本一致性无关。C++中std::memory_order_seq_cst即可保证线程内部的program order。 更宽松的causal consistency指的是写操作中有依赖关系的那一部分的顺序是一致的，即各进程中的dependency order一致。现代CPU基本上都是out-of-order流水线，在保证dependency order这个底线后，能多乱序就多乱序。在C++中用std::memory_order_consume的load(A)和std::memory_order_acquire的store(B)配合，即可保证这个store之前所有写操作中load(A)依赖的那一部分对load(A)是可见的。如果每个依赖都保证Release-Consume ordering，则依赖链就有序，整体上可满足causal consistency。 除了上述几个著名模型外，还有几十个不同方法、领域中应用的一致性模型，下图就包含了非事务分布式存储系统中种种一致性模型（详见Consistency in Non-Transactional Distributed Storage Systems）。 并发程序显然可以很容易推广到分布式复制状态机，只是增加了网络延迟。因此，一致性模型可以推广应用到分布式系统中的副本一致性。以sequential consistency为例，增加了实时约束后就是分布式系统领域中更被广泛引用的linearizability，指的是单个被复制对象上的单个操作满足：A是写操作，B是对副本的读，A happened-before（因果律上的先于，见https://en.wikipedia.org/wiki/Happened-before） B，则A的写对B的读总是可见。比较一下C++的sequentially consistent ordering定义：everything that happened-before a store in one thread becomes a visible side effect in the thread that did a load。二者是一致的。</description><content>&lt;h2 id="cap-theorem的讨论范围是狭窄的">CAP theorem的讨论范围是狭窄的&lt;/h2>
+&lt;p>在分布式系统领域，CAP theorem广泛被引用，而且经常被用以指导超出它讨论边界的问题。&lt;/p>
+&lt;p>被形式化证明（见&lt;a href="https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf">Brewer&amp;rsquo;s Conjecture and the Feasibility of Consistent, Available, Partition-​Tolerant Web Services&lt;/a>）的CAP theorem其实只局限在read-write storage场景：一个只包含get、set(x)两种操作的存储系统，这种系统被称为register。&lt;/p>
+&lt;p>在异步网络（指的是消息传递时间无界）中实现register是无法同时满足下列属性的：&lt;/p>
+&lt;ol>
+&lt;li>Availability：所有发往register的请求最终都能完成。这和大多数真实系统的定义是不同的，因为真实系统不要求100%完成请求，只要保证SLA够高，同时又往往有一定时间约束，超时就会返回timeout错误。&lt;/li>
+&lt;li>Consistency：所有读、写操作均是linearizable的：B操作在A操作之后成功执行，则B看到的系统状态不能比A完成时的系统状态更旧。&lt;/li>
+&lt;li>Partition tolerance：允许网络丢包。&lt;/li>
+&lt;/ol>
+&lt;p>Partition tolerance默认是满足的，因此CAP-availability、CAP-consistency两种属性二选一。
+离开了形式化证明的场景后，CAP theorem还有指导意义吗？答案是否定的——除非重新定义availability和consistency，将其推广到更通用的场景：从单对象单操作到多对象多操作的事务系统。
+重新定义availability和consistency后的分布式系统分类学虽然和CAP theorem非常类似，但不能称之为CAP theorem。&lt;/p>
+&lt;h2 id="一致性">一致性&lt;/h2>
+&lt;p>更通用的“一致性”应定义为“并发系统中共享状态更新的可见性”。
+现代微处理器、分布式系统、数据库的共性是——它们都是存在共享数据的并发系统。
+当我们讨论一致性（consistency）时，可能指的是微处理器架构和系统编程领域的一致性模型，也可能指的是分布式系统领域的副本一致性，还可能指的是数据库领域的事务隔离性。这些领域的抽象层次不同，共同点是讨论的系统都是并发系统。&lt;/p>
+&lt;p>一致性模型（consistency model）是用于描述微处理器架构领域的多核并发场景下，各个处理器被允许的乱序程度——乱序的约束越少，效率越高，并发程序正确性越难保证。&lt;/p>
+&lt;ol>
+&lt;li>最强的strict consistency指的是任何写在任何时钟周期都立刻对任何处理器可见，显然不能推广到分布式系统领域。&lt;/li>
+&lt;li>次之的sequential consistency指的是写操作顺序对于每个副本而言都是一致的，即各进程内部的program order一致，而不同进程执行的顺序可以不一致。这个概念最初也是Lamport在讨论multi-processor computer如何正确执行并发程序时提出的。和分布式系统的副本一致性无关。C++中std::memory_order_seq_cst即可保证线程内部的program order。&lt;/li>
+&lt;li>更宽松的causal consistency指的是写操作中有依赖关系的那一部分的顺序是一致的，即各进程中的dependency order一致。现代CPU基本上都是out-of-order流水线，在保证dependency order这个底线后，能多乱序就多乱序。在C++中用std::memory_order_consume的load(A)和std::memory_order_acquire的store(B)配合，即可保证这个store之前所有写操作中load(A)依赖的那一部分对load(A)是可见的。如果每个依赖都保证Release-Consume ordering，则依赖链就有序，整体上可满足causal consistency。&lt;/li>
+&lt;li>除了上述几个著名模型外，还有几十个不同方法、领域中应用的一致性模型，下图就包含了非事务分布式存储系统中种种一致性模型（详见&lt;a href="https://arxiv.org/pdf/1512.00168.pdf">Consistency in Non-Transactional Distributed Storage Systems&lt;/a>）。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/1.png" alt="Consistency1">&lt;/p>
+&lt;p>并发程序显然可以很容易推广到分布式复制状态机，只是增加了网络延迟。因此，一致性模型可以推广应用到分布式系统中的副本一致性。以sequential consistency为例，增加了实时约束后就是分布式系统领域中更被广泛引用的linearizability，指的是单个被复制对象上的单个操作满足：A是写操作，B是对副本的读，A happened-before（因果律上的先于，见https://en.wikipedia.org/wiki/Happened-before） B，则A的写对B的读总是可见。比较一下C++的sequentially consistent ordering定义：everything that happened-before a store in one thread becomes a visible side effect in the thread that did a load。二者是一致的。&lt;/p>
+&lt;p>必须注意，迄今为止讨论的对象仅限单个被复制到不同副本中的对象上的单个操作，分布式存储不可能只存一个对象，有很多分布式存储支持事务或BatchWrite，涉及到多个对象上的多个操作。将单对象上单操作的可见性推广到多对象上多操作也不困难——事务的ACID隔离级别本质上就是将单个共享对象上单个操作的可见性推广到多个对象上一组操作上。下图的左侧就是数据库领域熟知的隔离级别，和分布式系统、微处理器架构、多核编程一样，乱序的约束越少，效率越高，并发程序正确性越难保证。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/2.png" alt="Consistency2">&lt;/p>
+&lt;h2 id="可用性">可用性&lt;/h2>
+&lt;p>更通用的“可用性”应定义为“在施加某种约束后，系统仍最终能响应所有请求，无论网络分区持续多久”。
+比CAP theorem更完善的分布式系统分类学可参考&lt;a href="https://arxiv.org/pdf/1302.0309.pdf">Highly Available Transactions: Virtues and Limitations&lt;/a>。
+这篇论文里给出了新的可用性定义：&lt;/p>
+&lt;ol>
+&lt;li>High availability：每个用户向运行中的系统发的请求，最终都会得到回复，无论网络分区持续多久。这就是CAP-availability，或者说traditional availability的标准定义。&lt;/li>
+&lt;li>Sticky availability：每当用户事务在一个数据库状态（该状态反应了之前该用户所有操作）拷贝上执行，最终都会得到回复，无论网络分区持续多久。 这比CAP-availability要求更高。&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>只追求high availability，用户可以访问系统中的任何一个replica，不同操作在不同replica上响应也没关系；但若追求sticky availability，用户则需要保证连续的若干操作总是在同一个replica上。比如Dynamo这种multi-writer的分布式存储，不能写一会儿A节点，再写一会儿B节点。&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>Transactional availability：分布式系统文献的一致性模型大多考虑的都是单对象上单个操作的场景，而数据库文献中关注的是事务：多个对象上多个操作合起来称为一个事务。显然CAP-availability定义也不适用于事务。&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>事务的replica availability：事务能为它需要访问的各个对象联系到至少一个replica。这个要求是比CAP-availability低的。&lt;/li>
+&lt;li>事务的liveliness：假设我们让每个事务都abort，就可以保证100%的及时响应，完美实现CAP-Availability，但又有什么意义呢？因此还需要保证尽可能让事务commit，而不是abort。&lt;/li>
+&lt;li>因此，最终给出的transactional availability定义是：对事务中每个数据都保证replica availability，并且最终能够在N次retry内commit成功，或internal abort（由事务自己主动选择的abort，而非系统实现将其abort）。&lt;/li>
+&lt;li>更进一步还可以给出sticky transactional availability的定义：如果系统能保证sticky availability，则能保证transactional availability。&lt;/li>
+&lt;/ul>
+&lt;p>根据这种定义，可以将现有的事务系统的consistency（隔离级别）与其availability进行比较，得出下图中的结果：在新的分类学中，availability要求越高，consistency要求越宽松是成立的。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/3.png" alt="Availability">&lt;/p></content></item><item><title>Digital Representation of Sound</title><link>https://cmbbq.github.io/posts/digital-representation-of-sound/</link><pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate><guid>https://cmbbq.github.io/posts/digital-representation-of-sound/</guid><description>声音的本质是振动。
+对于人耳来说，空气分子的振动抵达鼓膜时就会引起鼓膜振动——鼓膜顾名思义就是一层薄膜结构，被空气分子撞击就如同击鼓——带动鼓膜后的听小骨振动，传入内耳，再引发卵圆窗振动，卵圆窗这层薄膜之后是充满液体的耳蜗管道，这些液体随着卵圆窗振动而流动，冲刷耳蜗上的毛细胞的纤毛，从而产生生物电信号，经过神经传入大脑，就形成了听觉。
+对于电容式麦克风来说，当有声音时，两块金属极板就开始振动，其间的距离会产生变化，电压形成了对空气分子振幅的模拟，因此这种电压信号被称为模拟信号。只有离散的数据才能被计算机存储、计算，因此要形成数字音频，还需要声卡的模数转换电路将连续的模拟信号采样后转化为离散的数字信号。这是一个连续曲线转化成柱状图的过程，采样率决定了柱的粗细，bit depth则决定柱高度的精度。如果bit depth为N，则振幅的取值范围为2^N，音乐App里标注的16-bit, 24-bit, 32-bit就指的是bit depth，显然bit depth越高，振幅的表示越精确。比特率bit rate = sample rate * bit depth，即每秒用多少bit来表示音频数据。
+PGC和UGC的差别主要是信噪比，毕竟录音的时候连手机都不能带，空调、电灯都可能影响波形电平稳定。UGC可以想象，直播或者念稿子，噪声的平均振幅往往还比背景音乐更大。音频从32bit到16bit是一个量化的过程，不过无论采样精度多高，都终归是对现实的一个量化，量化error引入量化噪声，所以任何数字音频都是有底噪的——白噪声在各频率上都是一样的能量，由于能量（响度）较低，被称为noise floor，表现为微弱的嘶嘶声。
+音频时域数据的纵坐标为振幅，横坐标为时间，可绘制成波形图——其震动频率决定音高，平均振幅决定响度，具体波形和这种其他因素决定音色。
+时域与频域是对信号波的两个观察面。时域是真实世界唯一存在的域，频域则是对时域的数学构造。任何时域信号都可以表示为不同频率的正弦波信号的叠加。
+常见的音频格式包括wav、mdi、mp3、mp3pro、wma、realaudio、audible、aac、ogg vorbis、ape、flac。不同的音频编码有不同的目标，在压缩（降低传输所需信道带宽）和质量（对人耳来说）之间做tradeoff。
+各种格式的数字音频都能转成采样率8000Hz的PCM格式音频，PCM(pulse code modulation)是最简单的时域编码方式，就是对信号的离散和量化（通常是对数量化）。1/8000s长度的帧即构成了PCM音频在时域上的最小单位，每个帧包含channel数目个采样点，如果channel数目为1，则帧大小就等于bit depth。我们可以把PCM音频切分成多个chunk，每个chunk有固定大小（比如包含1024个帧），chunk与chunk之间必须有重合（比如256个帧）。之所以要有些重合，是为了对抗Time Skew（假如不做重合，查询音频的chunk的起始帧和库中的音频各个chunk的起始帧有一定offset就查询不到了）。
+接下来只需对各个chunk进行1维离散傅立叶变换（fftw_plan_dft_1d）就能得到各个chunk的频域信息（如下图，横坐标为频率，纵坐标为能量）。
+再将这些帧的频谱按时间顺序拼起来（可以有一些重合）就形成一个y轴为频率，x轴为时间，z轴为能量的三维表面（也可以用平面彩图表示，z轴的高度换成色彩来表示能量），这就形成了频谱图（spectrogram）。
+有了频谱图，就可以尝试从较长的数据中提炼出简短的信息作为这段音频的指纹了。在频谱图上可以逐帧找到各帧上显著的高能频率点（salient peaks，能量超过一定阈值，且比周围所有点都高）——这些点本身已经可以作为音频的指纹特征了，只是不够鲁棒，因为点与点之间是无关的，满屏都是噪点的情况下就会有误匹配。一个改进方案是这些点右侧划定一个目标区域，在区域内找出一些点，形成几个pair，这些pair叫做landmark特征，即[t1, f1, t2, f2]，其抗噪能力增强了很多。</description><content>&lt;p>声音的本质是振动。&lt;/p>
+&lt;p>对于人耳来说，空气分子的振动抵达鼓膜时就会引起鼓膜振动——鼓膜顾名思义就是一层薄膜结构，被空气分子撞击就如同击鼓——带动鼓膜后的听小骨振动，传入内耳，再引发卵圆窗振动，卵圆窗这层薄膜之后是充满液体的耳蜗管道，这些液体随着卵圆窗振动而流动，冲刷耳蜗上的毛细胞的纤毛，从而产生生物电信号，经过神经传入大脑，就形成了听觉。&lt;/p>
+&lt;p>对于电容式麦克风来说，当有声音时，两块金属极板就开始振动，其间的距离会产生变化，电压形成了对空气分子振幅的模拟，因此这种电压信号被称为模拟信号。只有离散的数据才能被计算机存储、计算，因此要形成数字音频，还需要声卡的模数转换电路将连续的模拟信号采样后转化为离散的数字信号。这是一个连续曲线转化成柱状图的过程，采样率决定了柱的粗细，bit depth则决定柱高度的精度。如果bit depth为N，则振幅的取值范围为2^N，音乐App里标注的16-bit, 24-bit, 32-bit就指的是bit depth，显然bit depth越高，振幅的表示越精确。比特率bit rate = sample rate * bit depth，即每秒用多少bit来表示音频数据。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/audio1.png" alt="audio1">&lt;/p>
+&lt;p>PGC和UGC的差别主要是信噪比，毕竟录音的时候连手机都不能带，空调、电灯都可能影响波形电平稳定。UGC可以想象，直播或者念稿子，噪声的平均振幅往往还比背景音乐更大。音频从32bit到16bit是一个量化的过程，不过无论采样精度多高，都终归是对现实的一个量化，量化error引入量化噪声，所以任何数字音频都是有底噪的——白噪声在各频率上都是一样的能量，由于能量（响度）较低，被称为noise floor，表现为微弱的嘶嘶声。&lt;/p>
+&lt;p>音频时域数据的纵坐标为振幅，横坐标为时间，可绘制成波形图——其震动频率决定音高，平均振幅决定响度，具体波形和这种其他因素决定音色。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/wave.jpeg" alt="wave">&lt;/p>
+&lt;p>时域与频域是对信号波的两个观察面。时域是真实世界唯一存在的域，频域则是对时域的数学构造。任何时域信号都可以表示为不同频率的正弦波信号的叠加。&lt;/p>
+&lt;p>常见的音频格式包括wav、mdi、mp3、mp3pro、wma、realaudio、audible、aac、ogg vorbis、ape、flac。不同的音频编码有不同的目标，在压缩（降低传输所需信道带宽）和质量（对人耳来说）之间做tradeoff。&lt;/p>
+&lt;p>各种格式的数字音频都能转成采样率8000Hz的PCM格式音频，PCM(pulse code modulation)是最简单的时域编码方式，就是对信号的离散和量化（通常是对数量化）。1/8000s长度的帧即构成了PCM音频在时域上的最小单位，每个帧包含channel数目个采样点，如果channel数目为1，则帧大小就等于bit depth。我们可以把PCM音频切分成多个chunk，每个chunk有固定大小（比如包含1024个帧），chunk与chunk之间必须有重合（比如256个帧）。之所以要有些重合，是为了对抗Time Skew（假如不做重合，查询音频的chunk的起始帧和库中的音频各个chunk的起始帧有一定offset就查询不到了）。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/timeskew.png" alt="ts">&lt;/p>
+&lt;p>接下来只需对各个chunk进行1维离散傅立叶变换（fftw_plan_dft_1d）就能得到各个chunk的频域信息（如下图，横坐标为频率，纵坐标为能量）。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/spec.png" alt="sp">&lt;/p>
+&lt;p>再将这些帧的频谱按时间顺序拼起来（可以有一些重合）就形成一个y轴为频率，x轴为时间，z轴为能量的三维表面（也可以用平面彩图表示，z轴的高度换成色彩来表示能量），这就形成了频谱图（spectrogram）。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/spec2.png" alt="sp">
+&lt;img src="https://cmbbq.github.io/img/spec3.png" alt="sp">&lt;/p>
+&lt;p>有了频谱图，就可以尝试从较长的数据中提炼出简短的信息作为这段音频的指纹了。在频谱图上可以逐帧找到各帧上显著的高能频率点（salient peaks，能量超过一定阈值，且比周围所有点都高）——这些点本身已经可以作为音频的指纹特征了，只是不够鲁棒，因为点与点之间是无关的，满屏都是噪点的情况下就会有误匹配。一个改进方案是这些点右侧划定一个目标区域，在区域内找出一些点，形成几个pair，这些pair叫做landmark特征，即[t1, f1, t2, f2]，其抗噪能力增强了很多。&lt;/p>
+&lt;p>&lt;img src="https://cmbbq.github.io/img/spec4.png" alt="sp">&lt;/p></content></item></channel></rss>
