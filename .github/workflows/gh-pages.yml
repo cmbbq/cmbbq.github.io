@@ -22,7 +22,7 @@ jobs:
           # extended: true
 
       - name: Build
-        run: pwd; ls -lht
+        run: pwd; mv img/fav.png img/green.png
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
