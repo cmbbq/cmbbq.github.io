@@ -6,7 +6,47 @@
     <description>Recent content on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Order Emerges from Self-Assembly of Dissipative Structures</title>
+      <link>https://cmbbq.github.io/posts/wipon-order/</link>
+      <pubDate>Tue, 28 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/wipon-order/</guid>
+      <description>秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。
+耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。
+平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。
+所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。
+与平衡态热力学相比，关于远离平衡态的耗散结构的理论和实践还都非常粗浅简陋。
+物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。
+[^1] Reinventing Chemistry [^2] Macroscopic Synthesis of Self-Asssembled Dissipative Structures [^3] Dissipative Systems [^4] Dissipative Structures, Organisms and Evolution [^5] Fluid Dynamics of Clouds [^6] Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface [^7] Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials [^8] Flowing Crystals: Nonequilibrium Structure of Foam [^9] Warning Signals for Eruptive Events in Spreading Fires [^10] Belousov-Zhabotinsky reaction [^11] Rayleigh-Benard Convection [^12] Giant&amp;rsquo;s Causeway [^13] Solar granule [^14] Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles [^15] 自组织与耗散结构</description>
+      <content>&lt;p&gt;秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cloud.png&#34; alt=&#34;cloud&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/sun.png&#34; alt=&#34;sun&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/stone.png&#34; alt=&#34;stone&#34;&gt;&lt;/p&gt;
+&lt;p&gt;耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。&lt;/p&gt;
+&lt;p&gt;平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。&lt;/p&gt;
+&lt;p&gt;所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。&lt;/p&gt;
+&lt;p&gt;与平衡态热力学相比，关于远离平衡态的耗散结构的理论和实践还都非常粗浅简陋。&lt;/p&gt;
+&lt;p&gt;物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。&lt;/p&gt;
+&lt;p&gt;[^1] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/1241_0.pdf&#34;&gt;Reinventing Chemistry&lt;/a&gt;
+[^2] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/752.pdf&#34;&gt;Macroscopic Synthesis of Self-Asssembled Dissipative Structures&lt;/a&gt;
+[^3] &lt;a href=&#34;https://gmwgroup.harvard.edu/dissipative-systems&#34;&gt;Dissipative Systems&lt;/a&gt;
+[^4] &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7712552/&#34;&gt;Dissipative Structures, Organisms and Evolution&lt;/a&gt;
+[^5] &lt;a href=&#34;https://physics.aps.org/articles/v15/s67&#34;&gt;Fluid Dynamics of Clouds&lt;/a&gt;
+[^6] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/714.pdf&#34;&gt;Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface&lt;/a&gt;
+[^7] &lt;a href=&#34;https://www.pnas.org/doi/10.1073/pnas.1406122111&#34;&gt;Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials&lt;/a&gt;
+[^8] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/965.pdf&#34;&gt;Flowing Crystals: Nonequilibrium Structure of Foam&lt;/a&gt;
+[^9] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/1246_0.pdf&#34;&gt;Warning Signals for Eruptive Events in Spreading Fires&lt;/a&gt;
+[^10] &lt;a href=&#34;http://www.scholarpedia.org/article/Belousov-Zhabotinsky_reaction&#34;&gt;Belousov-Zhabotinsky reaction&lt;/a&gt;
+[^11] &lt;a href=&#34;https://web.archive.org/web/19980713081332/http://wessex.ucsd.edu/alp/rb.html&#34;&gt;Rayleigh-Benard Convection&lt;/a&gt;
+[^12] &lt;a href=&#34;https://en.wikipedia.org/wiki/Giant%27s_Causeway&#34;&gt;Giant&amp;rsquo;s Causeway&lt;/a&gt;
+[^13] &lt;a href=&#34;https://en.wikipedia.org/wiki/Solar_granule&#34;&gt;Solar granule&lt;/a&gt;
+[^14] &lt;a href=&#34;http://jupiter.ethz.ch/~pjt/papers/Tackley1996JGR_VarVisc.pdf&#34;&gt;Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles&lt;/a&gt;
+[^15] &lt;a href=&#34;https://sass.usst.edu.cn/2021/1021/c12540a256826/page.htm&#34;&gt;自组织与耗散结构&lt;/a&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>The Little Book Review: No Bullshit Deep Learning 101</title>
       <link>https://cmbbq.github.io/posts/wipthe-little-book-review-no-bullshit-deep-learning-101wip/</link>
@@ -1121,46 +1161,6 @@ PGC和UGC的差别主要是信噪比，毕竟录音的时候连手机都不能�
 &lt;img src=&#34;https://cmbbq.github.io/img/spec3.png&#34; alt=&#34;sp&#34;&gt;&lt;/p&gt;
 &lt;p&gt;有了频谱图，就可以尝试从较长的数据中提炼出简短的信息作为这段音频的指纹了。在频谱图上可以逐帧找到各帧上显著的高能频率点（salient peaks，能量超过一定阈值，且比周围所有点都高）——这些点本身已经可以作为音频的指纹特征了，只是不够鲁棒，因为点与点之间是无关的，满屏都是噪点的情况下就会有误匹配。一个改进方案是这些点右侧划定一个目标区域，在区域内找出一些点，形成几个pair，这些pair叫做landmark特征，即[t1, f1, t2, f2]，其抗噪能力增强了很多。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/spec4.png&#34; alt=&#34;sp&#34;&gt;&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>Order Emerges from Self-Assembly of Dissipative Structures</title>
-      <link>https://cmbbq.github.io/posts/wipon-order/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/posts/wipon-order/</guid>
-      <description>秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。
-耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。
-平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。
-所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。
-与平衡态热力学相比，关于远离平衡态的耗散结构的理论和实践还都非常粗浅简陋。
-物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。
-[^1] Reinventing Chemistry [^2] Macroscopic Synthesis of Self-Asssembled Dissipative Structures [^3] Dissipative Systems [^4] Dissipative Structures, Organisms and Evolution [^5] Fluid Dynamics of Clouds [^6] Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface [^7] Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials [^8] Flowing Crystals: Nonequilibrium Structure of Foam [^9] Warning Signals for Eruptive Events in Spreading Fires [^10] Belousov-Zhabotinsky reaction [^11] Rayleigh-Benard Convection [^12] Giant&amp;rsquo;s Causeway [^13] Solar granule [^14] Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles [^15] 自组织与耗散结构</description>
-      <content>&lt;p&gt;秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cloud.png&#34; alt=&#34;cloud&#34;&gt;
-&lt;img src=&#34;https://cmbbq.github.io/img/sun.png&#34; alt=&#34;sun&#34;&gt;
-&lt;img src=&#34;https://cmbbq.github.io/img/stone.png&#34; alt=&#34;stone&#34;&gt;&lt;/p&gt;
-&lt;p&gt;耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。&lt;/p&gt;
-&lt;p&gt;平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。&lt;/p&gt;
-&lt;p&gt;所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。&lt;/p&gt;
-&lt;p&gt;与平衡态热力学相比，关于远离平衡态的耗散结构的理论和实践还都非常粗浅简陋。&lt;/p&gt;
-&lt;p&gt;物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。&lt;/p&gt;
-&lt;p&gt;[^1] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/1241_0.pdf&#34;&gt;Reinventing Chemistry&lt;/a&gt;
-[^2] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/752.pdf&#34;&gt;Macroscopic Synthesis of Self-Asssembled Dissipative Structures&lt;/a&gt;
-[^3] &lt;a href=&#34;https://gmwgroup.harvard.edu/dissipative-systems&#34;&gt;Dissipative Systems&lt;/a&gt;
-[^4] &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7712552/&#34;&gt;Dissipative Structures, Organisms and Evolution&lt;/a&gt;
-[^5] &lt;a href=&#34;https://physics.aps.org/articles/v15/s67&#34;&gt;Fluid Dynamics of Clouds&lt;/a&gt;
-[^6] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/714.pdf&#34;&gt;Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface&lt;/a&gt;
-[^7] &lt;a href=&#34;https://www.pnas.org/doi/10.1073/pnas.1406122111&#34;&gt;Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials&lt;/a&gt;
-[^8] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/965.pdf&#34;&gt;Flowing Crystals: Nonequilibrium Structure of Foam&lt;/a&gt;
-[^9] &lt;a href=&#34;https://gmwgroup.harvard.edu/sites/projects.iq.harvard.edu/files/gmwgroup/files/1246_0.pdf&#34;&gt;Warning Signals for Eruptive Events in Spreading Fires&lt;/a&gt;
-[^10] &lt;a href=&#34;http://www.scholarpedia.org/article/Belousov-Zhabotinsky_reaction&#34;&gt;Belousov-Zhabotinsky reaction&lt;/a&gt;
-[^11] &lt;a href=&#34;https://web.archive.org/web/19980713081332/http://wessex.ucsd.edu/alp/rb.html&#34;&gt;Rayleigh-Benard Convection&lt;/a&gt;
-[^12] &lt;a href=&#34;https://en.wikipedia.org/wiki/Giant%27s_Causeway&#34;&gt;Giant&amp;rsquo;s Causeway&lt;/a&gt;
-[^13] &lt;a href=&#34;https://en.wikipedia.org/wiki/Solar_granule&#34;&gt;Solar granule&lt;/a&gt;
-[^14] &lt;a href=&#34;http://jupiter.ethz.ch/~pjt/papers/Tackley1996JGR_VarVisc.pdf&#34;&gt;Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles&lt;/a&gt;
-[^15] &lt;a href=&#34;https://sass.usst.edu.cn/2021/1021/c12540a256826/page.htm&#34;&gt;自组织与耗散结构&lt;/a&gt;&lt;/p&gt;
 </content>
     </item>
     
