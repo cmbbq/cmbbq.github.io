@@ -1,5 +1,5 @@
 +++
-title = "The Little Book Review: No Bullshit Deep Learning 101"
+title = "The Little Book Review"
 date = "2023-11-27"
 tags = ["sys"]
 description = "正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。"
