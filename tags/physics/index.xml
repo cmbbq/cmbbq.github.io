@@ -21,9 +21,7 @@
 物理学、生物学、化学、甚至社会科学，在远离平衡态和自组织领域之外驻足不前，有序现象背后蕴藏着真理宝库而人类不得入。George M. Whitesides在&amp;quot;Reinventing Chemistry&amp;quot;一文中展望未来的化学学科和化学工业时[^1]，指出90年代后化学界的历史旋律从一个又一个“发现”，变成“迭代”和“提升”，而未来，“atoms, molecules, and reactions”不足以概括化学，未来的化学应该涉足生命起源，解释生命的分子基础，研究海洋、大气、火焰等耗散系统，尝试解答大脑是如何运作的，理解微生物组（microbiome）对健康的影响，以及用理性指导药物设计等。
 [^1] Reinventing Chemistry [^2] Macroscopic Synthesis of Self-Asssembled Dissipative Structures [^3] Dissipative Systems [^4] Dissipative Structures, Organisms and Evolution [^5] Fluid Dynamics of Clouds [^6] Dynamic Self-Assembly of Magnetized, Millimetre-Sized Objects Rotating at a Liquid-Air Interface [^7] Dissipative Self-assembly of Particles Interacting through Time-Oscillatory Potentials [^8] Flowing Crystals: Nonequilibrium Structure of Foam [^9] Warning Signals for Eruptive Events in Spreading Fires [^10] Belousov-Zhabotinsky reaction [^11] Rayleigh-Benard Convection [^12] Giant&amp;rsquo;s Causeway [^13] Solar granule [^14] Effects of strongly variable viscosity on three‐dimensional compressible convection in planetary mantles [^15] 自组织与耗散结构</description>
       <content>&lt;p&gt;秩序自耗散结构的自组织中涌现，这一现象无所不在，流体热力学中的瑞利-贝纳德对流[^11]（天空中规则的云[^5]、太阳米粒组织[^13]、巨人岬六角石柱[^12]、地幔对流[^14]）、化学系统中的贝洛索夫-扎博廷斯基反应[^10]，以及我们熟知的一切——气候、城市、火焰、爆炸、股市、交通、蜂群、生态系统、新陈代谢、生命、意识。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/cloud.png&#34; alt=&#34;cloud&#34;&gt;
-&lt;img src=&#34;https://cmbbq.github.io/img/sun.png&#34; alt=&#34;sun&#34;&gt;
-&lt;img src=&#34;https://cmbbq.github.io/img/stone.png&#34; alt=&#34;stone&#34;&gt;&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
 &lt;p&gt;耗散结构，即与环境持续交换物质和能量，维持某种远离平衡态的稳态系统。耗散结构的产生源于输入和耗散，当能量或物质流入一个系统时，如果存在适当的机制来消散多余的能量，那么它可能会导致局部的秩序增加或者规律的形成。随着耗散的持续，起初不存在的复杂度，或者说“精致度”，就在耗散系统中诞生了——新的行为、结构、图景应运而生，自发组织，自动装配，自主运行。&lt;/p&gt;
 &lt;p&gt;平衡态下，系统各处可测的宏观物理性质均匀，系统内部内有宏观不可逆过程，遵守热力学第一定律（内能增量=吸收的热量-对外做功）、热力学第二定律(系统自发熵增）、玻尔兹曼有序性定理（温度为T的系统中内能为E的子系统的比率为e-E/kT）。近平衡态系统处于距离平衡态不远处的线性区，遵守昂萨格倒易关系（用一组公式描述系统输运过程中各种流和力的关系）和最小熵产生原理（给定边界条件组织系统达到平衡态时，系统落入最小耗散，即最小熵产生的态）。&lt;/p&gt;
 &lt;p&gt;所谓远离平衡态，是相对平衡态和近平衡态而言，系统内可测物理性质极不均匀的状态，这种状态下系统的热力学行为违逆最小熵产生原理，走向高熵产生、宏观有序的状态。&lt;/p&gt;
