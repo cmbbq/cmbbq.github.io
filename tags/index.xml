@@ -18,16 +18,6 @@
     </item>
     
     <item>
-      <title>sys</title>
-      <link>https://cmbbq.github.io/tags/sys/</link>
-      <pubDate>Mon, 27 Nov 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/tags/sys/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
       <title>ai</title>
       <link>https://cmbbq.github.io/tags/ai/</link>
       <pubDate>Sun, 19 Nov 2023 00:00:00 +0000</pubDate>
@@ -43,6 +33,16 @@
       <pubDate>Mon, 13 Nov 2023 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/tags/philosophy/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>sys</title>
+      <link>https://cmbbq.github.io/tags/sys/</link>
+      <pubDate>Thu, 02 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/tags/sys/</guid>
       <description></description>
       <content></content>
     </item>

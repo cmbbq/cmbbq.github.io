@@ -17,15 +17,6 @@
     <loc>https://cmbbq.github.io/tags/</loc>
     <lastmod>2023-11-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://cmbbq.github.io/drafts/</loc>
-    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/tags/sys/</loc>
-    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://cmbbq.github.io/drafts/the-little-book-review-no-bullshit-deep-learning-101/</loc>
-    <lastmod>2023-11-27T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://cmbbq.github.io/tags/ai/</loc>
     <lastmod>2023-11-19T00:00:00+00:00</lastmod>
   </url><url>
@@ -39,6 +30,9 @@
     <lastmod>2023-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/local-llm/</loc>
+    <lastmod>2023-11-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://cmbbq.github.io/tags/sys/</loc>
     <lastmod>2023-11-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://cmbbq.github.io/posts/efficient-anns-at-scale/</loc>
