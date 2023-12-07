@@ -1,2 +1,2 @@
-rm ../img/favicon/green.png
+rm -f ../img/favicon/green.png
 hugo -d ..
