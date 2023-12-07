@@ -127,7 +127,20 @@
 <p>Linux 4.8+<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>可使用eBPF做off-CPU分析。比如eBPF工具<a href="https://github.com/iovisor/bcc/blob/master/tools/cpudist.py">bcc/cpudist</a>，<a href="https://github.com/iovisor/bcc/blob/master/tools/offcputime_example.txt">bcc/offcputime</a>。offcputime生成的call stacks可以直接用<a href="https://github.com/brendangregg/FlameGraph">flamegraph.pl</a>绘制off-CPU火焰图。bcc包含了大量工具，其具体使用方式可参照其<a href="https://github.com/iovisor/bcc/blob/master/docs/tutorial.md">官方tutorial</a>。</p>
 <p>eBPF tracing与传统的off-CPU tracer(比如perf)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，perf往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。</p>
 <p>此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用perf做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。</p>
-<h2 id="所以什么是ebpf">所以，什么是eBPF？<a href="#所以什么是ebpf" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>eBPF追踪off-CPU时长的思路是在context switch事件结束时记录一次stack（off—CPU期间stack是不变的，一次足矣），为当前context的off-CPU时长增加线程睡眠时间。其伪代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>on context switch finish:
+</span></span><span style="display:flex;"><span>	sleeptime[prev_thread_id] <span style="color:#f92672">=</span> timestamp
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#960050;background-color:#1e0010">!</span>sleeptime[thread_id]
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	delta <span style="color:#f92672">=</span> timestamp <span style="color:#f92672">-</span> sleeptime[thread_id]
+</span></span><span style="display:flex;"><span>	totaltime[pid, execname, user stack, kernel stack] <span style="color:#f92672">+=</span> delta
+</span></span><span style="display:flex;"><span>	sleeptime[thread_id] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>on tracer exit:
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> each key <span style="color:#f92672">in</span> totaltime:
+</span></span><span style="display:flex;"><span>		print key
+</span></span><span style="display:flex;"><span>		print totaltime[key]
+</span></span></code></pre></div><h2 id="所以什么是ebpf">所以，什么是eBPF？<a href="#所以什么是ebpf" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>简单说，eBPF是一个允许跑自定义代码做一些tracing和系统监控的in-kernel runtime，是BPF的升级版。</p>
 <p><img src="https://cmbbq.github.io/img/ebpf.png" alt="ebpf"></p>
 <p>最初的BPF，即Berkeley Packet Filter，是一个用于报文过滤的几乎被遗忘的古老内核特性。eBPF在BPF基础上做了扩展，允许事件源从报文扩展到多种多样的事件源，eBPF VM有更大的存储空间，更多寄存器和64位word size——BPF事实上提供了一个in-kernel的沙盒环境，或者说虚拟机，安全且受限地执行用户定义的程序。因此eBPF机制的出现实际上在内核态程序、用户态程序之外创造了新的软件品类。</p>

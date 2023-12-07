@@ -31,6 +31,22 @@ eBPF tracing与传统的off-CPU tracer(比如perf)相比，最显著的优势是
 
 此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用perf做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。
 
+eBPF追踪off-CPU时长的思路是在context switch事件结束时记录一次stack（off—CPU期间stack是不变的，一次足矣），为当前context的off-CPU时长增加线程睡眠时间。其伪代码如下：
+```python
+on context switch finish:
+	sleeptime[prev_thread_id] = timestamp
+	if !sleeptime[thread_id]
+		return
+	delta = timestamp - sleeptime[thread_id]
+	totaltime[pid, execname, user stack, kernel stack] += delta
+	sleeptime[thread_id] = 0
+
+on tracer exit:
+	for each key in totaltime:
+		print key
+		print totaltime[key]
+```
+
 ## 所以，什么是eBPF？
 简单说，eBPF是一个允许跑自定义代码做一些tracing和系统监控的in-kernel runtime，是BPF的升级版。
 
