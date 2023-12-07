@@ -27,9 +27,9 @@ CPU利用率在目前仍然被广泛使用，但它已经过时。CPU利用率�
 
 Linux 4.8+[^3]可使用eBPF做off-CPU分析。比如eBPF工具[bcc/cpudist](https://github.com/iovisor/bcc/blob/master/tools/cpudist.py)，[bcc/offcputime](https://github.com/iovisor/bcc/blob/master/tools/offcputime_example.txt)。offcputime生成的call stacks可以直接用[flamegraph.pl](https://github.com/brendangregg/FlameGraph)绘制off-CPU火焰图。bcc包含了大量工具，其具体使用方式可参照其[官方tutorial](https://github.com/iovisor/bcc/blob/master/docs/tutorial.md)。
 
-eBPF tracing与传统的off-CPU tracer(比如perf)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，perf往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。
+eBPF tracing与传统的off-CPU tracer(比如```perf```)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，```perf```往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。
 
-此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用perf做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。
+此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用```perf```做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。
 
 eBPF追踪off-CPU时长的思路是在context switch事件结束时记录一次stack（off—CPU期间stack是不变的，一次足矣），为当前context的off-CPU时长增加线程睡眠时间。其伪代码如下：
 ```python
@@ -63,9 +63,9 @@ eBPF把JIT编译器和安全验证器直接放到了内核里，用户态的bpf�
 ![ebpf3](https://cmbbq.github.io/img/ebpf3.png)
 
 ## eBPF的其他应用
-eBPF除了用在可观测性上，还可以应用于网络，在L3/L4/L7做traffic control, monitoring或load balancing，比如libbpf tc/qdiscs library, XDP(裸金属高性能可编程网络)/Cilium(高性能云原生网络)/Katran(传输层负载均衡)。
+eBPF除了用在可观测性上，还可以应用于网络，在L3/L4/L7做traffic control, monitoring或load balancing，比如libbpf ```tc```/```qdiscs``` library, ```XDP```(裸金属高性能可编程网络)/```Cilium```(高性能云原生网络)/```Katran```(传输层负载均衡)。
 
-此外，eBPF还可以应用于安全领域。毕竟eBPF可以观测系统中的各种事件，比如监控某些敏感文件（/etc/passwd这种）是否被篡改。基于这种观测能力在加上一些安全相关的先验知识，就可以做一些安全工具。K8s的seccomp工具就是基于eBPF实现的。
+此外，eBPF还可以应用于安全领域。毕竟eBPF可以观测系统中的各种事件，比如监控某些敏感文件（/etc/passwd这种）是否被篡改。基于这种观测能力在加上一些安全相关的先验知识，就可以做一些安全工具。K8s的```seccomp```工具就是基于eBPF实现的。
 
 
 [^1]: 区别于off-CPU分析，这里的CPU profiling指狭义的on-CPU分析，不考虑阻塞中的thread time。

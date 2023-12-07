@@ -125,8 +125,8 @@
 <h2 id="ebpf-off-cpu分析in-kernel简报">eBPF off-CPU分析：in-kernel简报<a href="#ebpf-off-cpu分析in-kernel简报" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>怎么度量off-CPU time？最简单的办法是应用层tracing，记录重点代码各个函数和代码块的耗时。大多数情况下，这其实就是最好的方案，精度也不错。不过相比火焰图还不够帅，也不够全面，毕竟在哪加时间戳依赖主观判断，有时候真正的瓶颈会出现在意想不到的地方。</p>
 <p>Linux 4.8+<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>可使用eBPF做off-CPU分析。比如eBPF工具<a href="https://github.com/iovisor/bcc/blob/master/tools/cpudist.py">bcc/cpudist</a>，<a href="https://github.com/iovisor/bcc/blob/master/tools/offcputime_example.txt">bcc/offcputime</a>。offcputime生成的call stacks可以直接用<a href="https://github.com/brendangregg/FlameGraph">flamegraph.pl</a>绘制off-CPU火焰图。bcc包含了大量工具，其具体使用方式可参照其<a href="https://github.com/iovisor/bcc/blob/master/docs/tutorial.md">官方tutorial</a>。</p>
-<p>eBPF tracing与传统的off-CPU tracer(比如perf)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，perf往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。</p>
-<p>此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用perf做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。</p>
+<p>eBPF tracing与传统的off-CPU tracer(比如<code>perf</code>)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，<code>perf</code>往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。</p>
+<p>此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用<code>perf</code>做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。</p>
 <p>eBPF追踪off-CPU时长的思路是在context switch事件结束时记录一次stack（off—CPU期间stack是不变的，一次足矣），为当前context的off-CPU时长增加线程睡眠时间。其伪代码如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>on context switch finish:
 </span></span><span style="display:flex;"><span>	sleeptime[prev_thread_id] <span style="color:#f92672">=</span> timestamp
@@ -149,8 +149,8 @@
 <p>eBPF把JIT编译器和安全验证器直接放到了内核里，用户态的bpf程序先经过parser变成AST，再做一些构造和语法分析，然后生成IR，最终生成优化后的bytecode。BPF bytecode作为输入进入内核的JIT和verifier再编译成机器码给CPU执行。</p>
 <p><img src="https://cmbbq.github.io/img/ebpf3.png" alt="ebpf3"></p>
 <h2 id="ebpf的其他应用">eBPF的其他应用<a href="#ebpf的其他应用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>eBPF除了用在可观测性上，还可以应用于网络，在L3/L4/L7做traffic control, monitoring或load balancing，比如libbpf tc/qdiscs library, XDP(裸金属高性能可编程网络)/Cilium(高性能云原生网络)/Katran(传输层负载均衡)。</p>
-<p>此外，eBPF还可以应用于安全领域。毕竟eBPF可以观测系统中的各种事件，比如监控某些敏感文件（/etc/passwd这种）是否被篡改。基于这种观测能力在加上一些安全相关的先验知识，就可以做一些安全工具。K8s的seccomp工具就是基于eBPF实现的。</p>
+<p>eBPF除了用在可观测性上，还可以应用于网络，在L3/L4/L7做traffic control, monitoring或load balancing，比如libbpf <code>tc</code>/<code>qdiscs</code> library, <code>XDP</code>(裸金属高性能可编程网络)/<code>Cilium</code>(高性能云原生网络)/<code>Katran</code>(传输层负载均衡)。</p>
+<p>此外，eBPF还可以应用于安全领域。毕竟eBPF可以观测系统中的各种事件，比如监控某些敏感文件（/etc/passwd这种）是否被篡改。基于这种观测能力在加上一些安全相关的先验知识，就可以做一些安全工具。K8s的<code>seccomp</code>工具就是基于eBPF实现的。</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
