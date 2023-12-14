@@ -6,6 +6,8 @@ description = "正如ddia可被视为分布式系统方向的入门教程，lbdl
 showFullContent = false
 +++
 
+
+
 "The Little Book of Deep Learning"([lbdl](https://fleuret.org/francois/lbdl.html))是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。
 
 ![tlb](https://cmbbq.github.io/img/tlb.jpg)
@@ -22,6 +24,8 @@ showFullContent = false
 
 高维信号难以用规则系统分析，而深度网络则克服了这个困难，用具有大量权重的深层映射拟合出一个足够好（loss足够低）的近似函数——这个函数可以是高维信号到连续向量（回归）或离散值（分类）的映射，也可以是一种概率密度函数，总之，它能从数据分布中学习到某种紧凑且有区分能力的表征。
 
+$f(x) = x^2$
+
 若数据样本不足，即使训练数据上表现良好，也可能在真实应用中效果不佳，这就是过拟合。
 若模型能力不足，无法适应多变场景、准确捕捉输入输出的关系，训练时loss就高，则是欠拟合。
 
@@ -29,6 +33,10 @@ showFullContent = false
 1. 回归模型：有监督，训练数据是输入信号和ground-truth数值的pairs，将高维信号映射到某个向量。
 2. 分类模型：有监督，训练数据是输入信号和标签的pairs，将高维信号映射到有限标签集上。
 3. 概率密度函数模型：无监督，训练数据就是输入信号本身。
+
+$$
+E=mc^2
+$$
 
 ## 训练 
 ### 损失函数
