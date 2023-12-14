@@ -9,4 +9,3 @@ showFullContent = false
 
 
 ## 何为访存密集？如何度量访存密集程度？
-写一个访存密集的测试程序：hashmap。
