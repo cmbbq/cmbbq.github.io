@@ -13,8 +13,6 @@ showFullContent = false
 
 精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。
 
-![tlb1](https://cmbbq.github.io/img/tlb1.jpg)
-
 ---
 
 接下来是知识内化和梳理。
@@ -68,11 +66,11 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 ### 梯度下降
 除了线性回归这种简单特例，一般最优权重$w^*$不会有closed-form expression。这种情况下最小化函数的工具是梯度下降：将权重初始化为随机的$w_0$，然后反复迭代，每次迭代都朝梯度方向修改权重使loss逐步降低，即每次迭代都令$w_{n+1} = w_n - \eta \nabla \mathscr{L}_{|w}(W_n). $ 其中$\eta$即学习率，如果设置得太小，训练可能太慢，而且容易卡在局部最小，如果设置得太大，则容易在最低点附近左右横跳。
 
-![gd](https://cmbbq.github.io/img/gradient_decent.png)
+![gd](https://cmbbq.github.io/img/gradient_descent.png)
 
 对于每个点$w$来说，梯度$\nabla \mathscr{L}_{|w}(w)$就是能最大化$\mathscr{L}$增量的方向。因此梯度下降就可以通过每次迭代中减去学习率*梯度的值，使所有迭代串联起来可形成一个接近最优的最小化$\mathscr{L}$路线。
 
-实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}_{|w}(w)= \frac{1}{N} \sum_{n=1}^N \nabla\ell_{n|w}(w) $。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014][^2]。
+实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}_{|w}(w) =$ $\frac{1}{N} \sum_{n=1}^N \nabla\ell_{n|w}(w)$。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014][^2]。
 
 ### 反向传播
 给定$\ell(w)=L(f(x;w),y)$，怎么计算$\nabla\ell_{|w}(w)$呢？考虑到$f$和$L$都是标准张量运算的组合，它们与任何数学表达式一样，基于链式法则可以得到其表达式。

@@ -130,7 +130,6 @@
         <p>&ldquo;The Little Book of Deep Learning&rdquo;(<a href="https://fleuret.org/francois/lbdl.html">lbdl</a>)是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。</p>
 <p><img src="https://cmbbq.github.io/img/tlb.jpg" alt="tlb"></p>
 <p>精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。</p>
-<p><img src="https://cmbbq.github.io/img/tlb1.jpg" alt="tlb1"></p>
 <hr>
 <p>接下来是知识内化和梳理。</p>
 <h2 id="概述">概述<a href="#概述" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
@@ -165,9 +164,9 @@ $$</p>
 <p>自然语言处理中有一个重要技术细节，即如何进行token的表示，可以是最低粒度的单符号，也可以说整个词。进行token表示的算法过程叫做tokenizer。一个标准做法是Byte Pair Encoding[Sennrich et al., 2015]<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>
 <h3 id="梯度下降">梯度下降<a href="#梯度下降" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>除了线性回归这种简单特例，一般最优权重$w^*$不会有closed-form expression。这种情况下最小化函数的工具是梯度下降：将权重初始化为随机的$w_0$，然后反复迭代，每次迭代都朝梯度方向修改权重使loss逐步降低，即每次迭代都令$w_{n+1} = w_n - \eta \nabla \mathscr{L}_{|w}(W_n). $ 其中$\eta$即学习率，如果设置得太小，训练可能太慢，而且容易卡在局部最小，如果设置得太大，则容易在最低点附近左右横跳。</p>
-<p><img src="https://cmbbq.github.io/img/gradient_decent.png" alt="gd"></p>
+<p><img src="https://cmbbq.github.io/img/gradient_descent.png" alt="gd"></p>
 <p>对于每个点$w$来说，梯度$\nabla \mathscr{L}_{|w}(w)$就是能最大化$\mathscr{L}$增量的方向。因此梯度下降就可以通过每次迭代中减去学习率*梯度的值，使所有迭代串联起来可形成一个接近最优的最小化$\mathscr{L}$路线。</p>
-<p>实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}<em>{|w}(w)= \frac{1}{N} \sum</em>{n=1}^N \nabla\ell_{n|w}(w) $。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014]<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。</p>
+<p>实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}<em>{|w}(w) =$ $\frac{1}{N} \sum</em>{n=1}^N \nabla\ell_{n|w}(w)$。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014]<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。</p>
 <h3 id="反向传播">反向传播<a href="#反向传播" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>给定$\ell(w)=L(f(x;w),y)$，怎么计算$\nabla\ell_{|w}(w)$呢？考虑到$f$和$L$都是标准张量运算的组合，它们与任何数学表达式一样，基于链式法则可以得到其表达式。</p>
 <p><img src="https://cmbbq.github.io/img/bp.png" alt="bp"></p>
