@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   
-    <title>The Little Book Review :: Cmbbq&#39;s Encyclopedia</title>
+    <title>The Little Book Review &amp; Internalization :: Cmbbq&#39;s Encyclopedia</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。" />
+<meta name="description" content="正如DDIA可被视为分布式系统方向的入门教程，LBDL是理想的深度学习101。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/the-little-book-review/" />
@@ -35,8 +35,8 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="The Little Book Review">
-<meta property="og:description" content="正如ddia可被视为分布式系统方向的入门教程，lbdl是理想的深度学习101。" />
+<meta property="og:title" content="The Little Book Review &amp; Internalization">
+<meta property="og:description" content="正如DDIA可被视为分布式系统方向的入门教程，LBDL是理想的深度学习101。" />
 <meta property="og:url" content="https://cmbbq.github.io/posts/the-little-book-review/" />
 <meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
 
@@ -48,7 +48,7 @@
 <meta property="og:image:height" content="1024">
 
 
-  <meta property="article:published_time" content="2023-12-14 00:00:00 &#43;0000 UTC" />
+  <meta property="article:published_time" content="2023-12-15 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -102,11 +102,11 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://cmbbq.github.io/posts/the-little-book-review/">The Little Book Review</a></h1>
+    <a href="https://cmbbq.github.io/posts/the-little-book-review/">The Little Book Review &amp; Internalization</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
-        2023-12-14
+        2023-12-15
         
       </span>
     
@@ -135,7 +135,6 @@
 <p>接下来是知识内化和梳理。</p>
 <h2 id="概述">概述<a href="#概述" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>高维信号难以用规则系统分析，而深度网络则克服了这个困难，用具有大量权重的深层映射拟合出一个足够好（loss足够低）的近似函数——这个函数可以是高维信号到连续向量（回归）或离散值（分类）的映射，也可以是一种概率密度函数，总之，它能从数据分布中学习到某种紧凑且有区分能力的表征。</p>
-<p>$f(x) = x^2$</p>
 <p>若数据样本不足，即使训练数据上表现良好，也可能在真实应用中效果不佳，这就是过拟合。
 若模型能力不足，无法适应多变场景、准确捕捉输入输出的关系，训练时loss就高，则是欠拟合。</p>
 <p>机器学习模型可以粗粒度地分为3类：</p>
@@ -144,27 +143,77 @@
 <li>分类模型：有监督，训练数据是输入信号和标签的pairs，将高维信号映射到有限标签集上。</li>
 <li>概率密度函数模型：无监督，训练数据就是输入信号本身。</li>
 </ol>
-<p>$$
-E=mc^2
-$$</p>
 <h2 id="训练">训练<a href="#训练" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <h3 id="损失函数">损失函数<a href="#损失函数" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>所谓训练，就是降低训练集上预测函数的损失函数（loss）的过程。</p>
-<p>损失函数如何定义？对连续数值来说，均方差是一个标准选择。对概率密度来说，则用似然值——可令loss=-Sum(f(x;w))，其中f(x;w)是各个训练样本的标准化log概率。对分类任务来说，一般用交叉熵。</p>
-<p>何为交叉熵？分类模型为N个类输出N个logits（其实LLM也是这样，为vocabulary里每个token生成对应的logits，表示未标准化的log概率），logits经过softmax，得到后验概率P(Y=y|X=x)，这是裸概率，各个类的概率加起来和为1。令loss=1/N Sum(-logP(Y=y_n|X=x_n))，这个loss即为交叉熵。交叉熵最小化，则真类别的概率最大化。</p>
+<p>所谓训练，就是降低训练集上预测函数的损失函数（loss，记作$\mathscr{L}$）的过程。</p>
+<p>损失函数如何定义？对连续数值来说，均方差是一个标准选择。对概率密度来说，则用似然值——可令$\mathscr{L}=-\sum f(x;w)$，其中$f(x;w)$是各个训练样本的标准化log概率。对分类任务来说，一般用交叉熵。</p>
+<p>何为交叉熵？分类模型为N个类输出N个logits（其实LLM也是这样，为vocabulary里每个token生成对应的logits，表示未标准化的log概率），logits经过softmax，得到后验概率$P(Y=y|X=x)$，这是裸概率，各个类的概率加起来和为1。令$\mathscr{L}=-\frac{1}{N} \sum_{n=1}^N logP(Y=y_n|X=x_n)$，这个$\mathscr{L}$即为交叉熵。交叉熵最小化，则真类别的概率最大化。</p>
 <p>在度量学习中，虽然预测的值是连续的，但实际监督形式是分级，因为度量学习的目标是学习出样本之间可比较的距离，比如A、B、C三个点，其中A和B是同一个人脸的不同侧面，C是另一个人，或者A和B是同一首歌的翻唱，C是另一首歌，那就要求AB之间距离小于AC。因此度量学习一般采用contrastive loss或triplet loss。</p>
 <p>损失函数通常只是一个代理指标，而非实际性能指标，以分类任务为例，显然直接性能指标应该是分类错误率，只不过这个指标的梯度没有携带有效指导信息——错误率函数和模型权重是完全剥离的，知晓错误率的变化不能在训练中帮助模型减小错误率。</p>
 <p>损失函数还可以被设计为依赖于模型权重，从而对模型权重进行某种约束和控制。比如权重衰减（weight decay），一种防止过拟合的正则化技术，给损失函数里增加了一项模型权重的平方和，从而惩罚大的权重数值，偏好小的数值，进而减少训练数据对模型权重取值范围的影响。这么做会使训练集上性能下降，但有利于在未见过的数据集上更好地泛化。</p>
 <h3 id="自回归模型">自回归模型<a href="#自回归模型" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则:</p>
-<pre tabindex="0"><code>  𝑃(𝐴∩𝐵)=𝑃(𝐴)𝑃(𝐵|𝐴),
-  𝑃(𝐴∩𝐵∩𝐶)=𝑃(𝐴)𝑃(𝐵|𝐴)𝑃(𝐶|𝐴∩𝐵)
-</code></pre><p>自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。</p>
+<p>自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则:
+$$  P(A\cap B)=P(A) P(B|A), \
+P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)
+$$</p>
+<p>自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。</p>
 <p>token词汇域有限的场景是可计算的，条件概率的链式分解又使计算量降低——采样下一个token时，可以利用上一个token的概率，最终能生成符合联合概率分布的token序列。</p>
 <p>训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。</p>
-<p>训练时，每个时刻都需要重新计算之前已经算过的，考虑到总体逻辑时间/步骤数目往往相当长，成百上千，甚至上万，这样的计算显然非常低效。解决方案是设计一个一次性预测所有逻辑时间（T）上的logits向量的模型——<code>f: {1,...,K}^T -&gt; R^(T×K)</code>，并确保t时刻的输入<code>x_t</code>对应的logits <code>l_t</code>只依赖于<code>x_1, x_2, x_3, ... x_(t-1)</code>。这种模型即因果模型（causal models），其原则是不让未来影响过去。</p>
+<p>训练时，每个时刻都需要重新计算之前已经算过的，考虑到总体逻辑时间/步骤数目往往相当长，成百上千，甚至上万，这样的计算显然非常低效。解决方案是设计一个一次性预测所有逻辑时间（T）上的logits向量的模型——$f: {1,&hellip;,K}^T \rightarrow \mathbb{R}^{T\times K}$，并确保t时刻的输入$x_t$对应的logits $l_t$只依赖于$x_1, x_2, x_3, &hellip; x_{t-1}$。这种模型即因果模型（causal models），其原则是不让未来影响过去。</p>
 <p><img src="https://cmbbq.github.io/img/causal.png" alt="causal"></p>
 <p>因果模型训练时可以用完整的序列计算output，一次性最大化序列中所有token的概率，最终也等价于最小化per-token交叉熵。</p>
+<p>自然语言处理中有一个重要技术细节，即如何进行token的表示，可以是最低粒度的单符号，也可以说整个词。进行token表示的算法过程叫做tokenizer。一个标准做法是Byte Pair Encoding[Sennrich et al., 2015]<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>
+<h3 id="梯度下降">梯度下降<a href="#梯度下降" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>除了线性回归这种简单特例，一般最优权重$w^*$不会有closed-form expression。这种情况下最小化函数的工具是梯度下降：将权重初始化为随机的$w_0$，然后反复迭代，每次迭代都朝梯度方向修改权重使loss逐步降低，即每次迭代都令$w_{n+1} = w_n - \eta \nabla \mathscr{L}_{|w}(W_n). $ 其中$\eta$即学习率，如果设置得太小，训练可能太慢，而且容易卡在局部最小，如果设置得太大，则容易在最低点附近左右横跳。</p>
+<p><img src="https://cmbbq.github.io/img/gradient_decent.png" alt="gd"></p>
+<p>对于每个点$w$来说，梯度$\nabla \mathscr{L}_{|w}(w)$就是能最大化$\mathscr{L}$增量的方向。因此梯度下降就可以通过每次迭代中减去学习率*梯度的值，使所有迭代串联起来可形成一个接近最优的最小化$\mathscr{L}$路线。</p>
+<p>实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}<em>{|w}(w)= \frac{1}{N} \sum</em>{n=1}^N \nabla\ell_{n|w}(w) $。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014]<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。</p>
+<h3 id="反向传播">反向传播<a href="#反向传播" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>给定$\ell(w)=L(f(x;w),y)$，怎么计算$\nabla\ell_{|w}(w)$呢？考虑到$f$和$L$都是标准张量运算的组合，它们与任何数学表达式一样，基于链式法则可以得到其表达式。</p>
+<p><img src="https://cmbbq.github.io/img/bp.png" alt="bp"></p>
+<p>简单起见，将一个深度为$D$的模型表示为$f = f^{(D)} \circ f^{(D-1)} \circ &hellip; \circ f^{(1)}$。则前馈过程即按顺序计算$x^{(d-1)} \rightarrow x^{(d)}$，即$x^{(d)} = f^{(d)}(x^{(d-1)};w_d)$，直到最终得到$x^{(D)}$作为模型输出。</p>
+<p>反向传播过程则是反过来计算$\nabla\ell_{{|x}^(d-1)} \leftarrow \nabla\ell_{{|x}^(d)}$以及$\nabla\ell_{|w_d} \leftarrow \nabla\ell_{{|x}^(d)}$，其中$\nabla\ell_{{|x}^(d-1)}$<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>是$\nabla\ell_{{|x}^(d)}$<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>和$J_{f^{(d)}|x}$<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>乘积。而我们在训练过程中实际关心的另一个梯度$\nabla\ell_{|w_d}$是$\nabla\ell_{{|x}^(d)}$和$J_{f^{(d)}|w}$<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>乘积。</p>
+<p>深度学习训练框架主要处理的就是隐藏反向传播梯度计算的复杂度，即提供自动求导/计算求导能力，该技术在深度学习之前也有广泛应用，详见AutoGrad [Baydin et al., 2015]<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>。</p>
+<p>显然反向传播的矩阵计算量两倍于前馈推理（每层多了一次权重的反向传播）。反向传播的内存需求也远大于前馈推理，因为每一层的$x^{(d)}$都要保留在内存中，而非推理则不需要保留，只要留着最新的。解决内存占用过高的技术包括：reversible layers[Gomez et al., 2017]和checkpointing[Chen et al., 2016]。</p>
+<p>深度模型的一个问题是梯度消失（见[Glorot and Bengio, 2010]<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>），即经过很多次反向传播后，数值变得太大或太小。常规应对做法是gradient norm clipping [Pascanu et al., 2013]<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>。</p>
+<h2 id="构件">构件<a href="#构件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>TBD</p>
+<h2 id="架构">架构<a href="#架构" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>TBD</p>
+<h2 id="应用">应用<a href="#应用" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>TBD</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>R. Sennrich, B. Haddow, and A. Birch. Neural Machine Translation of Rare Words with Subword Units. CoRR, abs/1508.07909, 2015. <a href="https://arxiv.org/pdf/1508.07909">[pdf]</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>D. Kingma and J. Ba. Adam: A Method for Stochastic Optimization. CoRR, abs/1412.6980, 2014. <a href="https://arxiv.org/pdf/1412.6980">[pdf]</a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>$\nabla\ell_{{|x}^(d-1)}$即$f^{d-1}$的变量$x^{d-1}$对应的损失函数梯度。&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>$\nabla\ell_{{|x}^(d-1)}$即$f^{d}$的变量$x^{d}$对应的损失函数梯度。&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>$J_{f^{(d)}|x}$即第d个layer函数$f^{(d)}$相对变量x的Jacobian，雅可比矩阵，即函数的一阶偏导数以一定方式排列成的矩阵。&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>$J_{f^{(d)}|w}$即第d个layer函数$f^{(d)}$相对权重w的Jacobian。&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p>A. Baydin, B. Pearlmutter, A. Radul, and J. Siskind. Automatic differentiation in machine learning: a survey. CoRR, abs/1502.05767, 2015. <a href="https://arxiv.org/pdf/1502.05767">[pdf]</a>.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8">
+<p>X. Glorot and Y. Bengio. Understanding the difficulty of training deep feedforward neural networks. In International Conference on Artificial Intelligence and Statistics (AISTATS), 2010. <a href="https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">pdf</a>.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9">
+<p>R. Pascanu, T. Mikolov, and Y. Bengio. On the difficulty of training recurrent neural networks. In International Conference on Machine Learning (ICML), 2013. <a href="https://proceedings.mlr.press/v28/pascanu13.pdf">pdf</a>.&#160;<a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
       </div></div>
 
