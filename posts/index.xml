@@ -25,7 +25,7 @@
 在度量学习中，虽然预测的值是连续的，但实际监督形式是分级，因为度量学习的目标是学习出样本之间可比较的距离，比如A、B、C三个点，其中A和B是同一个人脸的不同侧面，C是另一个人，或者A和B是同一首歌的翻唱，C是另一首歌，那就要求AB之间距离小于AC。因此度量学习一般采用contrastive loss或triplet loss。
 损失函数通常只是一个代理指标，而非实际性能指标，以分类任务为例，显然直接性能指标应该是分类错误率，只不过这个指标的梯度没有携带有效指导信息——错误率函数和模型权重是完全剥离的，知晓错误率的变化不能在训练中帮助模型减小错误率。
 损失函数还可以被设计为依赖于模型权重，从而对模型权重进行某种约束和控制。比如权重衰减（weight decay），一种防止过拟合的正则化技术，给损失函数里增加了一项模型权重的平方和，从而惩罚大的权重数值，偏好小的数值，进而减少训练数据对模型权重取值范围的影响。这么做会使训练集上性能下降，但有利于在未见过的数据集上更好地泛化。
-自回归模型 自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则: $$ P(A\cap B)=P(A) P(B|A), \ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B) $$
+自回归模型 自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则: $$P(A\cap B)=P(A) P(B|A), \ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$
 自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。
 token词汇域有限的场景是可计算的，条件概率的链式分解又使计算量降低——采样下一个token时，可以利用上一个token的概率，最终能生成符合联合概率分布的token序列。
 训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。
@@ -58,9 +58,8 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 &lt;p&gt;损失函数还可以被设计为依赖于模型权重，从而对模型权重进行某种约束和控制。比如权重衰减（weight decay），一种防止过拟合的正则化技术，给损失函数里增加了一项模型权重的平方和，从而惩罚大的权重数值，偏好小的数值，进而减少训练数据对模型权重取值范围的影响。这么做会使训练集上性能下降，但有利于在未见过的数据集上更好地泛化。&lt;/p&gt;
 &lt;h3 id=&#34;自回归模型&#34;&gt;自回归模型&lt;/h3&gt;
 &lt;p&gt;自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则:
-$$  P(A\cap B)=P(A) P(B|A), \
-P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)
-$$&lt;/p&gt;
+$$P(A\cap B)=P(A) P(B|A), \
+P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$&lt;/p&gt;
 &lt;p&gt;自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。&lt;/p&gt;
 &lt;p&gt;token词汇域有限的场景是可计算的，条件概率的链式分解又使计算量降低——采样下一个token时，可以利用上一个token的概率，最终能生成符合联合概率分布的token序列。&lt;/p&gt;
 &lt;p&gt;训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。&lt;/p&gt;
@@ -72,7 +71,9 @@ $$&lt;/p&gt;
 &lt;p&gt;除了线性回归这种简单特例，一般最优权重$w^*$不会有closed-form expression。这种情况下最小化函数的工具是梯度下降：将权重初始化为随机的$w_0$，然后反复迭代，每次迭代都朝梯度方向修改权重使loss逐步降低，即每次迭代都令$w_{n+1} = w_n - \eta \nabla \mathscr{L}_{|w}(W_n). $ 其中$\eta$即学习率，如果设置得太小，训练可能太慢，而且容易卡在局部最小，如果设置得太大，则容易在最低点附近左右横跳。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/gradient_descent.png&#34; alt=&#34;gd&#34;&gt;&lt;/p&gt;
 &lt;p&gt;对于每个点$w$来说，梯度$\nabla \mathscr{L}_{|w}(w)$就是能最大化$\mathscr{L}$增量的方向。因此梯度下降就可以通过每次迭代中减去学习率*梯度的值，使所有迭代串联起来可形成一个接近最优的最小化$\mathscr{L}$路线。&lt;/p&gt;
-&lt;p&gt;实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}&lt;em&gt;{|w}(w) =$ $\frac{1}{N} \sum&lt;/em&gt;{n=1}^N \nabla\ell_{n|w}(w)$。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014]&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+&lt;p&gt;实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为下式子：
+$$\nabla\mathscr{L}&lt;em&gt;{|w}(w) = \frac{1}{N} \sum&lt;/em&gt;{n=1}^N \nabla\ell_{n|w}(w)$$&lt;/p&gt;
+&lt;p&gt;全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014]&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
 &lt;h3 id=&#34;反向传播&#34;&gt;反向传播&lt;/h3&gt;
 &lt;p&gt;给定$\ell(w)=L(f(x;w),y)$，怎么计算$\nabla\ell_{|w}(w)$呢？考虑到$f$和$L$都是标准张量运算的组合，它们与任何数学表达式一样，基于链式法则可以得到其表达式。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/bp.png&#34; alt=&#34;bp&#34;&gt;&lt;/p&gt;

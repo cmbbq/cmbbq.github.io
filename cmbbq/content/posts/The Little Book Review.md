@@ -45,9 +45,8 @@ showFullContent = false
 
 ### 自回归模型
 自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则: 
-$$  P(A\cap B)=P(A) P(B|A), \\
-  P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)
-$$
+$$P(A\cap B)=P(A) P(B|A), \\
+  P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$
 
 自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。
 
@@ -70,7 +69,10 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 
 对于每个点$w$来说，梯度$\nabla \mathscr{L}_{|w}(w)$就是能最大化$\mathscr{L}$增量的方向。因此梯度下降就可以通过每次迭代中减去学习率*梯度的值，使所有迭代串联起来可形成一个接近最优的最小化$\mathscr{L}$路线。
 
-实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为：$\nabla\mathscr{L}_{|w}(w) =$ $\frac{1}{N} \sum_{n=1}^N \nabla\ell_{n|w}(w)$。全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014][^2]。
+实践中，所有loss均能表示为多个小样本甚至单样本loss的均值：$\mathscr{L} = \frac{1}{N} \sum_{n=1}^N \ell_n(w) $，其中$\ell_n(w)=L(f(x_n;w),y_n)$，因而梯度可表示为下式子：
+$$\nabla\mathscr{L}_{|w}(w) = \frac{1}{N} \sum_{n=1}^N \nabla\ell_{n|w}(w)$$
+
+全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014][^2]。
 
 ### 反向传播
 给定$\ell(w)=L(f(x;w),y)$，怎么计算$\nabla\ell_{|w}(w)$呢？考虑到$f$和$L$都是标准张量运算的组合，它们与任何数学表达式一样，基于链式法则可以得到其表达式。
