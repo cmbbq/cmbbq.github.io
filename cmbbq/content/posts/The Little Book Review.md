@@ -73,9 +73,11 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 
 $$\nabla\mathscr{L}_{|w}(w) = \frac{1}{N} \sum_{n=1}^N \nabla \ell_{n|w}(w)$$
 
+$$\nabla L_w(w) = \frac{1}{N} \nabla \ell_{n|w}(w)$$
+
 $$\nabla\mathscr{L}_{|w}(w) = \frac{1}{N} \nabla \ell_{n|w}(w)$$
 
-$$\nabla\mathscr{L}_{|w}(w) = \frac{1}{N} \sum \nabla \ell_{n|w}(w)$$
+$$\nabla L_w(w) = \frac{1}{N} \sum_{n=1}^N \nabla \ell_{n|w}(w) $$
 
 全量计算梯度开销较高，可以用局部求和估计全量求和（要求做好数据shuffling，数据的stochasticity消除估计的偏倚）。为了让计算能放进内存，标准的做法是把完整训练集分成相当多（可以是百万级）batches，从每个batch得到一个梯度的估计，然后根据这个估计去更新权重，这种做法即mini-batch SGD(stochastic gradient descent)。这种算法有很多变种，比如Adam[Kingma and Ba, 2014][^2]。
 
