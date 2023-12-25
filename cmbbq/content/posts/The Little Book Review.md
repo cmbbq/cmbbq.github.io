@@ -124,7 +124,7 @@ GPT在大规模无标注训练集上训练就足以处理很多任务，比如�
 Dropout[Srivastava et al., 2014][^17]层无可训练参数，只有一个超参$p$，在训练时用于以概率$p$随机关闭一些neuron，避免个别neuron对整体的影响，迫使其他neuron用略微不同的权重代劳。因此dropout是训练时防止过拟合的正则化工具。推理时dropout是关闭的。
 
 ### 归一化层
-归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015][^18]，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的均值$\dot{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$ 和方差 $v_d  = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - m_d)^2$。
+归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015][^18]，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的均值$m_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$ 和方差 $v_d  = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - m_d)^2$。
 
 然后再对每个b，计算均值为0方差为1的归一化值$z_{b,d} = \frac{x_{b,d} - m_d}{\sqrt{v_d + \epsilon}} $，再算出最终结果$y_{b,d} = \gamma_d z_{b,d} + \beta_d$，这个最终值的均值为$\beta_d$，方差为$\gamma_d$。
 
