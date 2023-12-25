@@ -129,7 +129,7 @@
   
 
   <div class="post-content"><div>
-        <p>&ldquo;The Little Book of Deep Learning&rdquo;(<a href="https://fleuret.org/francois/lbdl.html">lbdl</a>)是日内瓦大学CS教授François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如<code>DDIA</code>可被视为分布式系统方向的入门教程，<code>LBDL</code>是理想的深度学习101。</p>
+        <p>&ldquo;The Little Book of Deep Learning&rdquo;(<a href="https://fleuret.org/francois/lbdl.html">lbdl</a>)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如<code>DDIA</code>可被视为分布式系统方向的入门教程，<code>LBDL</code>是理想的深度学习101。</p>
 <p><img src="https://cmbbq.github.io/img/tlb.jpg" alt="tlb"></p>
 <p>精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。</p>
 <hr>
@@ -198,8 +198,8 @@ $$P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$</p>
 <h3 id="随机失活">随机失活<a href="#随机失活" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>Dropout[Srivastava et al., 2014]<sup id="fnref:17"><a href="#fn:17" class="footnote-ref" role="doc-noteref">17</a></sup>层无可训练参数，只有一个超参$p$，在训练时用于以概率$p$随机关闭一些neuron，避免个别neuron对整体的影响，迫使其他neuron用略微不同的权重代劳。因此dropout是训练时防止过拟合的正则化工具。推理时dropout是关闭的。</p>
 <h3 id="归一化层">归一化层<a href="#归一化层" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015]<sup id="fnref:18"><a href="#fn:18" class="footnote-ref" role="doc-noteref">18</a></sup>，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的mean $\hat{m}<em>d = \frac{1}{B} \sum</em>{b=1}^B x_{b,d}$和variance $\frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$。</p>
-<p>然后再对每个b，计算均值为0方差为1的归一化值$z_{b,d} = \frac{x_{b,d} - \hat{m}<em>d}{\sqrt{\hat{v}<em>d + \epsilon}}$，再算出最终结果$y</em>{b,d} = \gamma_d z</em>{b,d} + \beta_d$，这个最终值的均值为$\beta_d$，方差为$\gamma_d$。</p>
+<p>归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015]<sup id="fnref:18"><a href="#fn:18" class="footnote-ref" role="doc-noteref">18</a></sup>，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的mean $\widehat{m}<em>d = \frac{1}{B} \sum</em>{b=1}^B x_{b,d}$和variance $\widehat{v}<em>d  = \frac{1}{B} \sum</em>{b=1}^B (x_{b,d} - \widehat{m}_d)^2$。</p>
+<p>然后再对每个b，计算均值为0方差为1的归一化值$z_{b,d} = \frac{x_{b,d} - \hat{m}<em>d} {\sqrt{\hat{v}<em>d + \epsilon}}$，再算出最终结果$y</em>{b,d} = \gamma_d z</em>{b,d} + \beta_d$，这个最终值的均值为$\beta_d$，方差为$\gamma_d$。</p>
 <p><img src="https://cmbbq.github.io/img/norm.png" alt="norm"></p>
 <h3 id="残差连接">残差连接<a href="#残差连接" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>跳跃连接（skip connections，见[Long et al., 2014]<sup id="fnref:19"><a href="#fn:19" class="footnote-ref" role="doc-noteref">19</a></sup>; [Ronneberger et al., 2015]<sup id="fnref:20"><a href="#fn:20" class="footnote-ref" role="doc-noteref">20</a></sup>）同样可对抗梯度消失。实际上跳跃连接不是一个layer，而是一种让某些层的输出跳过一些中间层嫁接到后面的设计。这种设计允许更原始的信号在更后面的层中得到“反思”。</p>
