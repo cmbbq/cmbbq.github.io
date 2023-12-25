@@ -13,7 +13,7 @@
       <pubDate>Fri, 15 Dec 2023 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/the-little-book-review/</guid>
-      <description>&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(lbdl)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如DDIA可被视为分布式系统方向的入门教程，LBDL是理想的深度学习101。
+      <description>&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(LBDL)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如DDIA可被视为分布式系统方向的入门教程，LBDL是理想的深度学习101。
 精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。
 接下来是知识内化和梳理。
 【一】概述 高维信号难以用规则系统分析，而深度网络则克服了这个困难，用具有大量权重的深层映射拟合出一个足够好（loss足够低）的近似函数——这个函数可以是高维信号到连续向量（回归）或离散值（分类）的映射，也可以是一种概率密度函数，总之，它能从数据分布中学习到某种紧凑且有区分能力的表征。
@@ -33,7 +33,7 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 因果模型训练时可以用完整的序列计算output，一次性最大化序列中所有token的概率，最终也等价于最小化per-token交叉熵。
 自然语言处理中有一个重要技术细节，即如何进行token的表示，可以是最低粒度的单符号，也可以说整个词。进行token表示的算法过程叫做tokenizer。一个标准做法是Byte Pair Encoding[Sennrich et al., 2015]1。
 梯度下降 除了线性回归这种简单特例，一般最优权重$w^*$不会有closed-form expression。这种情况下最小化函数的工具是梯度下降：将权重初始化为随机的$w_0$，然后反复迭代，每次迭代都朝梯度方向修改权重使loss逐步降低，即每次迭代都令$w_{n+1} = w_n - \eta \nabla \mathscr{L}_{|w}(W_n).</description>
-      <content>&lt;p&gt;&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(&lt;a href=&#34;https://fleuret.org/francois/lbdl.html&#34;&gt;lbdl&lt;/a&gt;)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如&lt;code&gt;DDIA&lt;/code&gt;可被视为分布式系统方向的入门教程，&lt;code&gt;LBDL&lt;/code&gt;是理想的深度学习101。&lt;/p&gt;
+      <content>&lt;p&gt;&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(&lt;a href=&#34;https://fleuret.org/francois/lbdl.html&#34;&gt;LBDL&lt;/a&gt;)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如&lt;code&gt;DDIA&lt;/code&gt;可被视为分布式系统方向的入门教程，&lt;code&gt;LBDL&lt;/code&gt;是理想的深度学习101。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/tlb.jpg&#34; alt=&#34;tlb&#34;&gt;&lt;/p&gt;
 &lt;p&gt;精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。&lt;/p&gt;
 &lt;hr&gt;
@@ -102,7 +102,7 @@ $$P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$&lt;/p&gt;
 &lt;h3 id=&#34;随机失活&#34;&gt;随机失活&lt;/h3&gt;
 &lt;p&gt;Dropout[Srivastava et al., 2014]&lt;sup id=&#34;fnref:17&#34;&gt;&lt;a href=&#34;#fn:17&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;17&lt;/a&gt;&lt;/sup&gt;层无可训练参数，只有一个超参$p$，在训练时用于以概率$p$随机关闭一些neuron，避免个别neuron对整体的影响，迫使其他neuron用略微不同的权重代劳。因此dropout是训练时防止过拟合的正则化工具。推理时dropout是关闭的。&lt;/p&gt;
 &lt;h3 id=&#34;归一化层&#34;&gt;归一化层&lt;/h3&gt;
-&lt;p&gt;归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015]&lt;sup id=&#34;fnref:18&#34;&gt;&lt;a href=&#34;#fn:18&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;18&lt;/a&gt;&lt;/sup&gt;，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的均值 $\hat{m}&lt;em&gt;d = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B x_{b,d}$ 和方差 $v_d  = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - m_d)^2$。&lt;/p&gt;
+&lt;p&gt;归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015]&lt;sup id=&#34;fnref:18&#34;&gt;&lt;a href=&#34;#fn:18&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;18&lt;/a&gt;&lt;/sup&gt;，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的均值 $ \hat{m}&lt;em&gt;d $ $ = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B x_{b,d}$ 和方差 $v_d  = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - m_d)^2$。&lt;/p&gt;
 &lt;p&gt;然后再对每个b，计算均值为0方差为1的归一化值$z_{b,d} = \frac{x_{b,d} - m_d}{\sqrt{v_d + \epsilon}} $，再算出最终结果$y_{b,d} = \gamma_d z_{b,d} + \beta_d$，这个最终值的均值为$\beta_d$，方差为$\gamma_d$。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/norm.png&#34; alt=&#34;norm&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;残差连接&#34;&gt;残差连接&lt;/h3&gt;
