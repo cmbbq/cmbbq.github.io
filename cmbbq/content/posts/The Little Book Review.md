@@ -1,7 +1,7 @@
 +++
 title = "The Little Book Review & Internalization"
 date = "2023-12-15"
-tags = ["sys"]
+tags = ["ai"]
 description = "正如DDIA可被视为分布式系统方向的入门教程，LBDL是理想的深度学习101。"
 showFullContent = false
 +++
