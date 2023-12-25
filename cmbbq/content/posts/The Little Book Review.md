@@ -130,6 +130,8 @@ Dropout[Srivastava et al., 2014][^17]层无可训练参数，只有一个超参$
 
 $$m_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
 
+$$\widehat{m_d} = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
+
 $$\hat{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
 
 $$\hat{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
@@ -142,17 +144,17 @@ $$\hat{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
 跳跃连接的实用实现是残差连接（residual connections），直接把两种信号求和，而且跳跃的层数不算多。这种设计允许信号在穿越某些原本会梯度消失的层时得以幸存。基于残差连接，何凯明构建了ResNet[He et al., 2015][^21]，Google设计了Transformer[Vaswani et al., 2017][^22]。
 
 ### 注意力层
-已有的组件缺乏将局部信息和张量中较远位置的信息结合起来的能力，Attention Layer则专长于此道——通过为所得张量的每个组件与输入张量的每个组件计算attention score，不受局部性约束地，在整个张量范围内对特征进行平均[^22]。
+已有的组件缺乏将局部信息和张量中较远位置的信息结合起来的能力，Attention Layer则专长于此道——通过为所得张量的每个组件与输入张量的每个组件计算注意力得分，不受局部性约束地，在整个张量范围内对特征进行平均[^22]。
 
 给定$N^Q\times D^{QK}$维queries张量$Q$，$N^{KV}\times D^{QK}$维keys张量$K$，$N^{KV}\times D^V$维values张量$V$，通过```Attention操作```$att(K,Q,V)$计算得到$N^Q\times D^V$维的张量Y：
 
 $$Y = att(K,Q,V) = \underbrace{softargmax(\frac{QK^T}{\frac{1}{\sqrt{D^{QK}}}})}_A V$$
 
-整个过程分两步，第一步先计算每个query index $q$和每个key index $k$的attention score，即queries和keys点乘后的```softargmax```结果：$A_{q,k} = \frac{exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_k ) }{\sum_l exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_l)}$，其中$\frac{1}{\sqrt{D^{QK}}}$是一个缩放参数，用于保证取值范围在$D^{QK}$变大时大体不变。
+整个过程分两步，第一步先计算每个query index $q$和每个key index $k$的注意力得分，即queries和keys点乘后的```softargmax```结果：$A_{q,k} = \frac{exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_k ) }{\sum_l exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_l)}$，其中$\frac{1}{\sqrt{D^{QK}}}$是一个缩放参数，用于保证取值范围在$D^{QK}$变大时大体不变。
 
 ![att](https://cmbbq.github.io/img/attention.png)
 
-得到$A_{q,k}$后，再进行第二步计算：$Y_q = \sum_k A_{q,k}V_k$。注意力得分即queries和keys之间的匹配程度，匹配程度越高，该权重就越高。如果某个query和某个key匹配度达到极限，注意力得分接近1，则直接拿到这个key对应的value。如果和好几个key都有中等水准的匹配，则按注意力得分做加权平均。
+得到注意力得分$A_{q,k}$后，再进行第二步计算：$Y_q = \sum_k A_{q,k}V_k$。注意力得分即queries和keys之间的匹配程度，匹配程度越高，该权重就越高。如果某个query和某个key匹配度达到极限，注意力得分接近1，则直接拿到这个key对应的value。如果和好几个key都有中等水准的匹配，则按注意力得分做加权平均。
 
 ## 其他话题
 ```LBDL```还讨论了各种深度学习模型架构和应用，如多层感知机、卷积网络、注意力模型、RNN、Autoencoder、GAN、图神经网络、GPT、Diffusion。

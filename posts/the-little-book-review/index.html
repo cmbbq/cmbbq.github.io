@@ -201,6 +201,7 @@ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$</p>
 <h3 id="归一化层">归一化层<a href="#归一化层" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <p>归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015]<sup id="fnref:18"><a href="#fn:18" class="footnote-ref" role="doc-noteref">18</a></sup>，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的mean $\hat{m}_d$和variance $\hat{v}_d$：</p>
 <p>$$m_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$</p>
+<p>$$\widehat{m_d} = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$</p>
 <p>$$\hat{m}<em>d = \frac{1}{B} \sum</em>{b=1}^B x_{b,d}$$</p>
 <p>$$\hat{v}<em>d = \frac{1}{B} \sum</em>{b=1}^B (x_{b,d} - \hat{m}_d)^2$$</p>
 <p><img src="https://cmbbq.github.io/img/norm.png" alt="norm"></p>
@@ -208,12 +209,12 @@ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$</p>
 <p>跳跃连接（skip connections，见[Long et al., 2014]<sup id="fnref:19"><a href="#fn:19" class="footnote-ref" role="doc-noteref">19</a></sup>; [Ronneberger et al., 2015]<sup id="fnref:20"><a href="#fn:20" class="footnote-ref" role="doc-noteref">20</a></sup>）同样可对抗梯度消失。实际上跳跃连接不是一个layer，而是一种让某些层的输出跳过一些中间层嫁接到后面的设计。这种设计允许更原始的信号在更后面的层中得到“反思”。</p>
 <p>跳跃连接的实用实现是残差连接（residual connections），直接把两种信号求和，而且跳跃的层数不算多。这种设计允许信号在穿越某些原本会梯度消失的层时得以幸存。基于残差连接，何凯明构建了ResNet[He et al., 2015]<sup id="fnref:21"><a href="#fn:21" class="footnote-ref" role="doc-noteref">21</a></sup>，Google设计了Transformer[Vaswani et al., 2017]<sup id="fnref:22"><a href="#fn:22" class="footnote-ref" role="doc-noteref">22</a></sup>。</p>
 <h3 id="注意力层">注意力层<a href="#注意力层" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
-<p>已有的组件缺乏将局部信息和张量中较远位置的信息结合起来的能力，Attention Layer则专长于此道——通过为所得张量的每个组件与输入张量的每个组件计算attention score，不受局部性约束地，在整个张量范围内对特征进行平均<sup id="fnref1:22"><a href="#fn:22" class="footnote-ref" role="doc-noteref">22</a></sup>。</p>
+<p>已有的组件缺乏将局部信息和张量中较远位置的信息结合起来的能力，Attention Layer则专长于此道——通过为所得张量的每个组件与输入张量的每个组件计算注意力得分，不受局部性约束地，在整个张量范围内对特征进行平均<sup id="fnref1:22"><a href="#fn:22" class="footnote-ref" role="doc-noteref">22</a></sup>。</p>
 <p>给定$N^Q\times D^{QK}$维queries张量$Q$，$N^{KV}\times D^{QK}$维keys张量$K$，$N^{KV}\times D^V$维values张量$V$，通过<code>Attention操作</code>$att(K,Q,V)$计算得到$N^Q\times D^V$维的张量Y：</p>
 <p>$$Y = att(K,Q,V) = \underbrace{softargmax(\frac{QK^T}{\frac{1}{\sqrt{D^{QK}}}})}_A V$$</p>
-<p>整个过程分两步，第一步先计算每个query index $q$和每个key index $k$的attention score，即queries和keys点乘后的<code>softargmax</code>结果：$A_{q,k} = \frac{exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_k ) }{\sum_l exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_l)}$，其中$\frac{1}{\sqrt{D^{QK}}}$是一个缩放参数，用于保证取值范围在$D^{QK}$变大时大体不变。</p>
+<p>整个过程分两步，第一步先计算每个query index $q$和每个key index $k$的注意力得分，即queries和keys点乘后的<code>softargmax</code>结果：$A_{q,k} = \frac{exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_k ) }{\sum_l exp(\frac{1}{\sqrt{D^{QK}}} Q_q \cdot K_l)}$，其中$\frac{1}{\sqrt{D^{QK}}}$是一个缩放参数，用于保证取值范围在$D^{QK}$变大时大体不变。</p>
 <p><img src="https://cmbbq.github.io/img/attention.png" alt="att"></p>
-<p>得到$A_{q,k}$后，再进行第二步计算：$Y_q = \sum_k A_{q,k}V_k$。注意力得分即queries和keys之间的匹配程度，匹配程度越高，该权重就越高。如果某个query和某个key匹配度达到极限，注意力得分接近1，则直接拿到这个key对应的value。如果和好几个key都有中等水准的匹配，则按注意力得分做加权平均。</p>
+<p>得到注意力得分$A_{q,k}$后，再进行第二步计算：$Y_q = \sum_k A_{q,k}V_k$。注意力得分即queries和keys之间的匹配程度，匹配程度越高，该权重就越高。如果某个query和某个key匹配度达到极限，注意力得分接近1，则直接拿到这个key对应的value。如果和好几个key都有中等水准的匹配，则按注意力得分做加权平均。</p>
 <h2 id="其他话题">其他话题<a href="#其他话题" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p><code>LBDL</code>还讨论了各种深度学习模型架构和应用，如多层感知机、卷积网络、注意力模型、RNN、Autoencoder、GAN、图神经网络、GPT、Diffusion。</p>
 <div class="footnotes" role="doc-endnotes">
