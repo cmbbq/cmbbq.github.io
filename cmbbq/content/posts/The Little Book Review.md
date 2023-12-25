@@ -7,7 +7,7 @@ showFullContent = false
 +++
 
 
-"The Little Book of Deep Learning"([LBDL](https://fleuret.org/francois/lbdl.html))是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如```DDIA```可被视为分布式系统方向的入门教程，```LBDL```是理想的深度学习101。
+"The Little Book of Deep Learning"([```LBDL```](https://fleuret.org/francois/lbdl.html))是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如```DDIA```可被视为分布式系统方向的入门教程，```LBDL```是理想的深度学习101。
 
 ![tlb](https://cmbbq.github.io/img/tlb.jpg)
 

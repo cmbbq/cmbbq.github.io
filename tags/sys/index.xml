@@ -33,7 +33,7 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 因果模型训练时可以用完整的序列计算output，一次性最大化序列中所有token的概率，最终也等价于最小化per-token交叉熵。
 自然语言处理中有一个重要技术细节，即如何进行token的表示，可以是最低粒度的单符号，也可以说整个词。进行token表示的算法过程叫做tokenizer。一个标准做法是Byte Pair Encoding[Sennrich et al., 2015]1。
 梯度下降 除了线性回归这种简单特例，一般最优权重$w^*$不会有closed-form expression。这种情况下最小化函数的工具是梯度下降：将权重初始化为随机的$w_0$，然后反复迭代，每次迭代都朝梯度方向修改权重使loss逐步降低，即每次迭代都令$w_{n+1} = w_n - \eta \nabla \mathscr{L}_{|w}(W_n).</description>
-      <content>&lt;p&gt;&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(&lt;a href=&#34;https://fleuret.org/francois/lbdl.html&#34;&gt;LBDL&lt;/a&gt;)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如&lt;code&gt;DDIA&lt;/code&gt;可被视为分布式系统方向的入门教程，&lt;code&gt;LBDL&lt;/code&gt;是理想的深度学习101。&lt;/p&gt;
+      <content>&lt;p&gt;&amp;ldquo;The Little Book of Deep Learning&amp;rdquo;(&lt;a href=&#34;https://fleuret.org/francois/lbdl.html&#34;&gt;&lt;code&gt;LBDL&lt;/code&gt;&lt;/a&gt;)是François Fleuret写的一本适配手机屏的书，精简扼要地面向stem背景读者介绍深度学习。正如&lt;code&gt;DDIA&lt;/code&gt;可被视为分布式系统方向的入门教程，&lt;code&gt;LBDL&lt;/code&gt;是理想的深度学习101。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/tlb.jpg&#34; alt=&#34;tlb&#34;&gt;&lt;/p&gt;
 &lt;p&gt;精简，或者说压缩，正是深度模型的strength，也是这个信息过载时代的virtue。用A4纸打印这个小册子，读起来非常舒适。&lt;/p&gt;
 &lt;hr&gt;
