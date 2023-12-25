@@ -128,12 +128,10 @@ Dropout[Srivastava et al., 2014][^17]层无可训练参数，只有一个超参$
 ### 归一化层
 归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015][^18]，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的mean $\hat{m}_d$和variance $\hat{v}_d$：
 
-$$m_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
+$$\widehat{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
+$$\widehat{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
 
-$$\widehat{m_d} = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
-
-$$\hat{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
-
+$$\^{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
 $$\hat{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
 
 ![norm](https://cmbbq.github.io/img/norm.png)
