@@ -45,8 +45,8 @@ showFullContent = false
 
 ### 自回归模型
 自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则: 
-$$P(A\cap B)=P(A) P(B|A), \\\\\
-  P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$
+$$P(A\cap B)=P(A) P(B|A)$$
+$$P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$
 
 自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。
 
@@ -95,9 +95,7 @@ GPT在大规模无标注训练集上训练就足以处理很多任务，比如�
 
 ## 【三】构件
 ### 线性层
-全连接层是最基础的线性层构件，可用$D \times D'$的矩阵$W$和一个bias向量$b$表示。它实现了一个能泛化到任意张量形状的仿射变换，给定任意输入$X$，其形状为$D_1 \times \dots \times D_k \times D$，全连接层计算得到一个输出$Y$，其形状为$D_1 \times \dots \times D_k \times D'$：
-
-$$\forall d_1,\dots,d_K,\\\\\\ Y[d1,\dots,d_K] = WX[d1,\dots,d_K] + b $$
+全连接层是最基础的线性层构件，可用$D \times D'$的矩阵$W$和一个bias向量$b$表示。它实现了一个能泛化到任意张量形状的仿射变换，给定任意输入$X$，其形状为$D_1 \times \dots \times D_k \times D$，全连接层计算得到一个输出$Y$，其形状为$D_1 \times \dots \times D_k \times D'$：$\forall d_1,\dots,d_K, Y[d1,\dots,d_K] = WX[d1,\dots,d_K] + b $
 
 
 全连接层处理高维数据时，参数量太大。此外全连接层假设输入输出之间存在复杂非线性关系，忽视了更简单的结构化规律[^13]。然而高维信号普遍有这种强结构，比如图片兼具short-term关联和抵抗变换、缩放、对称的统计学静态性。相较而言，卷积层能更好地捕捉信号的空间结构——因为卷积层权重被输入信号的不同部分共享，这些权重因而能学习到某种局部空间结构，比如图片的边缘、形状、角。多层卷积是高维信号（图片、声音）的常用降维工具。
@@ -128,11 +126,8 @@ Dropout[Srivastava et al., 2014][^17]层无可训练参数，只有一个超参$
 ### 归一化层
 归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015][^18]，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的mean $\hat{m}_d$和variance $\hat{v}_d$：
 
-$$\widehat{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
-$$\widehat{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
-
 $$\^{m}_d = \frac{1}{B} \sum_{b=1}^B x_{b,d}$$
-$$\hat{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
+$$\^{v}_d = \frac{1}{B} \sum_{b=1}^B (x_{b,d} - \hat{m}_d)^2$$
 
 ![norm](https://cmbbq.github.io/img/norm.png)
 

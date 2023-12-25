@@ -25,7 +25,7 @@
 在度量学习中，虽然预测的值是连续的，但实际监督形式是分级，因为度量学习的目标是学习出样本之间可比较的距离，比如A、B、C三个点，其中A和B是同一个人脸的不同侧面，C是另一个人，那就要求AB之间距离小于AC。因此度量学习一般采用contrastive loss或triplet loss。
 损失函数通常只是一个代理指标，而非实际性能指标，以分类任务为例，显然直接性能指标应该是分类错误率，只不过这个指标的梯度没有携带有效指导信息——错误率函数和模型权重是完全剥离的，知晓错误率的变化不能在训练中帮助模型减小错误率。
 损失函数还可以被设计为依赖于模型权重，从而对模型权重进行某种约束和控制。比如权重衰减（weight decay），一种防止过拟合的正则化技术，给损失函数里增加了一项模型权重的平方和，从而惩罚大的权重数值，偏好小的数值，进而减少训练数据对模型权重取值范围的影响。这么做会使训练集上性能下降，但有利于在未见过的数据集上更好地泛化。
-自回归模型 自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则: $$P(A\cap B)=P(A) P(B|A), \\\ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$
+自回归模型 自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则: $$P(A\cap B)=P(A) P(B|A)$$ $$P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$
 自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。
 token词汇域有限的场景是可计算的，条件概率的链式分解又使计算量降低——采样下一个token时，可以利用上一个token的概率，最终能生成符合联合概率分布的token序列。
 训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。
@@ -58,8 +58,8 @@ token词汇域有限的场景是可计算的，条件概率的链式分解又使
 &lt;p&gt;损失函数还可以被设计为依赖于模型权重，从而对模型权重进行某种约束和控制。比如权重衰减（weight decay），一种防止过拟合的正则化技术，给损失函数里增加了一项模型权重的平方和，从而惩罚大的权重数值，偏好小的数值，进而减少训练数据对模型权重取值范围的影响。这么做会使训练集上性能下降，但有利于在未见过的数据集上更好地泛化。&lt;/p&gt;
 &lt;h3 id=&#34;自回归模型&#34;&gt;自回归模型&lt;/h3&gt;
 &lt;p&gt;自回归模型是NLP/CV等领域处理离散序列的关键方法。原理是利用条件概率的链式法则:
-$$P(A\cap B)=P(A) P(B|A), \\\
-P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$&lt;/p&gt;
+$$P(A\cap B)=P(A) P(B|A)$$
+$$P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$&lt;/p&gt;
 &lt;p&gt;自回归模型输入是已有的T个token（每个token取值范围是大小为K的vocabulary集合），输出是K个候选token的logits。&lt;/p&gt;
 &lt;p&gt;token词汇域有限的场景是可计算的，条件概率的链式分解又使计算量降低——采样下一个token时，可以利用上一个token的概率，最终能生成符合联合概率分布的token序列。&lt;/p&gt;
 &lt;p&gt;训练自回归模型可以遍历各个步骤，把每一个逻辑时间节点上模型预测和真正的下一个token的交叉熵快照加起来，形成交叉熵loss。减小这个loss，即增大每个逻辑时间节点上模型预测token的似然。实际上监控的往往不是交叉熵，而是交叉熵(H)的指数，即困惑度perplexity(PPL)，PPL = 2^H。相比交叉熵，困惑度是归一化的，并不依赖输入序列的长度。&lt;/p&gt;
@@ -86,8 +86,7 @@ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$&lt;/p&gt;
 &lt;p&gt;GPT在大规模无标注训练集上训练就足以处理很多任务，比如翻译（见[Radford et al., 2019]&lt;sup id=&#34;fnref:12&#34;&gt;&lt;a href=&#34;#fn:12&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;12&lt;/a&gt;&lt;/sup&gt;），这就是典型的自监督训练应用，其最重要的优势是可以利用超大规模的未标注数据，将训练数据规模的边界再向前推进。&lt;/p&gt;
 &lt;h2 id=&#34;三构件&#34;&gt;【三】构件&lt;/h2&gt;
 &lt;h3 id=&#34;线性层&#34;&gt;线性层&lt;/h3&gt;
-&lt;p&gt;全连接层是最基础的线性层构件，可用$D \times D&amp;rsquo;$的矩阵$W$和一个bias向量$b$表示。它实现了一个能泛化到任意张量形状的仿射变换，给定任意输入$X$，其形状为$D_1 \times \dots \times D_k \times D$，全连接层计算得到一个输出$Y$，其形状为$D_1 \times \dots \times D_k \times D&amp;rsquo;$：&lt;/p&gt;
-&lt;p&gt;$$\forall d_1,\dots,d_K,\\\ Y[d1,\dots,d_K] = WX[d1,\dots,d_K] + b $$&lt;/p&gt;
+&lt;p&gt;全连接层是最基础的线性层构件，可用$D \times D&amp;rsquo;$的矩阵$W$和一个bias向量$b$表示。它实现了一个能泛化到任意张量形状的仿射变换，给定任意输入$X$，其形状为$D_1 \times \dots \times D_k \times D$，全连接层计算得到一个输出$Y$，其形状为$D_1 \times \dots \times D_k \times D&amp;rsquo;$：$\forall d_1,\dots,d_K, Y[d1,\dots,d_K] = WX[d1,\dots,d_K] + b $&lt;/p&gt;
 &lt;p&gt;全连接层处理高维数据时，参数量太大。此外全连接层假设输入输出之间存在复杂非线性关系，忽视了更简单的结构化规律&lt;sup id=&#34;fnref:13&#34;&gt;&lt;a href=&#34;#fn:13&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;13&lt;/a&gt;&lt;/sup&gt;。然而高维信号普遍有这种强结构，比如图片兼具short-term关联和抵抗变换、缩放、对称的统计学静态性。相较而言，卷积层能更好地捕捉信号的空间结构——因为卷积层权重被输入信号的不同部分共享，这些权重因而能学习到某种局部空间结构，比如图片的边缘、形状、角。多层卷积是高维信号（图片、声音）的常用降维工具。&lt;/p&gt;
 &lt;p&gt;一维卷积以$D \times T$张量$X$为输入，对每个$D\times K$子张量施加仿射变换$\phi(\cdot;w): \mathbb{R}^{D\times K} \rightarrow \mathbb{R}^{D&amp;rsquo;\times 1}$，将$D&amp;rsquo;\times 1$结果依次存入$Y$中。&lt;/p&gt;
 &lt;p&gt;一维反卷积则是以$D \times T$张量$X$为输入，对每个$D\times 1$子张量施加仿射变换$\phi(\cdot;w): \mathbb{R}^{D\times 1} \rightarrow \mathbb{R}^{D&amp;rsquo;\times K}$，将结果加起来形成的$D&amp;rsquo;\times K$张量存入$Y$中。&lt;/p&gt;
@@ -104,10 +103,8 @@ P(A\cap B\cap C)=P(A) P(B|A) P(C|A\cap B)$$&lt;/p&gt;
 &lt;p&gt;Dropout[Srivastava et al., 2014]&lt;sup id=&#34;fnref:17&#34;&gt;&lt;a href=&#34;#fn:17&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;17&lt;/a&gt;&lt;/sup&gt;层无可训练参数，只有一个超参$p$，在训练时用于以概率$p$随机关闭一些neuron，避免个别neuron对整体的影响，迫使其他neuron用略微不同的权重代劳。因此dropout是训练时防止过拟合的正则化工具。推理时dropout是关闭的。&lt;/p&gt;
 &lt;h3 id=&#34;归一化层&#34;&gt;归一化层&lt;/h3&gt;
 &lt;p&gt;归一化可用于抵抗梯度消失。最主要的归一化层是Batch Normalization[Ioffe and Szegedy, 2015]&lt;sup id=&#34;fnref:18&#34;&gt;&lt;a href=&#34;#fn:18&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;18&lt;/a&gt;&lt;/sup&gt;，由超参$D$和可训练参数$\beta_1, \dots,\beta_D$和$\gamma_1, \dots,\gamma_D$组成。给定一批$D$维样本$x_1, \dots, x_B$，先计算每个维度的mean $\hat{m}_d$和variance $\hat{v}_d$：&lt;/p&gt;
-&lt;p&gt;$$\widehat{m}&lt;em&gt;d = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B x_{b,d}$$
-$$\widehat{v}&lt;em&gt;d = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B (x_{b,d} - \hat{m}_d)^2$$&lt;/p&gt;
 &lt;p&gt;$$^{m}&lt;em&gt;d = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B x_{b,d}$$
-$$\hat{v}&lt;em&gt;d = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B (x_{b,d} - \hat{m}_d)^2$$&lt;/p&gt;
+$$^{v}&lt;em&gt;d = \frac{1}{B} \sum&lt;/em&gt;{b=1}^B (x_{b,d} - \hat{m}_d)^2$$&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/norm.png&#34; alt=&#34;norm&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;残差连接&#34;&gt;残差连接&lt;/h3&gt;
 &lt;p&gt;跳跃连接（skip connections，见[Long et al., 2014]&lt;sup id=&#34;fnref:19&#34;&gt;&lt;a href=&#34;#fn:19&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;19&lt;/a&gt;&lt;/sup&gt;; [Ronneberger et al., 2015]&lt;sup id=&#34;fnref:20&#34;&gt;&lt;a href=&#34;#fn:20&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;20&lt;/a&gt;&lt;/sup&gt;）同样可对抗梯度消失。实际上跳跃连接不是一个layer，而是一种让某些层的输出跳过一些中间层嫁接到后面的设计。这种设计允许更原始的信号在更后面的层中得到“反思”。&lt;/p&gt;
