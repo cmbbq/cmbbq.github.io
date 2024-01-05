@@ -42,7 +42,7 @@ x86架构下内存通道和内存列在内存地址上interleaving，即均匀�
 
 如图所示，内存池最好不要让对象的起始地址反复命中同一个channel或同一个rank，而是要充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。
 
-DPDK的`mempool`给对象大小加恰当的padding，令内存池中的下一个对象的起始地址分布在不同内存通道和列中。具体实现可参考下面的代码，其中64B[^4]是x86的`cache line size`，也恰恰是一个`block size`，或`memory bus width`、`channel width`。无论如何，内存池里的地址都要首先保证是64B的整数倍，能整齐地放入cache，做到cache-friendly——事实上也是block friendly、memory bus width friendly，然后才是保证下一个对象的`block id`不能被$n_{chan}\times n_{rank}$整除。
+DPDK的`mempool`给对象大小加恰当的padding，令内存池中的下一个对象的起始地址分布在不同内存通道和列中。具体实现可参考下面的代码，其中64B[^4]是x86的`cache line size`，也恰恰是一个`block size`，或`memory bus width`、`channel width`。无论如何，内存池里的地址都要首先保证是64B的整数倍，能整齐地放入cache，做到cache-friendly——事实上也是block friendly、memory bus width friendly，然后才是保证下一个对象的`block id`和$n_{chan}\times n_{rank}$互质。
 
 ```C 
 static unsigned int arch_mem_object_align(unsigned int obj_size)
