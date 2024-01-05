@@ -129,8 +129,7 @@
   
 
   <div class="post-content"><div>
-        <p>对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。
-本文只是浅尝辄止，汇集其中一部分直接可用的技术。</p>
+        <p>对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。本文只是浅尝辄止，汇集其中一部分值得借鉴的思想。</p>
 <h2 id="eal用户空间库">EAL：用户空间库<a href="#eal用户空间库" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供了各种有用的工具，比如：运行时对CPU特性进行检测，更适合现代硬件的内存管理，绑核和指定任务在某个核上运行。</p>
 <p><code>rte_eal_init()</code>是初始化EAL的函数，有多平台的实现：Linux、FreeBSD、Windows。以它为例，可大致了解DPDK EAL做了哪些工作。</p>
@@ -138,7 +137,7 @@
 <h2 id="切割需要权限的工作">切割需要权限的工作<a href="#切割需要权限的工作" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如<code>vfio-pci</code>、<code>igb_uio</code>、<code>uio_pci_generic</code>。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。<code>igb_uio</code>基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。<code>uio_pci_generic</code>和<code>igb_uio</code>类似，不过不支持MSI和MSI-X中断。<code>vfio-pci</code>支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用<code>vfio</code>，就用<code>vfio</code>。</p>
 <p>大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用<code>usertools</code>目录下的<code>dpdk-devbind.py</code>脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。</p>
-<h2 id="利用巨页毕竟4kb是古老时代的回响">利用巨页，毕竟4KB是古老时代的回响<a href="#利用巨页毕竟4kb是古老时代的回响" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="利用巨页毕竟4kb已是古老时代的残响">利用巨页，毕竟4KB已是古老时代的残响<a href="#利用巨页毕竟4kb已是古老时代的残响" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。</p>
 <h2 id="尊重numa-node拓扑">尊重NUMA Node拓扑<a href="#尊重numa-node拓扑" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>DPDK的每个操作都是NUMA-aware的，提供的API默认是NUMA node亲和的，这让用户很难写出远端内存访问的代码。</p>

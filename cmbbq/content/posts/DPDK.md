@@ -6,8 +6,7 @@ description = "对于访存密集的数据中心应用来说，DPDK提供了非�
 showFullContent = false
 +++
 
-对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。
-本文只是浅尝辄止，汇集其中一部分直接可用的技术。
+对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。本文只是浅尝辄止，汇集其中一部分值得借鉴的思想。
 
 ## EAL：用户空间库
 EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供了各种有用的工具，比如：运行时对CPU特性进行检测，更适合现代硬件的内存管理，绑核和指定任务在某个核上运行。
@@ -21,7 +20,7 @@ DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬�
 
 大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用`usertools`目录下的``dpdk-devbind.py``脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。
 
-## 利用巨页，毕竟4KB是古老时代的回响
+## 利用巨页，毕竟4KB已是古老时代的残响
 DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页[^7])，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。
 
 ## 尊重NUMA Node拓扑

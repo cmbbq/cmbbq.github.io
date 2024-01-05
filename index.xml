@@ -13,13 +13,13 @@
       <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/dpdk/</guid>
-      <description>对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。 本文只是浅尝辄止，汇集其中一部分直接可用的技术。
+      <description>对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。本文只是浅尝辄止，汇集其中一部分值得借鉴的思想。
 EAL：用户空间库 EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供了各种有用的工具，比如：运行时对CPU特性进行检测，更适合现代硬件的内存管理，绑核和指定任务在某个核上运行。
 rte_eal_init()是初始化EAL的函数，有多平台的实现：Linux、FreeBSD、Windows。以它为例，可大致了解DPDK EAL做了哪些工作。
 rte_eal_init()是一个冗长的初始化过程，包含下列步骤：检查CPU类型是否是DPDK支持的、设置日志等级、检测各个socket上的各个cpu、enable每个逻辑核、初始化插件（加载共享库，比如一些PMD drivers）、初始化tracing机制、解析各个设备的配置选项、初始化全局配置（主核id、逻辑核数、numa nodes数、iova模式1、内存拓扑配置）、初始化中断处理机制、初始化多进程通用channel、扫描所有总线上的设备、初始化malloc heap、注册多进程action callbacks（热插拔支持）、初始化巨页信息2、初始化内存和memzone、初始化HPET/TSC计时器3、检查本地socket上的内存、创建主线程和子线程的通信信道、创建工作线程、绑核、在工作线程上启动dummy function、初始化服务、嗅探所有总线上的设备和驱动、启动服务、开启telemetry（提供ethdev stats、ethdev port list、eal parameters等状态查询）。
 切割需要权限的工作 DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如vfio-pci、igb_uio、uio_pci_generic。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。igb_uio基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。uio_pci_generic和igb_uio类似，不过不支持MSI和MSI-X中断。vfio-pci支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用vfio，就用vfio。
 大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用usertools目录下的dpdk-devbind.py脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。
-利用巨页，毕竟4KB是古老时代的回响 DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页4)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。
+利用巨页，毕竟4KB已是古老时代的残响 DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页4)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。
 尊重NUMA Node拓扑 DPDK的每个操作都是NUMA-aware的，提供的API默认是NUMA node亲和的，这让用户很难写出远端内存访问的代码。
 尊重内存的硬件拓扑 DPDK的内存分配做得非常精细，利用了内存硬件拓扑等内存配置。
 内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。
@@ -28,8 +28,7 @@ CPU和内存之间是64bit接口，但单个内存颗粒（DRAM chips）的位�
 Depending on memory configuration on x86 arch, objects addresses are spread between channels and ranks in RAM
 x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增，因此RAM可视作由$n_{chan}\times n_{rank}$个block组成的，其DIMM架构如下图。 如图所示，内存池最好不要让对象的起始地址反复命中同一个channel或同一个rank，而是要充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。
 DPDK的mempool给对象大小加恰当的padding，令内存池中的下一个对象的起始地址分布在不同内存通道和列中。具体实现可参考下面的代码，其中64B6是x86的cache line size，也恰恰是一个block size，或memory bus width、channel width。无论如何，内存池里的地址都要首先保证是64B的整数倍，能整齐地放入cache，做到cache-friendly——事实上也是block friendly、memory bus width friendly，然后才是保证下一个对象的block id不能被$n_{chan}\times n_{rank}$整除。</description>
-      <content>&lt;p&gt;对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。
-本文只是浅尝辄止，汇集其中一部分直接可用的技术。&lt;/p&gt;
+      <content>&lt;p&gt;对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。本文只是浅尝辄止，汇集其中一部分值得借鉴的思想。&lt;/p&gt;
 &lt;h2 id=&#34;eal用户空间库&#34;&gt;EAL：用户空间库&lt;/h2&gt;
 &lt;p&gt;EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供了各种有用的工具，比如：运行时对CPU特性进行检测，更适合现代硬件的内存管理，绑核和指定任务在某个核上运行。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;rte_eal_init()&lt;/code&gt;是初始化EAL的函数，有多平台的实现：Linux、FreeBSD、Windows。以它为例，可大致了解DPDK EAL做了哪些工作。&lt;/p&gt;
@@ -37,7 +36,7 @@ DPDK的mempool给对象大小加恰当的padding，令内存池中的下一个�
 &lt;h2 id=&#34;切割需要权限的工作&#34;&gt;切割需要权限的工作&lt;/h2&gt;
 &lt;p&gt;DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如&lt;code&gt;vfio-pci&lt;/code&gt;、&lt;code&gt;igb_uio&lt;/code&gt;、&lt;code&gt;uio_pci_generic&lt;/code&gt;。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。&lt;code&gt;igb_uio&lt;/code&gt;基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。&lt;code&gt;uio_pci_generic&lt;/code&gt;和&lt;code&gt;igb_uio&lt;/code&gt;类似，不过不支持MSI和MSI-X中断。&lt;code&gt;vfio-pci&lt;/code&gt;支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用&lt;code&gt;vfio&lt;/code&gt;，就用&lt;code&gt;vfio&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用&lt;code&gt;usertools&lt;/code&gt;目录下的&lt;code&gt;dpdk-devbind.py&lt;/code&gt;脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。&lt;/p&gt;
-&lt;h2 id=&#34;利用巨页毕竟4kb是古老时代的回响&#34;&gt;利用巨页，毕竟4KB是古老时代的回响&lt;/h2&gt;
+&lt;h2 id=&#34;利用巨页毕竟4kb已是古老时代的残响&#34;&gt;利用巨页，毕竟4KB已是古老时代的残响&lt;/h2&gt;
 &lt;p&gt;DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。&lt;/p&gt;
 &lt;h2 id=&#34;尊重numa-node拓扑&#34;&gt;尊重NUMA Node拓扑&lt;/h2&gt;
 &lt;p&gt;DPDK的每个操作都是NUMA-aware的，提供的API默认是NUMA node亲和的，这让用户很难写出远端内存访问的代码。&lt;/p&gt;
