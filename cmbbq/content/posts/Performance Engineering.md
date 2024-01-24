@@ -26,7 +26,7 @@ As `DRAM` access has become the de-facto bottleneck for many of today's datacent
 
 `PMem`s offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs' bandwidth. `SSD`s are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.
 
-The well-known `B-tree`, for example, was originally targeting disk storage. `Red-Black tree`, on the other hand, is known as C++ ```std::map```'s default implementation. But today's `DRAM` might have become too slow for `Red-Black Tree`s. Modern day system language, Rust, opts for `B-tree`s over `Red-Black tree`s for ordered maps due to their cache-friendliness and better performance on modern hardware with much deeper memory hierarchies. 
+The well-known `B-tree`, for example, was originally targeting disk storage. `Red-black tree`, on the other hand, is known as C++ ```std::map```'s default implementation and was indeed efficient from a 1990s era point of view. But today's `DRAM` might have become too slow for `Red-black tree`s. Modern day system language, Rust, opts for `B-tree`s over `Red-black tree`s for ordered maps due to their cache-friendliness and better performance on modern hardware with much deeper memory hierarchies. 
 
 The `Dashtable`[Lu et al., 2020][^4], as another example, was targeting the once fashionable `PMem`s. Hasing on `PMem` sounds somewhat niche. But in reality, any memory-constrained application can benefit from it. In 2022, Intel killed off its `PMem` business[^5]. `PMem` died. Yet the `Dash` methodology, which survived `PMem`'s hellish bandwidth, still thrives, shifting to regular `DRAM` applications, as we can see in projects like [DragonFly](https://github.com/dragonflydb/dragonfly).
 
