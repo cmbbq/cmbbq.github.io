@@ -16,7 +16,7 @@ EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供�
 `rte_eal_init()`是一个冗长的初始化过程，包含下列步骤：检查CPU类型是否是DPDK支持的、设置日志等级、检测各个socket上的各个cpu、enable每个逻辑核、初始化插件（加载共享库，比如一些PMD drivers）、初始化[tracing机制](https://doc.dpdk.org/guides/prog_guide/trace_lib.html)、解析各个设备的配置选项、初始化全局配置（主核id、逻辑核数、numa nodes数、iova模式[^1]、内存拓扑配置）、初始化中断处理机制、初始化多进程通用channel、扫描所有总线上的设备、初始化malloc heap、注册多进程action callbacks（热插拔支持）、初始化巨页信息[^9]、初始化内存和memzone、初始化HPET/TSC计时器[^8]、检查本地socket上的内存、创建主线程和子线程的通信信道、创建工作线程、绑核、在工作线程上启动dummy function、初始化服务、嗅探所有总线上的设备和驱动、启动服务、开启telemetry（提供ethdev stats、ethdev port list、eal parameters等状态查询）。
 
 ## 切割需要权限的工作
-DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如``vfio-pci``、``igb_uio``、``uio_pci_generic``。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。``igb_uio``基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。``uio_pci_generic``和``igb_uio``类似，不过不支持MSI和MSI-X中断。``vfio-pci``支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用`vfio`，就用`vfio`。
+DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如``vfio-pci``、``igb_uio``、``uio_pci_generic``。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。``igb_uio``基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。``uio_pci_generic``和``igb_uio``类似，不过不支持MSI和MSI-X中断。``vfio-pci``支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用`vfio`，就用`vfio`，目前`uio`基本处于半废弃状态。
 
 大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用`usertools`目录下的``dpdk-devbind.py``脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。
 

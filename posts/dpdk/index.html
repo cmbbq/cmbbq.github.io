@@ -135,7 +135,7 @@
 <p><code>rte_eal_init()</code>是初始化EAL的函数，有多平台的实现：Linux、FreeBSD、Windows。以它为例，可大致了解DPDK EAL做了哪些工作。</p>
 <p><code>rte_eal_init()</code>是一个冗长的初始化过程，包含下列步骤：检查CPU类型是否是DPDK支持的、设置日志等级、检测各个socket上的各个cpu、enable每个逻辑核、初始化插件（加载共享库，比如一些PMD drivers）、初始化<a href="https://doc.dpdk.org/guides/prog_guide/trace_lib.html">tracing机制</a>、解析各个设备的配置选项、初始化全局配置（主核id、逻辑核数、numa nodes数、iova模式<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>、内存拓扑配置）、初始化中断处理机制、初始化多进程通用channel、扫描所有总线上的设备、初始化malloc heap、注册多进程action callbacks（热插拔支持）、初始化巨页信息<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>、初始化内存和memzone、初始化HPET/TSC计时器<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>、检查本地socket上的内存、创建主线程和子线程的通信信道、创建工作线程、绑核、在工作线程上启动dummy function、初始化服务、嗅探所有总线上的设备和驱动、启动服务、开启telemetry（提供ethdev stats、ethdev port list、eal parameters等状态查询）。</p>
 <h2 id="切割需要权限的工作">切割需要权限的工作<a href="#切割需要权限的工作" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如<code>vfio-pci</code>、<code>igb_uio</code>、<code>uio_pci_generic</code>。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。<code>igb_uio</code>基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。<code>uio_pci_generic</code>和<code>igb_uio</code>类似，不过不支持MSI和MSI-X中断。<code>vfio-pci</code>支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用<code>vfio</code>，就用<code>vfio</code>。</p>
+<p>DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如<code>vfio-pci</code>、<code>igb_uio</code>、<code>uio_pci_generic</code>。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。<code>igb_uio</code>基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。<code>uio_pci_generic</code>和<code>igb_uio</code>类似，不过不支持MSI和MSI-X中断。<code>vfio-pci</code>支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用<code>vfio</code>，就用<code>vfio</code>，目前<code>uio</code>基本处于半废弃状态。</p>
 <p>大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用<code>usertools</code>目录下的<code>dpdk-devbind.py</code>脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。</p>
 <h2 id="利用巨页毕竟4kb已是古老时代的残响">利用巨页，毕竟4KB已是古老时代的残响<a href="#利用巨页毕竟4kb已是古老时代的残响" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。</p>
@@ -207,6 +207,13 @@
         <hr />
     </div>
     <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://cmbbq.github.io/posts/performance-engineering/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Practical Performance Engineering of Memory-Bound Systems</span>
+            </a>
+        </span>
         
         
         <span class="button next">
