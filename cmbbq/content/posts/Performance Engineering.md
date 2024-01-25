@@ -20,19 +20,16 @@ WIP
 ## Adopt Quantitative Approaches 
 [off-cpu flame graph] 
 
-
 ## Playing with DRAM as if We were Handling Slow Devices
 As `DRAM` access has become the de-facto bottleneck for many of today's datacenter applications, an intuitive idea to optimize these applications would be shamelessly copying prior wisdom on dealing with slow devices like `PMem`s or `SSD`s. 
 
 `PMem`s offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs' bandwidth. `SSD`s are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.
 
-The well-known `B-tree`, for example, was originally targeting disk storage. `Red-black tree` on the other hand, known as C++ `std::map`'s underlying implementation, was deemed efficient from a 20th century's perspective. But today's `DRAM` might have become too slow for `Red-black tree`s. Modern day system language, Rust, opts for `B-tree`s over `Red-black tree`s for ordered maps due to their cache-friendliness and better performance on modern hardware with much deeper memory hierarchies. 
+`Dashtable`[Lu et al., 2020][^4], for example, was targeting scalable hasing on the once fashionable `PMem`s. Hasing on `PMem`s sounds somewhat niche. But in reality, if any being could survive `PMem`'s hellish bandwidth, you can definitely count on it for arbitrary memory-bound application. In 2022, Intel killed off its `PMem` business[^5]. `PMem` died. Yet the `Dash` methodology still thrives. Today we use it in regular `DRAM` setups. Check this out, the [DragonFly](https://github.com/dragonflydb/dragonfly) project. It's based on `Dash` and claims to be the modern replacement for Redis and Memcached, delivering 25x more throughput. 
 
-The `Dashtable`[Lu et al., 2020][^4], as another example, was targeting the once fashionable `PMem`s. Hasing on `PMem` sounds somewhat niche. But in reality, any memory-constrained application can benefit from it. In 2022, Intel killed off its `PMem` business[^5]. `PMem` died. Yet the `Dash` methodology, which survived `PMem`'s hellish bandwidth, still thrives, shifting to regular `DRAM` applications, as we can see in projects like [DragonFly](https://github.com/dragonflydb/dragonfly).
+Another noticeable development is that modern-day system language `Rust`, has opted for `B-tree`s over `Red-black tree`s for its ordered maps. The 50+ years old `B-tree`, once targeting disk storage, might find its place in today's memory-bound applications. That is interesting because the `Red-black tree`s was deemed memory-efficient and is still widely in use as the default implementation of `C++`'s `std::map`. Yet `B-tree` somehow beats `Red-black tree` on modern servers.
 
-`Dashtable`, the proposed scalable hashtable, evolves from `extendible hashing`. `Extendible hashing` is a hash system that uses $N$ bits of hashed values to look up buckets in a trie-structured `directory`. A `directory` with `global depth` $N$ can hold $2^N$ buckets. Each bucket also has a `local depth` $M = \mathrm{Len}(\mathrm{Hash}(key)) - N$ and can hold up to $2^M$ keys. Additionally, the lightweight concurrency control in `Dash` naturally scales well on today's `many-core` architectures. 
-
-
+So what happened to modern hardware? Well, it mostly involves the memory wall problem, which refers to the increasing gap between CPU and DRAM speed. For decades, the memory wall problem has never been resolved, but only mitigated by introducing deeper and deeper memory hierarchies. In today's architectures, L3 become much slower than L1/L2, and `DRAM`s should be labeled as dangerously slow as disks were in the 1980s perspective.
 
 [^1]: [Tuning Guides for Intel® Xeon® Scalable Processor-Based Systems](https://www.intel.com/content/www/us/en/developer/articles/guide/xeon-performance-tuning-and-solution-guides.html#gs.3h82qm)
 [^2]: [Finding arithmetic intensity of application](https://community.intel.com/t5/Software-Tuning-Performance/Finding-arithmetic-intensity-of-application/m-p/1093205#M5700)
