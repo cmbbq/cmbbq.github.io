@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Dash: Scalable Hashing :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The main focus of the Dash paper was on the once fashionable `persistent memory`, but in reality, any `memory bandwidth`-limited scenario can benefit from it. With Intel killing off its `pmem` business, the significance of the `Dash` approach has shifted to regular DRAM applications." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/dash/" />
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Dash: Scalable Hashing">
+<meta property="og:description" content="The main focus of the Dash paper was on the once fashionable `persistent memory`, but in reality, any `memory bandwidth`-limited scenario can benefit from it. With Intel killing off its `pmem` business, the significance of the `Dash` approach has shifted to regular DRAM applications." />
+<meta property="og:url" content="https://cmbbq.github.io/posts/dash/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-01-26 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/dash/">Dash: Scalable Hashing</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-01-26
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>The main focus of the Dash paper was on the once fashionable <code>persistent memory</code>, but in reality, any <code>memory bandwidth</code>-limited scenario can benefit from it. With Intel killing off its <code>pmem</code> business, the significance of the <code>Dash</code> approach has shifted to regular DRAM applications.</p>
+<h1 id="dynamic-hashing">Dynamic Hashing<a href="#dynamic-hashing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p><code>Dashtable</code>, the proposed scalable hashtable, evolves from <code>extendible hashing</code>.</p>
+<p><code>Extendible hashing</code> is a hash system that uses the first $N$ bits of hashed values to look up buckets in a trie-structured <code>directory</code>.</p>
+<p>A <code>directory</code> with <code>global depth</code> $N$ can hold $2^N$ buckets. It means $N$ is the key size that maps the <code>directory</code>.</p>
+<p>Each bucket also has a <code>local depth</code> $M(M \le N)$, which is the key size that previously mapped the <code>directory</code>. Any bucket having a <code>local depth</code> $M = N$ is pointed-to by exactly one <code>directory</code> entry. Any bucket having a <code>local depth</code> $M \lt N$ is pointed-to by more than one <code>directory</code> entries.</p>
+<p>The minimal $N$ needed to ensure every item has a unique bucket index is 1 for 2 items. The minimal $N = 2$  for 4 items. Everytime a new  item added into a bucket, if the number of items in the bucket exceeds a certain threshold, a rehashing operation happens by splitting the bucket into 2 parts. Hence rehashing in this scheme doesn&rsquo;t have to stop the world and do a full-table scan &amp; copy, but instead is done incremental.</p>
+<p>Similar to <code>extendible hashing</code>, <code>linear hashing</code> also uses a <code>directory</code> to orgranize and address buckets. The distinction lies in split control. In <code>linear hashing</code>, a split typically occurs only if the load factor exceeds a threshold and the bucket to be split is chosen in a &ldquo;linear&rdquo; manner.</p>
+<h1 id="dash-for-extendible-hashing"><code>Dash</code> for <code>Extendible Hashing</code><a href="#dash-for-extendible-hashing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="overview">Overview<a href="#overview" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><img src="https://cmbbq.github.io/img/dash_eh.png" alt="dash_eh"></p>
+<p>In <code>Dash-EH</code>, each <code>directory</code> entry points to a <code>segment</code> which consists of a fixed number of normal buckets and stash buckets. A <code>segment</code> can be viewed as a sub-hashtable of constant size. The so-called stash buckets shares the same layout as the normal buckets, responsible for storing overflow records.</p>
+<p><img src="https://cmbbq.github.io/img/dash_eh_bucket.png" alt="dash_eh"></p>
+<p>The core idea of <code>Dash-EH</code> is to pay a little bit extra space in metadata to buy faster probing with fingerprints and lightweight concurrency control with version locks.</p>
+<p>Inside a <code>Dash-EH</code> bucket, as shown in the figure above, the first 32 bytes are metadata, including version lock, counter, alloc bitmap, membership bitmap for load balancing, and 18 one-byte fingerprints for bucket probing(14 for slots in the bucket, 4 for overflow records originally hashed to this bucket). It is followed by $16(Bytes) \times 14 (records) = 224 Bytes$ payload, which stores 14 16-byte records.</p>
+<h2 id="fingerprinting">Fingerprinting<a href="#fingerprinting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Bucket probing, which refers to searching for a slot in a bucket, is a basic operation of hashtables, needed by search, insert and delete operations to locate a particular key. Traditionally probing requires a linear scan, which is naturally slow on <code>PMem</code> and could be completely unnecessary when a searched key doesn&rsquo;t exist. <code>Dash-EH</code> employs fingerprinting to reduce unnecessary scans. Fingerprints are the least significant byte of hashes of keys. To probe for a key, the probing thread first checks if any fingerprint in the bucket&rsquo;s metadata matches the key&rsquo;s, so it can skip buckets without any fingerprint match.</p>
+<p>Fingerprinting primarily benefits negative(key-not-found) searches. The <code>Dash</code> paper also claims fingerprinting enables using larger buckets spanning more than 2 cachelines. But I have to take it with a grain of salt. The paper itself uses a 256B setup. So does the DragonFly implementation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. In theory, larger buckets can indeed tolerate more collisions and improve the load factor; however, this may come at the cost of compromising locality to a certain degree - you don&rsquo;t want to load multiple times for a single bucket access in a hashtable.</p>
+<h2 id="bucket-load-balancing">Bucket Load Balancing<a href="#bucket-load-balancing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Segmentation reduces cache misses on <code>directory</code> by reducing its size. In the <code>extendible hashing</code> scheme, if any bucket in a segment is full, the entire segment needs to be split, even though other buckets might have much free space.</p>
+<p>Thus the <code>Dash-EH</code> algorithm design takes bucket load balancing into consideration. To insert a record, <code>Dash-EH</code> probes both ${bucket}<em>b$ and ${bucket}</em>{b+1}$, and inserts into the bucket that is less full. If both ${bucket}<em>b$ and ${bucket}</em>{b+1}$ are full, <code>Dash-EH</code> tries to displace a &ldquo;native record&rdquo; from ${bucket}<em>{b+1}$ to ${bucket}</em>{b+2}$, or move a &ldquo;rebalanced record&rdquo; from ${bucket}<em>b$ back to ${bucket}</em>{b-1}$ where it originally belongs.</p>
+<p>The per-bucket membership bitmap is used to decide whether a record is rebalanced or native. If a bit is set in the membership bitmap, then the corresponding key was not directly hashing into this bucket(native) but placed here due to re-balancing(rebalanced).</p>
+<p>If both insert and displacement failed, <code>Dash-EH</code> turns to the last resort - stashing. Each segment has a fixed number of stash buckets to hold these overflow records. Probing stash buckets introduces significant overhead to negative searches and inserts(needs uniqueness check). To address this issue, each normal bucket reserves certain metadata fields. 4 overflow fingerprints are reserved for overflow records stored in stsh buckets. A overflow bit indicates if there exists an overflow at all. So if there isn&rsquo;t an overflow in a bucket, the search/insert operation doesn&rsquo;t have to probe stash buckets. Anyway, it is still advisable to maintain a small number of stash buckets. The paper claims &ldquo;using 2–4 stash buckets per segment can improve load factor to over 90% without imposing significant overhead&rdquo;. In Dragonfly&rsquo;s Dashtable, each segment has 56 regular buckets, and 4 stash buckets.</p>
+<h2 id="lightweight-concurrency-control">Lightweight Concurrency Control<a href="#lightweight-concurrency-control" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>The lightweight concurrency control in <code>Dash-EH</code> naturally scales well on today&rsquo;s <code>many-core</code> architectures, out-performing traiditional bucket-level shared locks.</p>
+<p>Write operations follow traditional bucket-level locking to lock the affected buckets, using CAS over a lock bit. If a write is done, the writer thread resets the lock bit and increments the per-bucket version number by one.</p>
+<p>On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceed to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.</p>
+<h1 id="dash-for-linear-hashing"><code>Dash</code> for <code>Linear Hashing</code><a href="#dash-for-linear-hashing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>The Dash paper also presents <code>Dash-LH</code>, a Dash-enabled linear hashing approach built upon building blocks used in <code>Dash-EH</code>, such as balanced insert, displacement, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that <code>Dash-LH</code> split the segment pointed to by a pointer in a linear manner.</p>
+<p>Traditional <code>linear hashing</code> link overflow records with a linklist. In <code>Dash-LH</code>, it&rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&rsquo;s much better than chaining individual records.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://github.com/dragonflydb/dragonfly/blob/main/docs/dashtable.md">Dashtable in Dragonfly</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/performance-engineering/">
+                <span class="button__text">Practical Performance Engineering of Memory-Bound Systems</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
