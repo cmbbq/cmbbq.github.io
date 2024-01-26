@@ -45,7 +45,7 @@ Extendible hashing is a hash system that uses the first $N$ bits of hashed value
 &lt;p&gt;On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceed to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.&lt;/p&gt;
 &lt;h1 id=&#34;dash-for-linear-hashing&#34;&gt;Dash for Linear Hashing&lt;/h1&gt;
 &lt;p&gt;The Dash paper also presents &lt;code&gt;Dash-LH&lt;/code&gt;, a Dash-enabled linear hashing approach built upon building blocks used in &lt;code&gt;Dash-EH&lt;/code&gt;, such as balanced insert, displacement, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that &lt;code&gt;Dash-LH&lt;/code&gt; split the segment pointed to by a pointer in a linear manner.&lt;/p&gt;
-&lt;p&gt;Traditional &lt;code&gt;linear hashing&lt;/code&gt; link overflow records with a linklist. In &lt;code&gt;Dash-LH&lt;/code&gt;, it&amp;rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&amp;rsquo;s much better than chaining individual records.&lt;/p&gt;
+&lt;p&gt;Traditional &lt;code&gt;linear hashing&lt;/code&gt; links overflow records with a linklist. In &lt;code&gt;Dash-LH&lt;/code&gt;, it&amp;rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&amp;rsquo;s much better than chaining individual records.&lt;/p&gt;
 &lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;

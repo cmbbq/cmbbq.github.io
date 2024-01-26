@@ -158,7 +158,7 @@
 <p>On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceed to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.</p>
 <h1 id="dash-for-linear-hashing">Dash for Linear Hashing<a href="#dash-for-linear-hashing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>The Dash paper also presents <code>Dash-LH</code>, a Dash-enabled linear hashing approach built upon building blocks used in <code>Dash-EH</code>, such as balanced insert, displacement, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that <code>Dash-LH</code> split the segment pointed to by a pointer in a linear manner.</p>
-<p>Traditional <code>linear hashing</code> link overflow records with a linklist. In <code>Dash-LH</code>, it&rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&rsquo;s much better than chaining individual records.</p>
+<p>Traditional <code>linear hashing</code> links overflow records with a linklist. In <code>Dash-LH</code>, it&rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&rsquo;s much better than chaining individual records.</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>

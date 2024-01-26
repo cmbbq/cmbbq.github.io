@@ -57,7 +57,7 @@ On the other hand, read operations are designed to be lock-free. Before a read, 
 # Dash for Linear Hashing
 The Dash paper also presents `Dash-LH`, a Dash-enabled linear hashing approach built upon building blocks used in `Dash-EH`, such as balanced insert, displacement, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that `Dash-LH` split the segment pointed to by a pointer in a linear manner. 
 
-Traditional `linear hashing` link overflow records with a linklist. In `Dash-LH`, it's done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it's much better than chaining individual records. 
+Traditional `linear hashing` links overflow records with a linklist. In `Dash-LH`, it's done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it's much better than chaining individual records. 
 
 
 
