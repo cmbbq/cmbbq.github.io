@@ -21,7 +21,7 @@ The minimal $N$ needed to ensure every item has a unique bucket index is 1 for 2
 
 Similar to `extendible hashing`, `linear hashing` also uses a `directory` to orgranize and address buckets. The distinction lies in split control. In `linear hashing`, a split typically occurs only if the load factor exceeds a threshold and the bucket to be split is chosen in a "linear" manner.  
 
-# `Dash` for `Extendible Hashing`
+# Dash for Extendible Hashing
 ## Overview
 ![dash_eh](https://cmbbq.github.io/img/dash_eh.png)
 
@@ -41,7 +41,7 @@ Fingerprinting primarily benefits negative(key-not-found) searches. The `Dash` p
 ## Bucket Load Balancing
 Segmentation reduces cache misses on `directory` by reducing its size. In the `extendible hashing` scheme, if any bucket in a segment is full, the entire segment needs to be split, even though other buckets might have much free space. 
 
-Thus the `Dash-EH` algorithm design takes bucket load balancing into consideration. To insert a record, `Dash-EH` probes both ${bucket}_b$ and ${bucket}_{b+1}$, and inserts into the bucket that is less full. If both ${bucket}_b$ and ${bucket}_{b+1}$ are full, `Dash-EH` tries to displace a "native record" from ${bucket}_{b+1}$ to ${bucket}_{b+2}$, or move a "rebalanced record" from ${bucket}_b$ back to ${bucket}_{b-1}$ where it originally belongs.  
+Thus the `Dash-EH` algorithm design takes bucket load balancing into consideration. To insert a record, `Dash-EH` probes both bucket $B_b$ and $B_{b+1}$, and inserts into the bucket that is less full. If both $B_b$ and $B_{b+1}$ are full, `Dash-EH` tries to displace a "native record" from $B_{b+1}$ to $B_{b+2}$, or move a "rebalanced record" from $B_b$ back to $B_{b-1}$ where it originally belongs.  
 
 The per-bucket membership bitmap is used to decide whether a record is rebalanced or native. If a bit is set in the membership bitmap, then the corresponding key was not directly hashing into this bucket(native) but placed here due to re-balancing(rebalanced).
 
@@ -54,7 +54,7 @@ Write operations follow traditional bucket-level locking to lock the affected bu
 
 On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceed to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.
 
-# `Dash` for `Linear Hashing`
+# Dash for Linear Hashing
 The Dash paper also presents `Dash-LH`, a Dash-enabled linear hashing approach built upon building blocks used in `Dash-EH`, such as balanced insert, displacement, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that `Dash-LH` split the segment pointed to by a pointer in a linear manner. 
 
 Traditional `linear hashing` link overflow records with a linklist. In `Dash-LH`, it's done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it's much better than chaining individual records. 
