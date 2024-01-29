@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="WIP" />
+<meta name="description" content="Optimization can be divided into work reduction and hardware enablement." />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/performance-engineering/" />
@@ -36,7 +36,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Practical Performance Engineering of Memory-Bound Systems">
-<meta property="og:description" content="WIP" />
+<meta property="og:description" content="Optimization can be divided into work reduction and hardware enablement." />
 <meta property="og:url" content="https://cmbbq.github.io/posts/performance-engineering/" />
 <meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
 
@@ -48,7 +48,7 @@
 <meta property="og:image:height" content="1024">
 
 
-  <meta property="article:published_time" content="2024-01-24 00:00:00 &#43;0000 UTC" />
+  <meta property="article:published_time" content="2024-01-29 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -108,7 +108,7 @@
   <div class="post-meta">
     
       <span class="post-date">
-        2024-01-24
+        2024-01-29
         
       </span>
     
@@ -121,6 +121,8 @@
     
     #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
     
+    #<a href="https://cmbbq.github.io/tags/en/">en</a>&nbsp;
+    
   </span>
   
   
@@ -129,19 +131,31 @@
   
 
   <div class="post-content"><div>
-        <p>WIP</p>
-<h1 id="performance-engineering-taught-in-schools">Performance Engineering Taught in Schools<a href="#performance-engineering-taught-in-schools" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<p>[summarize mit 6.172]</p>
+        <p>[WIP]</p>
+<h1 id="work-reduction-vs-hardware-enablement">Work Reduction vs Hardware Enablement<a href="#work-reduction-vs-hardware-enablement" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<blockquote>
+<p>Optimization can be divided into work reduction and hardware enablement.</p>
+</blockquote>
+<p>Work, in terms of computer programming, is basically a gross measure of how much stuff the program needs to do.</p>
+<p>The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: approximation, tail-recursion elimination, coarsening/refining recursion, inlining, loop fusion, loop unrolling, hoisting, short-circuiting, common-subexpression elimination, compile-time initialization and evaluation, exploiting sparsity, caching, pre-computation, and bit hacks.</p>
+<p>While reducing work undoubtedly serves as an essential heuristic for reducing overall running time, it&rsquo;s not the sole determinant of the running time; it doesn&rsquo;t capture the whole picture of computer programming, leaving the intricate nature of computer hardware unaddressed.</p>
+<p>To thoroughly investigate architectural improvements that unlock hardware potential, we must delve into numerous aspects in hardware and micro-architecture: the ISA, pipeline stages, superscalar processing, out-of-order execution, paging, caching, vectorization, speculation, hardware prefetching, branch prediction, etc.</p>
+<blockquote>
+<p>Historically computer architecture leverages either locality or parallelism to enhance performance.</p>
+</blockquote>
+<p>To exploit locality, the memory hierarchy(registers-&gt;L1/L2/L3 caches-&gt;local DRAM-&gt;remote DRAM-&gt;PMem-&gt;SSD) was made deeper for hiding performance issue; hardware prefetchers and branch predictors were used to predict immediate accesses and move data or instructions closer to processors. As programmers, we are working on one layer obove the computer architecture layer, what we can do is to write NUMA-aware, cache-aligned, and perhaps vectorized code with regular data access patterns and proper software pre-fetching.</p>
+<p>To exploit parallelism, superscalar out-of-order pipelines, breaking ops into micro-ops, vector hardware, multi-core were invented. Correspondingly, we need to keep all these things busy by using techniques like bit tricks, ILP(Instruction-level parallelism), AVX/SSE, AMX, multithread/multi-process programming and offloading to accelerators like DPUs or GPUs.</p>
+<p>Let&rsquo;s delve deeper into ILP, as it is more connected with the processor μ-arch - aspects such as superscalar processing, pipeline stages, out-of-order execution, data bypassing, register renaming, and so on. To exploit it programmatically, we can use separate functional units, write likely/unlikely hints for branch prediction, and break dependency in the data-flow graph beforehand to reduce data hazards.</p>
 <h1 id="lessons-learnt-from-prior-work">Lessons Learnt from Prior Work<a href="#lessons-learnt-from-prior-work" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p>[understand your program. measure its Arithmetic Intensity]</p>
 <h1 id="interesting-heuristics-for-future-work">Interesting Heuristics for Future Work<a href="#interesting-heuristics-for-future-work" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<h2 id="adopt-quantitative-approaches">Adopt Quantitative Approaches<a href="#adopt-quantitative-approaches" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h2 id="employing-quantitative-approaches">Employing Quantitative Approaches<a href="#employing-quantitative-approaches" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>[off-cpu flame graph]</p>
 <h2 id="playing-with-dram-as-if-we-were-handling-slow-devices">Playing with DRAM as if We were Handling Slow Devices<a href="#playing-with-dram-as-if-we-were-handling-slow-devices" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>As <code>DRAM</code> access has become the de-facto bottleneck for many of today&rsquo;s datacenter applications, an intuitive idea to optimize these applications would be shamelessly copying prior wisdom on dealing with slow devices like <code>PMem</code>s or <code>SSD</code>s.</p>
 <p><code>PMem</code>s offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs&rsquo; bandwidth. <code>SSD</code>s are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.</p>
 <p><code>Dashtable</code>[Lu et al., 2020]<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, for example, was targeting scalable hasing on the once fashionable <code>PMem</code>s. Hasing on <code>PMem</code>s sounds somewhat niche. But in reality, if any being could survive <code>PMem</code>&rsquo;s hellish bandwidth, you can definitely count on it for arbitrary memory-bound application. In 2022, Intel killed off its <code>PMem</code> business<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. <code>PMem</code> died. Yet the <code>Dash</code> methodology still thrives. Today we use it in regular <code>DRAM</code> setups. Check this out, the <a href="https://github.com/dragonflydb/dragonfly">DragonFly</a> project. It&rsquo;s based on <code>Dash</code> and claims to be the modern replacement for Redis and Memcached, delivering 25x more throughput.</p>
-<p>The core idea behind <code>Dashtable</code> is trading space for time, or more specifically, each bucket paying a little bit extra space in metadata to buy (1)faster bucket probing with fingerprints of keys and (2)lightweight optimistic concurrency control with version locks.</p>
+<p>The core idea behind <code>Dashtable</code> is trading space for time, or more specifically, each bucket paying a little bit extra space in metadata to buy (1)faster bucket probing with fingerprints of keys and (2)lightweight optimistic concurrency control with version locks, (3)stashing overflow records, which helps to alleviate segment splits caused by unbalanced bucket loads.</p>
 <p>Another noticeable development is that modern-day system language <code>Rust</code>, has opted for <code>B-tree</code>s over <code>Red-black tree</code>s for its ordered maps. The 50+ years old <code>B-tree</code>, once targeting disk storage, might find its place in today&rsquo;s memory-bound applications. That is interesting because the <code>Red-black tree</code>s was deemed memory-efficient and is still widely in use as the default implementation of <code>C++</code>&rsquo;s <code>std::map</code>. Yet <code>B-tree</code> somehow beats <code>Red-black tree</code> on modern servers.</p>
 <p>So what happened to modern hardware? Well, it mostly involves the memory wall problem, which refers to the increasing gap between processor and memory speed. For decades, the memory wall problem has never been resolved, but only mitigated by introducing deeper and deeper memory hierarchies. In today&rsquo;s architectures, L3 become much slower than L1/L2, and <code>DRAM</code>s should be labeled as dangerously slow as disks were in the 1980s perspective.</p>
 <div class="footnotes" role="doc-endnotes">
@@ -167,17 +181,10 @@
     </div>
     <div class="pagination__buttons">
         
-        <span class="button previous">
-            <a href="https://cmbbq.github.io/posts/dash/">
-                <span class="button__icon">←</span>
-                <span class="button__text">Dash: Scalable Hashing</span>
-            </a>
-        </span>
-        
         
         <span class="button next">
-            <a href="https://cmbbq.github.io/posts/dpdk/">
-                <span class="button__text">DPDK is All You Need</span>
+            <a href="https://cmbbq.github.io/posts/dash/">
+                <span class="button__text">Dash: Scalable Hashing</span>
                 <span class="button__icon">→</span>
             </a>
         </span>

@@ -121,6 +121,8 @@
     
     #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
     
+    #<a href="https://cmbbq.github.io/tags/en/">en</a>&nbsp;
+    
   </span>
   
   
@@ -145,19 +147,19 @@
 <p>The core idea of <code>Dash-EH</code> is to pay a little bit extra space in metadata to buy faster probing with fingerprints and lightweight concurrency control with version locks.</p>
 <p>Inside a <code>Dash-EH</code> bucket, as shown in the figure above, the first 32 bytes are metadata, including version lock, counter, alloc bitmap, membership bitmap for load balancing, and 18 one-byte fingerprints for bucket probing(14 for slots in the bucket, 4 for overflow records originally hashed to this bucket). It is followed by $16(Bytes) \times 14 (records) = 224 Bytes$ payload, which stores 14 16-byte records.</p>
 <h2 id="fingerprinting">Fingerprinting<a href="#fingerprinting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>Bucket probing, which refers to searching for a slot in a bucket, is a basic operation of hashtables, needed by search, insert and delete operations to locate a particular key. Traditionally probing requires a linear scan, which is naturally slow on <code>PMem</code> and could be completely unnecessary when a searched key doesn&rsquo;t exist. <code>Dash-EH</code> employs fingerprinting to reduce unnecessary scans. Fingerprints are the least significant byte of hashes of keys. To probe for a key, the probing thread first checks if any fingerprint in the bucket&rsquo;s metadata matches the key&rsquo;s, so it can skip buckets without any fingerprint match.</p>
-<p>Fingerprinting primarily benefits negative(key-not-found) searches. The <code>Dash</code> paper also claims fingerprinting enables using larger buckets spanning more than 2 cachelines. But I have to take it with a grain of salt. The paper itself uses a 256B setup. So does the DragonFly implementation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. In theory, larger buckets can indeed tolerate more collisions and improve the load factor; however, this may come at the cost of compromising locality to a certain degree - you don&rsquo;t want to load multiple times for a single bucket access in a hashtable.</p>
+<p>Bucket probing, which refers to searching for a slot in a bucket, is a basic operation of hashtables, needed by <code>search</code>, <code>insert</code> and <code>delete</code> operations to locate a particular key. Traditionally probing requires a linear scan, which is naturally slow on <code>PMem</code> and could be completely unnecessary when a searched key doesn&rsquo;t exist. <code>Dash-EH</code> employs fingerprinting to reduce unnecessary scans. Fingerprints are the least significant byte of hashes of keys. To probe for a key, the probing thread first checks if any fingerprint in the bucket&rsquo;s metadata matches the key&rsquo;s, so it can skip buckets without any fingerprint match.</p>
+<p>Fingerprinting primarily benefits negative(key-not-found) <code>search</code>es. The <code>Dash</code> paper also claims fingerprinting enables using larger buckets spanning more than 2 cachelines. But I have to take it with a grain of salt. The paper itself uses a 256B setup. So does the DragonFly implementation<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. In theory, larger buckets can indeed tolerate more collisions and improve the load factor; however, this may come at the cost of compromising locality to a certain degree - you don&rsquo;t want to load multiple times for a single bucket access in a hashtable.</p>
 <h2 id="bucket-load-balancing">Bucket Load Balancing<a href="#bucket-load-balancing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Segmentation reduces cache misses on <code>directory</code> by reducing its size. In the <code>extendible hashing</code> scheme, if any bucket in a segment is full, the entire segment needs to be split, even though other buckets might have much free space.</p>
-<p>Thus the <code>Dash-EH</code> algorithm design takes bucket load balancing into consideration. To insert a record, <code>Dash-EH</code> probes both bucket $B_b$ and $B_{b+1}$, and inserts into the bucket that is less full. If both $B_b$ and $B_{b+1}$ are full, <code>Dash-EH</code> tries to displace a &ldquo;native record&rdquo; from $B_{b+1}$ to $B_{b+2}$, or move a &ldquo;rebalanced record&rdquo; from $B_b$ back to $B_{b-1}$ where it originally belongs.</p>
+<p>To prevent frequent segment splits, the <code>Dash-EH</code> algorithm design incorporates bucket load balancing. For an <code>insert</code> operation, <code>Dash-EH</code> probes both bucket $B_b$ and $B_{b+1}$, and then inserts into the bucket that is less full. If both $B_b$ and $B_{b+1}$ are full, <code>Dash-EH</code> tries to displace a &ldquo;native record&rdquo; from $B_{b+1}$ to $B_{b+2}$, or move a &ldquo;rebalanced record&rdquo; from $B_b$ back to $B_{b-1}$ where it originally belongs.</p>
 <p>The per-bucket membership bitmap is used to decide whether a record is rebalanced or native. If a bit is set in the membership bitmap, then the corresponding key was not directly hashing into this bucket(native) but placed here due to re-balancing(rebalanced).</p>
-<p>If both insert and displacement failed, <code>Dash-EH</code> turns to the last resort - stashing. Each segment has a fixed number of stash buckets to hold these overflow records. Probing stash buckets introduces significant overhead to negative searches and inserts(needs uniqueness check). To address this issue, each normal bucket reserves certain metadata fields. 4 overflow fingerprints are reserved for overflow records stored in stsh buckets. A overflow bit indicates if there exists an overflow at all. So if there isn&rsquo;t an overflow in a bucket, the search/insert operation doesn&rsquo;t have to probe stash buckets. Anyway, it is still advisable to maintain a small number of stash buckets. The paper claims &ldquo;using 2–4 stash buckets per segment can improve load factor to over 90% without imposing significant overhead&rdquo;. In Dragonfly&rsquo;s Dashtable, each segment has 56 regular buckets, and 4 stash buckets.</p>
+<p>If both <code>insert</code> and <code>displacement</code> failed, <code>Dash-EH</code> turns to the last resort - stashing. Each segment has a fixed number of stash buckets to hold these overflow records. Probing stash buckets introduces significant overhead to negative <code>search</code>es and <code>insert</code>s(needs uniqueness check). To address this issue, each normal bucket reserves certain metadata fields. 4 overflow fingerprints are reserved for overflow records stored in stsh buckets. A overflow bit indicates if there exists an overflow at all. So if there isn&rsquo;t an overflow in a bucket, the <code>search</code>/<code>insert</code> operation doesn&rsquo;t have to probe stash buckets. Anyway, it is still advisable to maintain a small number of stash buckets. The paper claims &ldquo;using 2–4 stash buckets per segment can improve load factor to over 90% without imposing significant overhead&rdquo;. In Dragonfly&rsquo;s Dashtable, each segment has 56 regular buckets, and 4 stash buckets.</p>
 <h2 id="lightweight-concurrency-control">Lightweight Concurrency Control<a href="#lightweight-concurrency-control" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>The lightweight concurrency control in <code>Dash-EH</code> naturally scales well on today&rsquo;s <code>many-core</code> architectures, out-performing traiditional bucket-level shared locks.</p>
 <p>Write operations follow traditional bucket-level locking to lock the affected buckets, using CAS over a lock bit. If a write is done, the writer thread resets the lock bit and increments the per-bucket version number by one.</p>
-<p>On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceed to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.</p>
+<p>On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceeds to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.</p>
 <h1 id="dash-for-linear-hashing">Dash for Linear Hashing<a href="#dash-for-linear-hashing" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<p>The Dash paper also presents <code>Dash-LH</code>, a Dash-enabled linear hashing approach built upon building blocks used in <code>Dash-EH</code>, such as balanced insert, displacement, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that <code>Dash-LH</code> split the segment pointed to by a pointer in a linear manner.</p>
+<p>The Dash paper also presents <code>Dash-LH</code>, a Dash-enabled linear hashing approach built upon building blocks used in <code>Dash-EH</code>, such as balanced <code>insert</code>/<code>displacement</code>, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that <code>Dash-LH</code> split the segment pointed to by a pointer in a linear manner.</p>
 <p>Traditional <code>linear hashing</code> links overflow records with a linklist. In <code>Dash-LH</code>, it&rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&rsquo;s much better than chaining individual records.</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -179,10 +181,17 @@
     </div>
     <div class="pagination__buttons">
         
+        <span class="button previous">
+            <a href="https://cmbbq.github.io/posts/performance-engineering/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Practical Performance Engineering of Memory-Bound Systems</span>
+            </a>
+        </span>
+        
         
         <span class="button next">
-            <a href="https://cmbbq.github.io/posts/performance-engineering/">
-                <span class="button__text">Practical Performance Engineering of Memory-Bound Systems</span>
+            <a href="https://cmbbq.github.io/posts/dpdk/">
+                <span class="button__text">DPDK is All You Need</span>
                 <span class="button__icon">→</span>
             </a>
         </span>
