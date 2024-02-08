@@ -1,7 +1,7 @@
 +++
 title = "Dash: Scalable Hashing"
 date = "2024-01-26"
-tags = ["sys", "en"]
+tags = ["sys", "en", "perf"]
 description = "The main focus of the Dash paper was on the once fashionable `persistent memory`, but in reality, any `memory bandwidth`-limited scenario can benefit from it. With Intel killing off its `pmem` business, the significance of the `Dash` approach has shifted to regular DRAM applications."
 showFullContent = false
 +++

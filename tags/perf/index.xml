@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>perf on Cmbbq&#39;s Encyclopedia</title>
+    <link>https://cmbbq.github.io/tags/perf/</link>
+    <description>Recent content in perf on Cmbbq&#39;s Encyclopedia</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/perf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Work Reduction vs Hardware Enablement</title>
+      <link>https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/</link>
+      <pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/</guid>
+      <description>Optimization can be divided into work reduction and hardware enablement.
+Work, in terms of computer programming, is basically a gross measure of how much stuff the program needs to do.
+The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: approximation, tail-recursion elimination, coarsening/refining recursion, inlining, loop fusion, loop unrolling, hoisting, short-circuiting, common-subexpression elimination, compile-time initialization, compile-time evaluation, exploiting sparsity, caching, pre-computation, and bit hacks.</description>
+      <content>&lt;blockquote&gt;
+&lt;p&gt;Optimization can be divided into work reduction and hardware enablement.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Work, in terms of computer programming, is basically a gross measure of how much stuff the program needs to do.&lt;/p&gt;
+&lt;p&gt;The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: &lt;code&gt;approximation&lt;/code&gt;, &lt;code&gt;tail-recursion elimination&lt;/code&gt;, &lt;code&gt;coarsening/refining recursion&lt;/code&gt;, &lt;code&gt;inlining&lt;/code&gt;, &lt;code&gt;loop fusion&lt;/code&gt;, &lt;code&gt;loop unrolling&lt;/code&gt;, &lt;code&gt;hoisting&lt;/code&gt;, &lt;code&gt;short-circuiting&lt;/code&gt;, &lt;code&gt;common-subexpression elimination&lt;/code&gt;, &lt;code&gt;compile-time initialization&lt;/code&gt;, &lt;code&gt;compile-time evaluation&lt;/code&gt;, &lt;code&gt;exploiting sparsity&lt;/code&gt;, &lt;code&gt;caching&lt;/code&gt;, &lt;code&gt;pre-computation&lt;/code&gt;, and &lt;code&gt;bit hacks&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;While reducing work undoubtedly serves as an essential heuristic for reducing overall running time, it&amp;rsquo;s not the sole determinant of the running time; it doesn&amp;rsquo;t capture the whole picture of computer programming, leaving the intricate nature of computer hardware unaddressed.&lt;/p&gt;
+&lt;p&gt;To thoroughly investigate architectural improvements that unlock hardware potential, we must delve into numerous aspects in hardware and micro-architecture: &lt;code&gt;the ISA&lt;/code&gt;, &lt;code&gt;pipeline stages&lt;/code&gt;, &lt;code&gt;superscalar processing&lt;/code&gt;, &lt;code&gt;out-of-order execution&lt;/code&gt;, &lt;code&gt;paging&lt;/code&gt;, &lt;code&gt;caching&lt;/code&gt;, &lt;code&gt;vectorization&lt;/code&gt;, &lt;code&gt;speculation&lt;/code&gt;, &lt;code&gt;hardware prefetching&lt;/code&gt;, &lt;code&gt;branch prediction&lt;/code&gt;, etc.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Historically computer architecture leverages either locality or parallelism to enhance performance.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To exploit locality, the memory hierarchy(&lt;code&gt;registers&lt;/code&gt;-&amp;gt;&lt;code&gt;L1/L2/L3 caches&lt;/code&gt;-&amp;gt;&lt;code&gt;local DRAM&lt;/code&gt;-&amp;gt;&lt;code&gt;remote DRAM&lt;/code&gt;-&amp;gt;&lt;code&gt;PMem&lt;/code&gt;-&amp;gt;&lt;code&gt;SSD&lt;/code&gt;) was made deeper for hiding performance issue; hardware prefetchers and branch predictors were used to predict immediate accesses and move data or instructions closer to processors. As programmers, we are working on one layer obove the computer architecture layer, what we can do is to write NUMA-aware, cache-aligned, and perhaps vectorized code with regular data access patterns and proper software pre-fetching.&lt;/p&gt;
+&lt;p&gt;To exploit parallelism, superscalar out-of-order pipelines with micro-ops, vector hardware, multi-core were introduced. Correspondingly, we need to keep all these things busy by using techniques like &lt;code&gt;bit tricks&lt;/code&gt;, &lt;code&gt;ILP&lt;/code&gt;(Instruction-level parallelism), &lt;code&gt;AVX&lt;/code&gt;/&lt;code&gt;SSE&lt;/code&gt;, &lt;code&gt;AMX&lt;/code&gt;, multithread/multi-process programming and offloading to accelerators like &lt;code&gt;DPU&lt;/code&gt;s or &lt;code&gt;GPU&lt;/code&gt;s.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s delve deeper into &lt;code&gt;ILP&lt;/code&gt;, as it is more connected with the μ-arch, the designs inside a processor, like out-of-order execution, data bypassing, register renaming, and so on. To exploit CPU μ-arch programmatically, we can (1)use separate functional units, (2)write likely/unlikely hints for branch prediction, and (3)break dependency in the data-flow graph beforehand to reduce data hazards.&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Wall is Coming</title>
+      <link>https://cmbbq.github.io/posts/wall-is-coming/</link>
+      <pubDate>Wed, 07 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/wall-is-coming/</guid>
+      <description>The memory wall is coming. Given that DRAM access has become the de-facto bottleneck for many of today&amp;rsquo;s datacenter applications, it seems logical to optimize these applications by shamelessly copying prior wisdom on dealing with slow peripherals like PMems or SSDs.
+PMems offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs&amp;rsquo; bandwidth. SSDs are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.</description>
+      <content>&lt;p&gt;The memory wall is coming. Given that DRAM access has become the de-facto bottleneck for many of today&amp;rsquo;s datacenter applications, it seems logical to optimize these applications by shamelessly copying prior wisdom on dealing with slow peripherals like &lt;code&gt;PMem&lt;/code&gt;s or &lt;code&gt;SSD&lt;/code&gt;s.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PMem&lt;/code&gt;s offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs&amp;rsquo; bandwidth. &lt;code&gt;SSD&lt;/code&gt;s are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Dashtable&lt;/code&gt;[Lu et al., 2020]&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, for example, was targeting scalable hasing on the once fashionable &lt;code&gt;PMem&lt;/code&gt;s. Hasing on &lt;code&gt;PMem&lt;/code&gt;s sounds somewhat niche. But in reality, if any being could survive &lt;code&gt;PMem&lt;/code&gt;&amp;rsquo;s hellish bandwidth, you can definitely count on it for arbitrary memory-bound application. In 2022, Intel killed off its &lt;code&gt;PMem&lt;/code&gt; business&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. &lt;code&gt;PMem&lt;/code&gt; died. Yet the &lt;code&gt;Dash&lt;/code&gt; methodology still thrives. Today we use it in regular &lt;code&gt;DRAM&lt;/code&gt; setups. Check this out, the &lt;a href=&#34;https://github.com/dragonflydb/dragonfly&#34;&gt;DragonFly&lt;/a&gt; project. It&amp;rsquo;s based on &lt;code&gt;Dash&lt;/code&gt; and claims to be the modern replacement for Redis and Memcached, delivering 25x more throughput.&lt;/p&gt;
+&lt;p&gt;The core idea behind &lt;code&gt;Dashtable&lt;/code&gt; is trading space for time, or more specifically, each bucket paying a little bit extra space in metadata to buy (1)faster bucket probing with fingerprints of keys and (2)lightweight optimistic concurrency control with version locks, (3)stashing overflow records, which helps to alleviate segment splits caused by unbalanced bucket loads.&lt;/p&gt;
+&lt;p&gt;Another noticeable development is that modern-day system language &lt;code&gt;Rust&lt;/code&gt;, has opted for &lt;code&gt;B-tree&lt;/code&gt;s over &lt;code&gt;Red-black tree&lt;/code&gt;s for its ordered maps. The 50+ years old &lt;code&gt;B-tree&lt;/code&gt;, once targeting disk storage, might find its place in today&amp;rsquo;s memory-bound applications. That is interesting because the &lt;code&gt;Red-black tree&lt;/code&gt;s was deemed memory-efficient and is still widely in use as the default implementation of &lt;code&gt;C++&lt;/code&gt;&amp;rsquo;s &lt;code&gt;std::map&lt;/code&gt;. Yet &lt;code&gt;B-tree&lt;/code&gt; somehow beats &lt;code&gt;Red-black tree&lt;/code&gt; on modern servers.&lt;/p&gt;
+&lt;p&gt;So what happened to modern hardware? Well, it mostly involves the memory wall problem, which refers to the increasing gap between processor and memory speed. For decades, the memory wall problem has never been resolved, but only mitigated by introducing deeper and deeper memory hierarchies. In today&amp;rsquo;s architectures, L3 become much slower than L1/L2, and &lt;code&gt;DRAM&lt;/code&gt;s should be labeled as dangerously slow as disks were in the 1980s perspective.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;B. Lu, X. Hao, T. Wang, and E. Lo. Dash: Scalable Hashing on Persistent Memory. CoRR abs/2003.07302, 2020. &lt;a href=&#34;https://arxiv.org/pdf/2003.07302.pdf&#34;&gt;[pdf]&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.datacenterdynamics.com/en/news/intel-kills-off-optane-memory-writes-off-559-million-inventory/&#34;&gt;Intel kills off Optane Memory, writes off $559 million inventory&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Dash: Scalable Hashing</title>
+      <link>https://cmbbq.github.io/posts/dash/</link>
+      <pubDate>Fri, 26 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/dash/</guid>
+      <description>The main focus of the Dash paper was on the once fashionable persistent memory, but in reality, any memory bandwidth-limited scenario can benefit from it. With Intel killing off its pmem business, the significance of the Dash approach has shifted to regular DRAM applications.
+Dynamic Hashing Dashtable, the proposed scalable hashtable, evolves from extendible hashing.
+Extendible hashing is a hash system that uses the first $N$ bits of hashed values to look up buckets in a trie-structured directory.</description>
+      <content>&lt;p&gt;The main focus of the Dash paper was on the once fashionable &lt;code&gt;persistent memory&lt;/code&gt;, but in reality, any &lt;code&gt;memory bandwidth&lt;/code&gt;-limited scenario can benefit from it. With Intel killing off its &lt;code&gt;pmem&lt;/code&gt; business, the significance of the &lt;code&gt;Dash&lt;/code&gt; approach has shifted to regular DRAM applications.&lt;/p&gt;
+&lt;h1 id=&#34;dynamic-hashing&#34;&gt;Dynamic Hashing&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;Dashtable&lt;/code&gt;, the proposed scalable hashtable, evolves from &lt;code&gt;extendible hashing&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Extendible hashing&lt;/code&gt; is a hash system that uses the first $N$ bits of hashed values to look up buckets in a trie-structured &lt;code&gt;directory&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;directory&lt;/code&gt; with &lt;code&gt;global depth&lt;/code&gt; $N$ can hold $2^N$ buckets. It means $N$ is the key size that maps the &lt;code&gt;directory&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Each bucket also has a &lt;code&gt;local depth&lt;/code&gt; $M(M \le N)$, which is the key size that previously mapped the &lt;code&gt;directory&lt;/code&gt;. Any bucket having a &lt;code&gt;local depth&lt;/code&gt; $M = N$ is pointed-to by exactly one &lt;code&gt;directory&lt;/code&gt; entry. Any bucket having a &lt;code&gt;local depth&lt;/code&gt; $M \lt N$ is pointed-to by more than one &lt;code&gt;directory&lt;/code&gt; entries.&lt;/p&gt;
+&lt;p&gt;The minimal $N$ needed to ensure every item has a unique bucket index is 1 for 2 items. The minimal $N = 2$  for 4 items. Everytime a new  item added into a bucket, if the number of items in the bucket exceeds a certain threshold, a rehashing operation happens by splitting the bucket into 2 parts. Hence rehashing in this scheme doesn&amp;rsquo;t have to stop the world and do a full-table scan &amp;amp; copy, but instead is done incremental.&lt;/p&gt;
+&lt;p&gt;Similar to &lt;code&gt;extendible hashing&lt;/code&gt;, &lt;code&gt;linear hashing&lt;/code&gt; also uses a &lt;code&gt;directory&lt;/code&gt; to orgranize and address buckets. The distinction lies in split control. In &lt;code&gt;linear hashing&lt;/code&gt;, a split typically occurs only if the load factor exceeds a threshold and the bucket to be split is chosen in a &amp;ldquo;linear&amp;rdquo; manner.&lt;/p&gt;
+&lt;h1 id=&#34;dash-for-extendible-hashing&#34;&gt;Dash for Extendible Hashing&lt;/h1&gt;
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/dash_eh.png&#34; alt=&#34;dash_eh&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In &lt;code&gt;Dash-EH&lt;/code&gt;, each &lt;code&gt;directory&lt;/code&gt; entry points to a &lt;code&gt;segment&lt;/code&gt; which consists of a fixed number of normal buckets and stash buckets. A &lt;code&gt;segment&lt;/code&gt; can be viewed as a sub-hashtable of constant size. The so-called stash buckets shares the same layout as the normal buckets, responsible for storing overflow records.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/dash_eh_bucket.png&#34; alt=&#34;dash_eh&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The core idea of &lt;code&gt;Dash-EH&lt;/code&gt; is to pay a little bit extra space in metadata to buy faster probing with fingerprints and lightweight concurrency control with version locks.&lt;/p&gt;
+&lt;p&gt;Inside a &lt;code&gt;Dash-EH&lt;/code&gt; bucket, as shown in the figure above, the first 32 bytes are metadata, including version lock, counter, alloc bitmap, membership bitmap for load balancing, and 18 one-byte fingerprints for bucket probing(14 for slots in the bucket, 4 for overflow records originally hashed to this bucket). It is followed by $16(Bytes) \times 14 (records) = 224 Bytes$ payload, which stores 14 16-byte records.&lt;/p&gt;
+&lt;h2 id=&#34;fingerprinting&#34;&gt;Fingerprinting&lt;/h2&gt;
+&lt;p&gt;Bucket probing, which refers to searching for a slot in a bucket, is a basic operation of hashtables, needed by &lt;code&gt;search&lt;/code&gt;, &lt;code&gt;insert&lt;/code&gt; and &lt;code&gt;delete&lt;/code&gt; operations to locate a particular key. Traditionally probing requires a linear scan, which is naturally slow on &lt;code&gt;PMem&lt;/code&gt; and could be completely unnecessary when a searched key doesn&amp;rsquo;t exist. &lt;code&gt;Dash-EH&lt;/code&gt; employs fingerprinting to reduce unnecessary scans. Fingerprints are the least significant byte of hashes of keys. To probe for a key, the probing thread first checks if any fingerprint in the bucket&amp;rsquo;s metadata matches the key&amp;rsquo;s, so it can skip buckets without any fingerprint match.&lt;/p&gt;
+&lt;p&gt;Fingerprinting primarily benefits negative(key-not-found) &lt;code&gt;search&lt;/code&gt;es. The &lt;code&gt;Dash&lt;/code&gt; paper also claims fingerprinting enables using larger buckets spanning more than 2 cachelines. But I have to take it with a grain of salt. The paper itself uses a 256B setup. So does the DragonFly implementation&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. In theory, larger buckets can indeed tolerate more collisions and improve the load factor; however, this may come at the cost of compromising locality to a certain degree - you don&amp;rsquo;t want to load multiple times for a single bucket access in a hashtable.&lt;/p&gt;
+&lt;h2 id=&#34;bucket-load-balancing&#34;&gt;Bucket Load Balancing&lt;/h2&gt;
+&lt;p&gt;Segmentation reduces cache misses on &lt;code&gt;directory&lt;/code&gt; by reducing its size. In the &lt;code&gt;extendible hashing&lt;/code&gt; scheme, if any bucket in a segment is full, the entire segment needs to be split, even though other buckets might have much free space.&lt;/p&gt;
+&lt;p&gt;To prevent frequent segment splits, the &lt;code&gt;Dash-EH&lt;/code&gt; algorithm design incorporates bucket load balancing. For an &lt;code&gt;insert&lt;/code&gt; operation, &lt;code&gt;Dash-EH&lt;/code&gt; probes both bucket $B_b$ and $B_{b+1}$, and then inserts into the bucket that is less full. If both $B_b$ and $B_{b+1}$ are full, &lt;code&gt;Dash-EH&lt;/code&gt; tries to displace a &amp;ldquo;native record&amp;rdquo; from $B_{b+1}$ to $B_{b+2}$, or move a &amp;ldquo;rebalanced record&amp;rdquo; from $B_b$ back to $B_{b-1}$ where it originally belongs.&lt;/p&gt;
+&lt;p&gt;The per-bucket membership bitmap is used to decide whether a record is rebalanced or native. If a bit is set in the membership bitmap, then the corresponding key was not directly hashing into this bucket(native) but placed here due to re-balancing(rebalanced).&lt;/p&gt;
+&lt;p&gt;If both &lt;code&gt;insert&lt;/code&gt; and &lt;code&gt;displacement&lt;/code&gt; failed, &lt;code&gt;Dash-EH&lt;/code&gt; turns to the last resort - stashing. Each segment has a fixed number of stash buckets to hold these overflow records. Probing stash buckets introduces significant overhead to negative &lt;code&gt;search&lt;/code&gt;es and &lt;code&gt;insert&lt;/code&gt;s(needs uniqueness check). To address this issue, each normal bucket reserves certain metadata fields. 4 overflow fingerprints are reserved for overflow records stored in stsh buckets. A overflow bit indicates if there exists an overflow at all. So if there isn&amp;rsquo;t an overflow in a bucket, the &lt;code&gt;search&lt;/code&gt;/&lt;code&gt;insert&lt;/code&gt; operation doesn&amp;rsquo;t have to probe stash buckets. Anyway, it is still advisable to maintain a small number of stash buckets. The paper claims &amp;ldquo;using 2–4 stash buckets per segment can improve load factor to over 90% without imposing significant overhead&amp;rdquo;. In Dragonfly&amp;rsquo;s Dashtable, each segment has 56 regular buckets, and 4 stash buckets.&lt;/p&gt;
+&lt;h2 id=&#34;lightweight-concurrency-control&#34;&gt;Lightweight Concurrency Control&lt;/h2&gt;
+&lt;p&gt;The lightweight concurrency control in &lt;code&gt;Dash-EH&lt;/code&gt; naturally scales well on today&amp;rsquo;s &lt;code&gt;many-core&lt;/code&gt; architectures, out-performing traiditional bucket-level shared locks.&lt;/p&gt;
+&lt;p&gt;Write operations follow traditional bucket-level locking to lock the affected buckets, using CAS over a lock bit. If a write is done, the writer thread resets the lock bit and increments the per-bucket version number by one.&lt;/p&gt;
+&lt;p&gt;On the other hand, read operations are designed to be lock-free. Before a read, the reader thread first fetches a snapshot of the lock word, waits until the lock is released, then proceeds to read without holding any lock. After reading, it will check the lock word again to verify the version number stays unchanged. If the version is changed, it retries the entire operation.&lt;/p&gt;
+&lt;h1 id=&#34;dash-for-linear-hashing&#34;&gt;Dash for Linear Hashing&lt;/h1&gt;
+&lt;p&gt;The Dash paper also presents &lt;code&gt;Dash-LH&lt;/code&gt;, a Dash-enabled linear hashing approach built upon building blocks used in &lt;code&gt;Dash-EH&lt;/code&gt;, such as balanced &lt;code&gt;insert&lt;/code&gt;/&lt;code&gt;displacement&lt;/code&gt;, fingerprinting and optimistic concurrency; they are pretty much orthogonal after all. The main difference is that &lt;code&gt;Dash-LH&lt;/code&gt; split the segment pointed to by a pointer in a linear manner.&lt;/p&gt;
+&lt;p&gt;Traditional &lt;code&gt;linear hashing&lt;/code&gt; links overflow records with a linklist. In &lt;code&gt;Dash-LH&lt;/code&gt;, it&amp;rsquo;s done more cache-friendly with stash buckets. It still needs to chain these stash buckets though. Still it&amp;rsquo;s much better than chaining individual records.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/dragonflydb/dragonfly/blob/main/docs/dashtable.md&#34;&gt;Dashtable in Dragonfly&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>DPDK is All You Need</title>
+      <link>https://cmbbq.github.io/posts/dpdk/</link>
+      <pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/dpdk/</guid>
+      <description>对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。本文只是浅尝辄止，汇集其中一部分值得借鉴的思想。
+EAL：用户空间库 EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供了各种有用的工具，比如：运行时对CPU特性进行检测，更适合现代硬件的内存管理，绑核和指定任务在某个核上运行。
+rte_eal_init()是初始化EAL的函数，有多平台的实现：Linux、FreeBSD、Windows。以它为例，可大致了解DPDK EAL做了哪些工作。
+rte_eal_init()是一个冗长的初始化过程，包含下列步骤：检查CPU类型是否是DPDK支持的、设置日志等级、检测各个socket上的各个cpu、enable每个逻辑核、初始化插件（加载共享库，比如一些PMD drivers）、初始化tracing机制、解析各个设备的配置选项、初始化全局配置（主核id、逻辑核数、numa nodes数、iova模式1、内存拓扑配置）、初始化中断处理机制、初始化多进程通用channel、扫描所有总线上的设备、初始化malloc heap、注册多进程action callbacks（热插拔支持）、初始化巨页信息2、初始化内存和memzone、初始化HPET/TSC计时器3、检查本地socket上的内存、创建主线程和子线程的通信信道、创建工作线程、绑核、在工作线程上启动dummy function、初始化服务、嗅探所有总线上的设备和驱动、启动服务、开启telemetry（提供ethdev stats、ethdev port list、eal parameters等状态查询）。
+切割需要权限的工作 DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如vfio-pci、igb_uio、uio_pci_generic。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。igb_uio基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。uio_pci_generic和igb_uio类似，不过不支持MSI和MSI-X中断。vfio-pci支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用vfio，就用vfio，目前uio基本处于半废弃状态。
+大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用usertools目录下的dpdk-devbind.py脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。
+利用巨页，毕竟4KB已是古老时代的残响 DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页4)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。
+尊重NUMA Node拓扑 DPDK的每个操作都是NUMA-aware的，提供的API默认是NUMA node亲和的，这让用户很难写出远端内存访问的代码。
+尊重内存的硬件拓扑 DPDK的内存分配做得非常精细，利用了内存硬件拓扑等内存配置。
+内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。
+内存通道是CPU和内存之间的通信通道，理论上来讲内存带宽和通道数成正比，单个通道位宽64bit，2个就是128bit。内存通道数往往等于单socket支持的DIMM5数，毕竟足够多的内存还需足够多的通道才能保证和CPU的互连。
+CPU和内存之间是64bit接口，但单个内存颗粒（DRAM chips）的位宽可能是4bit、16bit，需要多个内存颗粒并联形成一个64bit的内存列，连接到同一组chip select上，从而保证各内存颗粒可被同时访问。内存模组必须至少形成一个内存列，才能和CPU通信。内存标签上的2R×8就是指列数为2，颗粒位宽8bit，一共16个颗粒。
+Depending on memory configuration on x86 arch, objects addresses are spread between channels and ranks in RAM
+x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增，因此RAM可视作由$n_{chan}\times n_{rank}$个block组成的，其DIMM架构如下图。 如图所示，内存池最好不要让对象的起始地址反复命中同一个channel或同一个rank，而是要充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。
+DPDK的mempool给对象大小加恰当的padding，令内存池中的下一个对象的起始地址分布在不同内存通道和列中。具体实现可参考下面的代码，其中64B6是x86的cache line size，也恰恰是一个block size，或memory bus width、channel width。无论如何，内存池里的地址都要首先保证是64B的整数倍，能整齐地放入cache，做到cache-friendly——事实上也是block friendly、memory bus width friendly，然后才是保证下一个对象的block id和$n_{chan}\times n_{rank}$互质。</description>
+      <content>&lt;p&gt;对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。本文只是浅尝辄止，汇集其中一部分值得借鉴的思想。&lt;/p&gt;
+&lt;h2 id=&#34;eal用户空间库&#34;&gt;EAL：用户空间库&lt;/h2&gt;
+&lt;p&gt;EAL(Envionmemt Abstraction Layer)是DPDK面向用户的用户空间库，提供了各种有用的工具，比如：运行时对CPU特性进行检测，更适合现代硬件的内存管理，绑核和指定任务在某个核上运行。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rte_eal_init()&lt;/code&gt;是初始化EAL的函数，有多平台的实现：Linux、FreeBSD、Windows。以它为例，可大致了解DPDK EAL做了哪些工作。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rte_eal_init()&lt;/code&gt;是一个冗长的初始化过程，包含下列步骤：检查CPU类型是否是DPDK支持的、设置日志等级、检测各个socket上的各个cpu、enable每个逻辑核、初始化插件（加载共享库，比如一些PMD drivers）、初始化&lt;a href=&#34;https://doc.dpdk.org/guides/prog_guide/trace_lib.html&#34;&gt;tracing机制&lt;/a&gt;、解析各个设备的配置选项、初始化全局配置（主核id、逻辑核数、numa nodes数、iova模式&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;、内存拓扑配置）、初始化中断处理机制、初始化多进程通用channel、扫描所有总线上的设备、初始化malloc heap、注册多进程action callbacks（热插拔支持）、初始化巨页信息&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;、初始化内存和memzone、初始化HPET/TSC计时器&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;、检查本地socket上的内存、创建主线程和子线程的通信信道、创建工作线程、绑核、在工作线程上启动dummy function、初始化服务、嗅探所有总线上的设备和驱动、启动服务、开启telemetry（提供ethdev stats、ethdev port list、eal parameters等状态查询）。&lt;/p&gt;
+&lt;h2 id=&#34;切割需要权限的工作&#34;&gt;切割需要权限的工作&lt;/h2&gt;
+&lt;p&gt;DPDK程序跑在用户态的一个前提是有内核驱动帮忙处理一些硬件设备注册、中断映射的事情。Linux上有几个可用的内核驱动，比如&lt;code&gt;vfio-pci&lt;/code&gt;、&lt;code&gt;igb_uio&lt;/code&gt;、&lt;code&gt;uio_pci_generic&lt;/code&gt;。它们是泛用的PCI内核驱动模块，对所有PCI设备均适用。&lt;code&gt;igb_uio&lt;/code&gt;基于Linux UIO提供所有类型的中断支持，比较古老，也比较简单，不支持IOMMU，因此IOVA mode只能用PA mode。&lt;code&gt;uio_pci_generic&lt;/code&gt;和&lt;code&gt;igb_uio&lt;/code&gt;类似，不过不支持MSI和MSI-X中断。&lt;code&gt;vfio-pci&lt;/code&gt;支持基于IOMMU做IOVA映射，兼容VA mode和PA mode，如果能用&lt;code&gt;vfio&lt;/code&gt;，就用&lt;code&gt;vfio&lt;/code&gt;，目前&lt;code&gt;uio&lt;/code&gt;基本处于半废弃状态。&lt;/p&gt;
+&lt;p&gt;大多数设备需先从Linux内核驱动上解绑，然后再绑定到DPDK的内核驱动上。需用户在运行DPDK程序前，用&lt;code&gt;usertools&lt;/code&gt;目录下的&lt;code&gt;dpdk-devbind.py&lt;/code&gt;脚本做好设备和内核模块的解绑和绑定——这种需要root权限的准备工作也从用户态库中剥离了。&lt;/p&gt;
+&lt;h2 id=&#34;利用巨页毕竟4kb已是古老时代的残响&#34;&gt;利用巨页，毕竟4KB已是古老时代的残响&lt;/h2&gt;
+&lt;p&gt;DPDK基于mmap在hugetlbfs中进行巨页物理内存申请。使用更大的内存页相比4KB默认页(在x86上，DPDK目前支持2MB或1GB的巨页&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;)，所需的page table entry总数大大减少，可显著减小page table size和tlb size、降低tlb miss和page table walk开销，提升内存分配的连续性和内存访问的局部性，这些都有助于提升内存带宽。&lt;/p&gt;
+&lt;h2 id=&#34;尊重numa-node拓扑&#34;&gt;尊重NUMA Node拓扑&lt;/h2&gt;
+&lt;p&gt;DPDK的每个操作都是NUMA-aware的，提供的API默认是NUMA node亲和的，这让用户很难写出远端内存访问的代码。&lt;/p&gt;
+&lt;h2 id=&#34;尊重内存的硬件拓扑&#34;&gt;尊重内存的硬件拓扑&lt;/h2&gt;
+&lt;p&gt;DPDK的内存分配做得非常精细，利用了内存硬件拓扑等内存配置。&lt;/p&gt;
+&lt;p&gt;内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。&lt;/p&gt;
+&lt;p&gt;内存通道是CPU和内存之间的通信通道，理论上来讲内存带宽和通道数成正比，单个通道位宽64bit，2个就是128bit。内存通道数往往等于单socket支持的DIMM&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;数，毕竟足够多的内存还需足够多的通道才能保证和CPU的互连。&lt;/p&gt;
+&lt;p&gt;CPU和内存之间是64bit接口，但单个内存颗粒（DRAM chips）的位宽可能是4bit、16bit，需要多个内存颗粒并联形成一个64bit的内存列，连接到同一组chip select上，从而保证各内存颗粒可被同时访问。内存模组必须至少形成一个内存列，才能和CPU通信。内存标签上的2R×8就是指列数为2，颗粒位宽8bit，一共16个颗粒。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Depending on memory configuration on x86 arch, objects addresses are spread between channels and ranks in RAM&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增，因此RAM可视作由$n_{chan}\times n_{rank}$个block组成的，其DIMM架构如下图。
+&lt;img src=&#34;https://cmbbq.github.io/img/2chan4rank.svg&#34; alt=&#34;2chan4rank&#34;&gt;&lt;/p&gt;
+&lt;p&gt;如图所示，内存池最好不要让对象的起始地址反复命中同一个channel或同一个rank，而是要充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。&lt;/p&gt;
+&lt;p&gt;DPDK的&lt;code&gt;mempool&lt;/code&gt;给对象大小加恰当的padding，令内存池中的下一个对象的起始地址分布在不同内存通道和列中。具体实现可参考下面的代码，其中64B&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;是x86的&lt;code&gt;cache line size&lt;/code&gt;，也恰恰是一个&lt;code&gt;block size&lt;/code&gt;，或&lt;code&gt;memory bus width&lt;/code&gt;、&lt;code&gt;channel width&lt;/code&gt;。无论如何，内存池里的地址都要首先保证是64B的整数倍，能整齐地放入cache，做到cache-friendly——事实上也是block friendly、memory bus width friendly，然后才是保证下一个对象的&lt;code&gt;block id&lt;/code&gt;和$n_{chan}\times n_{rank}$互质。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arch_mem_object_align&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; obj_size)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;{
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; nchan &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rte_memory_get_nchannel&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; nrank &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;rte_memory_get_nrank&lt;/span&gt;();
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; new_obj_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (obj_size &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;63&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;get_gcd&lt;/span&gt;(new_obj_size, nrank &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; nchan) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		new_obj_size&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; new_obj_size &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;64&lt;/span&gt;; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;iova和va模式的连续性&#34;&gt;IOVA和VA模式的连续性&lt;/h2&gt;
+&lt;p&gt;硬件不知VA，用户空间不知PA，DPDK的作用之一是bridge物理地址（PA）和虚拟地址（VA），因此给出一种IOVA(IO Virtual Address)是自然而然的设计。&lt;/p&gt;
+&lt;p&gt;DPDK的IOVA模式有两种：PA mode和VA mode。如果用了PA mode，则分配给DPDK的所有IOVA地址都是物理地址，或者说，也是IO虚拟地址，只不过这个IO虚拟地址的内存布局与物理地址完全相同。PA mode的缺点是需要root权限以读取页表，且可能会继承物理内存的碎片性。因此DPDK引入了新的VA mode，一方面无需root权限，另一方面基于IOMMU&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;做物理内存的重映射，保证IO虚拟地址的连续性，并使其编码布局和一般虚拟地址在格式上做到匹配，这样就允许大片连续IOVA内存的申请。无论是硬件视角下，还是用户空间视角下，VA mode下IOVA内存区都是连续的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/iova.png&#34; alt=&#34;iova&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;固定物理地址刚好宜用dma&#34;&gt;固定物理地址刚好宜用DMA&lt;/h2&gt;
+&lt;p&gt;尊重NUMA拓扑、尊重内存布局、IOVA的VA模式、使用巨页这些特性叠加起来，天然就决定了DPDK设计中，用户态进程用到的所有虚拟地址的underlying物理地址都是固定不变的——也就是说，这些地址是可以用于DMA的。DPDK用户态程序可不必涉足IO事务，让硬件自主代劳，通过固定不变的物理地址上的DMA事务完成。&lt;/p&gt;
+&lt;h2 id=&#34;多进程范式&#34;&gt;多进程范式&lt;/h2&gt;
+&lt;p&gt;DPDK还特别为多进程做了支持，允许一个主进程管理所有DPDK资源，多个子进程共享资源访问权。DPDK的额外努力在于它保证了子进程视野中的地址和peer进程、主进程视野中的地址是完全一样的，也就是说连指针都能跨进程传递——这听起来就相当危险，但性能肯定比各种安全的通信协作机制强。此外，DPDK还支持跨进程的全局锁，使多进程编程更接近多线程编程。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.intel.com/content/www/us/en/developer/articles/technical/memory-in-dpdk-part-2-deep-dive-into-iova.html&#34;&gt;Memory in DPDK Part 2: Deep Dive into IOVA&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;EAL用&lt;code&gt;mmap&lt;/code&gt;分配巨页物理内存，并将这些物理内存再通过内存池API暴露给服务层。&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;EAL通过&lt;code&gt;mmap&lt;/code&gt;从用户空间访问HPET内核时间计数，暴露高精度计时器接口给服务层。&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.intel.com/content/www/us/en/developer/articles/technical/memory-in-dpdk-part-1-general-concepts.html&#34;&gt;Memory in DPDK Part 1: General Concepts&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;
+&lt;p&gt;DIMM(dual in-line memory module)，即ram stick，内存条，DDR(Double Data Rate)技术的物理具现。&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;
+&lt;p&gt;无论是i686还是x86_64，cache size都是64B，不过有些场景下合理的cache padding size是128，因为prefetcher一次取两个cacheline。&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:7&#34;&gt;
+&lt;p&gt;IOMMU是连接在DMA-capable IO总线和主存之间，将设备的物理地址映射到虚拟地址空间的专用硬件。物理机通常都支持IOMMU，以Intel为例，IOMMU技术即Vt-d：Intel® Virtualization Technology for Directed I/O。&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>eBPF Tracing for Memory-Stalled Applications</title>
+      <link>https://cmbbq.github.io/posts/ebpf/</link>
+      <pubDate>Thu, 07 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/ebpf/</guid>
+      <description>现代workloads的瓶颈 如今使用CPU而不将计算offload到GPU等加速器的数据中心应用，大多是访存密集应用，例如倒排检索、向量检索、模型推理、分析型数据库。
+纯粹instruction-bound的workload反而罕见。即使是最典型的计算密集场景，充满了矩阵乘加的大模型训推，实际瓶颈也出现在内存IO、off-package互连上。
+现代硬件的发展趋势是越来越深的内存hierarchy，相应地，现代workloads（训推、检索、数据分析）的瓶颈也逐渐向内存总线、Cache、MMU、CPU-to-CPU互连、inter-node互连转移。
+如今内存慢得就像过去的磁盘。Rust的hashmap用B树而非红黑树实现。ScyllaDB和DragonFly通过利用numa机器局部性以及更好的cache优化分别击败Cassandra和Redis。至少，对不自研加速器硬件的互联网公司的研发团队——即数据中心应用的开发者来说，矩阵乘加offloading到GPU/ASIC/AMX即可，访存优化为代表的互连优化才是性能工程的主战场。
+CPU Profiling和CPU利用率的局限性 对于访存密集应用来说，很多人被CPU利用率高误导，以为计算是瓶颈，于是做CPU profiling1和计算优化，往往效果不佳。假设只有10%线程时间在CPU上跑，而70%在等内存读写，那无论CPU profiling做得多好，也没办法找到真正的瓶颈。perf是典型的CPU profiling工具，perf record -F 1000是按照1000Hz采样，对各个函数上的时钟周期可以给出比较准确的估计，但这种采样在阻塞阶段不生效。 类似地，CPU火焰图也只是给出不阻塞时的采样数据，CPU火焰图的最上沿的函数就是所有on—CPU函数，其耗时之和是CPU time之和，不包括off-CPU time。
+CPU利用率在目前仍然被广泛使用，但它已经过时。CPU利用率的真实含义是“非空闲率”，即CPU没有跑idle thread的比例，也就包括了内存IO阻塞、网络IO阻塞、spinlock盲等。这个概念过于古老，它出现时尚不存在memory wall，cpu并不显著快于主存，这显然已经不适用于现代硬件语境，容易给人计算单元是系统瓶颈的错觉。
+eBPF off-CPU分析：in-kernel简报 怎么度量off-CPU time？最简单的办法是应用层tracing，记录重点代码各个函数和代码块的耗时。大多数情况下，这其实就是最好的方案，精度也不错。不过相比火焰图还不够帅，也不够全面，毕竟在哪加时间戳依赖主观判断，有时候真正的瓶颈会出现在意想不到的地方。
+Linux 4.8+2可使用eBPF做off-CPU分析。比如eBPF工具bcc/cpudist，bcc/offcputime。offcputime生成的call stacks可以直接用flamegraph.pl绘制off-CPU火焰图。bcc包含了大量工具，其具体使用方式可参照其官方tutorial。
+eBPF tracing与传统的off-CPU tracer(比如perf)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，perf往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。
+此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用perf做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。
+eBPF追踪off-CPU时长的思路是在context switch事件结束时记录一次stack（off—CPU期间stack是不变的，一次足矣），为当前context的off-CPU时长增加线程睡眠时间。其伪代码如下：
+on context switch finish: sleeptime[prev_thread_id] = timestamp if !sleeptime[thread_id] return delta = timestamp - sleeptime[thread_id] totaltime[pid, execname, user stack, kernel stack] += delta sleeptime[thread_id] = 0 on tracer exit: for each key in totaltime: print key print totaltime[key] 所以，什么是eBPF？ 简单说，eBPF是一个允许跑自定义代码做一些tracing和系统监控的in-kernel runtime，是BPF的升级版。</description>
+      <content>&lt;h2 id=&#34;现代workloads的瓶颈&#34;&gt;现代workloads的瓶颈&lt;/h2&gt;
+&lt;p&gt;如今使用CPU而不将计算offload到GPU等加速器的数据中心应用，大多是访存密集应用，例如倒排检索、向量检索、模型推理、分析型数据库。&lt;/p&gt;
+&lt;p&gt;纯粹instruction-bound的workload反而罕见。即使是最典型的计算密集场景，充满了矩阵乘加的大模型训推，实际瓶颈也出现在内存IO、off-package互连上。&lt;/p&gt;
+&lt;p&gt;现代硬件的发展趋势是越来越深的内存hierarchy，相应地，现代workloads（训推、检索、数据分析）的瓶颈也逐渐向内存总线、Cache、MMU、CPU-to-CPU互连、inter-node互连转移。&lt;/p&gt;
+&lt;p&gt;如今内存慢得就像过去的磁盘。Rust的hashmap用B树而非红黑树实现。ScyllaDB和DragonFly通过利用numa机器局部性以及更好的cache优化分别击败Cassandra和Redis。至少，对不自研加速器硬件的互联网公司的研发团队——即数据中心应用的开发者来说，矩阵乘加offloading到GPU/ASIC/AMX即可，访存优化为代表的互连优化才是性能工程的主战场。&lt;/p&gt;
+&lt;h2 id=&#34;cpu-profiling和cpu利用率的局限性&#34;&gt;CPU Profiling和CPU利用率的局限性&lt;/h2&gt;
+&lt;p&gt;对于访存密集应用来说，很多人被CPU利用率高误导，以为计算是瓶颈，于是做CPU profiling&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;和计算优化，往往效果不佳。假设只有10%线程时间在CPU上跑，而70%在等内存读写，那无论CPU profiling做得多好，也没办法找到真正的瓶颈。&lt;code&gt;perf&lt;/code&gt;是典型的CPU profiling工具，&lt;code&gt;perf record -F 1000&lt;/code&gt;是按照1000Hz采样，对各个函数上的时钟周期可以给出比较准确的估计，但这种采样在阻塞阶段不生效。 类似地，CPU火焰图也只是给出不阻塞时的采样数据，CPU火焰图的最上沿的函数就是所有on—CPU函数，其耗时之和是CPU time之和，不包括off-CPU time。&lt;/p&gt;
+&lt;p&gt;CPU利用率在目前仍然被广泛使用，但它已经过时。CPU利用率的真实含义是“非空闲率”，即CPU没有跑idle thread的比例，也就包括了内存IO阻塞、网络IO阻塞、spinlock盲等。这个概念过于古老，它出现时尚不存在memory wall，cpu并不显著快于主存，这显然已经不适用于现代硬件语境，容易给人计算单元是系统瓶颈的错觉。&lt;/p&gt;
+&lt;h2 id=&#34;ebpf-off-cpu分析in-kernel简报&#34;&gt;eBPF off-CPU分析：in-kernel简报&lt;/h2&gt;
+&lt;p&gt;怎么度量off-CPU time？最简单的办法是应用层tracing，记录重点代码各个函数和代码块的耗时。大多数情况下，这其实就是最好的方案，精度也不错。不过相比火焰图还不够帅，也不够全面，毕竟在哪加时间戳依赖主观判断，有时候真正的瓶颈会出现在意想不到的地方。&lt;/p&gt;
+&lt;p&gt;Linux 4.8+&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;可使用eBPF做off-CPU分析。比如eBPF工具&lt;a href=&#34;https://github.com/iovisor/bcc/blob/master/tools/cpudist.py&#34;&gt;bcc/cpudist&lt;/a&gt;，&lt;a href=&#34;https://github.com/iovisor/bcc/blob/master/tools/offcputime_example.txt&#34;&gt;bcc/offcputime&lt;/a&gt;。offcputime生成的call stacks可以直接用&lt;a href=&#34;https://github.com/brendangregg/FlameGraph&#34;&gt;flamegraph.pl&lt;/a&gt;绘制off-CPU火焰图。bcc包含了大量工具，其具体使用方式可参照其&lt;a href=&#34;https://github.com/iovisor/bcc/blob/master/docs/tutorial.md&#34;&gt;官方tutorial&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;eBPF tracing与传统的off-CPU tracer(比如&lt;code&gt;perf&lt;/code&gt;)相比，最显著的优势是不必把所有内核事件往用户空间dump（调度事件是非常频繁的，&lt;code&gt;perf&lt;/code&gt;往往生成巨量数据，注入的额外开销太大，不仅仅是CPU开销，还有磁盘IO开销），而是在内核就按照某种可编程的规则做了总结，把精简的信息输出出来。&lt;/p&gt;
+&lt;p&gt;此外，内核支持eBPF后，各种off-CPU分析需求都可以统一用eBPF实现，不再需要针对不同场景使用或制作不同的工具了——此前用&lt;code&gt;perf&lt;/code&gt;做事件追踪，用storage tracing做存储IO追踪，用内核统计数据观测调度时延，不成体系，且性能良莠不一。&lt;/p&gt;
+&lt;p&gt;eBPF追踪off-CPU时长的思路是在context switch事件结束时记录一次stack（off—CPU期间stack是不变的，一次足矣），为当前context的off-CPU时长增加线程睡眠时间。其伪代码如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;on context switch finish:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	sleeptime[prev_thread_id] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; timestamp
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;!&lt;/span&gt;sleeptime[thread_id]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	delta &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; timestamp &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; sleeptime[thread_id]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	totaltime[pid, execname, user stack, kernel stack] &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; delta
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	sleeptime[thread_id] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;on tracer exit:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; each key &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; totaltime:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		print key
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		print totaltime[key]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;所以什么是ebpf&#34;&gt;所以，什么是eBPF？&lt;/h2&gt;
+&lt;p&gt;简单说，eBPF是一个允许跑自定义代码做一些tracing和系统监控的in-kernel runtime，是BPF的升级版。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/ebpf.png&#34; alt=&#34;ebpf&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最初的BPF，即Berkeley Packet Filter，是一个用于报文过滤的几乎被遗忘的古老内核特性。eBPF在BPF基础上做了扩展，允许事件源从报文扩展到多种多样的事件源，eBPF VM有更大的存储空间，更多寄存器和64位word size——BPF事实上提供了一个in-kernel的沙盒环境，或者说虚拟机，安全且受限地执行用户定义的程序。因此eBPF机制的出现实际上在内核态程序、用户态程序之外创造了新的软件品类。&lt;/p&gt;
+&lt;p&gt;eBPF程序不是预编译或解释的，而是JIT CO-RE&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;的，程序出错既不abort，也不panic，而是返回error message。内核态直接访问资源，用户态通过系统调用或fault访问资源，eBPF则是通过一些受限的helper访问资源——目前来说主要作用还是tracing，做一些可观测性上的工作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/ebpf2.png&#34; alt=&#34;ebpf2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;eBPF把JIT编译器和安全验证器直接放到了内核里，用户态的bpf程序先经过parser变成AST，再做一些构造和语法分析，然后生成IR，最终生成优化后的bytecode。BPF bytecode作为输入进入内核的JIT和verifier再编译成机器码给CPU执行。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/ebpf3.png&#34; alt=&#34;ebpf3&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ebpf的其他应用&#34;&gt;eBPF的其他应用&lt;/h2&gt;
+&lt;p&gt;eBPF除了用在可观测性上，还可以应用于网络，在L3/L4/L7做traffic control, monitoring或load balancing，比如libbpf &lt;code&gt;tc&lt;/code&gt;/&lt;code&gt;qdiscs&lt;/code&gt; library, &lt;code&gt;XDP&lt;/code&gt;(裸金属高性能可编程网络)/&lt;code&gt;Cilium&lt;/code&gt;(高性能云原生网络)/&lt;code&gt;Katran&lt;/code&gt;(传输层负载均衡)。&lt;/p&gt;
+&lt;p&gt;此外，eBPF还可以应用于安全领域。毕竟eBPF可以观测系统中的各种事件，比如监控某些敏感文件（/etc/passwd这种）是否被篡改。基于这种观测能力在加上一些安全相关的先验知识，就可以做一些安全工具。K8s的&lt;code&gt;seccomp&lt;/code&gt;工具就是基于eBPF实现的。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;区别于off-CPU分析，这里的CPU profiling指狭义的on-CPU分析，不考虑阻塞中的thread time。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;不过Linux 5.x才有完整的CO-RE和BTF支持，其中BTF(BPF Type Format)是为eBPF设计的内核数据结构描述机制。&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;CO-RE: Compile Once Run Everywhere，也就是说BPF bytecode是可以relocate的。&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Efficient ANNS at Scale</title>
+      <link>https://cmbbq.github.io/posts/efficient-anns-at-scale/</link>
+      <pubDate>Tue, 12 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/efficient-anns-at-scale/</guid>
+      <description>向量检索分为KNN和ANN，KNN就是用brute-force计算出query向量和所有索引向量的相似度，取前k个。ANN则是通过近似手段加速计算，以误差换效率。
+如何做高效的向量检索？方法有二，一是提升编码率（不仅能降低内存占用，也能加速计算，因为便于SIMD且减少访存）的量化（IVF向量量化、PQ量化、ScaNN各向异性量化、4bit量化），二是缩小搜索空间的图搜索（HNSW）。
+如何在十亿、百亿级特征库上做向量检索？主要挑战是索引无法放入内存，因而需要考虑内存-磁盘混合方案（SPANN）。
+本文只介绍一小部分有效且正交的技术，这些技术组合在一起可形成当前的最佳实践。其他一些古典、经典技术可以参考本文引用的论文的背景综述。
+相似度 首先回顾一下什么是向量之间的相似度:
+对向量X和Y来说，x和y越接近，则x越大的地方y也大，x小的地方y也小，则内积越大。因此内积可用作相似度打分，不过不能抵抗尺度变化。 为了抵抗尺度变化，往往将内积正则化到[-1,1]，就变成了余弦相似度cosθ，θ为向量夹角，显然θ越小，向量越接近。 欧几里得距离正则化到[-1,1]后相当于sqrt(2-2cosθ)。可见欧式距离平方也是和余弦相似度成比的。 正则化后欧式距离、内积、cosθ三者同源，所以我们一般就用余弦相似度cosθ去度量向量/embedding之间的相似程度。除非又特殊的抵抗位置变化的需求，可采用皮尔森相关系数，皮尔森相关系数是协方差（两个变量的总体误差）的正则化，不过它同时也可以被视为将x和y中心化后的余弦相似度。
+向量量化 量化器是D维向量 x ∈ R^D 到 q(x) ∈ C = {c_0, c_1, &amp;hellip; c_k-1} 的映射函数q。c_i即聚类中心centroid。 所谓密码本（codebook）就是一个lookup table，用centroid下标作为原始向量的低bit表示，密码本大小就是k。
+向量量化本质是有损压缩，表征学习本质上也是有损压缩，一个白盒，一个黑盒，都是试图降低高维数据的编码率。
+IVF：聚类、倒排、剪枝 倒排（特指IVF）是一种古老的量化技术，早期应用于Video Google。核心思想是基于k-means聚类做向量量化。k-means聚类起源于信号处理领域，目标是把n个向量分区到k个clusters，每个向量属于离centroid最近的cluster。
+聚类后有些边缘数据点既属于A，也属于B，那就把它同时放到A和B的centroid对应的postinglist里面去，不过重复放置会导致postinglist膨胀，为了应对这种膨胀，可采取剪枝策略，具体可参考微软的SPTAG项目和SPANN论文。
+Faiss的IVFFlat就是在聚类形成centroid为term的倒排后提供检索能力，nlist为聚类数，nprobe为临近centroid探测数，nprobe=nlist时退化为暴搜。IVFFLat在检索时将query邻近的nprobe个centroid对应的所有原始向量作为搜索空间进行暴搜。由于centroid的表示方式可以简化成clusterid，所以实际上IVF也是一种量化：用一个数组存放所有的centroid向量，数组下标即可表示centroid。
+PQ：乘积量化 基于聚类的量化对低维向量比较有效，但随着向量维度升高，出现误差也变高，而且这种误差不是提升聚类数目能解决的。如果把聚类数目（codebook大小）提升到2^64，训练这个聚类的开销就会高得无法接受，需要数倍于2^64的样本，内存显然也放不下。**乘积量化（PQ）**就是降维手段解决IVF量化误差的技术，Jegou et al., 2011以及ScaNN均讨论了PQ。其核心思想是对索引数据量化，将d维空间切分为M个子空间，将高维向量的误差拟合为分段的低维向量误差之和。
+乘积量化中，IVF倒排链存的不是原始向量，而是原始向量的一种编码：
+求原始d维向量与高维粗聚类centroid的残差（残差的目的是中心化，让数据点分布变得更集中，使精度更好） 将残差向量切成M个分段，每个分段维度为d/M 每个分段做k*=2^n个细聚类，n即为低维细聚类clusterid的编码长度，4bit或8bit 用每个分段的邻近低维细聚类centroid去量化该分段上的原始残差分段 Faiss的IVFPQ就结合了IVF和PQ，IVF粗聚类是一级量化，PQ则是二级量化。一方面索引体积减小，另一方面计算上也只需要计算残差和分段细聚类centroid近邻的距离，还能SIMD加速，性能收益非常显著。不过IVFPQ的distance究竟只是一种拟合，是距离粗聚类centroid的距离加上M个分段里query残差和邻近细聚类centroid的距离总和，这种拟合可以一定程度上帮助找到近邻，但不适合用作距离，可以把IVFPQ当做粗排，结果再做一次brute-force或高精度ANN重算，得到更精确的距离。
+ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选择centroid在数学上的错误，并且实践了4-bit量化取得非常好的效果（其实4bit量化的效果还比各向异性更大，但各向异性在理论上贡献更大）。传统的量化把数据点量化到离自己最近的聚类中心，但这么做未必是误差最低的，越平行的向量之间内积越大，越正交的向量之间内积越小，因此赋予平行向量更高的误差惩罚权重效果更好。这就意味着不一定量化到距离最近的centroid了，目标是整体编码率不变的前提下，让平行方向量化误差更小，正交方向误差高一些其实无所谓，从而提升整体的ANN效果。
+假设M = 4，采用8bit量化，原始向量是256维f32向量，则PQ将256个float32压缩到64个int8，内存减少到1/16。乘积量化显然可以显著减少内存和存储开销，其实这也能加速计算，原因如下：
+高效点乘（其实也是误差换效率）：O(dk+mn) 比 O(nd)快，d维度的query和n个量化后的向量点乘，引入m个大小为k的量化codebook，mn可以忽略不计，k远小于n。 memory bandwidth：现代处理器需要“高计算量per memory read”才能充分发挥硬件的计算性能。量化压缩数据点后内存带宽的使用也下降了，变得更计算密集。 向量量化中引入的低bit表示，尤其是4bit量化，和低bit浮点数量化一样，可以享受SIMD的性能红利。 最佳实践：根据应用场景将各种正交技术进行正确组合 HNSW、IVF、PQ、各向异性的score-aware quantization loss、brute-force事实上都是正交的技术，可以组合起来使用。
+比如进行了PQ量化的数据点可以再构建一个HNSW，用图方法在超大规模数据集上做查询显然比ivfpq更高效。各向异性量化则是对此前PQ量化的修正。考虑到量化后的距离失真，还能用brute-force把ivf+pq+hnsw的粗排结果重算一下得到最精确的距离，由于已经经过一轮粗排，候选数据集大小从十亿级别缩小到万级别，brute-force的开销就完全可以接受了。</description>
+      <content>&lt;p&gt;向量检索分为KNN和ANN，KNN就是用brute-force计算出query向量和所有索引向量的相似度，取前k个。ANN则是通过近似手段加速计算，以误差换效率。&lt;/p&gt;
+&lt;p&gt;如何做高效的向量检索？方法有二，一是提升编码率（不仅能降低内存占用，也能加速计算，因为便于SIMD且减少访存）的量化（IVF向量量化、PQ量化、ScaNN各向异性量化、4bit量化），二是缩小搜索空间的图搜索（HNSW）。&lt;/p&gt;
+&lt;p&gt;如何在十亿、百亿级特征库上做向量检索？主要挑战是索引无法放入内存，因而需要考虑内存-磁盘混合方案（SPANN）。&lt;/p&gt;
+&lt;p&gt;本文只介绍一小部分有效且正交的技术，这些技术组合在一起可形成当前的最佳实践。其他一些古典、经典技术可以参考本文引用的论文的背景综述。&lt;/p&gt;
+&lt;h1 id=&#34;相似度&#34;&gt;相似度&lt;/h1&gt;
+&lt;p&gt;首先回顾一下什么是&lt;strong&gt;向量之间的相似度&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对向量X和Y来说，x和y越接近，则x越大的地方y也大，x小的地方y也小，则内积越大。因此内积可用作相似度打分，不过不能抵抗尺度变化。&lt;/li&gt;
+&lt;li&gt;为了抵抗尺度变化，往往将内积正则化到[-1,1]，就变成了余弦相似度cosθ，θ为向量夹角，显然θ越小，向量越接近。&lt;/li&gt;
+&lt;li&gt;欧几里得距离正则化到[-1,1]后相当于sqrt(2-2cosθ)。可见欧式距离平方也是和余弦相似度成比的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/sim_measure.png&#34; alt=&#34;sim_measure&#34;&gt;&lt;/p&gt;
+&lt;p&gt;正则化后欧式距离、内积、cosθ三者同源，所以我们一般就用余弦相似度cosθ去度量向量/embedding之间的相似程度。除非又特殊的抵抗位置变化的需求，可采用皮尔森相关系数，皮尔森相关系数是协方差（两个变量的总体误差）的正则化，不过它同时也可以被视为将x和y中心化后的余弦相似度。&lt;/p&gt;
+&lt;h1 id=&#34;向量量化&#34;&gt;向量量化&lt;/h1&gt;
+&lt;p&gt;量化器是D维向量 x  ∈ R^D 到 q(x) ∈ C = {c_0, c_1, &amp;hellip; c_k-1} 的映射函数q。c_i即聚类中心centroid。
+所谓密码本（codebook）就是一个lookup table，用centroid下标作为原始向量的低bit表示，密码本大小就是k。&lt;/p&gt;
+&lt;p&gt;向量量化本质是有损压缩，表征学习本质上也是有损压缩，一个白盒，一个黑盒，都是试图降低高维数据的编码率。&lt;/p&gt;
+&lt;h1 id=&#34;ivf聚类倒排剪枝&#34;&gt;IVF：聚类、倒排、剪枝&lt;/h1&gt;
+&lt;p&gt;倒排（特指IVF）是一种古老的量化技术，早期应用于&lt;a href=&#34;https://www.robots.ox.ac.uk/~vgg/publications/2003/Sivic03/sivic03.pdf&#34;&gt;Video Google&lt;/a&gt;。核心思想是基于k-means聚类做向量量化。k-means聚类起源于信号处理领域，目标是把n个向量分区到k个clusters，每个向量属于离centroid最近的cluster。&lt;/p&gt;
+&lt;p&gt;聚类后有些边缘数据点既属于A，也属于B，那就把它同时放到A和B的centroid对应的postinglist里面去，不过重复放置会导致postinglist膨胀，为了应对这种膨胀，可采取剪枝策略，具体可参考微软的SPTAG项目和&lt;a href=&#34;https://arxiv.org/pdf/2111.08566.pdf&#34;&gt;SPANN论文&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;Faiss的IVFFlat就是在聚类形成centroid为term的倒排后提供检索能力，nlist为聚类数，nprobe为临近centroid探测数，nprobe=nlist时退化为暴搜。IVFFLat在检索时将query邻近的nprobe个centroid对应的所有原始向量作为搜索空间进行暴搜。由于centroid的表示方式可以简化成clusterid，所以实际上IVF也是一种量化：用一个数组存放所有的centroid向量，数组下标即可表示centroid。&lt;/p&gt;
+&lt;h1 id=&#34;pq乘积量化&#34;&gt;PQ：乘积量化&lt;/h1&gt;
+&lt;p&gt;基于聚类的量化对低维向量比较有效，但随着向量维度升高，出现误差也变高，而且这种误差不是提升聚类数目能解决的。如果把聚类数目（codebook大小）提升到2^64，训练这个聚类的开销就会高得无法接受，需要数倍于2^64的样本，内存显然也放不下。**乘积量化（PQ）**就是降维手段解决IVF量化误差的技术，&lt;a href=&#34;https://lear.inrialpes.fr/pubs/2011/JDS11/jegou_searching_with_quantization.pdf&#34;&gt;Jegou et al., 2011&lt;/a&gt;以及&lt;a href=&#34;https://arxiv.org/pdf/1908.10396.pdf&#34;&gt;ScaNN&lt;/a&gt;均讨论了PQ。其核心思想是对索引数据量化，将d维空间切分为M个子空间，将高维向量的误差拟合为分段的低维向量误差之和。&lt;/p&gt;
+&lt;p&gt;乘积量化中，IVF倒排链存的不是原始向量，而是原始向量的一种编码：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;求原始d维向量与高维粗聚类centroid的残差（残差的目的是中心化，让数据点分布变得更集中，使精度更好）&lt;/li&gt;
+&lt;li&gt;将残差向量切成M个分段，每个分段维度为d/M&lt;/li&gt;
+&lt;li&gt;每个分段做k*=2^n个细聚类，n即为低维细聚类clusterid的编码长度，4bit或8bit&lt;/li&gt;
+&lt;li&gt;用每个分段的邻近低维细聚类centroid去量化该分段上的原始残差分段&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Faiss的IVFPQ就结合了IVF和PQ，IVF粗聚类是一级量化，PQ则是二级量化。一方面索引体积减小，另一方面计算上也只需要计算残差和分段细聚类centroid近邻的距离，还能SIMD加速，性能收益非常显著。不过IVFPQ的distance究竟只是一种拟合，是距离粗聚类centroid的距离加上M个分段里query残差和邻近细聚类centroid的距离总和，这种拟合可以一定程度上帮助找到近邻，但不适合用作距离，可以把IVFPQ当做粗排，结果再做一次brute-force或高精度ANN重算，得到更精确的距离。&lt;/p&gt;
+&lt;p&gt;ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选择centroid在数学上的错误，并且实践了4-bit量化取得非常好的效果（其实4bit量化的效果还比各向异性更大，但各向异性在理论上贡献更大）。传统的量化把数据点量化到离自己最近的聚类中心，但这么做未必是误差最低的，越平行的向量之间内积越大，越正交的向量之间内积越小，因此赋予平行向量更高的误差惩罚权重效果更好。这就意味着不一定量化到距离最近的centroid了，目标是整体编码率不变的前提下，让平行方向量化误差更小，正交方向误差高一些其实无所谓，从而提升整体的ANN效果。&lt;/p&gt;
+&lt;p&gt;假设M = 4，采用8bit量化，原始向量是256维f32向量，则PQ将256个float32压缩到64个int8，内存减少到1/16。乘积量化显然可以显著减少内存和存储开销，其实这也能加速计算，原因如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;高效点乘（其实也是误差换效率）：O(dk+mn) 比 O(nd)快，d维度的query和n个量化后的向量点乘，引入m个大小为k的量化codebook，mn可以忽略不计，k远小于n。&lt;/li&gt;
+&lt;li&gt;memory bandwidth：现代处理器需要“高计算量per memory read”才能充分发挥硬件的计算性能。量化压缩数据点后内存带宽的使用也下降了，变得更计算密集。&lt;/li&gt;
+&lt;li&gt;向量量化中引入的低bit表示，尤其是4bit量化，和低bit浮点数量化一样，可以享受SIMD的性能红利。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;最佳实践根据应用场景将各种正交技术进行正确组合&#34;&gt;最佳实践：根据应用场景将各种正交技术进行正确组合&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.robots.ox.ac.uk/~vgg/publications/2003/Sivic03/sivic03.pdf&#34;&gt;HNSW&lt;/a&gt;、IVF、PQ、各向异性的score-aware quantization loss、brute-force事实上都是正交的技术，可以组合起来使用。&lt;/p&gt;
+&lt;p&gt;比如进行了PQ量化的数据点可以再构建一个HNSW，用图方法在超大规模数据集上做查询显然比ivfpq更高效。各向异性量化则是对此前PQ量化的修正。考虑到量化后的距离失真，还能用brute-force把ivf+pq+hnsw的粗排结果重算一下得到最精确的距离，由于已经经过一轮粗排，候选数据集大小从十亿级别缩小到万级别，brute-force的开销就完全可以接受了。&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>A Decade of Tussle between CPU and GPU</title>
+      <link>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</link>
+      <pubDate>Sun, 25 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/</guid>
+      <description>GPU和CPU方法的边界何在？ 做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？
+这个问题可以归约为On the Limits of GPU Acceleration(2010)中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。
+GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？
+摩尔定律是两年翻倍，而黄氏定律则是宣称通过软硬件协同能达到1.08年翻倍。
+甚至如果我们考虑成本因素，根据经验数据，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。</description>
+      <content>&lt;h2 id=&#34;gpu和cpu方法的边界何在&#34;&gt;GPU和CPU方法的边界何在？&lt;/h2&gt;
+&lt;p&gt;做AI应用的架构工作，遇到新的计算密集任务的第一问往往是：这应该上GPU，还是NUMA物理机？&lt;/p&gt;
+&lt;p&gt;这个问题可以归约为&lt;a href=&#34;https://www.usenix.org/legacy/event/hotpar10/tech/full_papers/main.pdf&#34;&gt;On the Limits of GPU Acceleration(2010)&lt;/a&gt;中提出的问题：&amp;ldquo;大致相同能耗的前提下，能和不能用GPU有效加速计算的边界在哪？&amp;rdquo; Vuduc的这个研究分析了3种具有代表性复杂行为和访存不规则性的计算：稀疏线性系统的迭代求解器、稀疏矩阵的乔列斯基分解、快速多极子算法，得出的结论是——大致地说，良好优化的GPU实现在相同能耗下和良好优化的CPU实现在性能上是相仿的。可见当年用GPGPU加速还是一个普遍得不偿失的工作，毕竟要付出剧烈变更编程模型的代价。&lt;/p&gt;
+&lt;h2 id=&#34;gpu和cpu的价格-性能趋势&#34;&gt;GPU和CPU的价格-性能趋势&lt;/h2&gt;
+&lt;p&gt;上述结论在2010年成立，如今13年过去了，GPU固然飞速发展（无论是硬件、软件，还是生态、应用、资金投入），但GPU发展速度是否已经甩开CPU了呢？&lt;/p&gt;
+&lt;p&gt;摩尔定律是两年翻倍，而&lt;a href=&#34;https://en.wikipedia.org/wiki/Huang%27s_law&#34;&gt;黄氏定律&lt;/a&gt;则是宣称通过软硬件协同能达到1.08年翻倍。&lt;/p&gt;
+&lt;p&gt;甚至如果我们考虑成本因素，根据&lt;a href=&#34;https://epochai.org/blog/trends-in-gpu-price-performance&#34;&gt;经验数据&lt;/a&gt;，GPU FLOP/s每刀的增长速度是和CPU相仿的。这和2023年工业界的经验是吻合的——CPU在大多数应用语境下依然是成本更低的选择。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/4.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar1&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/5.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar2&#34;&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/6.png&#34; alt=&#34;Emprical GPU/CPU FLOP/s per dollar3&#34;&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

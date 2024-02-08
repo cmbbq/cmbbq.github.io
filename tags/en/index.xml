@@ -6,39 +6,41 @@
     <description>Recent content in en on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/en/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Practical Performance Engineering of Memory-Bound Systems</title>
-      <link>https://cmbbq.github.io/posts/performance-engineering/</link>
-      <pubDate>Mon, 29 Jan 2024 00:00:00 +0000</pubDate>
+      <title>Work Reduction vs Hardware Enablement</title>
+      <link>https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/</link>
+      <pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/performance-engineering/</guid>
-      <description>[WIP]
-Work Reduction vs Hardware Enablement Optimization can be divided into work reduction and hardware enablement.
+      <guid>https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/</guid>
+      <description>Optimization can be divided into work reduction and hardware enablement.
 Work, in terms of computer programming, is basically a gross measure of how much stuff the program needs to do.
-The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: approximation, tail-recursion elimination, coarsening/refining recursion, inlining, loop fusion, loop unrolling, hoisting, short-circuiting, common-subexpression elimination, compile-time initialization and evaluation, exploiting sparsity, caching, pre-computation, and bit hacks.</description>
-      <content>&lt;p&gt;[WIP]&lt;/p&gt;
-&lt;h1 id=&#34;work-reduction-vs-hardware-enablement&#34;&gt;Work Reduction vs Hardware Enablement&lt;/h1&gt;
-&lt;blockquote&gt;
+The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: approximation, tail-recursion elimination, coarsening/refining recursion, inlining, loop fusion, loop unrolling, hoisting, short-circuiting, common-subexpression elimination, compile-time initialization, compile-time evaluation, exploiting sparsity, caching, pre-computation, and bit hacks.</description>
+      <content>&lt;blockquote&gt;
 &lt;p&gt;Optimization can be divided into work reduction and hardware enablement.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Work, in terms of computer programming, is basically a gross measure of how much stuff the program needs to do.&lt;/p&gt;
-&lt;p&gt;The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: approximation, tail-recursion elimination, coarsening/refining recursion, inlining, loop fusion, loop unrolling, hoisting, short-circuiting, common-subexpression elimination, compile-time initialization and evaluation, exploiting sparsity, caching, pre-computation, and bit hacks.&lt;/p&gt;
+&lt;p&gt;The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: &lt;code&gt;approximation&lt;/code&gt;, &lt;code&gt;tail-recursion elimination&lt;/code&gt;, &lt;code&gt;coarsening/refining recursion&lt;/code&gt;, &lt;code&gt;inlining&lt;/code&gt;, &lt;code&gt;loop fusion&lt;/code&gt;, &lt;code&gt;loop unrolling&lt;/code&gt;, &lt;code&gt;hoisting&lt;/code&gt;, &lt;code&gt;short-circuiting&lt;/code&gt;, &lt;code&gt;common-subexpression elimination&lt;/code&gt;, &lt;code&gt;compile-time initialization&lt;/code&gt;, &lt;code&gt;compile-time evaluation&lt;/code&gt;, &lt;code&gt;exploiting sparsity&lt;/code&gt;, &lt;code&gt;caching&lt;/code&gt;, &lt;code&gt;pre-computation&lt;/code&gt;, and &lt;code&gt;bit hacks&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;While reducing work undoubtedly serves as an essential heuristic for reducing overall running time, it&amp;rsquo;s not the sole determinant of the running time; it doesn&amp;rsquo;t capture the whole picture of computer programming, leaving the intricate nature of computer hardware unaddressed.&lt;/p&gt;
-&lt;p&gt;To thoroughly investigate architectural improvements that unlock hardware potential, we must delve into numerous aspects in hardware and micro-architecture: the ISA, pipeline stages, superscalar processing, out-of-order execution, paging, caching, vectorization, speculation, hardware prefetching, branch prediction, etc.&lt;/p&gt;
+&lt;p&gt;To thoroughly investigate architectural improvements that unlock hardware potential, we must delve into numerous aspects in hardware and micro-architecture: &lt;code&gt;the ISA&lt;/code&gt;, &lt;code&gt;pipeline stages&lt;/code&gt;, &lt;code&gt;superscalar processing&lt;/code&gt;, &lt;code&gt;out-of-order execution&lt;/code&gt;, &lt;code&gt;paging&lt;/code&gt;, &lt;code&gt;caching&lt;/code&gt;, &lt;code&gt;vectorization&lt;/code&gt;, &lt;code&gt;speculation&lt;/code&gt;, &lt;code&gt;hardware prefetching&lt;/code&gt;, &lt;code&gt;branch prediction&lt;/code&gt;, etc.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Historically computer architecture leverages either locality or parallelism to enhance performance.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;To exploit locality, the memory hierarchy(registers-&amp;gt;L1/L2/L3 caches-&amp;gt;local DRAM-&amp;gt;remote DRAM-&amp;gt;PMem-&amp;gt;SSD) was made deeper for hiding performance issue; hardware prefetchers and branch predictors were used to predict immediate accesses and move data or instructions closer to processors. As programmers, we are working on one layer obove the computer architecture layer, what we can do is to write NUMA-aware, cache-aligned, and perhaps vectorized code with regular data access patterns and proper software pre-fetching.&lt;/p&gt;
-&lt;p&gt;To exploit parallelism, superscalar out-of-order pipelines, breaking ops into micro-ops, vector hardware, multi-core were invented. Correspondingly, we need to keep all these things busy by using techniques like bit tricks, ILP(Instruction-level parallelism), AVX/SSE, AMX, multithread/multi-process programming and offloading to accelerators like DPUs or GPUs.&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s delve deeper into ILP, as it is more connected with the processor μ-arch - aspects such as superscalar processing, pipeline stages, out-of-order execution, data bypassing, register renaming, and so on. To exploit it programmatically, we can use separate functional units, write likely/unlikely hints for branch prediction, and break dependency in the data-flow graph beforehand to reduce data hazards.&lt;/p&gt;
-&lt;h1 id=&#34;lessons-learnt-from-prior-work&#34;&gt;Lessons Learnt from Prior Work&lt;/h1&gt;
-&lt;p&gt;[understand your program. measure its Arithmetic Intensity]&lt;/p&gt;
-&lt;h1 id=&#34;interesting-heuristics-for-future-work&#34;&gt;Interesting Heuristics for Future Work&lt;/h1&gt;
-&lt;h2 id=&#34;employing-quantitative-approaches&#34;&gt;Employing Quantitative Approaches&lt;/h2&gt;
-&lt;p&gt;[off-cpu flame graph]&lt;/p&gt;
-&lt;h2 id=&#34;playing-with-dram-as-if-we-were-handling-slow-devices&#34;&gt;Playing with DRAM as if We were Handling Slow Devices&lt;/h2&gt;
-&lt;p&gt;As &lt;code&gt;DRAM&lt;/code&gt; access has become the de-facto bottleneck for many of today&amp;rsquo;s datacenter applications, an intuitive idea to optimize these applications would be shamelessly copying prior wisdom on dealing with slow devices like &lt;code&gt;PMem&lt;/code&gt;s or &lt;code&gt;SSD&lt;/code&gt;s.&lt;/p&gt;
+&lt;p&gt;To exploit locality, the memory hierarchy(&lt;code&gt;registers&lt;/code&gt;-&amp;gt;&lt;code&gt;L1/L2/L3 caches&lt;/code&gt;-&amp;gt;&lt;code&gt;local DRAM&lt;/code&gt;-&amp;gt;&lt;code&gt;remote DRAM&lt;/code&gt;-&amp;gt;&lt;code&gt;PMem&lt;/code&gt;-&amp;gt;&lt;code&gt;SSD&lt;/code&gt;) was made deeper for hiding performance issue; hardware prefetchers and branch predictors were used to predict immediate accesses and move data or instructions closer to processors. As programmers, we are working on one layer obove the computer architecture layer, what we can do is to write NUMA-aware, cache-aligned, and perhaps vectorized code with regular data access patterns and proper software pre-fetching.&lt;/p&gt;
+&lt;p&gt;To exploit parallelism, superscalar out-of-order pipelines with micro-ops, vector hardware, multi-core were introduced. Correspondingly, we need to keep all these things busy by using techniques like &lt;code&gt;bit tricks&lt;/code&gt;, &lt;code&gt;ILP&lt;/code&gt;(Instruction-level parallelism), &lt;code&gt;AVX&lt;/code&gt;/&lt;code&gt;SSE&lt;/code&gt;, &lt;code&gt;AMX&lt;/code&gt;, multithread/multi-process programming and offloading to accelerators like &lt;code&gt;DPU&lt;/code&gt;s or &lt;code&gt;GPU&lt;/code&gt;s.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s delve deeper into &lt;code&gt;ILP&lt;/code&gt;, as it is more connected with the μ-arch, the designs inside a processor, like out-of-order execution, data bypassing, register renaming, and so on. To exploit CPU μ-arch programmatically, we can (1)use separate functional units, (2)write likely/unlikely hints for branch prediction, and (3)break dependency in the data-flow graph beforehand to reduce data hazards.&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Wall is Coming</title>
+      <link>https://cmbbq.github.io/posts/wall-is-coming/</link>
+      <pubDate>Wed, 07 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/wall-is-coming/</guid>
+      <description>The memory wall is coming. Given that DRAM access has become the de-facto bottleneck for many of today&amp;rsquo;s datacenter applications, it seems logical to optimize these applications by shamelessly copying prior wisdom on dealing with slow peripherals like PMems or SSDs.
+PMems offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs&amp;rsquo; bandwidth. SSDs are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.</description>
+      <content>&lt;p&gt;The memory wall is coming. Given that DRAM access has become the de-facto bottleneck for many of today&amp;rsquo;s datacenter applications, it seems logical to optimize these applications by shamelessly copying prior wisdom on dealing with slow peripherals like &lt;code&gt;PMem&lt;/code&gt;s or &lt;code&gt;SSD&lt;/code&gt;s.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;PMem&lt;/code&gt;s offer only $\frac{1}{14}$~$\frac{1}{3}$ of DRAMs&amp;rsquo; bandwidth. &lt;code&gt;SSD&lt;/code&gt;s are typically 1~2 orders of magnitude slower than DRAMs. To overcome their slowness, many data structures were crafted specifically for them.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Dashtable&lt;/code&gt;[Lu et al., 2020]&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, for example, was targeting scalable hasing on the once fashionable &lt;code&gt;PMem&lt;/code&gt;s. Hasing on &lt;code&gt;PMem&lt;/code&gt;s sounds somewhat niche. But in reality, if any being could survive &lt;code&gt;PMem&lt;/code&gt;&amp;rsquo;s hellish bandwidth, you can definitely count on it for arbitrary memory-bound application. In 2022, Intel killed off its &lt;code&gt;PMem&lt;/code&gt; business&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. &lt;code&gt;PMem&lt;/code&gt; died. Yet the &lt;code&gt;Dash&lt;/code&gt; methodology still thrives. Today we use it in regular &lt;code&gt;DRAM&lt;/code&gt; setups. Check this out, the &lt;a href=&#34;https://github.com/dragonflydb/dragonfly&#34;&gt;DragonFly&lt;/a&gt; project. It&amp;rsquo;s based on &lt;code&gt;Dash&lt;/code&gt; and claims to be the modern replacement for Redis and Memcached, delivering 25x more throughput.&lt;/p&gt;
 &lt;p&gt;The core idea behind &lt;code&gt;Dashtable&lt;/code&gt; is trading space for time, or more specifically, each bucket paying a little bit extra space in metadata to buy (1)faster bucket probing with fingerprints of keys and (2)lightweight optimistic concurrency control with version locks, (3)stashing overflow records, which helps to alleviate segment splits caused by unbalanced bucket loads.&lt;/p&gt;

@@ -1,7 +1,7 @@
 +++
 title = "A Decade of Tussle between CPU and GPU"
 date = "2022-09-25"
-tags = ["ai", "sys"]
+tags = ["ai", "sys", "perf"]
 description = "黄氏定律是否成立？加速计算十年之争是否已尘埃落定？本文回顾了过去十年GPU和CPU的价格-性能趋势，为『GPU和CPU方法的边界何在？』这一AI服务架构工作的永恒话题提供一些事实依据。"
 showFullContent = false
 +++

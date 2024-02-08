@@ -1,7 +1,7 @@
 +++
 title = "DPDK is All You Need"
 date = "2024-01-05"
-tags = ["sys"]
+tags = ["sys", "perf"]
 description = "对于访存密集的数据中心应用来说，DPDK提供了非常好的性能工程范式。"
 showFullContent = false
 +++

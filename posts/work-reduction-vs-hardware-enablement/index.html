@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Work Reduction vs Hardware Enablement :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Optimization can be divided into work reduction and hardware enablement." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/" />
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Work Reduction vs Hardware Enablement">
+<meta property="og:description" content="Optimization can be divided into work reduction and hardware enablement." />
+<meta property="og:url" content="https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-02-08 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/">Work Reduction vs Hardware Enablement</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-02-08
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/en/">en</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/perf/">perf</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <blockquote>
+<p>Optimization can be divided into work reduction and hardware enablement.</p>
+</blockquote>
+<p>Work, in terms of computer programming, is basically a gross measure of how much stuff the program needs to do.</p>
+<p>The idea of work optimization is to reduce the amount of stuff the program needs to do. Commonly employed techniques include: <code>approximation</code>, <code>tail-recursion elimination</code>, <code>coarsening/refining recursion</code>, <code>inlining</code>, <code>loop fusion</code>, <code>loop unrolling</code>, <code>hoisting</code>, <code>short-circuiting</code>, <code>common-subexpression elimination</code>, <code>compile-time initialization</code>, <code>compile-time evaluation</code>, <code>exploiting sparsity</code>, <code>caching</code>, <code>pre-computation</code>, and <code>bit hacks</code>.</p>
+<p>While reducing work undoubtedly serves as an essential heuristic for reducing overall running time, it&rsquo;s not the sole determinant of the running time; it doesn&rsquo;t capture the whole picture of computer programming, leaving the intricate nature of computer hardware unaddressed.</p>
+<p>To thoroughly investigate architectural improvements that unlock hardware potential, we must delve into numerous aspects in hardware and micro-architecture: <code>the ISA</code>, <code>pipeline stages</code>, <code>superscalar processing</code>, <code>out-of-order execution</code>, <code>paging</code>, <code>caching</code>, <code>vectorization</code>, <code>speculation</code>, <code>hardware prefetching</code>, <code>branch prediction</code>, etc.</p>
+<blockquote>
+<p>Historically computer architecture leverages either locality or parallelism to enhance performance.</p>
+</blockquote>
+<p>To exploit locality, the memory hierarchy(<code>registers</code>-&gt;<code>L1/L2/L3 caches</code>-&gt;<code>local DRAM</code>-&gt;<code>remote DRAM</code>-&gt;<code>PMem</code>-&gt;<code>SSD</code>) was made deeper for hiding performance issue; hardware prefetchers and branch predictors were used to predict immediate accesses and move data or instructions closer to processors. As programmers, we are working on one layer obove the computer architecture layer, what we can do is to write NUMA-aware, cache-aligned, and perhaps vectorized code with regular data access patterns and proper software pre-fetching.</p>
+<p>To exploit parallelism, superscalar out-of-order pipelines with micro-ops, vector hardware, multi-core were introduced. Correspondingly, we need to keep all these things busy by using techniques like <code>bit tricks</code>, <code>ILP</code>(Instruction-level parallelism), <code>AVX</code>/<code>SSE</code>, <code>AMX</code>, multithread/multi-process programming and offloading to accelerators like <code>DPU</code>s or <code>GPU</code>s.</p>
+<p>Let&rsquo;s delve deeper into <code>ILP</code>, as it is more connected with the μ-arch, the designs inside a processor, like out-of-order execution, data bypassing, register renaming, and so on. To exploit CPU μ-arch programmatically, we can (1)use separate functional units, (2)write likely/unlikely hints for branch prediction, and (3)break dependency in the data-flow graph beforehand to reduce data hazards.</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/wall-is-coming/">
+                <span class="button__text">Wall is Coming</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
