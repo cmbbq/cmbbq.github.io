@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("x", (d) => d.projected.x)
       .attr("y", (d) => d.projected.y)
       .text((d) => (-d.y*10 + 100)/2 + GetSuffix(d.y))
-      .attr("fill", "darkgreen");
+      .attr("fill", "#78E2A0");
     yText.exit().remove();
     /* ----------- x-Scale Text ----------- */
     const xText = svg.selectAll("text.xText").data(data[3][0]);
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.x == 10 ? "[Hardware Enablement]" : "")
-      .attr("fill", "darkgreen");
+      .attr("fill", "#78E2A0");
     xText.exit().remove();
     /* ----------- x-Scale Text ----------- */
     const zText = svg.selectAll("text.zText").data(data[4][0]);
@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.z == 10 ? "[Work Reduction]" : "")
-      .attr("fill", "darkgreen");
+      .attr("fill", "#78E2A0");
     zText.exit().remove(); 
     selectAll(".d3-3d").sort(points3d.sort);
   }
