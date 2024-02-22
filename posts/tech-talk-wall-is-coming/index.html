@@ -321,9 +321,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     function GetYWeight(y){
       if (y==-11){
-        return 500;
+        return 700;
       }else{
-        return  300;
+        return  350;
       }
     }
     yText
@@ -374,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.z == 10 ? "[Work Reduction]" : "")
-      .style("font-weight", 500)
+      .style("font-weight", 700)
       .attr("fill", "#78E2A0");
     zText.exit().remove(); 
     selectAll(".d3-3d").sort(points3d.sort);
