@@ -187,11 +187,18 @@ document.addEventListener("DOMContentLoaded", () => {
     zScale.exit().remove();
     /* ----------- y-Scale Text ----------- */
     const yText = svg.selectAll("text.yText").data(data[2][0]);
-    function GetSuffix(y){
-      if (y==10){
-        return "% [Arithmetic Intensity]";
+    function GetYText(y){
+      if (y==-11){
+        return "[Arithmetic Intensity]";
       }else{
-        return "%";
+        return  (-y*10 + 100)/2+"%";
+      }
+    }
+    function GetYWeight(y){
+      if (y==-11){
+        return 500;
+      }else{
+        return  300;
       }
     }
     yText
@@ -205,7 +212,8 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .attr("x", (d) => d.projected.x)
       .attr("y", (d) => d.projected.y)
-      .text((d) => (-d.y*10 + 100)/2 + GetSuffix(d.y))
+      .style("font-weight", (d) => GetYWeight(d.y))
+      .text((d) => GetYText(d.y))
       .attr("fill", "#78E2A0");
     yText.exit().remove();
     /* ----------- x-Scale Text ----------- */
@@ -223,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.x == 10 ? "[Hardware Enablement]" : "")
+      .style("font-weight", 700)
       .attr("fill", "#78E2A0");
     xText.exit().remove();
     /* ----------- x-Scale Text ----------- */
@@ -240,6 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.z == 10 ? "[Work Reduction]" : "")
+      .style("font-weight", 500)
       .attr("fill", "#78E2A0");
     zText.exit().remove(); 
     selectAll(".d3-3d").sort(points3d.sort);
@@ -269,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
-    range(-10, 11, 1).forEach((d) => {
+    range(-10, 12, 1).forEach((d) => {
       yLine.push({ x: 0, y: -d, z: 0 });
       xLine.push({ x: -d, y: 0, z: 0 });
       zLine.push({ x: 0, y: 0, z: -d });

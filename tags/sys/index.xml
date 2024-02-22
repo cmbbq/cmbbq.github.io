@@ -196,11 +196,18 @@ document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
     zScale.exit().remove();
     /* ----------- y-Scale Text ----------- */
     const yText = svg.selectAll(&#34;text.yText&#34;).data(data[2][0]);
-    function GetSuffix(y){
-      if (y==10){
-        return &#34;% [Arithmetic Intensity]&#34;;
+    function GetYText(y){
+      if (y==-11){
+        return &#34;[Arithmetic Intensity]&#34;;
       }else{
-        return &#34;%&#34;;
+        return  (-y*10 + 100)/2+&#34;%&#34;;
+      }
+    }
+    function GetYWeight(y){
+      if (y==-11){
+        return 500;
+      }else{
+        return  300;
       }
     }
     yText
@@ -214,7 +221,8 @@ document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
       })
       .attr(&#34;x&#34;, (d) =&gt; d.projected.x)
       .attr(&#34;y&#34;, (d) =&gt; d.projected.y)
-      .text((d) =&gt; (-d.y*10 + 100)/2 + GetSuffix(d.y))
+      .style(&#34;font-weight&#34;, (d) =&gt; GetYWeight(d.y))
+      .text((d) =&gt; GetYText(d.y))
       .attr(&#34;fill&#34;, &#34;#78E2A0&#34;);
     yText.exit().remove();
     /* ----------- x-Scale Text ----------- */
@@ -232,6 +240,7 @@ document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
       .attr(&#34;y&#34;, (d) =&gt; d.projected.y)
       .attr(&#34;z&#34;, (d) =&gt; d.projected.z)
       .text((d) =&gt;  d.x == 10 ? &#34;[Hardware Enablement]&#34; : &#34;&#34;)
+      .style(&#34;font-weight&#34;, 700)
       .attr(&#34;fill&#34;, &#34;#78E2A0&#34;);
     xText.exit().remove();
     /* ----------- x-Scale Text ----------- */
@@ -249,6 +258,7 @@ document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
       .attr(&#34;y&#34;, (d) =&gt; d.projected.y)
       .attr(&#34;z&#34;, (d) =&gt; d.projected.z)
       .text((d) =&gt;  d.z == 10 ? &#34;[Work Reduction]&#34; : &#34;&#34;)
+      .style(&#34;font-weight&#34;, 500)
       .attr(&#34;fill&#34;, &#34;#78E2A0&#34;);
     zText.exit().remove(); 
     selectAll(&#34;.d3-3d&#34;).sort(points3d.sort);
@@ -278,7 +288,7 @@ document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
         });
       }
     }
-    range(-10, 11, 1).forEach((d) =&gt; {
+    range(-10, 12, 1).forEach((d) =&gt; {
       yLine.push({ x: 0, y: -d, z: 0 });
       xLine.push({ x: -d, y: 0, z: 0 });
       zLine.push({ x: 0, y: 0, z: -d });
