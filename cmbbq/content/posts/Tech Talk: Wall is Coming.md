@@ -16,22 +16,21 @@ showFullContent = false
 
 不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。
 
-<div id="div">
-</div>
+<div id="div"></div>
 <style type="text/css">
 	#div {
 		text-align: center
 	}
 </style>
 <script>
-   const svg = d3.select("#div")
+    const svg = d3.select("#div")
                  .append("svg")
                  .attr("width", "550")
                  .attr("height", "100")
                  .style("background-color", "lightblue")
                  .attr("id", "demo1")
-
-   let rect = d3.select("#demo1")
+    svg.style('border-style', 'dotted')
+    let rect = d3.select("#demo1")
 	            .append("rect")
 	            .attr("x", "200")
 	            .attr("y", "20")

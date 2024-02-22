@@ -15,8 +15,7 @@
       <guid>https://cmbbq.github.io/posts/tech-talk-wall-is-coming/</guid>
       <description>内存墙和登纳德定律失效 “内存墙（the Memory Wall）”和“登纳德定律失效（the break down of Dennard Scaling）”是计算生态演化中的两个核心矛盾。
 为了对抗Dennard Scaling的失效，计算硬件的架构从单核向多核、众核突围。 为了掩盖内存墙问题，内存层级（memory hierarchy）变得越来越深，off-chip互连带宽不得不迅速提高。 起初单核到多核是巨变，逼迫软件架构进行痛苦重构，并发编程问题木秀于林，因此被近20年的工业界实践+学术界研究集火秒了——如今我们有多线程编程范式、异步回调范式、goroutine式的有栈协程、C++/Rust的async/await无栈协程、lockfree/waitfree数据结构等诸多工具。 相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。
-不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。
-let rect = d3.select(&amp;quot;#demo1&amp;quot;) .append(&amp;ldquo;rect&amp;rdquo;) .attr(&amp;ldquo;x&amp;rdquo;, &amp;ldquo;200&amp;rdquo;) .attr(&amp;ldquo;y&amp;rdquo;, &amp;ldquo;20&amp;rdquo;) .attr(&amp;ldquo;width&amp;rdquo;, &amp;ldquo;100&amp;rdquo;) .attr(&amp;ldquo;height&amp;rdquo;, &amp;ldquo;70&amp;rdquo;) .attr(&amp;ldquo;fill&amp;rdquo;, &amp;ldquo;orange&amp;rdquo;) .attr(&amp;ldquo;stroke&amp;rdquo;, &amp;ldquo;blue&amp;rdquo;) .attr(&amp;ldquo;stroke-width&amp;rdquo;, &amp;ldquo;3px&amp;rdquo;) </description>
+不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。</description>
       <content>&lt;h2 id=&#34;内存墙和登纳德定律失效&#34;&gt;内存墙和登纳德定律失效&lt;/h2&gt;
 &lt;p&gt;“内存墙（the Memory Wall）”和“登纳德定律失效（the break down of Dennard Scaling）”是计算生态演化中的两个核心矛盾。&lt;/p&gt;
 &lt;ul&gt;
@@ -27,16 +26,6 @@ let rect = d3.select(&amp;quot;#demo1&amp;quot;) .append(&amp;ldquo;rect&amp;rdq
 相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。&lt;/p&gt;
 &lt;p&gt;不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;let rect = d3.select(&amp;quot;#demo1&amp;quot;)
-.append(&amp;ldquo;rect&amp;rdquo;)
-.attr(&amp;ldquo;x&amp;rdquo;, &amp;ldquo;200&amp;rdquo;)
-.attr(&amp;ldquo;y&amp;rdquo;, &amp;ldquo;20&amp;rdquo;)
-.attr(&amp;ldquo;width&amp;rdquo;, &amp;ldquo;100&amp;rdquo;)
-.attr(&amp;ldquo;height&amp;rdquo;, &amp;ldquo;70&amp;rdquo;)
-.attr(&amp;ldquo;fill&amp;rdquo;, &amp;ldquo;orange&amp;rdquo;)
-.attr(&amp;ldquo;stroke&amp;rdquo;, &amp;ldquo;blue&amp;rdquo;)
-.attr(&amp;ldquo;stroke-width&amp;rdquo;, &amp;ldquo;3px&amp;rdquo;)
-&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 </content>
     </item>
     
