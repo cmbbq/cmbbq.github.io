@@ -25,7 +25,30 @@
 &lt;p&gt;起初单核到多核是巨变，逼迫软件架构进行痛苦重构，并发编程问题木秀于林，因此被近20年的工业界实践+学术界研究集火秒了——如今我们有多线程编程范式、异步回调范式、goroutine式的有栈协程、C++/Rust的async/await无栈协程、lockfree/waitfree数据结构等诸多工具。
 相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。&lt;/p&gt;
 &lt;p&gt;不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
+&lt;div id=&#34;damn&#34;&gt;&lt;/div&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+	#damn {
+		text-align: center
+	}
+&lt;/style&gt;
+&lt;script&gt;
+    const svg = d3.select(&#34;#damn&#34;)
+                 .append(&#34;svg&#34;)
+                 .attr(&#34;width&#34;, &#34;550&#34;)
+                 .attr(&#34;height&#34;, &#34;100&#34;)
+                 .style(&#34;background-color&#34;, &#34;lightblue&#34;)
+                 .attr(&#34;id&#34;, &#34;demo1&#34;)
+    svg.style(&#39;border-style&#39;, &#39;dotted&#39;)
+    let rect = d3.select(&#34;#demo1&#34;)
+	            .append(&#34;rect&#34;)
+	            .attr(&#34;x&#34;, &#34;200&#34;)
+	            .attr(&#34;y&#34;, &#34;20&#34;)
+	            .attr(&#34;width&#34;, &#34;100&#34;)
+	            .attr(&#34;height&#34;, &#34;70&#34;)
+	            .attr(&#34;fill&#34;, &#34;orange&#34;)
+                .attr(&#34;stroke&#34;, &#34;blue&#34;)
+                .attr(&#34;stroke-width&#34;, &#34;3px&#34;)
+&lt;/script&gt;
 </content>
     </item>
     

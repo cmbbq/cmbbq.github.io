@@ -16,14 +16,14 @@ showFullContent = false
 
 不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。
 
-<div id="div"></div>
+<div id="damn"></div>
 <style type="text/css">
-	#div {
+	#damn {
 		text-align: center
 	}
 </style>
 <script>
-    const svg = d3.select("#div")
+    const svg = d3.select("#damn")
                  .append("svg")
                  .attr("width", "550")
                  .attr("height", "100")
