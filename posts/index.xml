@@ -25,29 +25,293 @@
 &lt;p&gt;起初单核到多核是巨变，逼迫软件架构进行痛苦重构，并发编程问题木秀于林，因此被近20年的工业界实践+学术界研究集火秒了——如今我们有多线程编程范式、异步回调范式、goroutine式的有栈协程、C++/Rust的async/await无栈协程、lockfree/waitfree数据结构等诸多工具。
 相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。&lt;/p&gt;
 &lt;p&gt;不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。&lt;/p&gt;
-&lt;div id=&#34;damn&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;damn&#34;&gt;
+    &lt;svg width=&#34;960&#34; height=&#34;500&#34;&gt;&lt;/svg&gt;
+&lt;/div&gt;
 &lt;style type=&#34;text/css&#34;&gt;
-	#damn {
-		text-align: center
-	}
+svg {
+    box-shadow: 0 0 10px #999;
+    border-radius: 5px;
+}
 &lt;/style&gt;
 &lt;script&gt;
-    const svg = d3.select(&#34;#damn&#34;)
-                 .append(&#34;svg&#34;)
-                 .attr(&#34;width&#34;, &#34;550&#34;)
-                 .attr(&#34;height&#34;, &#34;100&#34;)
-                 .style(&#34;background-color&#34;, &#34;lightblue&#34;)
-                 .attr(&#34;id&#34;, &#34;demo1&#34;)
-    svg.style(&#39;border-style&#39;, &#39;dotted&#39;)
-    let rect = d3.select(&#34;#demo1&#34;)
-	            .append(&#34;rect&#34;)
-	            .attr(&#34;x&#34;, &#34;200&#34;)
-	            .attr(&#34;y&#34;, &#34;20&#34;)
-	            .attr(&#34;width&#34;, &#34;100&#34;)
-	            .attr(&#34;height&#34;, &#34;70&#34;)
-	            .attr(&#34;fill&#34;, &#34;orange&#34;)
-                .attr(&#34;stroke&#34;, &#34;blue&#34;)
-                .attr(&#34;stroke-width&#34;, &#34;3px&#34;)
+import {
+  drag,
+  color,
+  select,
+  range,
+  randomUniform,
+  randomNormal,
+  scaleOrdinal,
+  selectAll,
+  schemePastel1,
+} from &#34;https://cdn.skypack.dev/d3@7.8.5&#34;;
+import {
+    gridPlanes3D,
+    points3D,
+    lineStrips3D,
+} from &#34;https://cdn.skypack.dev/d3-3d@1.0.0&#34;;
+document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
+    const origin = { x: 480, y: 250 };
+    const j = 10;
+    const scale = 20;
+    const key = (d) =&gt; d.id;
+    const startAngle = Math.PI/2;
+    // const startAngle = 0;
+    const colorScale = scaleOrdinal(schemePastel1);
+    let scatter = [];
+    let yLine = [];
+    let xLine = [];
+    let zLine = [];
+    let xGrid = [];
+    let beta = 0;
+    let alpha = 0;
+    let mx, my, mouseX = 0, mouseY = 0;
+    const svg = select(&#34;svg&#34;)
+        .call(
+          drag()
+            .on(&#34;drag&#34;, dragged)
+            .on(&#34;start&#34;, dragStart)
+            .on(&#34;end&#34;, dragEnd)
+        )
+        .append(&#34;g&#34;);
+    const grid3d = gridPlanes3D()
+        .rows(20)
+        .origin(origin)
+        .rotateY(startAngle)
+        .rotateX(-startAngle)
+        .scale(scale);
+  const points3d = points3D()
+    .origin(origin)
+    .rotateY(startAngle)
+    .rotateX(-startAngle)
+    .scale(scale);
+  const yScale3d = lineStrips3D()
+      .origin(origin)
+      .rotateY(startAngle)
+      .rotateX(-startAngle)
+      .scale(scale);
+  const xScale3d = lineStrips3D()
+      .origin(origin)
+      .rotateY(startAngle)
+      .rotateX(-startAngle)
+      .scale(scale);
+  const zScale3d = lineStrips3D()
+      .origin(origin)
+      .rotateY(startAngle)
+      .rotateX(-startAngle)
+      .scale(scale);
+  function processData(data, tt, recolor) {
+    /* ----------- GRID ----------- */
+    const xGrid = svg.selectAll(&#34;path.grid&#34;).data(data[0], key);
+    xGrid
+      .enter()
+      .append(&#34;path&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d grid&#34;)
+      .merge(xGrid)
+      .attr(&#34;stroke&#34;, &#34;black&#34;)
+      .attr(&#34;stroke-width&#34;, 0.3)
+      .attr(&#34;fill&#34;, (d) =&gt; (d.ccw ? &#34;#eee&#34; : &#34;#aaa&#34;))
+      .attr(&#34;fill-opacity&#34;, 0.7)
+      .attr(&#34;d&#34;, grid3d.draw);
+    xGrid.exit().remove();
+    /* ----------- POINTS ----------- */
+    const points = svg.selectAll(&#34;circle&#34;).data(data[1], key);
+    function GetColor(x, y){
+      console.log(&#34;x: %d, y: %d&#34;, x, y);
+      // return (x &gt; 0) ? 5 : -5 + (y &gt; 0) ? 3 : -3;
+      if (x &gt;= 0 &amp;&amp; y &gt;= 0) return schemePastel1[0];
+      if (x &lt; 0 &amp;&amp; y &gt;= 0) return schemePastel1[1];
+      if (x &lt; 0 &amp;&amp; y &lt; 0) return schemePastel1[2];
+      if (x &gt;= 0 &amp;&amp; y &lt; 0) return schemePastel1[3];
+    }
+    if(recolor){
+      points
+      .enter()
+      .append(&#34;circle&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d&#34;)
+      .attr(&#34;opacity&#34;, 0)
+      .attr(&#34;cx&#34;, posPointX)
+      .attr(&#34;cy&#34;, posPointY)
+      .merge(points)
+      .transition()
+      .duration(tt)
+      .attr(&#34;r&#34;, 3)
+      .attr(&#34;stroke&#34;, (d) =&gt; color(colorScale(d.id)).darker(3))
+      .attr(&#34;fill&#34;, (d) =&gt; GetColor(d.projected.x - 480, d.projected.y - 250))
+      .attr(&#34;opacity&#34;, 1)
+      .attr(&#34;cx&#34;, posPointX)
+      .attr(&#34;cy&#34;, posPointY);
+    }else{
+      points
+      .enter()
+      .append(&#34;circle&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d&#34;)
+      .attr(&#34;opacity&#34;, 0)
+      .attr(&#34;cx&#34;, posPointX)
+      .attr(&#34;cy&#34;, posPointY)
+      .merge(points)
+      .transition()
+      .duration(tt)
+      .attr(&#34;r&#34;, 3)
+      .attr(&#34;stroke&#34;, (d) =&gt; color(colorScale(d.id)).darker(3))
+      .attr(&#34;opacity&#34;, 1)
+      .attr(&#34;cx&#34;, posPointX)
+      .attr(&#34;cy&#34;, posPointY);
+    }
+    points.exit().remove();
+    /* ----------- x-Scale ----------- */
+    const xScale = svg.selectAll(&#34;path.xScale&#34;).data(data[3]);
+    xScale
+      .enter()
+      .append(&#34;path&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d xScale&#34;)
+      .merge(xScale)
+      .attr(&#34;stroke&#34;, &#34;black&#34;)
+      .attr(&#34;stroke-width&#34;, 1.5)
+      .attr(&#34;d&#34;, xScale3d.draw);
+    xScale.exit().remove();
+    /* ----------- y-Scale ----------- */
+    const yScale = svg.selectAll(&#34;path.yScale&#34;).data(data[2]);
+    yScale
+      .enter()
+      .append(&#34;path&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d yScale&#34;)
+      .merge(yScale)
+      .attr(&#34;stroke&#34;, &#34;black&#34;)
+      .attr(&#34;stroke-width&#34;, 1.5)
+      .attr(&#34;d&#34;, yScale3d.draw);
+    yScale.exit().remove();
+    /* ----------- z-Scale ----------- */
+    const zScale = svg.selectAll(&#34;path.zScale&#34;).data(data[4]);
+    zScale
+      .enter()
+      .append(&#34;path&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d zScale&#34;)
+      .merge(zScale)
+      .attr(&#34;stroke&#34;, &#34;black&#34;)
+      .attr(&#34;stroke-width&#34;, 1.5)
+      .attr(&#34;d&#34;, zScale3d.draw);
+    zScale.exit().remove();
+    /* ----------- y-Scale Text ----------- */
+    const yText = svg.selectAll(&#34;text.yText&#34;).data(data[2][0]);
+    function GetSuffix(y){
+      if (y==10){
+        return &#34;% [Arithmetic Intensity]&#34;;
+      }else{
+        return &#34;%&#34;;
+      }
+    }
+    yText
+      .enter()
+      .append(&#34;text&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d yText&#34;)
+      .attr(&#34;font-family&#34;, &#34;system-ui, sans-serif&#34;)
+      .merge(yText)
+      .each(function (d) {
+        d.centroid = { x: d.rotated.x, y: d.rotated.y, z: d.rotated.z };
+      })
+      .attr(&#34;x&#34;, (d) =&gt; d.projected.x)
+      .attr(&#34;y&#34;, (d) =&gt; d.projected.y)
+      .text((d) =&gt; (-d.y*10 + 100)/2 + GetSuffix(d.y))
+//      .text((d) =&gt; (d.y &lt;= 0 ? d.y : &#39;&#39;));
+    yText.exit().remove();
+    /* ----------- x-Scale Text ----------- */
+    const xText = svg.selectAll(&#34;text.xText&#34;).data(data[3][0]);
+    xText
+      .enter()
+      .append(&#34;text&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d xText&#34;)
+      .attr(&#34;font-family&#34;, &#34;system-ui, sans-serif&#34;)
+      .merge(xText)
+      .each(function (d) {
+        d.centroid = { x: d.rotated.x, y: d.rotated.y, z: d.rotated.z };
+      })
+      .attr(&#34;x&#34;, (d) =&gt; d.projected.x)
+      .attr(&#34;y&#34;, (d) =&gt; d.projected.y)
+      .attr(&#34;z&#34;, (d) =&gt; d.projected.z)
+      .text((d) =&gt;  d.x == 10 ? &#34;[Hardware Enablement]&#34; : &#34;&#34;)
+    xText.exit().remove();
+    /* ----------- x-Scale Text ----------- */
+    const zText = svg.selectAll(&#34;text.zText&#34;).data(data[4][0]);
+    zText
+      .enter()
+      .append(&#34;text&#34;)
+      .attr(&#34;class&#34;, &#34;d3-3d zText&#34;)
+      .attr(&#34;font-family&#34;, &#34;system-ui, sans-serif&#34;)
+      .merge(zText)
+      .each(function (d) {
+        d.centroid = { x: d.rotated.x, y: d.rotated.y, z: d.rotated.z };
+      })
+      .attr(&#34;x&#34;, (d) =&gt; d.projected.x)
+      .attr(&#34;y&#34;, (d) =&gt; d.projected.y)
+      .attr(&#34;z&#34;, (d) =&gt; d.projected.z)
+      .text((d) =&gt;  d.z == 10 ? &#34;[Work Reduction]&#34; : &#34;&#34;)
+    zText.exit().remove(); 
+    selectAll(&#34;.d3-3d&#34;).sort(points3d.sort);
+  }
+  function posPointX(d) {
+    return d.projected.x;
+  }
+  function posPointY(d) {
+    return d.projected.y;
+  }
+  function init() {
+    xGrid = [];
+    scatter = [];
+    yLine = [];
+    xLine = [];
+    zLine = [];
+    let cnt = 0; 
+    for (let z = -j; z &lt; j; z++) {
+      for (let x = -j; x &lt; j; x++) {
+        xGrid.push({ x: x, y: 0, z: z}); // grid position
+        scatter.push({
+          x: x,
+          y: randomNormal(0, 0.8)()*3,
+          // y: randomUniform(9, -9)(),
+          z: z,
+          id: &#34;point-&#34; + cnt++,
+        });
+      }
+    }
+    range(-10, 11, 1).forEach((d) =&gt; {
+      yLine.push({ x: 0, y: -d, z: 0 });
+      xLine.push({ x: -d, y: 0, z: 0 });
+      zLine.push({ x: 0, y: 0, z: -d });
+    });
+    const data = [
+      grid3d(xGrid),
+      points3d(scatter),
+      yScale3d([yLine]),
+      xScale3d([xLine]),
+      zScale3d([zLine]),
+    ];
+    processData(data, 1000, true);
+  }
+  function dragStart(event) {
+    mx = event.x;
+    my = event.y;
+  }
+  function dragged(event) {
+    beta = (event.x - mx + mouseX) * (Math.PI / 230);
+    alpha = (event.y - my + mouseY) * (Math.PI / 230) * -1;
+    const data = [
+      grid3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(xGrid),
+      points3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(scatter),
+      yScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([yLine]),
+      xScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([xLine]),
+      zScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([zLine]),
+    ];
+    processData(data, 0, false);
+  }
+  function dragEnd(event) {
+    mouseX = event.x - mx + mouseX;
+    mouseY = event.y - my + mouseY;
+  }
+  selectAll(&#34;button&#34;).on(&#34;click&#34;, init);
+  init();
+});
 &lt;/script&gt;
 </content>
     </item>

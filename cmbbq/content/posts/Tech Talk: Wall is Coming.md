@@ -16,27 +16,291 @@ showFullContent = false
 
 不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。
 
-<div id="damn"></div>
+<div id="damn">
+    <svg width="960" height="500"></svg>
+</div>
 <style type="text/css">
-	#damn {
-		text-align: center
-	}
+svg {
+    box-shadow: 0 0 10px #999;
+    border-radius: 5px;
+}
 </style>
 <script>
-    const svg = d3.select("#damn")
-                 .append("svg")
-                 .attr("width", "550")
-                 .attr("height", "100")
-                 .style("background-color", "lightblue")
-                 .attr("id", "demo1")
-    svg.style('border-style', 'dotted')
-    let rect = d3.select("#demo1")
-	            .append("rect")
-	            .attr("x", "200")
-	            .attr("y", "20")
-	            .attr("width", "100")
-	            .attr("height", "70")
-	            .attr("fill", "orange")
-                .attr("stroke", "blue")
-                .attr("stroke-width", "3px")
+import {
+  drag,
+  color,
+  select,
+  range,
+  randomUniform,
+  randomNormal,
+  scaleOrdinal,
+  selectAll,
+  schemePastel1,
+} from "https://cdn.skypack.dev/d3@7.8.5";
+import {
+    gridPlanes3D,
+    points3D,
+    lineStrips3D,
+} from "https://cdn.skypack.dev/d3-3d@1.0.0";
+document.addEventListener("DOMContentLoaded", () => {
+    const origin = { x: 480, y: 250 };
+    const j = 10;
+    const scale = 20;
+    const key = (d) => d.id;
+    const startAngle = Math.PI/2;
+    // const startAngle = 0;
+    const colorScale = scaleOrdinal(schemePastel1);
+    let scatter = [];
+    let yLine = [];
+    let xLine = [];
+    let zLine = [];
+    let xGrid = [];
+    let beta = 0;
+    let alpha = 0;
+    let mx, my, mouseX = 0, mouseY = 0;
+    const svg = select("svg")
+        .call(
+          drag()
+            .on("drag", dragged)
+            .on("start", dragStart)
+            .on("end", dragEnd)
+        )
+        .append("g");
+    const grid3d = gridPlanes3D()
+        .rows(20)
+        .origin(origin)
+        .rotateY(startAngle)
+        .rotateX(-startAngle)
+        .scale(scale);
+  const points3d = points3D()
+    .origin(origin)
+    .rotateY(startAngle)
+    .rotateX(-startAngle)
+    .scale(scale);
+  const yScale3d = lineStrips3D()
+      .origin(origin)
+      .rotateY(startAngle)
+      .rotateX(-startAngle)
+      .scale(scale);
+  const xScale3d = lineStrips3D()
+      .origin(origin)
+      .rotateY(startAngle)
+      .rotateX(-startAngle)
+      .scale(scale);
+  const zScale3d = lineStrips3D()
+      .origin(origin)
+      .rotateY(startAngle)
+      .rotateX(-startAngle)
+      .scale(scale);
+  function processData(data, tt, recolor) {
+    /* ----------- GRID ----------- */
+    const xGrid = svg.selectAll("path.grid").data(data[0], key);
+    xGrid
+      .enter()
+      .append("path")
+      .attr("class", "d3-3d grid")
+      .merge(xGrid)
+      .attr("stroke", "black")
+      .attr("stroke-width", 0.3)
+      .attr("fill", (d) => (d.ccw ? "#eee" : "#aaa"))
+      .attr("fill-opacity", 0.7)
+      .attr("d", grid3d.draw);
+    xGrid.exit().remove();
+    /* ----------- POINTS ----------- */
+    const points = svg.selectAll("circle").data(data[1], key);
+    function GetColor(x, y){
+      console.log("x: %d, y: %d", x, y);
+      // return (x > 0) ? 5 : -5 + (y > 0) ? 3 : -3;
+      if (x >= 0 && y >= 0) return schemePastel1[0];
+      if (x < 0 && y >= 0) return schemePastel1[1];
+      if (x < 0 && y < 0) return schemePastel1[2];
+      if (x >= 0 && y < 0) return schemePastel1[3];
+    }
+    if(recolor){
+      points
+      .enter()
+      .append("circle")
+      .attr("class", "d3-3d")
+      .attr("opacity", 0)
+      .attr("cx", posPointX)
+      .attr("cy", posPointY)
+      .merge(points)
+      .transition()
+      .duration(tt)
+      .attr("r", 3)
+      .attr("stroke", (d) => color(colorScale(d.id)).darker(3))
+      .attr("fill", (d) => GetColor(d.projected.x - 480, d.projected.y - 250))
+      .attr("opacity", 1)
+      .attr("cx", posPointX)
+      .attr("cy", posPointY);
+    }else{
+      points
+      .enter()
+      .append("circle")
+      .attr("class", "d3-3d")
+      .attr("opacity", 0)
+      .attr("cx", posPointX)
+      .attr("cy", posPointY)
+      .merge(points)
+      .transition()
+      .duration(tt)
+      .attr("r", 3)
+      .attr("stroke", (d) => color(colorScale(d.id)).darker(3))
+      .attr("opacity", 1)
+      .attr("cx", posPointX)
+      .attr("cy", posPointY);
+    }
+    points.exit().remove();
+    /* ----------- x-Scale ----------- */
+    const xScale = svg.selectAll("path.xScale").data(data[3]);
+    xScale
+      .enter()
+      .append("path")
+      .attr("class", "d3-3d xScale")
+      .merge(xScale)
+      .attr("stroke", "black")
+      .attr("stroke-width", 1.5)
+      .attr("d", xScale3d.draw);
+    xScale.exit().remove();
+    /* ----------- y-Scale ----------- */
+    const yScale = svg.selectAll("path.yScale").data(data[2]);
+    yScale
+      .enter()
+      .append("path")
+      .attr("class", "d3-3d yScale")
+      .merge(yScale)
+      .attr("stroke", "black")
+      .attr("stroke-width", 1.5)
+      .attr("d", yScale3d.draw);
+    yScale.exit().remove();
+    /* ----------- z-Scale ----------- */
+    const zScale = svg.selectAll("path.zScale").data(data[4]);
+    zScale
+      .enter()
+      .append("path")
+      .attr("class", "d3-3d zScale")
+      .merge(zScale)
+      .attr("stroke", "black")
+      .attr("stroke-width", 1.5)
+      .attr("d", zScale3d.draw);
+    zScale.exit().remove();
+    /* ----------- y-Scale Text ----------- */
+    const yText = svg.selectAll("text.yText").data(data[2][0]);
+    function GetSuffix(y){
+      if (y==10){
+        return "% [Arithmetic Intensity]";
+      }else{
+        return "%";
+      }
+    }
+    yText
+      .enter()
+      .append("text")
+      .attr("class", "d3-3d yText")
+      .attr("font-family", "system-ui, sans-serif")
+      .merge(yText)
+      .each(function (d) {
+        d.centroid = { x: d.rotated.x, y: d.rotated.y, z: d.rotated.z };
+      })
+      .attr("x", (d) => d.projected.x)
+      .attr("y", (d) => d.projected.y)
+      .text((d) => (-d.y*10 + 100)/2 + GetSuffix(d.y))
+//      .text((d) => (d.y <= 0 ? d.y : ''));
+    yText.exit().remove();
+    /* ----------- x-Scale Text ----------- */
+    const xText = svg.selectAll("text.xText").data(data[3][0]);
+    xText
+      .enter()
+      .append("text")
+      .attr("class", "d3-3d xText")
+      .attr("font-family", "system-ui, sans-serif")
+      .merge(xText)
+      .each(function (d) {
+        d.centroid = { x: d.rotated.x, y: d.rotated.y, z: d.rotated.z };
+      })
+      .attr("x", (d) => d.projected.x)
+      .attr("y", (d) => d.projected.y)
+      .attr("z", (d) => d.projected.z)
+      .text((d) =>  d.x == 10 ? "[Hardware Enablement]" : "")
+    xText.exit().remove();
+    /* ----------- x-Scale Text ----------- */
+    const zText = svg.selectAll("text.zText").data(data[4][0]);
+    zText
+      .enter()
+      .append("text")
+      .attr("class", "d3-3d zText")
+      .attr("font-family", "system-ui, sans-serif")
+      .merge(zText)
+      .each(function (d) {
+        d.centroid = { x: d.rotated.x, y: d.rotated.y, z: d.rotated.z };
+      })
+      .attr("x", (d) => d.projected.x)
+      .attr("y", (d) => d.projected.y)
+      .attr("z", (d) => d.projected.z)
+      .text((d) =>  d.z == 10 ? "[Work Reduction]" : "")
+    zText.exit().remove(); 
+    selectAll(".d3-3d").sort(points3d.sort);
+  }
+  function posPointX(d) {
+    return d.projected.x;
+  }
+  function posPointY(d) {
+    return d.projected.y;
+  }
+  function init() {
+    xGrid = [];
+    scatter = [];
+    yLine = [];
+    xLine = [];
+    zLine = [];
+    let cnt = 0; 
+    for (let z = -j; z < j; z++) {
+      for (let x = -j; x < j; x++) {
+        xGrid.push({ x: x, y: 0, z: z}); // grid position
+        scatter.push({
+          x: x,
+          y: randomNormal(0, 0.8)()*3,
+          // y: randomUniform(9, -9)(),
+          z: z,
+          id: "point-" + cnt++,
+        });
+      }
+    }
+    range(-10, 11, 1).forEach((d) => {
+      yLine.push({ x: 0, y: -d, z: 0 });
+      xLine.push({ x: -d, y: 0, z: 0 });
+      zLine.push({ x: 0, y: 0, z: -d });
+    });
+    const data = [
+      grid3d(xGrid),
+      points3d(scatter),
+      yScale3d([yLine]),
+      xScale3d([xLine]),
+      zScale3d([zLine]),
+    ];
+    processData(data, 1000, true);
+  }
+  function dragStart(event) {
+    mx = event.x;
+    my = event.y;
+  }
+  function dragged(event) {
+    beta = (event.x - mx + mouseX) * (Math.PI / 230);
+    alpha = (event.y - my + mouseY) * (Math.PI / 230) * -1;
+    const data = [
+      grid3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(xGrid),
+      points3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(scatter),
+      yScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([yLine]),
+      xScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([xLine]),
+      zScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([zLine]),
+    ];
+    processData(data, 0, false);
+  }
+  function dragEnd(event) {
+    mouseX = event.x - mx + mouseX;
+    mouseY = event.y - my + mouseY;
+  }
+  selectAll("button").on("click", init);
+  init();
+});
 </script>
