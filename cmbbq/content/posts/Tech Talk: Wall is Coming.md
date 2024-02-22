@@ -43,7 +43,7 @@ import {
     lineStrips3D,
 } from "https://cdn.skypack.dev/d3-3d@1.0.0";
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("draw svg ...");
+    console.log("dom loaded, starts to draw svg ...");
     const origin = { x: 480, y: 250 };
     const j = 10;
     const scale = 20;
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* ----------- POINTS ----------- */
     const points = svg.selectAll("circle").data(data[1], key);
     function GetColor(x, y){
-      console.log("x: %d, y: %d", x, y);
+      // console.log("x: %d, y: %d", x, y);
       // return (x > 0) ? 5 : -5 + (y > 0) ? 3 : -3;
       if (x >= 0 && y >= 0) return schemePastel1[0];
       if (x < 0 && y >= 0) return schemePastel1[1];
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("x", (d) => d.projected.x)
       .attr("y", (d) => d.projected.y)
       .text((d) => (-d.y*10 + 100)/2 + GetSuffix(d.y))
-//      .text((d) => (d.y <= 0 ? d.y : ''));
+      .attr("fill", "darkgreen");
     yText.exit().remove();
     /* ----------- x-Scale Text ----------- */
     const xText = svg.selectAll("text.xText").data(data[3][0]);
@@ -223,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.x == 10 ? "[Hardware Enablement]" : "")
+      .attr("fill", "darkgreen");
     xText.exit().remove();
     /* ----------- x-Scale Text ----------- */
     const zText = svg.selectAll("text.zText").data(data[4][0]);
@@ -239,6 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .attr("y", (d) => d.projected.y)
       .attr("z", (d) => d.projected.z)
       .text((d) =>  d.z == 10 ? "[Work Reduction]" : "")
+      .attr("fill", "darkgreen");
     zText.exit().remove(); 
     selectAll(".d3-3d").sort(points3d.sort);
   }
