@@ -52,6 +52,7 @@ import {
     lineStrips3D,
 } from &#34;https://cdn.skypack.dev/d3-3d@1.0.0&#34;;
 document.addEventListener(&#34;DOMContentLoaded&#34;, () =&gt; {
+    console.log(&#34;draw svg ...&#34;);
     const origin = { x: 480, y: 250 };
     const j = 10;
     const scale = 20;
