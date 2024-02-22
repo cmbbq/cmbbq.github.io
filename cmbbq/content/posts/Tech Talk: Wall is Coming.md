@@ -25,7 +25,7 @@ svg {
     border-radius: 5px;
 }
 </style>
-<script>
+<script type="module">
 import {
   drag,
   color,

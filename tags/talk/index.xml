@@ -34,7 +34,7 @@ svg {
     border-radius: 5px;
 }
 &lt;/style&gt;
-&lt;script&gt;
+&lt;script type=&#34;module&#34;&gt;
 import {
   drag,
   color,
