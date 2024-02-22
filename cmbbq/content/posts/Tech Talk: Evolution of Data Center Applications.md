@@ -1,8 +1,8 @@
 +++
-title = "Evolution of Data Center Applications"
+title = "Tech Talk: Evolution of Data Center Applications"
 date = "2023-08-05"
-tags = ["sys", "ai"]
-description = "TechTalk文稿，主旨是白盒化算法理论和基础设施，给出一个对Datacenter应用，尤其是Datacenter AI演进趋势的主观理解。"
+tags = ["sys", "ai", "talk"]
+description = "Tech Talk文稿，主旨是白盒化算法理论和基础设施，给出一个对Datacenter应用，尤其是Datacenter AI演进趋势的主观理解。"
 showFullContent = false
 +++
 

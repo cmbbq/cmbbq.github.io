@@ -6,7 +6,40 @@
     <description>Recent content on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tech Talk: Wall is Coming</title>
+      <link>https://cmbbq.github.io/posts/tech-talk-wall-is-coming/</link>
+      <pubDate>Thu, 22 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/tech-talk-wall-is-coming/</guid>
+      <description>内存墙和登纳德定律失效 “内存墙（the Memory Wall）”和“登纳德定律失效（the break down of Dennard Scaling）”是计算生态演化中的两个核心矛盾。
+为了对抗Dennard Scaling的失效，计算硬件的架构从单核向多核、众核突围。 为了掩盖内存墙问题，内存层级（memory hierarchy）变得越来越深，off-chip互连带宽不得不迅速提高。 起初单核到多核是巨变，逼迫软件架构进行痛苦重构，并发编程问题木秀于林，因此被近20年的工业界实践+学术界研究集火秒了——如今我们有多线程编程范式、异步回调范式、goroutine式的有栈协程、C++/Rust的async/await无栈协程、lockfree/waitfree数据结构等诸多工具。 相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。
+不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。
+let rect = d3.select(&amp;quot;#demo1&amp;quot;) .append(&amp;ldquo;rect&amp;rdquo;) .attr(&amp;ldquo;x&amp;rdquo;, &amp;ldquo;200&amp;rdquo;) .attr(&amp;ldquo;y&amp;rdquo;, &amp;ldquo;20&amp;rdquo;) .attr(&amp;ldquo;width&amp;rdquo;, &amp;ldquo;100&amp;rdquo;) .attr(&amp;ldquo;height&amp;rdquo;, &amp;ldquo;70&amp;rdquo;) .attr(&amp;ldquo;fill&amp;rdquo;, &amp;ldquo;orange&amp;rdquo;) .attr(&amp;ldquo;stroke&amp;rdquo;, &amp;ldquo;blue&amp;rdquo;) .attr(&amp;ldquo;stroke-width&amp;rdquo;, &amp;ldquo;3px&amp;rdquo;) </description>
+      <content>&lt;h2 id=&#34;内存墙和登纳德定律失效&#34;&gt;内存墙和登纳德定律失效&lt;/h2&gt;
+&lt;p&gt;“内存墙（the Memory Wall）”和“登纳德定律失效（the break down of Dennard Scaling）”是计算生态演化中的两个核心矛盾。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为了对抗Dennard Scaling的失效，计算硬件的架构从单核向多核、众核突围。&lt;/li&gt;
+&lt;li&gt;为了掩盖内存墙问题，内存层级（memory hierarchy）变得越来越深，off-chip互连带宽不得不迅速提高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;起初单核到多核是巨变，逼迫软件架构进行痛苦重构，并发编程问题木秀于林，因此被近20年的工业界实践+学术界研究集火秒了——如今我们有多线程编程范式、异步回调范式、goroutine式的有栈协程、C++/Rust的async/await无栈协程、lockfree/waitfree数据结构等诸多工具。
+相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。&lt;/p&gt;
+&lt;p&gt;不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。&lt;/p&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;let rect = d3.select(&amp;quot;#demo1&amp;quot;)
+.append(&amp;ldquo;rect&amp;rdquo;)
+.attr(&amp;ldquo;x&amp;rdquo;, &amp;ldquo;200&amp;rdquo;)
+.attr(&amp;ldquo;y&amp;rdquo;, &amp;ldquo;20&amp;rdquo;)
+.attr(&amp;ldquo;width&amp;rdquo;, &amp;ldquo;100&amp;rdquo;)
+.attr(&amp;ldquo;height&amp;rdquo;, &amp;ldquo;70&amp;rdquo;)
+.attr(&amp;ldquo;fill&amp;rdquo;, &amp;ldquo;orange&amp;rdquo;)
+.attr(&amp;ldquo;stroke&amp;rdquo;, &amp;ldquo;blue&amp;rdquo;)
+.attr(&amp;ldquo;stroke-width&amp;rdquo;, &amp;ldquo;3px&amp;rdquo;)
+&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+</content>
+    </item>
+    
     <item>
       <title>Work Reduction vs Hardware Enablement</title>
       <link>https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/</link>
@@ -835,11 +868,11 @@ ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选
     </item>
     
     <item>
-      <title>Evolution of Data Center Applications</title>
-      <link>https://cmbbq.github.io/posts/evolution-of-data-center-applications/</link>
+      <title>Tech Talk: Evolution of Data Center Applications</title>
+      <link>https://cmbbq.github.io/posts/tech-talk-evolution-of-data-center-applications/</link>
       <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/evolution-of-data-center-applications/</guid>
+      <guid>https://cmbbq.github.io/posts/tech-talk-evolution-of-data-center-applications/</guid>
       <description>数据中心应用（数据库、消息队列、检索服务、参数服务器、直播服务、广告服务等）作为互联网服务的主体，位于终端应用和硬件基础设施之间，桥接了需求端和硬件端，同时还受到成本、营收、算法、法律等因素的制约。 近期硬件侧、算法侧均有变化或变革，因而有必要反思数据中心应用的演进方向，讨论数据中心应用的近未来发展趋势、潜在的创新点和可收割的低垂果实。
 变革中的不变量：数据中心应用能耗 全球数据中心能耗十年来几乎没有增长，而同期的服务需求、计算、存储、数据传输总量则经历了数量级增长。作为从业者，我们对互联网的爆发式增长应该不陌生，因此全球数据中心能耗从10到18年仅涨了6%的事实略微反直觉——从能耗的角度看，这几乎是一个停滞的产业。
 CMOS工艺和软硬件技术的整体进步可以解释服务器能量效率上的提升，但能耗停滞的根本原因还在于互联网企业盈利的本质是对有支付能力的10亿国外人口和10亿国内人口征服务税，个别成功的初创企业可以迅速扩张，但互联网行业作为整体，在数据中心能耗上的投入增长受制于全球平民收入增长。

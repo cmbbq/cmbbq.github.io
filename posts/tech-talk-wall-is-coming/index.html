@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   
-    <title>On NCO :: Cmbbq&#39;s Encyclopedia</title>
+    <title>Tech Talk: Wall is Coming :: Cmbbq&#39;s Encyclopedia</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="非凸优化(non-convex optimization)，more like art" />
+<meta name="description" content="Tech Talk文稿，梳理内存墙问题的历史渊源，尝试给出对优化空间的理解，推导出相应的启发性策略，并列举一些访存优化技术。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="https://cmbbq.github.io/posts/on-nco/" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/tech-talk-wall-is-coming/" />
 
 
 
@@ -35,9 +35,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
-<meta property="og:title" content="On NCO">
-<meta property="og:description" content="非凸优化(non-convex optimization)，more like art" />
-<meta property="og:url" content="https://cmbbq.github.io/posts/on-nco/" />
+<meta property="og:title" content="Tech Talk: Wall is Coming">
+<meta property="og:description" content="Tech Talk文稿，梳理内存墙问题的历史渊源，尝试给出对优化空间的理解，推导出相应的启发性策略，并列举一些访存优化技术。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/tech-talk-wall-is-coming/" />
 <meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
 
   
@@ -48,7 +48,7 @@
 <meta property="og:image:height" content="1024">
 
 
-  <meta property="article:published_time" content="2022-10-12 00:00:00 &#43;0000 UTC" />
+  <meta property="article:published_time" content="2024-02-22 00:00:00 &#43;0000 UTC" />
 
 
 
@@ -104,11 +104,11 @@
     
 <div class="post">
   <h1 class="post-title">
-    <a href="https://cmbbq.github.io/posts/on-nco/">On NCO</a></h1>
+    <a href="https://cmbbq.github.io/posts/tech-talk-wall-is-coming/">Tech Talk: Wall is Coming</a></h1>
   <div class="post-meta">
     
       <span class="post-date">
-        2022-10-12
+        2024-02-22
         
       </span>
     
@@ -119,7 +119,9 @@
   
   <span class="post-tags">
     
-    #<a href="https://cmbbq.github.io/tags/ai/">ai</a>&nbsp;
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/talk/">talk</a>&nbsp;
     
   </span>
   
@@ -129,10 +131,26 @@
   
 
   <div class="post-content"><div>
-        <p>凸优化收敛时间一般是polynomial的，线性规划和最小二乘就是凸优化的特例。</p>
-<p>非凸优化non-convex optimization是一种至少np-hard的问题，不存在通用解法。想要确定问题是否有解，局部最优是否全局最优，或目标函数是否有界都会随着变量和约束数目指数爆炸blow up，局部优化手段对算法参数敏感，又高度依赖initial guess，这使局部非凸优化more-art-than-technology，相比而言线性规划是毫无art可言的。</p>
-<p>深度神经网络作为通用函数拟合器，最重要的作用是拟合非凸函数，因为复杂问题一般不可以用凸函数拟合。ChatGPT这类生成式模型就是对target和input间互信息的非凸优化。怎么训好模型，目前依然是一个art。</p>
-<p>随机梯度下降stochastic gradient descent(SGD)被证明可以收敛于凸函数、可微和利普希茨连续函数，但还不能确定在非凸函数上的效果，SGD收敛缓慢，还不一定达到局部最优，更不一定达到全局最优。如果选择一个足够靠近全局最优的点，或许可以用SGD收敛到全局最优，但这一方面耗时间，另一方面只适用于特殊场景。对于深度神经网络来说，一旦陷入错误的局部最优，就要用不同的初始化配置或加入额外的梯度更新噪音。如果遇到鞍点，则需找到海森矩阵或计算下降方向。如果陷入低梯度区域，则需batchnorm，或使用relu做激活函数。如果因高曲率而使得steps过大，则应使用adaptive step size或限制梯度step尺度。此外，如果超参有问题，还需要用各种超参优化的方法。总之，目前深度学习的NCO还是处于art的阶段。</p>
+        <h2 id="内存墙和登纳德定律失效">内存墙和登纳德定律失效<a href="#内存墙和登纳德定律失效" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>“内存墙（the Memory Wall）”和“登纳德定律失效（the break down of Dennard Scaling）”是计算生态演化中的两个核心矛盾。</p>
+<ul>
+<li>为了对抗Dennard Scaling的失效，计算硬件的架构从单核向多核、众核突围。</li>
+<li>为了掩盖内存墙问题，内存层级（memory hierarchy）变得越来越深，off-chip互连带宽不得不迅速提高。</li>
+</ul>
+<p>起初单核到多核是巨变，逼迫软件架构进行痛苦重构，并发编程问题木秀于林，因此被近20年的工业界实践+学术界研究集火秒了——如今我们有多线程编程范式、异步回调范式、goroutine式的有栈协程、C++/Rust的async/await无栈协程、lockfree/waitfree数据结构等诸多工具。
+相较而言，这几十年来内存墙问题由于其隐蔽性、不紧急性、棘手性，不仅没得到妥善解决，反而根深蒂固，愈发遮掩不住，暴露在软件工程师面前，因此这次分享的重点是内存墙。</p>
+<p>不过在进入主题之前，还需先介绍一下数据中心硬件和微处理器架构演化的些许背景。</p>
+<!-- raw HTML omitted -->
+<p>let rect = d3.select(&quot;#demo1&quot;)
+.append(&ldquo;rect&rdquo;)
+.attr(&ldquo;x&rdquo;, &ldquo;200&rdquo;)
+.attr(&ldquo;y&rdquo;, &ldquo;20&rdquo;)
+.attr(&ldquo;width&rdquo;, &ldquo;100&rdquo;)
+.attr(&ldquo;height&rdquo;, &ldquo;70&rdquo;)
+.attr(&ldquo;fill&rdquo;, &ldquo;orange&rdquo;)
+.attr(&ldquo;stroke&rdquo;, &ldquo;blue&rdquo;)
+.attr(&ldquo;stroke-width&rdquo;, &ldquo;3px&rdquo;)
+<!-- raw HTML omitted --></p>
 
       </div></div>
 
@@ -145,17 +163,10 @@
     </div>
     <div class="pagination__buttons">
         
-        <span class="button previous">
-            <a href="https://cmbbq.github.io/posts/paradigms-of-generic-programming/">
-                <span class="button__icon">←</span>
-                <span class="button__text">Paradigms of Generic Programming: Archetype, Ducktype, Subtype</span>
-            </a>
-        </span>
-        
         
         <span class="button next">
-            <a href="https://cmbbq.github.io/posts/a-decade-of-tussle-between-cpu-and-gpu/">
-                <span class="button__text">A Decade of Tussle between CPU and GPU</span>
+            <a href="https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/">
+                <span class="button__text">Work Reduction vs Hardware Enablement</span>
                 <span class="button__icon">→</span>
             </a>
         </span>

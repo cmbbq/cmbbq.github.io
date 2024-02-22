@@ -514,11 +514,11 @@ ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选
     </item>
     
     <item>
-      <title>Evolution of Data Center Applications</title>
-      <link>https://cmbbq.github.io/posts/evolution-of-data-center-applications/</link>
+      <title>Tech Talk: Evolution of Data Center Applications</title>
+      <link>https://cmbbq.github.io/posts/tech-talk-evolution-of-data-center-applications/</link>
       <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/evolution-of-data-center-applications/</guid>
+      <guid>https://cmbbq.github.io/posts/tech-talk-evolution-of-data-center-applications/</guid>
       <description>数据中心应用（数据库、消息队列、检索服务、参数服务器、直播服务、广告服务等）作为互联网服务的主体，位于终端应用和硬件基础设施之间，桥接了需求端和硬件端，同时还受到成本、营收、算法、法律等因素的制约。 近期硬件侧、算法侧均有变化或变革，因而有必要反思数据中心应用的演进方向，讨论数据中心应用的近未来发展趋势、潜在的创新点和可收割的低垂果实。
 变革中的不变量：数据中心应用能耗 全球数据中心能耗十年来几乎没有增长，而同期的服务需求、计算、存储、数据传输总量则经历了数量级增长。作为从业者，我们对互联网的爆发式增长应该不陌生，因此全球数据中心能耗从10到18年仅涨了6%的事实略微反直觉——从能耗的角度看，这几乎是一个停滞的产业。
 CMOS工艺和软硬件技术的整体进步可以解释服务器能量效率上的提升，但能耗停滞的根本原因还在于互联网企业盈利的本质是对有支付能力的10亿国外人口和10亿国内人口征服务税，个别成功的初创企业可以迅速扩张，但互联网行业作为整体，在数据中心能耗上的投入增长受制于全球平民收入增长。
