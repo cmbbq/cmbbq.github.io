@@ -19,11 +19,12 @@
 21世纪数据中心硬件的演化简史 00s，Commodity Computing时代 远古时期我们并不会说“数据中心硬件”，因为还不存在现代意义上的互联网产业，也就没有现代意义上的数据中心。自然也就没有“for 大数据/云/Edge/AI”的营销话术，更多的是强调用廉价、不可靠、大规模的commodity hardware搭建分布式有状态系统，Google在这方面做了开创性的尝试。
 相对IBM mainframe、super computer而言，当年x86的廉价是一目了然的。Google草创之初用的是奔腾2。 银行业、DAPRA成就了IBM power系列，如今Power9/10机器虽然被Xeon/EPYC完爆，仍然可以靠银行软件的祖宗之法不可变和政府订单苟延残喘，保有一份niche市场。
 10s之前是x86微处理器完全不具备多核可扩展性的年代。
-&amp;lsquo;FSB&amp;rsquo;(front-side bus)是罪魁祸首。下图架构中，内存总线和PCIe总线需共享一个&amp;rsquo;FSB&amp;rsquo;才能与CPU相连，导致&amp;rsquo;FSB&amp;rsquo;成为瓶颈，CPU数量不具备横向扩展性。 当年的PCIe还是1.0（03年初代PCIe），带宽和lane数都相当有限，即使强上多核，网络IO、磁盘IO也跟不上。 零零年代恰逢摩尔定律逐渐在单核语境失效，专注提升芯片性能在2004年后不再可行，硬件厂商不得不在架构上向多核方向突围。 一零年代初，多核时代 2012年的Intel Xeon E5-2600 V1 32nm Sandy Bridge是里程碑式的服务器产品，移除&amp;rsquo;FSB&amp;rsquo;（这个实际上在09年的Nehalem机器上就已经做了）、引入QPI/DMI取代&amp;rsquo;FSB&amp;rsquo;、PCIe2.0，使微架构获取多核可扩展性。
+FSB(front-side bus)是罪魁祸首。下图架构中，内存总线和PCIe总线需共享一个FSB才能与CPU相连，导致FSB成为瓶颈，CPU数量不具备横向扩展性。 当年的PCIe还是1.0（03年初代PCIe），带宽和lane数都相当有限，即使强上多核，网络IO、磁盘IO也跟不上。 零零年代恰逢摩尔定律逐渐在单核语境失效，专注提升芯片性能在2004年后不再可行，硬件厂商不得不在架构上向多核方向突围。 一零年代初，多核时代 2012年的Intel Xeon E5-2600 V1 32nm Sandy Bridge是里程碑式的服务器产品，移除FSB（这个实际上在09年的Nehalem机器上就已经做了）、引入QPI/DMI取代FSB、PCIe2.0，使微架构获取多核可扩展性。
 E5 family算是耳熟能详，虽然普遍要到寿命极限，但至今应该仍有很多公司在用。 当年买电脑时，所谓二代i3/i5/i7就是SandyBridge，和一代i5/i7的Nehalem有代差。
 Sandy Bridge之后是Haswell，变化不大。Haswell之后是Broadwell，环状拓扑Broadwell Ring即得名于此。 再后面就是Skylake，开始冠上Scalable之名了，从多核走向众核，从近代走到现代。
 一零年代末~二零年代初，众核时代 17年Intel推出了1st gen Xeon Scalable，Skylake，采用了Mesh Architecture。见Things are getting meshy 同时期AMD也推出了ENYC 7001，算是打破了Xeon的垄断局面。在US-TTP机房我们就有不少AMD机器。
-Skylake的升级版Ice Lake并未顺利孵化，因为18年出了Meltdown/Spectre的大新闻（speculative execution的安全漏洞），于是在Skylake上修了漏洞，19年推出Cascade Lake作为2nd-Gen Xeon。原本的顺位继承者Ice Lake在21年姗姗来迟，变成了第三代。 Cooper Lake和Ice Lake同代，都被称为第三代，但实际上架构和Ice Lake不同，是基于Skylake改的，专为多socket(4~8s)设计，相比general-purpose的ice lake， cooper lake稍稍超出commodity hardware范畴，估计是想卖给特定的专用计算领域，用来替代老旧的UNIX系统，比如Oracle Solaris，IBM AIX。互联网场景下我们还是倾向于横向扩容而不是纵向扩容。</description>
+Skylake的升级版Ice Lake并未顺利孵化，因为18年出了Meltdown/Spectre的大新闻（speculative execution的安全漏洞），于是在Skylake上修了漏洞，19年推出Cascade Lake作为2nd-Gen Xeon。原本的顺位继承者Ice Lake在21年姗姗来迟，变成了第三代。
+Cooper Lake和Ice Lake同代，都被称为第三代，但实际上架构和Ice Lake不同，是基于Skylake改的，专为多socket(4~8s)设计，相比general-purpose的Ice Lake， Cooper Lake稍稍超出commodity hardware范畴，估计是想卖给特定的专用计算领域，用来替代老旧的UNIX系统，比如Oracle Solaris，IBM AIX。互联网场景下我们还是倾向于横向扩容而不是纵向扩容。</description>
       <content>&lt;h1 id=&#34;内存墙和登纳德定律失效&#34;&gt;内存墙和登纳德定律失效&lt;/h1&gt;
 &lt;p&gt;“内存墙（the Memory Wall）”和“登纳德定律失效（the break down of Dennard Scaling）”是计算生态演化中的两个核心矛盾。&lt;/p&gt;
 &lt;ul&gt;
@@ -43,36 +44,36 @@ Skylake的升级版Ice Lake并未顺利孵化，因为18年出了Meltdown/Spectr
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/commodity_computing.png&#34; alt=&#34;commodity_computing&#34;&gt;&lt;/p&gt;
 &lt;p&gt;10s之前是x86微处理器完全不具备多核可扩展性的年代。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&amp;lsquo;FSB&amp;rsquo;(front-side bus)是罪魁祸首。下图架构中，内存总线和PCIe总线需共享一个&amp;rsquo;FSB&amp;rsquo;才能与CPU相连，导致&amp;rsquo;FSB&amp;rsquo;成为瓶颈，CPU数量不具备横向扩展性。&lt;/li&gt;
-&lt;li&gt;当年的PCIe还是1.0（03年初代PCIe），带宽和lane数都相当有限，即使强上多核，网络IO、磁盘IO也跟不上。
+&lt;li&gt;&lt;code&gt;FSB&lt;/code&gt;(front-side bus)是罪魁祸首。下图架构中，内存总线和PCIe总线需共享一个&lt;code&gt;FSB&lt;/code&gt;才能与CPU相连，导致&lt;code&gt;FSB&lt;/code&gt;成为瓶颈，CPU数量不具备横向扩展性。&lt;/li&gt;
+&lt;li&gt;当年的&lt;code&gt;PCIe&lt;/code&gt;还是1.0（03年初代&lt;code&gt;PCIe&lt;/code&gt;），带宽和lane数都相当有限，即使强上多核，网络IO、磁盘IO也跟不上。
 &lt;img src=&#34;https://cmbbq.github.io/img/fsb.png&#34; alt=&#34;fsb&#34;&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;零零年代恰逢摩尔定律逐渐在单核语境失效，专注提升芯片性能在2004年后不再可行，硬件厂商不得不在架构上向多核方向突围。
 &lt;img src=&#34;https://cmbbq.github.io/img/clock.png&#34; alt=&#34;clock&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;一零年代初多核时代&#34;&gt;一零年代初，多核时代&lt;/h2&gt;
-&lt;p&gt;2012年的Intel Xeon E5-2600 V1 32nm Sandy Bridge是里程碑式的服务器产品，移除&amp;rsquo;FSB&amp;rsquo;（这个实际上在09年的Nehalem机器上就已经做了）、引入QPI/DMI取代&amp;rsquo;FSB&amp;rsquo;、PCIe2.0，使微架构获取多核可扩展性。&lt;/p&gt;
+&lt;p&gt;2012年的Intel Xeon E5-2600 V1 32nm Sandy Bridge是里程碑式的服务器产品，移除&lt;code&gt;FSB&lt;/code&gt;（这个实际上在09年的Nehalem机器上就已经做了）、引入&lt;code&gt;QPI&lt;/code&gt;/&lt;code&gt;DMI&lt;/code&gt;取代&lt;code&gt;FSB&lt;/code&gt;、PCIe2.0，使微架构获取多核可扩展性。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;E5 family算是耳熟能详，虽然普遍要到寿命极限，但至今应该仍有很多公司在用。
-当年买电脑时，所谓二代i3/i5/i7就是SandyBridge，和一代i5/i7的Nehalem有代差。&lt;/p&gt;
+当年买电脑时，所谓二代i3/i5/i7就是&lt;code&gt;SandyBridge&lt;/code&gt;，和一代i5/i7的&lt;code&gt;Nehalem&lt;/code&gt;有代差。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Sandy Bridge之后是Haswell，变化不大。Haswell之后是Broadwell，环状拓扑Broadwell Ring即得名于此。
+&lt;p&gt;&lt;code&gt;Sandy Bridge&lt;/code&gt;之后是&lt;code&gt;Haswell&lt;/code&gt;，变化不大。&lt;code&gt;Haswell&lt;/code&gt;之后是&lt;code&gt;Broadwell&lt;/code&gt;，环状拓扑&lt;code&gt;Broadwell Ring&lt;/code&gt;即得名于此。
 &lt;img src=&#34;https://cmbbq.github.io/img/broadwell_ring.png&#34; alt=&#34;clock&#34;&gt;
 再后面就是Skylake，开始冠上Scalable之名了，从多核走向众核，从近代走到现代。&lt;/p&gt;
 &lt;h2 id=&#34;一零年代末二零年代初众核时代&#34;&gt;一零年代末~二零年代初，众核时代&lt;/h2&gt;
-&lt;p&gt;17年Intel推出了1st gen Xeon Scalable，Skylake，采用了Mesh Architecture。见Things are getting meshy
+&lt;p&gt;17年Intel推出了1st gen Xeon Scalable，&lt;code&gt;Skylake&lt;/code&gt;，采用了Mesh Architecture。见Things are getting meshy
 同时期AMD也推出了ENYC 7001，算是打破了Xeon的垄断局面。在US-TTP机房我们就有不少AMD机器。&lt;/p&gt;
-&lt;p&gt;Skylake的升级版Ice Lake并未顺利孵化，因为18年出了Meltdown/Spectre的大新闻（speculative execution的安全漏洞），于是在Skylake上修了漏洞，19年推出Cascade Lake作为2nd-Gen Xeon。原本的顺位继承者Ice Lake在21年姗姗来迟，变成了第三代。
-Cooper Lake和Ice Lake同代，都被称为第三代，但实际上架构和Ice Lake不同，是基于Skylake改的，专为多socket(4~8s)设计，相比general-purpose的ice lake， cooper lake稍稍超出commodity hardware范畴，估计是想卖给特定的专用计算领域，用来替代老旧的UNIX系统，比如Oracle Solaris，IBM AIX。互联网场景下我们还是倾向于横向扩容而不是纵向扩容。&lt;/p&gt;
-&lt;p&gt;目前数据中心应用的主力机型是Ice Lake、Cascade Lake机器，23~24年起计算/访存密集的场景则会逐步用到第四代Xeon：Sapphire Rapids机器。
+&lt;p&gt;&lt;code&gt;Skylake&lt;/code&gt;的升级版&lt;code&gt;Ice Lake&lt;/code&gt;并未顺利孵化，因为18年出了Meltdown/Spectre的大新闻（speculative execution的安全漏洞），于是在&lt;code&gt;Skylake&lt;/code&gt;上修了漏洞，19年推出&lt;code&gt;Cascade Lake&lt;/code&gt;作为2nd-Gen Xeon。原本的顺位继承者&lt;code&gt;Ice Lake&lt;/code&gt;在21年姗姗来迟，变成了第三代。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Cooper Lake&lt;/code&gt;和&lt;code&gt;Ice Lake&lt;/code&gt;同代，都被称为第三代，但实际上架构和&lt;code&gt;Ice Lake&lt;/code&gt;不同，是基于&lt;code&gt;Skylake&lt;/code&gt;改的，专为多socket(4~8s)设计，相比general-purpose的&lt;code&gt;Ice Lake&lt;/code&gt;， &lt;code&gt;Cooper Lake&lt;/code&gt;稍稍超出commodity hardware范畴，估计是想卖给特定的专用计算领域，用来替代老旧的UNIX系统，比如&lt;code&gt;Oracle Solaris&lt;/code&gt;，&lt;code&gt;IBM AIX&lt;/code&gt;。互联网场景下我们还是倾向于横向扩容而不是纵向扩容。&lt;/p&gt;
+&lt;p&gt;目前数据中心应用的主力机型是&lt;code&gt;Ice Lake&lt;/code&gt;、&lt;code&gt;Cascade Lake&lt;/code&gt;机器，23~24年起计算/访存密集的场景则会逐步用到第四代Xeon：&lt;code&gt;Sapphire Rapids&lt;/code&gt;机器。
 19年20年我们还零零散散有一些1st gen Xeon Scalable Gold机器，后来很快就汰换掉了。
 &lt;img src=&#34;https://cmbbq.github.io/img/broadwell_ring.png&#34; alt=&#34;clock&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Ice Lake和Cascade Lake都是monolithic mesh设计。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Ice Lake&lt;/code&gt;和&lt;code&gt;Cascade Lake&lt;/code&gt;都是monolithic mesh设计。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;这里monolithic是相对于chiplet/tile-based而言的单个huge die承载many-core的范式；&lt;/li&gt;
 &lt;li&gt;这里mesh是相对于此前E5时代Broadwell Ring环状拓扑而言的网状拓扑。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;二者差异主要在制程（10nm vs 14nm）、最大核心数(常用机型逻辑核数 96 vs 128)、PCIe路数、内存通道数（单socket支持的DIMM&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;数 16 vs 12）。&lt;/p&gt;
-&lt;p&gt;24年起开始交付的4th-Gen Sapphire Rapids的芯片架构从mono-die转型为更类似AMD的multi-die(Intel自称是tile-based），微架构从sunny cove更新到golden cove（tpause指令可用于优化spinlock），配置相当华丽，支持先进互连协议（PCIe5/CXL），支持DDR5，新指令集AMX，顶配还有3D堆叠的on-package HBM&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+&lt;p&gt;二者差异主要在制程（10nm vs 14nm）、最大核心数、PCIe路数、内存通道数（单socket支持的DIMM&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;数 16 vs 12）。&lt;/p&gt;
+&lt;p&gt;24年起开始交付的4th-Gen &lt;code&gt;Sapphire Rapids&lt;/code&gt;的芯片架构从mono-die转型为更类似AMD的multi-die(Intel自称是tile-based），微架构从sunny cove更新到golden cove（tpause指令可用于优化spinlock），配置相当华丽，支持先进互连协议（&lt;code&gt;PCIe5&lt;/code&gt;/&lt;code&gt;CXL&lt;/code&gt;），支持DDR5，新指令集&lt;code&gt;AMX&lt;/code&gt;，顶配还有3D堆叠的on-package HBM&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;一些总结&#34;&gt;一些总结&lt;/h2&gt;
 &lt;h3 id=&#34;硬件生态里生命和环境也是相互塑造的&#34;&gt;硬件生态里，生命和环境也是相互塑造的&lt;/h3&gt;
 &lt;p&gt;PC用户成就了繁荣、易获得、标准化的x86 商用硬件市场。商用硬件集群刚好又适应互联网workloads（没有大量浮点数计算，integer server为主，但数据量极为庞大），才有了分布式系统支撑的现代数据中心，再然后才有硬件厂商为数据中心定制优化的服务器硬件，比如Scalable Xeon。&lt;/p&gt;
@@ -167,7 +168,7 @@ mov DWORD PTR _y$[esp+8], eax
 &lt;/li&gt;
 &lt;li&gt;如何根据内存配置设置合适的object padding？
 &lt;ul&gt;
-&lt;li&gt;内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增。因此RAM可视为n_chan*n_rank个block组成。其DIMM架构如下图。
+&lt;li&gt;内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增。因此RAM可视为$n_chan \times n_rank$个block组成。其DIMM架构如下图。
 [图片]&lt;/li&gt;
 &lt;li&gt;具体的object padding方式可以参考下面这段伪码，其中64B是cache line size，也恰好是一个block的size。大体思路是先保证内存池里的地址都是64B的整数倍，再保证下一个对象的block id和n_chan*n_rank互质。&lt;/li&gt;
 &lt;li&gt;这个padding不让对象的起始地址反复命中同一个channel或同一个rank，令下一个对象起始地址落入不同的channel/rank，充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。
@@ -242,7 +243,7 @@ jl top_loop
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;利用先进互连技术，如CXL。&lt;/li&gt;
+&lt;li&gt;利用先进互连技术，如&lt;code&gt;CXL&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/spr-cxl.png&#34; alt=&#34;cxl&#34;&gt;&lt;/p&gt;
 &lt;style type=&#34;text/css&#34;&gt;

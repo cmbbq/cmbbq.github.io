@@ -26,40 +26,41 @@ showFullContent = false
 ![commodity_computing](https://cmbbq.github.io/img/commodity_computing.png)
 
 10s之前是x86微处理器完全不具备多核可扩展性的年代。
-- 'FSB'(front-side bus)是罪魁祸首。下图架构中，内存总线和PCIe总线需共享一个'FSB'才能与CPU相连，导致'FSB'成为瓶颈，CPU数量不具备横向扩展性。
-- 当年的PCIe还是1.0（03年初代PCIe），带宽和lane数都相当有限，即使强上多核，网络IO、磁盘IO也跟不上。
+- `FSB`(front-side bus)是罪魁祸首。下图架构中，内存总线和PCIe总线需共享一个`FSB`才能与CPU相连，导致`FSB`成为瓶颈，CPU数量不具备横向扩展性。
+- 当年的`PCIe`还是1.0（03年初代`PCIe`），带宽和lane数都相当有限，即使强上多核，网络IO、磁盘IO也跟不上。
 ![fsb](https://cmbbq.github.io/img/fsb.png)
 
 零零年代恰逢摩尔定律逐渐在单核语境失效，专注提升芯片性能在2004年后不再可行，硬件厂商不得不在架构上向多核方向突围。
 ![clock](https://cmbbq.github.io/img/clock.png)
 
 ## 一零年代初，多核时代
-2012年的Intel Xeon E5-2600 V1 32nm Sandy Bridge是里程碑式的服务器产品，移除'FSB'（这个实际上在09年的Nehalem机器上就已经做了）、引入QPI/DMI取代'FSB'、PCIe2.0，使微架构获取多核可扩展性。
+2012年的Intel Xeon E5-2600 V1 32nm Sandy Bridge是里程碑式的服务器产品，移除`FSB`（这个实际上在09年的Nehalem机器上就已经做了）、引入`QPI`/`DMI`取代`FSB`、PCIe2.0，使微架构获取多核可扩展性。
 > E5 family算是耳熟能详，虽然普遍要到寿命极限，但至今应该仍有很多公司在用。
-> 当年买电脑时，所谓二代i3/i5/i7就是SandyBridge，和一代i5/i7的Nehalem有代差。
+> 当年买电脑时，所谓二代i3/i5/i7就是`SandyBridge`，和一代i5/i7的`Nehalem`有代差。
 
-Sandy Bridge之后是Haswell，变化不大。Haswell之后是Broadwell，环状拓扑Broadwell Ring即得名于此。
+`Sandy Bridge`之后是`Haswell`，变化不大。`Haswell`之后是`Broadwell`，环状拓扑`Broadwell Ring`即得名于此。
 ![clock](https://cmbbq.github.io/img/broadwell_ring.png)
 再后面就是Skylake，开始冠上Scalable之名了，从多核走向众核，从近代走到现代。
 
 ## 一零年代末~二零年代初，众核时代
-17年Intel推出了1st gen Xeon Scalable，Skylake，采用了Mesh Architecture。见Things are getting meshy
+17年Intel推出了1st gen Xeon Scalable，`Skylake`，采用了Mesh Architecture。见Things are getting meshy
 同时期AMD也推出了ENYC 7001，算是打破了Xeon的垄断局面。在US-TTP机房我们就有不少AMD机器。
 
-Skylake的升级版Ice Lake并未顺利孵化，因为18年出了Meltdown/Spectre的大新闻（speculative execution的安全漏洞），于是在Skylake上修了漏洞，19年推出Cascade Lake作为2nd-Gen Xeon。原本的顺位继承者Ice Lake在21年姗姗来迟，变成了第三代。
-Cooper Lake和Ice Lake同代，都被称为第三代，但实际上架构和Ice Lake不同，是基于Skylake改的，专为多socket(4~8s)设计，相比general-purpose的ice lake， cooper lake稍稍超出commodity hardware范畴，估计是想卖给特定的专用计算领域，用来替代老旧的UNIX系统，比如Oracle Solaris，IBM AIX。互联网场景下我们还是倾向于横向扩容而不是纵向扩容。
+`Skylake`的升级版`Ice Lake`并未顺利孵化，因为18年出了Meltdown/Spectre的大新闻（speculative execution的安全漏洞），于是在`Skylake`上修了漏洞，19年推出`Cascade Lake`作为2nd-Gen Xeon。原本的顺位继承者`Ice Lake`在21年姗姗来迟，变成了第三代。
 
-目前数据中心应用的主力机型是Ice Lake、Cascade Lake机器，23~24年起计算/访存密集的场景则会逐步用到第四代Xeon：Sapphire Rapids机器。
+`Cooper Lake`和`Ice Lake`同代，都被称为第三代，但实际上架构和`Ice Lake`不同，是基于`Skylake`改的，专为多socket(4~8s)设计，相比general-purpose的`Ice Lake`， `Cooper Lake`稍稍超出commodity hardware范畴，估计是想卖给特定的专用计算领域，用来替代老旧的UNIX系统，比如`Oracle Solaris`，`IBM AIX`。互联网场景下我们还是倾向于横向扩容而不是纵向扩容。
+
+目前数据中心应用的主力机型是`Ice Lake`、`Cascade Lake`机器，23~24年起计算/访存密集的场景则会逐步用到第四代Xeon：`Sapphire Rapids`机器。
 19年20年我们还零零散散有一些1st gen Xeon Scalable Gold机器，后来很快就汰换掉了。
 ![clock](https://cmbbq.github.io/img/broadwell_ring.png)
 
-Ice Lake和Cascade Lake都是monolithic mesh设计。
+`Ice Lake`和`Cascade Lake`都是monolithic mesh设计。
 - 这里monolithic是相对于chiplet/tile-based而言的单个huge die承载many-core的范式；
 - 这里mesh是相对于此前E5时代Broadwell Ring环状拓扑而言的网状拓扑。
 
-二者差异主要在制程（10nm vs 14nm）、最大核心数(常用机型逻辑核数 96 vs 128)、PCIe路数、内存通道数（单socket支持的DIMM[^1]数 16 vs 12）。
+二者差异主要在制程（10nm vs 14nm）、最大核心数、PCIe路数、内存通道数（单socket支持的DIMM[^1]数 16 vs 12）。
 
-24年起开始交付的4th-Gen Sapphire Rapids的芯片架构从mono-die转型为更类似AMD的multi-die(Intel自称是tile-based），微架构从sunny cove更新到golden cove（tpause指令可用于优化spinlock），配置相当华丽，支持先进互连协议（PCIe5/CXL），支持DDR5，新指令集AMX，顶配还有3D堆叠的on-package HBM[^2]。
+24年起开始交付的4th-Gen `Sapphire Rapids`的芯片架构从mono-die转型为更类似AMD的multi-die(Intel自称是tile-based），微架构从sunny cove更新到golden cove（tpause指令可用于优化spinlock），配置相当华丽，支持先进互连协议（`PCIe5`/`CXL`），支持DDR5，新指令集`AMX`，顶配还有3D堆叠的on-package HBM[^2]。
 
 ## 一些总结
 ### 硬件生态里，生命和环境也是相互塑造的
@@ -132,7 +133,7 @@ PC玩家成就了Nvidia GPU，GPU恰好适应AI workloads，于是有了各种ML
   - eBPF tools，比如https://github.com/iovisor/bcc
   - 静态分析：load/store指令占比可粗略翻译算术/访存密度，但受缓存命中率影响较大。
 - 如何根据内存配置设置合适的object padding？
-  - 内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增。因此RAM可视为n_chan*n_rank个block组成。其DIMM架构如下图。
+  - 内存配置中有两个影响应用层的重要概念：内存通道（memory channels）、内存列（memory ranks）。x86架构下内存通道和内存列在内存地址上interleaving，即均匀分布且递增。因此RAM可视为$n_chan \times n_rank$个block组成。其DIMM架构如下图。
 [图片]
   - 具体的object padding方式可以参考下面这段伪码，其中64B是cache line size，也恰好是一个block的size。大体思路是先保证内存池里的地址都是64B的整数倍，再保证下一个对象的block id和n_chan*n_rank互质。
   - 这个padding不让对象的起始地址反复命中同一个channel或同一个rank，令下一个对象起始地址落入不同的channel/rank，充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。
@@ -198,7 +199,7 @@ PC玩家成就了Nvidia GPU，GPU恰好适应AI workloads，于是有了各种ML
     computation a[i][j] // 最后一个iteration单独处理，因为它不需要prefetch。
     }
     ```
-- 利用先进互连技术，如CXL。
+- 利用先进互连技术，如`CXL`。
 
 ![cxl](https://cmbbq.github.io/img/spr-cxl.png)
 
