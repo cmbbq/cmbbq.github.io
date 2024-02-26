@@ -6,7 +6,56 @@
     <description>Recent content in en on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/en/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pre-orders, joins, partitions, functions and relations</title>
+      <link>https://cmbbq.github.io/posts/pre-orders-joins-partitions-functions-and-relations/</link>
+      <pubDate>Mon, 26 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/pre-orders-joins-partitions-functions-and-relations/</guid>
+      <description>Starting from sets and subsets, we can define the relation between s$A$ and $B$ as a subset $R \in A\times B$.
+Every function is a relation, satisfying 2 properties:
+$\forall a \in A$, there exists $b \in B$, such that $(a,b)\in \mathbb{R}$ $\forall a, b_1, b_2$, if $(a,b_1) \in R$ and $(a, b_2) \in \mathbb{R}$, then $b_1 = b_2$. Order, equivalence, tolerance are all relations.
+A function $f: A\rightarrowtail B$ is called injection if $\forall a_1, a_2, b$, if $(a_1, b), (a_2, b) \in R$, then $a_1 = a_2$.</description>
+      <content>&lt;p&gt;Starting from &lt;code&gt;sets&lt;/code&gt; and &lt;code&gt;subsets&lt;/code&gt;, we can define the &lt;code&gt;relation&lt;/code&gt; between s$A$ and $B$ as a subset $R \in A\times B$.&lt;/p&gt;
+&lt;p&gt;Every &lt;code&gt;function&lt;/code&gt; is a relation, satisfying 2 properties:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\forall a \in A$, there exists $b \in B$, such that $(a,b)\in \mathbb{R}$&lt;/li&gt;
+&lt;li&gt;$\forall a, b_1, b_2$, if $(a,b_1) \in R$ and $(a, b_2) \in \mathbb{R}$, then $b_1 = b_2$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Order, equivalence, tolerance are all relations.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A function $f: A\rightarrowtail B$ is called &lt;code&gt;injection&lt;/code&gt; if $\forall a_1, a_2, b$, if $(a_1, b), (a_2, b) \in R$, then $a_1 = a_2$.&lt;/p&gt;
+&lt;p&gt;A function $f: A\twoheadrightarrow B$ is called &lt;code&gt;surjection&lt;/code&gt; if $\forall b \in B$, there exists an $a \in A$, such that $f(a) = b$.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;partition&lt;/code&gt; on $A$ is just a surjection on some other set $P$: $A \twoheadrightarrow P$.&lt;/p&gt;
+&lt;p&gt;We can order partitions: $A \twoheadrightarrow P_1$, $A \twoheadrightarrow P_2$. We say $P_1 \leqslant P_2$, if there is a function $P_1 \rightarrow P_2$ making the diagram commute: $A \twoheadrightarrow P_1 \rightarrow P_2$.&lt;/p&gt;
+&lt;p&gt;So $A \twoheadrightarrow A$ is the minimum partition, and the $A \twoheadrightarrow \underline{1}$ is the maximum partition.&lt;/p&gt;
+&lt;p&gt;An &lt;code&gt;pre-order&lt;/code&gt; is&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;a set $S$&lt;/li&gt;
+&lt;li&gt;a relation $&lt;code&gt;\preceq &lt;/code&gt; : \subseteq S \times S$&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;satisfying 2 properties:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\forall S&amp;rsquo; \in S$, $S&amp;rsquo; \preceq S$.&lt;/li&gt;
+&lt;li&gt;$\forall S_1$, $S_2$, $S_3$, if $S_1 \preceq S_2$ and $S_2 \preceq S_3$, then $S_1 \preceq S_3$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Order creates &lt;code&gt;join&lt;/code&gt;. Joining $A$ and $B$, denoted by $A\vee B$, results in the least partition bigger than both $A$ and $B$. That is $A \preceq (A\vee B)$ and $A \preceq (A\vee B)$. And for any C, if $A \preceq C$ and $B \preceq C$ then $(A\vee B) \preceq C$,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So order is more fundamental than joining.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;Here we use the symbol $\preceq$ instead of $R$ as it implies a partial order, and the infix notation $S_1 \preceq S_2$ looks more natural than $(S_1,S_2) \in R$.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
     <item>
       <title>Work Reduction vs Hardware Enablement</title>
       <link>https://cmbbq.github.io/posts/work-reduction-vs-hardware-enablement/</link>
