@@ -26,7 +26,7 @@ So $A \twoheadrightarrow A$ is the minimum partition, and the $A \twoheadrightar
 
 An `pre-order` is 
 1. a set $S$
-2. a relation $`\preceq ` \: \subseteq S \times S$[^1] 
+2. a relation $\preceq \: \subseteq S \times S$[^1] 
 
 satisfying 2 properties:
 1. $\forall S' \in S$, $S' \preceq S$.
