@@ -89,7 +89,7 @@ PC玩家成就了Nvidia GPU，GPU恰好适应AI workloads，于是有了各种ML
 - 优化 = 减少运行时间 = 减少CPU时间 + 减少阻塞时间
 “算法改良”和“硬件使能”接近正交，“on-CPU time”和“off-CPU time”又大体互补，因此可以为优化空间$W$构造正交基{硬件使能$x$，算法优化$y$，算术密度$z$}，则$W = \{[x,y,z] \in R^3 | 0 \le z \le 1 \}$。
 
-<div id="damn"><svg width="960" height="500"></svg></div>
+<div id="damn"><svg width="480" height="420"></svg></div>
 
 ## 推导出的一些Heuristics
 基于对优化空间完整图景的理解，能推导出一些性能工程的Heuristics：
@@ -233,7 +233,10 @@ import {
 } from "https://cdn.skypack.dev/d3-3d@1.0.0";
 document.addEventListener("DOMContentLoaded", () => {
     console.log("dom loaded, starts to draw svg ...");
-    const origin = { x: 480, y: 250 };
+    const width = 480;
+    const height = 420;
+    const origin = { x: width/2, y: height/2 };
+    const offset = origin.x - origin.y;
     const j = 10;
     const scale = 20;
     const key = (d) => d.id;
@@ -319,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .duration(tt)
       .attr("r", 3)
       .attr("stroke", (d) => color(colorScale(d.id)).darker(3))
-      .attr("fill", (d) => GetColor(d.projected.x - 480, d.projected.y - 250))
+      .attr("fill", (d) => GetColor(d.projected.x - origin.x, d.projected.y - origin.y))
       .attr("opacity", 1)
       .attr("cx", posPointX)
       .attr("cy", posPointY);
@@ -487,8 +490,8 @@ document.addEventListener("DOMContentLoaded", () => {
     my = event.y;
   }
   function dragged(event) {
-    beta = (event.x - mx + mouseX) * (Math.PI / 230);
-    alpha = (event.y - my + mouseY) * (Math.PI / 230) * -1;
+    beta = (event.x - mx + mouseX) * (Math.PI / offset);
+    alpha = (event.y - my + mouseY) * (Math.PI / offset) * -1;
     const data = [
       grid3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(xGrid),
       points3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(scatter),
