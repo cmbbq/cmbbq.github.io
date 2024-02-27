@@ -1,5 +1,5 @@
 +++
-title = "Pre-orders, joins, partitions, functions and relations"
+title = "Cat01: Pre-orders, joins, partitions, functions and relations"
 date = "2024-02-26"
 tags = ["en", "math"]
 description = "The write-up gives an order-theoretic warm-up for the full-fledged category theory."
