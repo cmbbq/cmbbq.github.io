@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Category Theory 1: Orders :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The 1st write-up gives an order-theoretic warm-up for the full-fledged category theory. It covers preorders, meets/joins, monotone maps and Galois connections." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/category-theory-1-orders/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Category Theory 1: Orders">
+<meta property="og:description" content="The 1st write-up gives an order-theoretic warm-up for the full-fledged category theory. It covers preorders, meets/joins, monotone maps and Galois connections." />
+<meta property="og:url" content="https://cmbbq.github.io/posts/category-theory-1-orders/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-02-26 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/category-theory-1-orders/">Category Theory 1: Orders</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-02-26
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/en/">en</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/math/">math</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="preorders">Preorders<a href="#preorders" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Starting from <code>sets</code> and <code>subsets</code>, we can define the <code>relation</code> between s$A$ and $B$ as a <code>subset</code> $R \in A\times B$.</p>
+<p>Every <code>function</code> is a relation, satisfying 2 properties:</p>
+<ol>
+<li>$\forall a \in A$, there exists $b \in B$, such that $(a,b)\in \mathbb{R}$</li>
+<li>$\forall a, b_1, b_2$, if $(a,b_1) \in R$ and $(a, b_2) \in \mathbb{R}$, then $b_1 = b_2$.</li>
+</ol>
+<blockquote>
+<p>Order, equivalence, tolerance are all relations.</p>
+</blockquote>
+<p>A <code>function</code> $f: A\rightarrowtail B$ is called <code>injection</code> if $\forall a_1, a_2, b$, if $(a_1, b), (a_2, b) \in R$, then $a_1 = a_2$.</p>
+<p>A <code>function</code> $f: A\twoheadrightarrow B$ is called <code>surjection</code> if $\forall b \in B$, there exists an $a \in A$, such that $f(a) = b$.</p>
+<p>A <code>function</code> $f: A \overset{\cong} \rightarrowtail B$ is called <code>bijection</code> if it is both surjective and injective.</p>
+<p>An <code>identity function</code> on a set $X$, denoted $id_X$. It is the bijective function $id_X(x) = x$.</p>
+<p>A <code>partition</code> on $A$ is just a surjection on some other set $P$: $A \twoheadrightarrow P$.</p>
+<p>We can order <code>partitions</code>: $A \twoheadrightarrow P_1$, $A \twoheadrightarrow P_2$. We say $P_1 \leqslant P_2$, if there is a <code>function</code> $P_1 \rightarrow P_2$ making the diagram commute: $A \twoheadrightarrow P_1 \rightarrow P_2$.</p>
+<p>So $A \twoheadrightarrow A$ is the minimum <code>partition</code>, and the $A \twoheadrightarrow \underline{1}$ is the maximum <code>partition</code>.</p>
+<p>An <code>preorder</code> is</p>
+<ol>
+<li>a set $S$, and</li>
+<li>a relation $≤ : \subseteq S \times S$<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+</ol>
+<p>satisfying 2 properties:</p>
+<ol>
+<li>$S ≤ S$. <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
+<li>$\forall S_1$, $S_2$, $S_3$, if $S_1 ≤ S_2$ and $S_2 ≤ S_3$, then $S_1 ≤ S_3$. <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></li>
+</ol>
+<blockquote>
+<p>A <code>preorder</code> is a <code>category</code> with at most one <code>morphism</code> between any two objects.</p>
+</blockquote>
+<blockquote>
+<p>Something slightly more complicated is that a <code>preorder</code> is a <code>Bool-enriched category</code>.</p>
+</blockquote>
+<h2 id="meets-and-joins">Meets and Joins<a href="#meets-and-joins" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Order creates <code>meets</code> and <code>joins</code>.</p>
+<p>Joining $A$ and $B$, denoted by $A\vee B$, results in the least <code>partition</code> bigger than both $A$ and $B$. That is $A ≤ (A\vee B)$ and $A ≤ (A\vee B)$. And for any C, if $A ≤ C$ and $B ≤ C$ then $(A\vee B) ≤ C$.</p>
+<p>Put it formally. Let $(P, ≤)$ be a <code>preorder</code>, and let $A \subseteq P$ be a <code>subset</code>. We say that an element $p \in P$ is a <code>meet</code> of $A$ if</p>
+<ol>
+<li>$\forall a\in A$, we have $p≤ a$<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>, and</li>
+<li>for all $q$ such that $q≤ a$ for all $a\in A$, we have that $q≤ p$<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</li>
+</ol>
+<p>We write $P = \wedge A =  \underset{a\in A}{\wedge} a = a_1 \wedge a_2 \wedge &hellip; \wedge a_n$</p>
+<p>Similarly, we say that $p$ is a <code>join</code> of $A$ if</p>
+<ol>
+<li>$\forall a\in A$, we have $a≤ p$<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>, and</li>
+<li>for all $q$ such that $a≤ q$ for all $a\in A$, we have that $p≤ q$<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>.</li>
+</ol>
+<p>In this case, $P = \vee A =  \underset{a\in A}{\vee} a = a_1 \vee a_2 \vee &hellip; \vee a_n$</p>
+<p>We next discuss examples.</p>
+<p><strong>Example 1: Truth Tables of the Booleans $\mathbb{B}$={T,F}$.</strong></p>
+<p>For example, the pairwise <code>meets</code> table of ${T,F}(F \leq T)$ happens to be the truth table for <code>AND</code> in elementary logic. A similar binary join computation will generate the truth table for <code>OR</code>.</p>
+<p><strong>Example 2: Power Sets, $(P(x), ≤)$.</strong></p>
+<p>Let&rsquo;s pick a particular set, let $X = {\square, \times, \heartsuit}$, then we consider its power sets:</p>
+<p><img src="https://cmbbq.github.io/img/power_sets.png" alt="power_sets"></p>
+<p>In this case, it&rsquo;s clear that $\wedge$ = intersection, $\vee$ = union.</p>
+<p><strong>Example 3: $(\mathbb{N}, |), a ≤ b$, iff $a|b$</strong></p>
+<p><img src="https://cmbbq.github.io/img/divisible.png" alt="divisible"></p>
+<p>1 divides everything, so we start from 1. Here we have $\wedge$ = gcd, $\vee$ = lcm.</p>
+<p><strong>Example 4: There may be more than one <code>meet</code>/<code>join</code>.</strong>
+<img src="https://cmbbq.github.io/img/hasse_diagram.png" alt="hasse_diagram"></p>
+<p>This hasse diagram specifies a <code>preorder</code> where both $c$ and $d$ are <code>meets</code> of $A$. We have $c≤ d$ and $d≤ c$, so $c \cong d$, that is $c$ and $d$ are <code>isomorphic</code>, which will be covered later; we generally do not run into trouble if we pretend they are equal though.</p>
+<p><strong>Example 5: <code>Meets</code> or <code>joins</code> may not exist.</strong></p>
+<p>Clearly things don&rsquo;t always have a lower bound or a upper bound at all. There might be multiple lower bounds/upper bounds but these lower/upper bounds are non-comparable.</p>
+<p>Throughout these examples, many familiar things can be characterized by this quite simple universal property, be it gcd/lcm, max/min, limits/colimits, or itersection/union.</p>
+<p>The idea that things can be characterized by universal properties, implies we are closer to category theory now.</p>
+<h2 id="monotone-maps">Monotone Maps<a href="#monotone-maps" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><code>Preorders</code> themselves can be related to one another. A <code>monotone map</code> is a structure-preserving map for <code>preorders</code>.</p>
+<p>A <code>monotone map</code> between <code>preorders</code> $(A, ≤_A)$ and $(B, ≤_B)$ is a <code>function</code> $f : A \rightarrow B$ such that, for all elements $x, y ∈ A$, if $x ≤_A y$ then $f (x) ≤_B f(y)$.
+<img src="https://cmbbq.github.io/img/monotone_map.png" alt="monotone_map"></p>
+<p>Let $\mathbb{B}$ be the preorders of booleans and $\mathbb{N}$ be the preorder of natural numbers. The map $\mathbb{B} \rightarrow \mathbb{N}$ sending false to 17 and true to 24 is a <code>monotone map</code>, because it preserves order.</p>
+<p><img src="https://cmbbq.github.io/img/b2n.png" alt="b2n"></p>
+<p>A <code>monotone map</code> $f: P \rightarrow Q$ preserves <code>joins</code> if $\forall p,p&rsquo; \in P, f(p\vee p&rsquo;) = f(p) \vee f(p&rsquo;)$</p>
+<p>For any <code>preorder</code> $(P, ≤_P)$, the identity function is monotone.
+If $(Q, ≤_Q)$ and $(R, ≤_R)$ are preorders and $f : P → Q$ and $g : Q → R$ are monotone, then $(f ; g): P → R$ is also monotone.</p>
+<p>Let $(P, ≤_P)$ and $(Q, ≤_Q)$ be preorders. A <code>monotone function</code> $f : P → Q$ is called an <code>isomorphism</code> if there exists a <code>monotone function</code> $g : Q → P$ such that $f;g = id_P$ and $g;f = id_Q$. This means that for any $p ∈ P$ and $q ∈ Q$, we have $p=g(f(p))$ and $q
+=f(g(q))$.</p>
+<p>We refer to $g$ as the inverse of $f$ , and vice versa: $f$ is the inverse of $g$.</p>
+<p>If there is an <code>isomorphism</code> $P → Q$, we say that $P$ and $Q$ are isomorphic.</p>
+<blockquote>
+<p>An isomorphism between preorders is basically just a relabeling of the elements.</p>
+</blockquote>
+<h2 id="galois-connections">Galois Connections<a href="#galois-connections" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><code>Galois connections</code> between <code>preorders</code> $P$ and $Q$ is a pair of <code>monotone maps</code> $f : P → Q$ and $g : Q → P$ such that $f(p) ≤ q iff p ≤ g(q).$</p>
+<p>We say that $f$ is the left <code>adjoint</code> and g is the right <code>adjoint</code> of the <code>Galois connection</code>.</p>
+<blockquote>
+<p>The theory of <code>Galois connections</code> is a special case of a more general theory, the theory of <code>adjunctions</code>.</p>
+</blockquote>
+<p><strong>Example 1: $P = Q = \underline{3}$</strong>
+<img src="https://cmbbq.github.io/img/Galois_connections.png" alt="togc"></p>
+<p>In this case $P$ and $Q$ are total orders, $f$ is left adjoint to $g$ as long as arrows do not cross.</p>
+<p><strong>Example 2: $\mathbb{Z} \xrightarrow[f]{3\times\square} \mathbb{R}$, $\mathbb{R} \xrightarrow[g]{\lfloor\square/3\rfloor} \mathbb{Z}$</strong></p>
+<p>It means we have $5 \xrightarrow[f]{3\times\square}15$, $13.3 \xrightarrow[g]{\lfloor\square/3\rfloor}4$.</p>
+<p>Since $3n ≤ x$ iff $n ≤ \lfloor x/3\rfloor$, $f$ is left adjoint to $g$.</p>
+<p>In the end of the day, we can claim that a <code>monotone map</code> $f$ is a left/right <code>adjoint</code> iff it preserves <code>joins</code>/<code>meets</code>.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Here we use the symbol $≤$ instead of $R$ as it implies a preorder, and the infix notation $S_1 ≤ S_2$ looks more natural than $(S_1,S_2) \in R$.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>reflexivity&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>transitivity&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>$p$ is the lower bound of $A$&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>$p$ is the greatest lower bound&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>$p$ is the upper bound of $A$&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p>$p$ is the least lower bound&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/tech-talk-wall-is-coming/">
+                <span class="button__text">Tech Talk: Wall is Coming</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

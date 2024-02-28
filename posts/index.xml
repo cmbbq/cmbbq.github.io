@@ -8,16 +8,17 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 26 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Category Theory 1: Relations → Partitions → Preorders</title>
-      <link>https://cmbbq.github.io/posts/category-theory-1/</link>
+      <title>Category Theory 1: Orders</title>
+      <link>https://cmbbq.github.io/posts/category-theory-1-orders/</link>
       <pubDate>Mon, 26 Feb 2024 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/category-theory-1/</guid>
-      <description>Starting from sets and subsets, we can define the relation between s$A$ and $B$ as a subset $R \in A\times B$.
+      <guid>https://cmbbq.github.io/posts/category-theory-1-orders/</guid>
+      <description>Preorders Starting from sets and subsets, we can define the relation between s$A$ and $B$ as a subset $R \in A\times B$.
 Every function is a relation, satisfying 2 properties:
 $\forall a \in A$, there exists $b \in B$, such that $(a,b)\in \mathbb{R}$ $\forall a, b_1, b_2$, if $(a,b_1) \in R$ and $(a, b_2) \in \mathbb{R}$, then $b_1 = b_2$. Order, equivalence, tolerance are all relations.
 A function $f: A\rightarrowtail B$ is called injection if $\forall a_1, a_2, b$, if $(a_1, b), (a_2, b) \in R$, then $a_1 = a_2$.</description>
-      <content>&lt;p&gt;Starting from &lt;code&gt;sets&lt;/code&gt; and &lt;code&gt;subsets&lt;/code&gt;, we can define the &lt;code&gt;relation&lt;/code&gt; between s$A$ and $B$ as a &lt;code&gt;subset&lt;/code&gt; $R \in A\times B$.&lt;/p&gt;
+      <content>&lt;h2 id=&#34;preorders&#34;&gt;Preorders&lt;/h2&gt;
+&lt;p&gt;Starting from &lt;code&gt;sets&lt;/code&gt; and &lt;code&gt;subsets&lt;/code&gt;, we can define the &lt;code&gt;relation&lt;/code&gt; between s$A$ and $B$ as a &lt;code&gt;subset&lt;/code&gt; $R \in A\times B$.&lt;/p&gt;
 &lt;p&gt;Every &lt;code&gt;function&lt;/code&gt; is a relation, satisfying 2 properties:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;$\forall a \in A$, there exists $b \in B$, such that $(a,b)\in \mathbb{R}$&lt;/li&gt;
@@ -28,28 +29,111 @@ A function $f: A\rightarrowtail B$ is called injection if $\forall a_1, a_2, b$,
 &lt;/blockquote&gt;
 &lt;p&gt;A &lt;code&gt;function&lt;/code&gt; $f: A\rightarrowtail B$ is called &lt;code&gt;injection&lt;/code&gt; if $\forall a_1, a_2, b$, if $(a_1, b), (a_2, b) \in R$, then $a_1 = a_2$.&lt;/p&gt;
 &lt;p&gt;A &lt;code&gt;function&lt;/code&gt; $f: A\twoheadrightarrow B$ is called &lt;code&gt;surjection&lt;/code&gt; if $\forall b \in B$, there exists an $a \in A$, such that $f(a) = b$.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;function&lt;/code&gt; $f: A \overset{\cong} \rightarrowtail B$ is called &lt;code&gt;bijection&lt;/code&gt; if it is both surjective and injective.&lt;/p&gt;
+&lt;p&gt;An &lt;code&gt;identity function&lt;/code&gt; on a set $X$, denoted $id_X$. It is the bijective function $id_X(x) = x$.&lt;/p&gt;
 &lt;p&gt;A &lt;code&gt;partition&lt;/code&gt; on $A$ is just a surjection on some other set $P$: $A \twoheadrightarrow P$.&lt;/p&gt;
 &lt;p&gt;We can order &lt;code&gt;partitions&lt;/code&gt;: $A \twoheadrightarrow P_1$, $A \twoheadrightarrow P_2$. We say $P_1 \leqslant P_2$, if there is a &lt;code&gt;function&lt;/code&gt; $P_1 \rightarrow P_2$ making the diagram commute: $A \twoheadrightarrow P_1 \rightarrow P_2$.&lt;/p&gt;
 &lt;p&gt;So $A \twoheadrightarrow A$ is the minimum &lt;code&gt;partition&lt;/code&gt;, and the $A \twoheadrightarrow \underline{1}$ is the maximum &lt;code&gt;partition&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;An &lt;code&gt;pre-order&lt;/code&gt; is&lt;/p&gt;
+&lt;p&gt;An &lt;code&gt;preorder&lt;/code&gt; is&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;a set $S$&lt;/li&gt;
-&lt;li&gt;a relation $\preceq : \subseteq S \times S$&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;a set $S$, and&lt;/li&gt;
+&lt;li&gt;a relation $≤ : \subseteq S \times S$&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;satisfying 2 properties:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;$\forall S&amp;rsquo; \in S$, $S&amp;rsquo; \preceq S$.&lt;/li&gt;
-&lt;li&gt;$\forall S_1$, $S_2$, $S_3$, if $S_1 \preceq S_2$ and $S_2 \preceq S_3$, then $S_1 \preceq S_3$.&lt;/li&gt;
+&lt;li&gt;$S ≤ S$. &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;$\forall S_1$, $S_2$, $S_3$, if $S_1 ≤ S_2$ and $S_2 ≤ S_3$, then $S_1 ≤ S_3$. &lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Order creates &lt;code&gt;join&lt;/code&gt;. Joining $A$ and $B$, denoted by $A\vee B$, results in the least &lt;code&gt;partition&lt;/code&gt; bigger than both $A$ and $B$. That is $A \preceq (A\vee B)$ and $A \preceq (A\vee B)$. And for any C, if $A \preceq C$ and $B \preceq C$ then $(A\vee B) \preceq C$,&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;So order is more fundamental than joining.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;preorder&lt;/code&gt; is a &lt;code&gt;category&lt;/code&gt; with at most one &lt;code&gt;morphism&lt;/code&gt; between any two objects.&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Something slightly more complicated is that a &lt;code&gt;preorder&lt;/code&gt; is a &lt;code&gt;Bool-enriched category&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;meets-and-joins&#34;&gt;Meets and Joins&lt;/h2&gt;
+&lt;p&gt;Order creates &lt;code&gt;meets&lt;/code&gt; and &lt;code&gt;joins&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Joining $A$ and $B$, denoted by $A\vee B$, results in the least &lt;code&gt;partition&lt;/code&gt; bigger than both $A$ and $B$. That is $A ≤ (A\vee B)$ and $A ≤ (A\vee B)$. And for any C, if $A ≤ C$ and $B ≤ C$ then $(A\vee B) ≤ C$.&lt;/p&gt;
+&lt;p&gt;Put it formally. Let $(P, ≤)$ be a &lt;code&gt;preorder&lt;/code&gt;, and let $A \subseteq P$ be a &lt;code&gt;subset&lt;/code&gt;. We say that an element $p \in P$ is a &lt;code&gt;meet&lt;/code&gt; of $A$ if&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\forall a\in A$, we have $p≤ a$&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;, and&lt;/li&gt;
+&lt;li&gt;for all $q$ such that $q≤ a$ for all $a\in A$, we have that $q≤ p$&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We write $P = \wedge A =  \underset{a\in A}{\wedge} a = a_1 \wedge a_2 \wedge &amp;hellip; \wedge a_n$&lt;/p&gt;
+&lt;p&gt;Similarly, we say that $p$ is a &lt;code&gt;join&lt;/code&gt; of $A$ if&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$\forall a\in A$, we have $a≤ p$&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;, and&lt;/li&gt;
+&lt;li&gt;for all $q$ such that $a≤ q$ for all $a\in A$, we have that $p≤ q$&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In this case, $P = \vee A =  \underset{a\in A}{\vee} a = a_1 \vee a_2 \vee &amp;hellip; \vee a_n$&lt;/p&gt;
+&lt;p&gt;We next discuss examples.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 1: Truth Tables of the Booleans $\mathbb{B}$={T,F}$.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For example, the pairwise &lt;code&gt;meets&lt;/code&gt; table of ${T,F}(F \leq T)$ happens to be the truth table for &lt;code&gt;AND&lt;/code&gt; in elementary logic. A similar binary join computation will generate the truth table for &lt;code&gt;OR&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 2: Power Sets, $(P(x), ≤)$.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s pick a particular set, let $X = {\square, \times, \heartsuit}$, then we consider its power sets:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/power_sets.png&#34; alt=&#34;power_sets&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In this case, it&amp;rsquo;s clear that $\wedge$ = intersection, $\vee$ = union.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 3: $(\mathbb{N}, |), a ≤ b$, iff $a|b$&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/divisible.png&#34; alt=&#34;divisible&#34;&gt;&lt;/p&gt;
+&lt;p&gt;1 divides everything, so we start from 1. Here we have $\wedge$ = gcd, $\vee$ = lcm.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 4: There may be more than one &lt;code&gt;meet&lt;/code&gt;/&lt;code&gt;join&lt;/code&gt;.&lt;/strong&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/hasse_diagram.png&#34; alt=&#34;hasse_diagram&#34;&gt;&lt;/p&gt;
+&lt;p&gt;This hasse diagram specifies a &lt;code&gt;preorder&lt;/code&gt; where both $c$ and $d$ are &lt;code&gt;meets&lt;/code&gt; of $A$. We have $c≤ d$ and $d≤ c$, so $c \cong d$, that is $c$ and $d$ are &lt;code&gt;isomorphic&lt;/code&gt;, which will be covered later; we generally do not run into trouble if we pretend they are equal though.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 5: &lt;code&gt;Meets&lt;/code&gt; or &lt;code&gt;joins&lt;/code&gt; may not exist.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Clearly things don&amp;rsquo;t always have a lower bound or a upper bound at all. There might be multiple lower bounds/upper bounds but these lower/upper bounds are non-comparable.&lt;/p&gt;
+&lt;p&gt;Throughout these examples, many familiar things can be characterized by this quite simple universal property, be it gcd/lcm, max/min, limits/colimits, or itersection/union.&lt;/p&gt;
+&lt;p&gt;The idea that things can be characterized by universal properties, implies we are closer to category theory now.&lt;/p&gt;
+&lt;h2 id=&#34;monotone-maps&#34;&gt;Monotone Maps&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Preorders&lt;/code&gt; themselves can be related to one another. A &lt;code&gt;monotone map&lt;/code&gt; is a structure-preserving map for &lt;code&gt;preorders&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;monotone map&lt;/code&gt; between &lt;code&gt;preorders&lt;/code&gt; $(A, ≤_A)$ and $(B, ≤_B)$ is a &lt;code&gt;function&lt;/code&gt; $f : A \rightarrow B$ such that, for all elements $x, y ∈ A$, if $x ≤_A y$ then $f (x) ≤_B f(y)$.
+&lt;img src=&#34;https://cmbbq.github.io/img/monotone_map.png&#34; alt=&#34;monotone_map&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Let $\mathbb{B}$ be the preorders of booleans and $\mathbb{N}$ be the preorder of natural numbers. The map $\mathbb{B} \rightarrow \mathbb{N}$ sending false to 17 and true to 24 is a &lt;code&gt;monotone map&lt;/code&gt;, because it preserves order.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/b2n.png&#34; alt=&#34;b2n&#34;&gt;&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;monotone map&lt;/code&gt; $f: P \rightarrow Q$ preserves &lt;code&gt;joins&lt;/code&gt; if $\forall p,p&amp;rsquo; \in P, f(p\vee p&amp;rsquo;) = f(p) \vee f(p&amp;rsquo;)$&lt;/p&gt;
+&lt;p&gt;For any &lt;code&gt;preorder&lt;/code&gt; $(P, ≤_P)$, the identity function is monotone.
+If $(Q, ≤_Q)$ and $(R, ≤_R)$ are preorders and $f : P → Q$ and $g : Q → R$ are monotone, then $(f ; g): P → R$ is also monotone.&lt;/p&gt;
+&lt;p&gt;Let $(P, ≤_P)$ and $(Q, ≤_Q)$ be preorders. A &lt;code&gt;monotone function&lt;/code&gt; $f : P → Q$ is called an &lt;code&gt;isomorphism&lt;/code&gt; if there exists a &lt;code&gt;monotone function&lt;/code&gt; $g : Q → P$ such that $f;g = id_P$ and $g;f = id_Q$. This means that for any $p ∈ P$ and $q ∈ Q$, we have $p=g(f(p))$ and $q
+=f(g(q))$.&lt;/p&gt;
+&lt;p&gt;We refer to $g$ as the inverse of $f$ , and vice versa: $f$ is the inverse of $g$.&lt;/p&gt;
+&lt;p&gt;If there is an &lt;code&gt;isomorphism&lt;/code&gt; $P → Q$, we say that $P$ and $Q$ are isomorphic.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;An isomorphism between preorders is basically just a relabeling of the elements.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;galois-connections&#34;&gt;Galois Connections&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Galois connections&lt;/code&gt; between &lt;code&gt;preorders&lt;/code&gt; $P$ and $Q$ is a pair of &lt;code&gt;monotone maps&lt;/code&gt; $f : P → Q$ and $g : Q → P$ such that $f(p) ≤ q iff p ≤ g(q).$&lt;/p&gt;
+&lt;p&gt;We say that $f$ is the left &lt;code&gt;adjoint&lt;/code&gt; and g is the right &lt;code&gt;adjoint&lt;/code&gt; of the &lt;code&gt;Galois connection&lt;/code&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The theory of &lt;code&gt;Galois connections&lt;/code&gt; is a special case of a more general theory, the theory of &lt;code&gt;adjunctions&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Example 1: $P = Q = \underline{3}$&lt;/strong&gt;
+&lt;img src=&#34;https://cmbbq.github.io/img/Galois_connections.png&#34; alt=&#34;togc&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In this case $P$ and $Q$ are total orders, $f$ is left adjoint to $g$ as long as arrows do not cross.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Example 2: $\mathbb{Z} \xrightarrow[f]{3\times\square} \mathbb{R}$, $\mathbb{R} \xrightarrow[g]{\lfloor\square/3\rfloor} \mathbb{Z}$&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It means we have $5 \xrightarrow[f]{3\times\square}15$, $13.3 \xrightarrow[g]{\lfloor\square/3\rfloor}4$.&lt;/p&gt;
+&lt;p&gt;Since $3n ≤ x$ iff $n ≤ \lfloor x/3\rfloor$, $f$ is left adjoint to $g$.&lt;/p&gt;
+&lt;p&gt;In the end of the day, we can claim that a &lt;code&gt;monotone map&lt;/code&gt; $f$ is a left/right &lt;code&gt;adjoint&lt;/code&gt; iff it preserves &lt;code&gt;joins&lt;/code&gt;/&lt;code&gt;meets&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;Here we use the symbol $\preceq$ instead of $R$ as it implies a preorder, and the infix notation $S_1 \preceq S_2$ looks more natural than $(S_1,S_2) \in R$.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Here we use the symbol $≤$ instead of $R$ as it implies a preorder, and the infix notation $S_1 ≤ S_2$ looks more natural than $(S_1,S_2) \in R$.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;reflexivity&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;transitivity&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;$p$ is the lower bound of $A$&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;
+&lt;p&gt;$p$ is the greatest lower bound&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;
+&lt;p&gt;$p$ is the upper bound of $A$&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:7&#34;&gt;
+&lt;p&gt;$p$ is the least lower bound&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
