@@ -45,10 +45,7 @@ A function $f: A\rightarrowtail B$ is called injection if $\forall a_1, a_2, b$,
 &lt;li&gt;$\forall S_1$, $S_2$, $S_3$, if $S_1 ≤ S_2$ and $S_2 ≤ S_3$, then $S_1 ≤ S_3$. &lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
-&lt;p&gt;A &lt;code&gt;preorder&lt;/code&gt; is a &lt;code&gt;category&lt;/code&gt; with at most one &lt;code&gt;morphism&lt;/code&gt; between any two objects.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Something slightly more complicated is that a &lt;code&gt;preorder&lt;/code&gt; is a &lt;code&gt;Bool-enriched category&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;preorder&lt;/code&gt; is a &lt;code&gt;category&lt;/code&gt; with at most one &lt;code&gt;morphism&lt;/code&gt; between any two objects. Something slightly more complicated is that a &lt;code&gt;preorder&lt;/code&gt; is a &lt;code&gt;Bool-enriched category&lt;/code&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;meets-and-joins&#34;&gt;Meets and Joins&lt;/h2&gt;
 &lt;p&gt;Order creates &lt;code&gt;meets&lt;/code&gt; and &lt;code&gt;joins&lt;/code&gt;.&lt;/p&gt;

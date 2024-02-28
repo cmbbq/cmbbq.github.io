@@ -37,9 +37,7 @@ satisfying 2 properties:
 1. $S ≤ S$. [^2]
 2. $\forall S_1$, $S_2$, $S_3$, if $S_1 ≤ S_2$ and $S_2 ≤ S_3$, then $S_1 ≤ S_3$. [^3]
 
-> A `preorder` is a `category` with at most one `morphism` between any two objects.
-
-> Something slightly more complicated is that a `preorder` is a `Bool-enriched category`. 
+> A `preorder` is a `category` with at most one `morphism` between any two objects. Something slightly more complicated is that a `preorder` is a `Bool-enriched category`. 
 
 ## Meets and Joins 
 Order creates `meets` and `joins`. 
