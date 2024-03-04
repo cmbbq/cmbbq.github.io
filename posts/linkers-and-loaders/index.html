@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Linkers &amp; Loaders :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="《Linkers &amp; Loaders》填补了一个niche知识域——链接和加载。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/linkers-and-loaders/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Linkers &amp; Loaders">
+<meta property="og:description" content="《Linkers &amp; Loaders》填补了一个niche知识域——链接和加载。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/linkers-and-loaders/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-03-04 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/linkers-and-loaders/">Linkers &amp; Loaders</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-03-04
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>链接器或加载器的基本工作是绑定——把抽象的名字绑定到更具体的名字上，比如把<code>getline</code>函数绑定到“.text的第612字节处”。</p>
+<h2 id="地址绑定的历史">地址绑定的历史<a href="#地址绑定的历史" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>打孔卡带(punched card/paper tape)计算机时代，程序员把符号程序手动汇编成机器码输入机器。代码中如果使用了名字（符号地址），也需程序员手动翻译成地址。因此代码里的任意一条指令的增减都可能影响到机器码中的所有地址。</p>
+<p>这是名字与地址过早绑定的恶果。汇编器允许程序员用符号名字写程序，解决了这一问题。</p>
+<p>打孔卡带时代也已经有了子程序和库的概念，当时把一些子程序分类存放在卡带里，主程序使用子程序时就需要加载并重排子程序卡带。这个过程实际上就是手动的<code>library search</code>和<code>重定位</code>。</p>
+<p>在操作系统出现前，每个程序都默认把整个机器内存空间独享，自然可以用固定的内存地址，毕竟机器的所有地址都是可用的。操作系统出现后，程序必需与操作系统、甚至其他程序共享内存空间，实际地址在操作系统加载程序成后才能知道，这又将地址绑定从链接时延后至加载时，因此重定位加载器从链接器中独立出来。链接器负责部分地址绑定，在每个程序内部做相对地址重分配；加载器负责重定位，进行最终的地址分配。</p>
+<p>早期内存非常紧张，程序体量很快超过了内存上限，因此链接器提供了一种overlay机制，允许不同部分的程序共享同一块内存。直到90年代出现虚拟内存之后这个机制才消失。硬件重定位和虚拟内存的出现使链接器和加载器变得更简单。</p>
+<p>计算机执行一个程序的多个副本时，这个程序的大部分内容实际上是可以共享的，因此引入了分段机制，将只读代码段和可写代码段分离，一个机器上只需要加载一份只读代码段。因此链接器需额外为每个代码段分配地址。</p>
+<p>计算机即使在执行多个不同程序，这些程序往往也共享大量代码，因此出现了共享库。静态共享库不够灵活，库里的任何代码改动都要求重新链接。因此出现了动态共享库，令符号和分段并不绑定实际地址，而是推迟到程序运行时再进行绑定——甚至还能进一步延迟，在首次调用时才绑定。</p>
+<h2 id="链接-vs-加载">链接 vs 加载<a href="#链接-vs-加载" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>链接器负责符号解析，加载器负责程序加载，二者都可以做重定位，也存在三合一的<code>linking loaders</code>。</p>
+<ul>
+<li>符号解析：所谓符号，就是程序调用子程序的媒依。链接器将诸如sqrt这样的函数名解析为库中的位置，并给调用方的代码打个补丁，让调用指令指向这个位置。</li>
+<li>程序加载：加载即把程序拷贝到内存，也顺带做些设置内存保护位、安排虚拟内存映射等事。</li>
+<li>重定位：编译器、汇编器为每个编译单元（文件）生成的程序地址从零开始。往往链接器把多个子程序拼成一个完整程序时会做一次重定位。这个完整程序的地址仍然从零开始，因此加载器将程序加载进内存后又会做一次重定位。</li>
+</ul>
+<h2 id="2-pass链接">2-pass链接<a href="#2-pass链接" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>链接和编译、汇编一样，也是个2-pass过程。链接器以对象文件、静态库、动态库、命令行参数为输入，输出可执行文件，如开启debug，还伴随生成debugger符号文件或load map。其中对象文件、静态库、动态库都是分段的（code/data），且至少有一个符号表，导出/导入一些符号。</p>
+<p>链接器在1st pass中扫描所有输入文件，获取各分段大小，收集所有符号定义和引用，从而创建一个统合分段表和一个统合符号表，进而为每个符号分配位置，确定输出地址空间的分段大小和位置。</p>
+<p>随后链接器在2nd pass中读取此前生成的对象文件，把所有符号引用替换为数值地址，把所有代码、数据中的内存地址调整成重定位后的分段地址，最后再给更新后的对象文件添加header、重定位段、符号表。</p>
+<p>如果程序用到了动态链接，则符号表包含<code>runtime linker</code>解析动态符号所需的信息。通常链接器还会生成一些胶水代码，为调用动态链接库提供调用例程。</p>
+<p>无论程序是否使用动态链接，符号表中总会提供一些供重链接和debug用的信息——很多对象格式都是可以重链接的，即允许生成的对象文件作为后续链接的输入。</p>
+<h2 id="对象文件">对象文件<a href="#对象文件" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>编译器和汇编器为源码生成的二进制码文件即对象文件，包含header、object code、重定向列表（一些链接时需重定向的位置）、全局符号表、debug信息等内容。</p>
+<p>对象文件作为原材料，最终可用于三类最终产物：linkables、executables、loadables。</p>
+<ul>
+<li>Linkables包含丰富的符号信息、重定位信息，object code也组织成细小的逻辑段，方便链接器后期加工，做符号解析和重定位。</li>
+<li>Executables包含页对齐的object code（允许映射到虚拟内存），不需要提供动态链接需求之外的任何符号信息，也只需要提供很少或不提供重定位信息。其object code被组织成较大粒度的段或反映硬件执行环境的特定分段，往往分成read-only和read-write pages。</li>
+<li>Loadables可能只需包含object code，也可能需提供完整的符号和重定位信息，这取决于系统runtime的实现。</li>
+</ul>
+<p>典型的对象文件格式Unix a.out包含header、text section、data section、other sections。
+其header（以BSD为例）包含text segment size、inited data size、uninited data size（BSS段）、symbol table size、entry point（起始地址）、text 重定位 size、data 重定位 size。</p>
+<p>加载a.out时，操作系统先读header，获取各分段大小，再查找是否已存在共享代码段，若没有再新建一个，将text分段映射到内存空间，创建足够大的私有数据分段，把bss分段初始化为零，创建并映射栈分段（往往独立于数据段，因为堆和栈增长速度往往不同），把程序运行的初始参数入栈，最后设置寄存器并跳转到程序的起始地址。</p>
+<p>为了减少不必要的paging，让对象文件能直接映射到4K的页，后续UNIX上出了一些pageable格式把header扩展到4K，把text分段的边界向上取整到下一个4K。这样做的缺点是不够紧凑，浪费磁盘空间。后来又出现了一些compact pageable格式，把header直接视作text分段的一部分（QMAGIC和ELF）。</p>
+<p>a.out不支持重定位，也不支持C++的initializer/finalizer代码的特殊处理，被支持cross-compilation、动态链接等机制的ELF（Executable and Linking Format）取代。</p>
+<p>ELF采用了DWARF作为其debugging格式，提供三种文件类型：relocatable、executable、shared object。</p>
+<ul>
+<li>Relocatables可被编译器、汇编器创建，但需要进一步被链接后才能运行。</li>
+<li>Executables做完了重定向和静态符号解析，可直接映射至内存。</li>
+<li>Shared objects就是动态链接库，包含链接时所需的符号信息和运行时可执行的代码。</li>
+</ul>
+<p>ELF被设计为具备双重属性：</p>
+<ul>
+<li>加载视角下是即将放入内存的loadable segments：在加载器看来，ELF是由program header描述的一组分段，无需关心分区。可执行分段只有廖廖几个。典型的BFD-ld或Gold链接的Linux ELF一般将其分为2个loadable分段：RE（只读可执行，包含.text，.rodata等）、RW（读写，包含.data，.bss等）。这样可以减少内核mmap次数到2次，但把只读数据放进只读可执行分段总归牺牲了安全性。比较新的Linux出于安全考虑分成3个分段R、RE、RW。将ELF header和.rodata放进R。更新一些的BFD-ld虽然把ELF header和.rodata分在R分段，但忘记合并这两个R了，导致出现4个loadable分段。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+<li>链接视角下是磁盘上的linkable sections：分区机制允许链接器对ELF进一步加工。单个分段由若干分区（section）组成。比如一个loadable read-only分段可以包含可执行代码、只读数据、动态链接符号这三个分区。Relocatables有分区表。Executables有ELF header表。Shared objects则兼具二者。典型的ELF可重定位程序包含十余个分区，例如.text、.data、.rodata、.bss、.rel.text（代码分区的重定位信息）、.rel.data、.rel.rodata、.init（C++全局变量构造函数）、.fini（C++全局变量析构函数）、.symtab（符号表）、.dynsym（动态库符号表）、.strtab、.dynstr、.interp（解释器路径）。可执行ELF和重定位ELF在格式上基本一致，只不过数据被重新安排，使文件能直接映射到内存，即pageable。</li>
+</ul>
+<p><img src="https://149520725.v2.pressablecdn.com//wp-content/uploads/2018/01/Image5.png" alt="sections_segments"></p>
+<h2 id="静态库和动态库">静态库和动态库<a href="#静态库和动态库" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>静态库本质上是一组对象文件，再稍微多加一点点信息（甚至有些系统直接把对象文件拼接起来就算是合法的静态链接库了）。</p>
+<p>链接器在处理完常规输入文件后，如果发现有的导入符号未定义，则遍历库，寻找该符号，将包含这些符号的文件链接起来。</p>
+<p>动态库让链接过程变得稍微复杂一点，将上述工作部分从链接转移到了加载时。链接器会在链接时找到能够解析未定义符号的那些动态库，但暂不链接任何代码，而是在输出文件里备注一下在哪个动态库可以招到特定符号，从而令加载器在加载程序时绑定这些动态库。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://stackoverflow.com/questions/57761007/why-an-elf-executable-could-have-4-load-segments">Why an ELF executable could have 4 LOAD segments?</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/category-theory-1-orders/">
+                <span class="button__text">Category Theory 1: Orders</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

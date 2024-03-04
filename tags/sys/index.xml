@@ -6,7 +6,96 @@
     <description>Recent content in sys on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 22 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linkers &amp; Loaders</title>
+      <link>https://cmbbq.github.io/posts/linkers-and-loaders/</link>
+      <pubDate>Mon, 04 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/linkers-and-loaders/</guid>
+      <description>链接器或加载器的基本工作是绑定——把抽象的名字绑定到更具体的名字上，比如把getline函数绑定到“.text的第612字节处”。
+地址绑定的历史 打孔卡带(punched card/paper tape)计算机时代，程序员把符号程序手动汇编成机器码输入机器。代码中如果使用了名字（符号地址），也需程序员手动翻译成地址。因此代码里的任意一条指令的增减都可能影响到机器码中的所有地址。
+这是名字与地址过早绑定的恶果。汇编器允许程序员用符号名字写程序，解决了这一问题。
+打孔卡带时代也已经有了子程序和库的概念，当时把一些子程序分类存放在卡带里，主程序使用子程序时就需要加载并重排子程序卡带。这个过程实际上就是手动的library search和重定位。
+在操作系统出现前，每个程序都默认把整个机器内存空间独享，自然可以用固定的内存地址，毕竟机器的所有地址都是可用的。操作系统出现后，程序必需与操作系统、甚至其他程序共享内存空间，实际地址在操作系统加载程序成后才能知道，这又将地址绑定从链接时延后至加载时，因此重定位加载器从链接器中独立出来。链接器负责部分地址绑定，在每个程序内部做相对地址重分配；加载器负责重定位，进行最终的地址分配。
+早期内存非常紧张，程序体量很快超过了内存上限，因此链接器提供了一种overlay机制，允许不同部分的程序共享同一块内存。直到90年代出现虚拟内存之后这个机制才消失。硬件重定位和虚拟内存的出现使链接器和加载器变得更简单。
+计算机执行一个程序的多个副本时，这个程序的大部分内容实际上是可以共享的，因此引入了分段机制，将只读代码段和可写代码段分离，一个机器上只需要加载一份只读代码段。因此链接器需额外为每个代码段分配地址。
+计算机即使在执行多个不同程序，这些程序往往也共享大量代码，因此出现了共享库。静态共享库不够灵活，库里的任何代码改动都要求重新链接。因此出现了动态共享库，令符号和分段并不绑定实际地址，而是推迟到程序运行时再进行绑定——甚至还能进一步延迟，在首次调用时才绑定。
+链接 vs 加载 链接器负责符号解析，加载器负责程序加载，二者都可以做重定位，也存在三合一的linking loaders。
+符号解析：所谓符号，就是程序调用子程序的媒依。链接器将诸如sqrt这样的函数名解析为库中的位置，并给调用方的代码打个补丁，让调用指令指向这个位置。 程序加载：加载即把程序拷贝到内存，也顺带做些设置内存保护位、安排虚拟内存映射等事。 重定位：编译器、汇编器为每个编译单元（文件）生成的程序地址从零开始。往往链接器把多个子程序拼成一个完整程序时会做一次重定位。这个完整程序的地址仍然从零开始，因此加载器将程序加载进内存后又会做一次重定位。 2-pass链接 链接和编译、汇编一样，也是个2-pass过程。链接器以对象文件、静态库、动态库、命令行参数为输入，输出可执行文件，如开启debug，还伴随生成debugger符号文件或load map。其中对象文件、静态库、动态库都是分段的（code/data），且至少有一个符号表，导出/导入一些符号。
+链接器在1st pass中扫描所有输入文件，获取各分段大小，收集所有符号定义和引用，从而创建一个统合分段表和一个统合符号表，进而为每个符号分配位置，确定输出地址空间的分段大小和位置。
+随后链接器在2nd pass中读取此前生成的对象文件，把所有符号引用替换为数值地址，把所有代码、数据中的内存地址调整成重定位后的分段地址，最后再给更新后的对象文件添加header、重定位段、符号表。
+如果程序用到了动态链接，则符号表包含runtime linker解析动态符号所需的信息。通常链接器还会生成一些胶水代码，为调用动态链接库提供调用例程。
+无论程序是否使用动态链接，符号表中总会提供一些供重链接和debug用的信息——很多对象格式都是可以重链接的，即允许生成的对象文件作为后续链接的输入。
+对象文件 编译器和汇编器为源码生成的二进制码文件即对象文件，包含header、object code、重定向列表（一些链接时需重定向的位置）、全局符号表、debug信息等内容。
+对象文件作为原材料，最终可用于三类最终产物：linkables、executables、loadables。
+Linkables包含丰富的符号信息、重定位信息，object code也组织成细小的逻辑段，方便链接器后期加工，做符号解析和重定位。 Executables包含页对齐的object code（允许映射到虚拟内存），不需要提供动态链接需求之外的任何符号信息，也只需要提供很少或不提供重定位信息。其object code被组织成较大粒度的段或反映硬件执行环境的特定分段，往往分成read-only和read-write pages。 Loadables可能只需包含object code，也可能需提供完整的符号和重定位信息，这取决于系统runtime的实现。 典型的对象文件格式Unix a.out包含header、text section、data section、other sections。 其header（以BSD为例）包含text segment size、inited data size、uninited data size（BSS段）、symbol table size、entry point（起始地址）、text 重定位 size、data 重定位 size。
+加载a.out时，操作系统先读header，获取各分段大小，再查找是否已存在共享代码段，若没有再新建一个，将text分段映射到内存空间，创建足够大的私有数据分段，把bss分段初始化为零，创建并映射栈分段（往往独立于数据段，因为堆和栈增长速度往往不同），把程序运行的初始参数入栈，最后设置寄存器并跳转到程序的起始地址。
+为了减少不必要的paging，让对象文件能直接映射到4K的页，后续UNIX上出了一些pageable格式把header扩展到4K，把text分段的边界向上取整到下一个4K。这样做的缺点是不够紧凑，浪费磁盘空间。后来又出现了一些compact pageable格式，把header直接视作text分段的一部分（QMAGIC和ELF）。
+a.out不支持重定位，也不支持C++的initializer/finalizer代码的特殊处理，被支持cross-compilation、动态链接等机制的ELF（Executable and Linking Format）取代。
+ELF采用了DWARF作为其debugging格式，提供三种文件类型：relocatable、executable、shared object。</description>
+      <content>&lt;p&gt;链接器或加载器的基本工作是绑定——把抽象的名字绑定到更具体的名字上，比如把&lt;code&gt;getline&lt;/code&gt;函数绑定到“.text的第612字节处”。&lt;/p&gt;
+&lt;h2 id=&#34;地址绑定的历史&#34;&gt;地址绑定的历史&lt;/h2&gt;
+&lt;p&gt;打孔卡带(punched card/paper tape)计算机时代，程序员把符号程序手动汇编成机器码输入机器。代码中如果使用了名字（符号地址），也需程序员手动翻译成地址。因此代码里的任意一条指令的增减都可能影响到机器码中的所有地址。&lt;/p&gt;
+&lt;p&gt;这是名字与地址过早绑定的恶果。汇编器允许程序员用符号名字写程序，解决了这一问题。&lt;/p&gt;
+&lt;p&gt;打孔卡带时代也已经有了子程序和库的概念，当时把一些子程序分类存放在卡带里，主程序使用子程序时就需要加载并重排子程序卡带。这个过程实际上就是手动的&lt;code&gt;library search&lt;/code&gt;和&lt;code&gt;重定位&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;在操作系统出现前，每个程序都默认把整个机器内存空间独享，自然可以用固定的内存地址，毕竟机器的所有地址都是可用的。操作系统出现后，程序必需与操作系统、甚至其他程序共享内存空间，实际地址在操作系统加载程序成后才能知道，这又将地址绑定从链接时延后至加载时，因此重定位加载器从链接器中独立出来。链接器负责部分地址绑定，在每个程序内部做相对地址重分配；加载器负责重定位，进行最终的地址分配。&lt;/p&gt;
+&lt;p&gt;早期内存非常紧张，程序体量很快超过了内存上限，因此链接器提供了一种overlay机制，允许不同部分的程序共享同一块内存。直到90年代出现虚拟内存之后这个机制才消失。硬件重定位和虚拟内存的出现使链接器和加载器变得更简单。&lt;/p&gt;
+&lt;p&gt;计算机执行一个程序的多个副本时，这个程序的大部分内容实际上是可以共享的，因此引入了分段机制，将只读代码段和可写代码段分离，一个机器上只需要加载一份只读代码段。因此链接器需额外为每个代码段分配地址。&lt;/p&gt;
+&lt;p&gt;计算机即使在执行多个不同程序，这些程序往往也共享大量代码，因此出现了共享库。静态共享库不够灵活，库里的任何代码改动都要求重新链接。因此出现了动态共享库，令符号和分段并不绑定实际地址，而是推迟到程序运行时再进行绑定——甚至还能进一步延迟，在首次调用时才绑定。&lt;/p&gt;
+&lt;h2 id=&#34;链接-vs-加载&#34;&gt;链接 vs 加载&lt;/h2&gt;
+&lt;p&gt;链接器负责符号解析，加载器负责程序加载，二者都可以做重定位，也存在三合一的&lt;code&gt;linking loaders&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;符号解析：所谓符号，就是程序调用子程序的媒依。链接器将诸如sqrt这样的函数名解析为库中的位置，并给调用方的代码打个补丁，让调用指令指向这个位置。&lt;/li&gt;
+&lt;li&gt;程序加载：加载即把程序拷贝到内存，也顺带做些设置内存保护位、安排虚拟内存映射等事。&lt;/li&gt;
+&lt;li&gt;重定位：编译器、汇编器为每个编译单元（文件）生成的程序地址从零开始。往往链接器把多个子程序拼成一个完整程序时会做一次重定位。这个完整程序的地址仍然从零开始，因此加载器将程序加载进内存后又会做一次重定位。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-pass链接&#34;&gt;2-pass链接&lt;/h2&gt;
+&lt;p&gt;链接和编译、汇编一样，也是个2-pass过程。链接器以对象文件、静态库、动态库、命令行参数为输入，输出可执行文件，如开启debug，还伴随生成debugger符号文件或load map。其中对象文件、静态库、动态库都是分段的（code/data），且至少有一个符号表，导出/导入一些符号。&lt;/p&gt;
+&lt;p&gt;链接器在1st pass中扫描所有输入文件，获取各分段大小，收集所有符号定义和引用，从而创建一个统合分段表和一个统合符号表，进而为每个符号分配位置，确定输出地址空间的分段大小和位置。&lt;/p&gt;
+&lt;p&gt;随后链接器在2nd pass中读取此前生成的对象文件，把所有符号引用替换为数值地址，把所有代码、数据中的内存地址调整成重定位后的分段地址，最后再给更新后的对象文件添加header、重定位段、符号表。&lt;/p&gt;
+&lt;p&gt;如果程序用到了动态链接，则符号表包含&lt;code&gt;runtime linker&lt;/code&gt;解析动态符号所需的信息。通常链接器还会生成一些胶水代码，为调用动态链接库提供调用例程。&lt;/p&gt;
+&lt;p&gt;无论程序是否使用动态链接，符号表中总会提供一些供重链接和debug用的信息——很多对象格式都是可以重链接的，即允许生成的对象文件作为后续链接的输入。&lt;/p&gt;
+&lt;h2 id=&#34;对象文件&#34;&gt;对象文件&lt;/h2&gt;
+&lt;p&gt;编译器和汇编器为源码生成的二进制码文件即对象文件，包含header、object code、重定向列表（一些链接时需重定向的位置）、全局符号表、debug信息等内容。&lt;/p&gt;
+&lt;p&gt;对象文件作为原材料，最终可用于三类最终产物：linkables、executables、loadables。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linkables包含丰富的符号信息、重定位信息，object code也组织成细小的逻辑段，方便链接器后期加工，做符号解析和重定位。&lt;/li&gt;
+&lt;li&gt;Executables包含页对齐的object code（允许映射到虚拟内存），不需要提供动态链接需求之外的任何符号信息，也只需要提供很少或不提供重定位信息。其object code被组织成较大粒度的段或反映硬件执行环境的特定分段，往往分成read-only和read-write pages。&lt;/li&gt;
+&lt;li&gt;Loadables可能只需包含object code，也可能需提供完整的符号和重定位信息，这取决于系统runtime的实现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;典型的对象文件格式Unix a.out包含header、text section、data section、other sections。
+其header（以BSD为例）包含text segment size、inited data size、uninited data size（BSS段）、symbol table size、entry point（起始地址）、text 重定位 size、data 重定位 size。&lt;/p&gt;
+&lt;p&gt;加载a.out时，操作系统先读header，获取各分段大小，再查找是否已存在共享代码段，若没有再新建一个，将text分段映射到内存空间，创建足够大的私有数据分段，把bss分段初始化为零，创建并映射栈分段（往往独立于数据段，因为堆和栈增长速度往往不同），把程序运行的初始参数入栈，最后设置寄存器并跳转到程序的起始地址。&lt;/p&gt;
+&lt;p&gt;为了减少不必要的paging，让对象文件能直接映射到4K的页，后续UNIX上出了一些pageable格式把header扩展到4K，把text分段的边界向上取整到下一个4K。这样做的缺点是不够紧凑，浪费磁盘空间。后来又出现了一些compact pageable格式，把header直接视作text分段的一部分（QMAGIC和ELF）。&lt;/p&gt;
+&lt;p&gt;a.out不支持重定位，也不支持C++的initializer/finalizer代码的特殊处理，被支持cross-compilation、动态链接等机制的ELF（Executable and Linking Format）取代。&lt;/p&gt;
+&lt;p&gt;ELF采用了DWARF作为其debugging格式，提供三种文件类型：relocatable、executable、shared object。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Relocatables可被编译器、汇编器创建，但需要进一步被链接后才能运行。&lt;/li&gt;
+&lt;li&gt;Executables做完了重定向和静态符号解析，可直接映射至内存。&lt;/li&gt;
+&lt;li&gt;Shared objects就是动态链接库，包含链接时所需的符号信息和运行时可执行的代码。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ELF被设计为具备双重属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;加载视角下是即将放入内存的loadable segments：在加载器看来，ELF是由program header描述的一组分段，无需关心分区。可执行分段只有廖廖几个。典型的BFD-ld或Gold链接的Linux ELF一般将其分为2个loadable分段：RE（只读可执行，包含.text，.rodata等）、RW（读写，包含.data，.bss等）。这样可以减少内核mmap次数到2次，但把只读数据放进只读可执行分段总归牺牲了安全性。比较新的Linux出于安全考虑分成3个分段R、RE、RW。将ELF header和.rodata放进R。更新一些的BFD-ld虽然把ELF header和.rodata分在R分段，但忘记合并这两个R了，导致出现4个loadable分段。&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;链接视角下是磁盘上的linkable sections：分区机制允许链接器对ELF进一步加工。单个分段由若干分区（section）组成。比如一个loadable read-only分段可以包含可执行代码、只读数据、动态链接符号这三个分区。Relocatables有分区表。Executables有ELF header表。Shared objects则兼具二者。典型的ELF可重定位程序包含十余个分区，例如.text、.data、.rodata、.bss、.rel.text（代码分区的重定位信息）、.rel.data、.rel.rodata、.init（C++全局变量构造函数）、.fini（C++全局变量析构函数）、.symtab（符号表）、.dynsym（动态库符号表）、.strtab、.dynstr、.interp（解释器路径）。可执行ELF和重定位ELF在格式上基本一致，只不过数据被重新安排，使文件能直接映射到内存，即pageable。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://149520725.v2.pressablecdn.com//wp-content/uploads/2018/01/Image5.png&#34; alt=&#34;sections_segments&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;静态库和动态库&#34;&gt;静态库和动态库&lt;/h2&gt;
+&lt;p&gt;静态库本质上是一组对象文件，再稍微多加一点点信息（甚至有些系统直接把对象文件拼接起来就算是合法的静态链接库了）。&lt;/p&gt;
+&lt;p&gt;链接器在处理完常规输入文件后，如果发现有的导入符号未定义，则遍历库，寻找该符号，将包含这些符号的文件链接起来。&lt;/p&gt;
+&lt;p&gt;动态库让链接过程变得稍微复杂一点，将上述工作部分从链接转移到了加载时。链接器会在链接时找到能够解析未定义符号的那些动态库，但暂不链接任何代码，而是在输出文件里备注一下在哪个动态库可以招到特定符号，从而令加载器在加载程序时绑定这些动态库。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://stackoverflow.com/questions/57761007/why-an-elf-executable-could-have-4-load-segments&#34;&gt;Why an ELF executable could have 4 LOAD segments?&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
     <item>
       <title>Tech Talk: Wall is Coming</title>
       <link>https://cmbbq.github.io/posts/tech-talk-wall-is-coming/</link>
