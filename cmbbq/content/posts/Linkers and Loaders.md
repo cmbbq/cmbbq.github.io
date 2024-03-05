@@ -86,6 +86,4 @@ ELF被设计为具备双重属性：
 
 x86架构里存在硬件栈，有硬件返回命令——硬件电路将返回地址push到栈上，并跳转至该地址。其他架构大多保存在寄存器里，因此x86上软件无需把寄存器里的返回地址放到主存的某个地方保存起来。
 
-
-
 [^1]: [Why an ELF executable could have 4 LOAD segments?](https://stackoverflow.com/questions/57761007/why-an-elf-executable-could-have-4-load-segments)
