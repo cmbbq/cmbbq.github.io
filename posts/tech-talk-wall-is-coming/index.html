@@ -281,10 +281,10 @@ mov DWORD PTR _y$[esp+8], eax
 <li>这个padding不让对象的起始地址反复命中同一个channel或同一个rank，令下一个对象起始地址落入不同的channel/rank，充分利用不同内存通道、不同内存列，避免通道、列之间的负载不均，提升访存带宽。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">object_align</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> obj_size)
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">unsigned</span> nchan <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_nchannel</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">unsigned</span> nrank <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_nrank</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">unsigned</span> nchan <span style="color:#f92672">=</span> get_nchannel();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">unsigned</span> nrank <span style="color:#f92672">=</span> get_nrank();
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">unsigned</span> new_obj_size <span style="color:#f92672">=</span> (obj_size <span style="color:#f92672">+</span> <span style="color:#ae81ff">63</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">64</span>; 
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">get_gcd</span>(new_obj_size, nrank <span style="color:#f92672">*</span> nchan) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (get_gcd(new_obj_size, nrank <span style="color:#f92672">*</span> nchan) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>)
 </span></span><span style="display:flex;"><span>                new_obj_size<span style="color:#f92672">++</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> new_obj_size <span style="color:#f92672">*</span> <span style="color:#ae81ff">64</span>; 
 </span></span><span style="display:flex;"><span>}

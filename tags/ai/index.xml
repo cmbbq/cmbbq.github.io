@@ -857,11 +857,11 @@ GPU和CPU的价格-性能趋势 上述结论在2010年成立，如今13年过去
     </item>
     
     <item>
-      <title>Digital Representation of Sound</title>
-      <link>https://cmbbq.github.io/posts/digital-representation-of-sound/</link>
+      <title>Digital Representations of Sound</title>
+      <link>https://cmbbq.github.io/posts/digital-representations-of-sound/</link>
       <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/digital-representation-of-sound/</guid>
+      <guid>https://cmbbq.github.io/posts/digital-representations-of-sound/</guid>
       <description>声音的本质是振动。
 对于人耳来说，空气分子的振动抵达鼓膜时就会引起鼓膜振动——鼓膜顾名思义就是一层薄膜结构，被空气分子撞击就如同击鼓——带动鼓膜后的听小骨振动，传入内耳，再引发卵圆窗振动，卵圆窗这层薄膜之后是充满液体的耳蜗管道，这些液体随着卵圆窗振动而流动，冲刷耳蜗上的毛细胞的纤毛，从而产生生物电信号，经过神经传入大脑，就形成了听觉。
 对于电容式麦克风来说，当有声音时，两块金属极板就开始振动，其间的距离会产生变化，电压形成了对空气分子振幅的模拟，因此这种电压信号被称为模拟信号。只有离散的数据才能被计算机存储、计算，因此要形成数字音频，还需要声卡的模数转换电路将连续的模拟信号采样后转化为离散的数字信号。这是一个连续曲线转化成柱状图的过程，采样率决定了柱的粗细，bit depth则决定柱高度的精度。如果bit depth为N，则振幅的取值范围为2^N，音乐App里标注的16-bit, 24-bit, 32-bit就指的是bit depth，显然bit depth越高，振幅的表示越精确。比特率bit rate = sample rate * bit depth，即每秒用多少bit来表示音频数据。

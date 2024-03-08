@@ -1,5 +1,5 @@
 +++
-title = "Digital Representation of Sound"
+title = "Digital Representations of Sound"
 date = "2021-03-02"
 tags = ["ai"]
 description = "声音的数字表示"
