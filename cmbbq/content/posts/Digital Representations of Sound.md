@@ -23,7 +23,7 @@ PGC和UGC的差别主要是信噪比，毕竟录音的时候连手机都不能�
 时域与频域是对信号波的两个观察面。时域是真实世界唯一存在的域，频域则是对时域的数学构造。任何时域信号都可以表示为不同频率的正弦波信号的叠加。
 
 常见的音频格式包括wav、mdi、mp3、mp3pro、wma、realaudio、audible、aac、ogg vorbis、ape、flac。不同的音频编码有不同的目标，在压缩（降低传输所需信道带宽）和质量（对人耳来说）之间做tradeoff。
-
+ 
 各种格式的数字音频都能转成采样率8000Hz的PCM格式音频，PCM(pulse code modulation)是最简单的时域编码方式，就是对信号的离散和量化（通常是对数量化）。1/8000s长度的帧即构成了PCM音频在时域上的最小单位，每个帧包含channel数目个采样点，如果channel数目为1，则帧大小就等于bit depth。我们可以把PCM音频切分成多个chunk，每个chunk有固定大小（比如包含1024个帧），chunk与chunk之间必须有重合（比如256个帧）。之所以要有些重合，是为了对抗Time Skew（假如不做重合，查询音频的chunk的起始帧和库中的音频各个chunk的起始帧有一定offset就查询不到了）。
 
 ![ts](https://cmbbq.github.io/img/timeskew.png)
