@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Error Handling :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="本文讨论现代C&#43;&#43;的错误处理问题。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/error-handling/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Error Handling">
+<meta property="og:description" content="本文讨论现代C&#43;&#43;的错误处理问题。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/error-handling/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-04-09 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/error-handling/">Error Handling</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-04-09
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/se/">se</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>本文讨论现代C++的错误处理问题，结论如下：</p>
+<ol>
+<li>宜用<code>Result Monad</code>取代C范式和C++异常，在接口层面清晰定义表明可出错性，和错误清单。</li>
+<li>每个模块应有独立的Error类型，不宜用全局统一的Error类型或其subtype/variant，规避过于丝滑的错误传播导致的舒适陷阱。</li>
+<li>上述模块级的Error类型一般就是一个<code>enum class</code>，足够紧凑、安全。必需在Error中留存状态的场景再用<code>std::variant</code>+<code>std::visit</code>。</li>
+<li>明确需特殊处理的错误宜独占一个类型，不宜和常规错误一起并列在模块级Error的enum class中。</li>
+</ol>
+<h1 id="exception-sucks-in-every-possible-way">Exception Sucks in Every Possible Way<a href="#exception-sucks-in-every-possible-way" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>C++的异常具有多个令人绝望的特质：</p>
+<ul>
+<li>违反C++的基本设计准则——<code>zero cost abstraction</code>。</li>
+<li>鼓励隐藏<code>control flow</code>。</li>
+<li>不鼓励在接口中给出错误定义。</li>
+<li>对异常类型没有任何约束。</li>
+<li>不提供有界的空间时间开销承诺。<code>backtrace</code>耗时多久完全不可预计。</li>
+<li>导致编译后的代码膨胀。</li>
+<li>不兼容<code>C ABI</code>。</li>
+<li><code>throw</code>需要动态内存分配，<code>catch</code>需要昂贵的RTTI。在嵌入式环境下后两者基本不会开。</li>
+</ul>
+<p>总之C++异常机制是一种自然演化而成的历史遗迹，而非合乎理性的程序语言设计。以今天的标准，连写成提案的机会都不会有就会在mailing list被C++语言律师冷嘲热讽而消失。</p>
+<p>哪怕现在有很多轻量化甚至零成本抽象的新型exception提案（比如P1095R0<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>和P0709R4<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>），一时半会儿也不会有改观，固有的exception已经根植于历史系统中，包含标准库在内的庞大基础库都难以承受范式迁移的代价。合理对待异常的态度就是弃之不用。</p>
+<h1 id="convey-fallibility-in-api">Convey Fallibility in API<a href="#convey-fallibility-in-api" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>C风格error code虽然简单，但需要使用者有强大的自控能力，对于现代编程来说还是太过危险、简陋，语言层面本身无法区分参数中哪个是输入，哪个是输出，仰赖约定俗成的命名习惯或注释，缺乏可读性，编程时的心智负担太重。错误传播则缺乏类型安全，往往直接传引用和指针，引发难以追踪的内存安全、线程安全问题。不做任何错误传播，就地解决错误的话，又会导致代码繁琐冗余，总有一天会懒得做错误处理。</p>
+<p>如何兼具安全的错误传播、零成本抽象、接口中传达清晰的错误清单？Golang也没做到（几乎和C一样简陋，给了官方的error类型，然而并非泛型或Monad，只是一个返回Error()字符串的接口）。Java有点作弊（封闭且完整的JVM+标准库+Javadoc注释生态圈）。Rust则轻装简行，为我们展示了<code>Result&lt;T,E&gt;</code>的巨大成功——后续我们将其称为Result范式，用函数式编程语境下的<code>Result Monad</code>指代这类结构。</p>
+<p>抛开性能、C-兼容性等问题不谈，纯粹从软件系统设计的角度讲，<code>Result Monad</code>也能更好地在API层面清晰无误地将可能出现的错误良好定义。而exception则散落在代码实现中，单看接口根本不知道throw了什么，隐藏了哪些坑，如何处理这些坑——这在软件互操作性上是灾难性的。</p>
+<p>如今Rust-like Result范式的<a href="https://en.cppreference.com/w/cpp/utility/expected">std::expected</a>已经进入标准库，自gcc12/clang16起已经可以使用了，受限于旧版编译器的场景则可以用第三方实现。</p>
+<h1 id="keep-local-errors-in-their-own-types">Keep Local Errors in Their Own Types<a href="#keep-local-errors-in-their-own-types" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>基于<code>Result&lt;T,E&gt;</code>或<code>expected&lt;T,E&gt;</code>进行错误处理时，有一个简单方便的做法是将E设置成一个巨大的全局enum，包含所有可能的error code。这样就可以在整个程序中自由地用<code>?</code>操作符或<code>and_then/or_else</code>传播error，达到类似<code>throw</code>+<code>catch</code>异常的效果。</p>
+<p>这么做的确可以降低编程时的心智负担，但同时也注入了滥用错误传播的风险——当编码者可以轻易甩锅时，往往就会甩锅。通常一个独立且内聚的模块会对自身内部细节有更多了解，有些问题还是就地处理更妥当，把失败的细节暴露给相对外行的调用者，是在鼓励制造不恰当的耦合。</p>
+<p>因此每个系统模块对外应暴露最小化的错误集，将内部可处理的错误在内部消化，并将所有<code>fatal error</code>就地解决——往往是打日志、做些修复（有状态系统）、退出程序。为了避免滥用错误传播，对外暴露的这个错误集还应该有自己的enum类型（C++语境下一般就是<code>enum class</code>，如有必要，可尝试用<code>std::variant</code>+<code>std::visit</code>模拟Rust的<code>Enums</code> + <code>pattern matching</code>，见<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>），而不宜采用全局统一的某种enum的subtype或variant——迫使直接调用者优先对错误进行处理而不是甩锅给间接调用者，在甩锅非常合理的场景下，必要的显式类型转换或<code>transform_error</code>/<code>map_error</code>，也让甩锅成为一个有意识的system2编程决策，而非system1本能行为。</p>
+<p>此外，有一些特殊错误的处理逻辑与众不同，不宜和其他错误共享一个enum class，而应赋予这单个error一个独占的类型。这种情况下，可以用嵌套的expected表示返回值类型，如<code>expectd&lt;expected&lt;T, SpecialError&gt;, Error&gt;</code>，迫使调用者对SpecialError做单独处理。一个典型的例子是sled<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>中<code>compare_and_swap</code>，返回类型特地包裹了两层，外层是sled::Error，内层是特殊的CompareAndSwapError（CAS失败并非异常，而是常态，对它的处理应视为控制流，而非异常处理），在做这种设计后，sled用户误用这个函数的几率就大大降低了，第一次用<code>?</code>操作符仅将外层的通用Error传播了出去，不至于把必需特殊处理的CAS error也一并甩出去。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Rust" data-lang="Rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">compare_and_swap</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self,
+</span></span><span style="display:flex;"><span>  key: <span style="color:#a6e22e">Key</span>,
+</span></span><span style="display:flex;"><span>  old_value: <span style="color:#a6e22e">Value</span>,
+</span></span><span style="display:flex;"><span>  new_value: <span style="color:#a6e22e">Value</span>
+</span></span><span style="display:flex;"><span>) -&gt; Result<span style="color:#f92672">&lt;</span>Result<span style="color:#f92672">&lt;</span>(), CompareAndSwapError<span style="color:#f92672">&gt;</span>, sled::Error<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// we can actually use try `?` now
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> cas_result <span style="color:#f92672">=</span> sled.compare_and_swap(
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;dogs&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;pickles&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;catfood&#34;</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> Err(cas_error) <span style="color:#f92672">=</span> cas_result {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// handle expected issue
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1095r0.pdf">P1095R0: Zero overhead deterministic failure: A unified mechanism for C and C++</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0709r4.pdf">P0709R4: Zero-overhead deterministic exceptions: Throwing values</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a href="https://thatonegamedev.com/cpp/rust-enums-in-modern-cpp-match-pattern/">Rust enums in Modern C++ – Match Pattern</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p><a href="https://sled.rs/errors">Error Handling in a Correctness-Critical Rust Project</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/truth-vs-trust/">
+                <span class="button__text">Truth vs Trust</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
