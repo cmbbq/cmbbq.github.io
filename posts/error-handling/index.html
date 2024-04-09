@@ -147,7 +147,7 @@
 <li>不提供有界的空间时间开销承诺。<code>backtrace</code>耗时多久完全不可预计。</li>
 <li>导致编译后的代码膨胀。</li>
 <li>不兼容<code>C ABI</code>。</li>
-<li><code>throw</code>需要动态内存分配，<code>catch</code>需要昂贵的RTTI。在嵌入式环境下后两者基本不会开。</li>
+<li><code>throw</code>需要动态内存分配，<code>catch</code>甚至需要<code>RTTI</code>。嵌入式环境下不会这么奢侈。</li>
 </ul>
 <p>总之C++异常机制是一种自然演化而成的历史遗迹，而非合乎理性的程序语言设计。以今天的标准，连写成提案的机会都不会有就会在mailing list被C++语言律师冷嘲热讽而消失。</p>
 <p>哪怕现在有很多轻量化甚至零成本抽象的新型exception提案（比如P1095R0<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>和P0709R4<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>），一时半会儿也不会有改观，固有的exception已经根植于历史系统中，包含标准库在内的庞大基础库都难以承受范式迁移的代价。合理对待异常的态度就是弃之不用。</p>

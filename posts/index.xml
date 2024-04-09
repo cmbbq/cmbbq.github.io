@@ -15,7 +15,7 @@
       <guid>https://cmbbq.github.io/posts/error-handling/</guid>
       <description>本文讨论现代C++的错误处理问题，结论如下：
 宜用Result Monad取代C范式和C++异常，在接口层面清晰定义表明可出错性，和错误清单。 每个模块应有独立的Error类型，不宜用全局统一的Error类型或其subtype/variant，规避过于丝滑的错误传播导致的舒适陷阱。 上述模块级的Error类型一般就是一个enum class，足够紧凑、安全。必需在Error中留存状态的场景再用std::variant+std::visit。 明确需特殊处理的错误宜独占一个类型，不宜和常规错误一起并列在模块级Error的enum class中。 Exception Sucks in Every Possible Way C++的异常具有多个令人绝望的特质：
-违反C++的基本设计准则——zero cost abstraction。 鼓励隐藏control flow。 不鼓励在接口中给出错误定义。 对异常类型没有任何约束。 不提供有界的空间时间开销承诺。backtrace耗时多久完全不可预计。 导致编译后的代码膨胀。 不兼容C ABI。 throw需要动态内存分配，catch需要昂贵的RTTI。在嵌入式环境下后两者基本不会开。 总之C++异常机制是一种自然演化而成的历史遗迹，而非合乎理性的程序语言设计。以今天的标准，连写成提案的机会都不会有就会在mailing list被C++语言律师冷嘲热讽而消失。
+违反C++的基本设计准则——zero cost abstraction。 鼓励隐藏control flow。 不鼓励在接口中给出错误定义。 对异常类型没有任何约束。 不提供有界的空间时间开销承诺。backtrace耗时多久完全不可预计。 导致编译后的代码膨胀。 不兼容C ABI。 throw需要动态内存分配，catch甚至需要RTTI。嵌入式环境下不会这么奢侈。 总之C++异常机制是一种自然演化而成的历史遗迹，而非合乎理性的程序语言设计。以今天的标准，连写成提案的机会都不会有就会在mailing list被C++语言律师冷嘲热讽而消失。
 哪怕现在有很多轻量化甚至零成本抽象的新型exception提案（比如P1095R01和P0709R42），一时半会儿也不会有改观，固有的exception已经根植于历史系统中，包含标准库在内的庞大基础库都难以承受范式迁移的代价。合理对待异常的态度就是弃之不用。
 Convey Fallibility in API C风格error code虽然简单，但需要使用者有强大的自控能力，对于现代编程来说还是太过危险、简陋，语言层面本身无法区分参数中哪个是输入，哪个是输出，仰赖约定俗成的命名习惯或注释，缺乏可读性，编程时的心智负担太重。错误传播则缺乏类型安全，往往直接传引用和指针，引发难以追踪的内存安全、线程安全问题。不做任何错误传播，就地解决错误的话，又会导致代码繁琐冗余，总有一天会懒得做错误处理。
 如何兼具安全的错误传播、零成本抽象、接口中传达清晰的错误清单？Golang也没做到（几乎和C一样简陋，给了官方的error类型，然而并非泛型或Monad，只是一个返回Error()字符串的接口）。Java有点作弊（封闭且完整的JVM+标准库+Javadoc注释生态圈）。Rust则轻装简行，为我们展示了Result&amp;lt;T,E&amp;gt;的巨大成功——后续我们将其称为Result范式，用函数式编程语境下的Result Monad指代这类结构。
@@ -43,7 +43,7 @@ fn compare_and_swap( &amp;amp;mut self, key: Key, old_value: Value, new_value: V
 &lt;li&gt;不提供有界的空间时间开销承诺。&lt;code&gt;backtrace&lt;/code&gt;耗时多久完全不可预计。&lt;/li&gt;
 &lt;li&gt;导致编译后的代码膨胀。&lt;/li&gt;
 &lt;li&gt;不兼容&lt;code&gt;C ABI&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;throw&lt;/code&gt;需要动态内存分配，&lt;code&gt;catch&lt;/code&gt;需要昂贵的RTTI。在嵌入式环境下后两者基本不会开。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;throw&lt;/code&gt;需要动态内存分配，&lt;code&gt;catch&lt;/code&gt;甚至需要&lt;code&gt;RTTI&lt;/code&gt;。嵌入式环境下不会这么奢侈。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;总之C++异常机制是一种自然演化而成的历史遗迹，而非合乎理性的程序语言设计。以今天的标准，连写成提案的机会都不会有就会在mailing list被C++语言律师冷嘲热讽而消失。&lt;/p&gt;
 &lt;p&gt;哪怕现在有很多轻量化甚至零成本抽象的新型exception提案（比如P1095R0&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;和P0709R4&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;），一时半会儿也不会有改观，固有的exception已经根植于历史系统中，包含标准库在内的庞大基础库都难以承受范式迁移的代价。合理对待异常的态度就是弃之不用。&lt;/p&gt;
