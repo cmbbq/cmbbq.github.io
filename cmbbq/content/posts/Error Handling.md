@@ -42,7 +42,7 @@ C风格error code虽然简单，但需要使用者有强大的自控能力，对
 
 因此每个系统模块对外应暴露最小化的错误集，将内部可处理的错误在内部消化，并将所有``fatal error``就地解决——往往是打日志、做些修复（有状态系统）、退出程序。为了避免滥用错误传播，对外暴露的这个错误集还应该有自己的enum类型（C++语境下一般就是``enum class``，如有必要，可尝试用``std::variant``+``std::visit``模拟Rust的``Enums`` + ``pattern matching``，见[^5]），而不宜采用全局统一的某种enum的subtype或variant——迫使直接调用者优先对错误进行处理而不是甩锅给间接调用者，在甩锅非常合理的场景下，必要的显式类型转换或``transform_error``/``map_error``，也让甩锅成为一个有意识的system2编程决策，而非system1本能行为。
 
-此外，有一些特殊错误的处理逻辑与众不同，不宜和其他错误共享一个enum class，而应赋予这单个error一个独占的类型。这种情况下，可以用嵌套的expected表示返回值类型，如``expectd<expected<T, SpecialError>, Error>``，迫使调用者对SpecialError做单独处理。一个典型的例子是sled[^4]中``compare_and_swap``，返回类型特地包裹了两层，外层是sled::Error，内层是特殊的CompareAndSwapError（CAS失败并非异常，而是常态，对它的处理应视为控制流，而非异常处理），在做这种设计后，sled用户误用这个函数的几率就大大降低了，第一次用``?``操作符仅将外层的通用Error传播了出去，不至于把必需特殊处理的CAS error也一并甩出去。
+此外，有一些特殊错误的处理逻辑与众不同，不宜和其他错误共享一个``enum class``，而应赋予这单个error一个独占的类型。这种情况下，可以用嵌套的expected表示返回值类型，如``expectd<expected<T, SpecialError>, Error>``，迫使调用者对SpecialError做单独处理。一个典型的例子是``sled``[^4]中``compare_and_swap``，返回类型特地包裹了两层，外层是``sled::Error``，内层是特殊的``CompareAndSwapError``（CAS失败并非异常，而是常态，对它的处理应视为控制流，而非异常处理），在做这种设计后，``sled``用户误用这个函数的几率就大大降低了，第一次用``?``操作符仅将外层的通用Error传播了出去，不至于把必需特殊处理的CAS error也一并甩出去。
 
 ```Rust
 fn compare_and_swap(
@@ -64,8 +64,7 @@ if let Err(cas_error) = cas_result {
 }
 ```
 
-[^1]: [P1095R0: Zero overhead deterministic failure: A unified mechanism for C and C++](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1095r0.pdf)
-[^2]: [P0709R4: Zero-overhead deterministic exceptions: Throwing values](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0709r4.pdf)
-[^3]: https://michalfita.medium.com/error-handling-in-c-versus-rust-169693fa04f3
-[^4]: [Error Handling in a Correctness-Critical Rust Project](https://sled.rs/errors)
+[^1]: [P1095R0: Zero overhead deterministic failure: A unified mechanism for C and C++](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1095r0.pdf) 
+[^2]: [P0709R4: Zero-overhead deterministic exceptions: Throwing values](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0709r4.pdf) 
+[^4]: [Error Handling in a Correctness-Critical Rust Project](https://sled.rs/errors) 
 [^5]: [Rust enums in Modern C++ – Match Pattern](https://thatonegamedev.com/cpp/rust-enums-in-modern-cpp-match-pattern/)
