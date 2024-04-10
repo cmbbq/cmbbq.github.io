@@ -2,7 +2,7 @@
 +++
 title = "Paradigms of Generic Programming: Archetype, Ducktype, Subtype"
 date = "2022-11-10"
-tags = ["pl"]
+tags = ["pl", "se"]
 description = "本文总结泛型编程的三种范式：Archetype, Ducktype, Subtype。三者都以type结尾，一方面是因为这样比较帅，有规则感和逻辑上的建筑美，另一方面是因为系统语言编程本身就是在打造一个个类型，而泛型编程就是在打造一个个类型规约+遵循规约的类型。"
 showFullContent = false
 +++
