@@ -178,7 +178,10 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> Err(cas_error) <span style="color:#f92672">=</span> cas_result {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// handle expected issue
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><div class="footnotes" role="doc-endnotes">
+</span></span></code></pre></div><p>另一个例子是需要rollback的atomic batch set操作，一旦失败就会rollback已执行的部分set操作，避免不一致。但这个batch set操作一旦rollback失败，则陷入无法自动恢复，必需人工干预的状态。如果把rollback error当做KvErrorCode中的一种，只返回<code>std::expected&lt;void, KvErrorCode&gt;</code>，是无法迫使上游用户区分对待rollback失败的——调用者要么把error统一向上传播，要么就简单打个日志，而我们希望调用者意识到数据不一致的灾难已经发生，至少得打个fatal日志。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>expected<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>expected<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>, KvErrorCode<span style="color:#f92672">&gt;</span>, RollbackFatalError<span style="color:#f92672">&gt;</span> BatchSet(<span style="color:#66d9ef">const</span> vec<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>str, str<span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">&amp;</span>kvpairs);
+</span></span></code></pre></div><p>总之，在定义类似<code>expected&lt;expected&lt;T,E1&gt;,E2&gt;</code>的<code>result monads</code>时，外层error类型<code>E2</code>永远要比内层error类型<code>E1</code>更加fatal，更加erroneous。在避免了灾难性的E2后，才有资格判断是否出现E1。</p>
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">

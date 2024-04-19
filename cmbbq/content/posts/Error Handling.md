@@ -64,6 +64,14 @@ if let Err(cas_error) = cas_result {
 }
 ```
 
+另一个例子是需要rollback的atomic batch set操作，一旦失败就会rollback已执行的部分set操作，避免不一致。但这个batch set操作一旦rollback失败，则陷入无法自动恢复，必需人工干预的状态。如果把rollback error当做KvErrorCode中的一种，只返回``std::expected<void, KvErrorCode>``，是无法迫使上游用户区分对待rollback失败的——调用者要么把error统一向上传播，要么就简单打个日志，而我们希望调用者意识到数据不一致的灾难已经发生，至少得打个fatal日志。
+
+```C++
+std::expected<std::expected<void, KvErrorCode>, RollbackFatalError> BatchSet(const vec<std::pair<str, str>> &kvpairs);
+```
+
+总之，在定义类似``expected<expected<T,E1>,E2>``的``result monads``时，外层error类型``E2``永远要比内层error类型``E1``更加fatal，更加erroneous。在避免了灾难性的E2后，才有资格判断是否出现E1。
+
 [^1]: [P1095R0: Zero overhead deterministic failure: A unified mechanism for C and C++](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1095r0.pdf) 
 [^2]: [P0709R4: Zero-overhead deterministic exceptions: Throwing values](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0709r4.pdf) 
 [^4]: [Error Handling in a Correctness-Critical Rust Project](https://sled.rs/errors) 
