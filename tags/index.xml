@@ -6,7 +6,17 @@
     <description>Recent content in Tags on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ai</title>
+      <link>https://cmbbq.github.io/tags/ai/</link>
+      <pubDate>Mon, 03 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/tags/ai/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>misc</title>
       <link>https://cmbbq.github.io/tags/misc/</link>
@@ -93,16 +103,6 @@
       <pubDate>Thu, 08 Feb 2024 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/tags/perf/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
-      <title>ai</title>
-      <link>https://cmbbq.github.io/tags/ai/</link>
-      <pubDate>Fri, 15 Dec 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://cmbbq.github.io/tags/ai/</guid>
       <description></description>
       <content></content>
     </item>
