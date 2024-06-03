@@ -54,7 +54,8 @@ Recommendation should be Task-specific &amp;amp; Dynamic 用户决策涉及通�
 &lt;p&gt;很大程度上，现有的推荐系统都只局限在通用偏好层面。回顾数据层面，现有数据集，即各种用户-物品交互矩阵，显然丢掉了context，只能捕捉通用偏好。模型层面，训练是基于决策结果的，而非决策过程本身，这也决定了模型只能学到用户的通用偏好。而评测端，自然而然也只能对通用偏好进行评测。&lt;/p&gt;
 &lt;p&gt;工业实践中，推荐系统应该是一个检索问题。在这个检索问题中，query包含通用偏好、当前context这两种动态更新的信息；item collection也是动态更新的；ranking则旨在提升决策质量。&lt;/p&gt;
 &lt;p&gt;考虑到context因素，不同场景的推荐系统，如食物推荐、电影推荐、电商推荐、宾馆推荐，也应该有非常不同的实现，分开建模。有的场景选项固定，有的场景就是适合重复，有的场景则偏重探索。不同场景的输入甚至也有区别。比如外卖推荐除了user id之外，必需提供收货地址、早餐/午餐/晚餐这种信息。&lt;/p&gt;
-&lt;h2 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s Next?&lt;/h2&gt;
+&lt;h2 id=&#34;conclusions-and-whats-next&#34;&gt;Conclusions and What&amp;rsquo;s Next&lt;/h2&gt;
+&lt;p&gt;学术界把具体工程问题简化、抽象，把具体问题的ground-truthing也连带着简化掉，一时间百花齐放，极度繁荣，实则无一堪用，深度模型还没真正击败kNN，今天各种生成式推荐又开始拥抱LLM。后世回顾今日，恐怕又是一例百万漕工。&lt;/p&gt;
 &lt;p&gt;孙教授近期的一篇文章Sun, 2024&lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt;，对推荐系统的问题定义进行了重新思考，认为当前的推荐系统研究对推荐问题做了过度简化，以至于学术界提出的几乎所有的方案都不太适应现实世界中的具体任务。对未来的研究方向进行了一些研判：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;预计不会有赢家通吃的模型，未来依旧是每个模型在自己的论文里无敌。&lt;/li&gt;
