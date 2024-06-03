@@ -142,27 +142,59 @@
 <blockquote>
 <p>基于我们过去五年在推荐系统评测和数据集分析方面的工作，我们重新审视推荐系统的问题定义，并为缺乏共识的现象提供一种解读。</p>
 </blockquote>
-<p>24年的<a href="https://dl.acm.org/doi/10.1145/3629170">Exploring the Landscape of Recommender Systems Evaluation: Practices and Perspectives</a>做了一个综合，分析了数据集，发现用的数据集非常集中，集中在MovieLens、Amazon Reviews等主流数据集，这些数据集普遍偏旧。大部分文章都是提出新的模型。还有一些专注在评测标准。</p>
-<p>19年的<a href="https://arxiv.org/abs/1907.06902">Are we really making much progress? A worrying analysis of recent neural recommendation approaches</a>认为新的模型效果一般般。</p>
-<p>23年的<a href="https://arxiv.org/abs/2306.14292">RecBaselines2023: a new dataset for choosing baselines for recommender models</a>认为推荐领域用哪个baseline其实并没有共识，一部分原因是每年推荐系统里有5k篇文章，没人能读完所有文章，于是审稿者之间未形成共识，有的审稿者认为某些方法特别好，一定要纳入baseline，另一些审稿者则有不同观点。比如nearest neighbor虽然简单，经过良好调参后却是非常强的baseline，在很多场景比复杂模型表现得好很多，但很多文章不会把nearest neighbor列入baseline。大家都认为它是几十年前的方法，不值得比较。</p>
-<p>不仅baseline不统一，即使baseline统一，也有一个调参的问题，如23年的<a href="https://dl.acm.org/doi/10.1145/3604915.3609488">Everyone’s a Winner! On Hyperparameter Tuning of Recommendation Models</a>所说，当你提出自己的模型时，非常注重调参，和别人比时却没有非常精细地调参。</p>
-<p>NeurlPS2022有篇文章<a href="https://arxiv.org/abs/2206.11886">On the Generalizability and Predictability of Recommender Systems</a>，做了非常大规模的调研，在85个数据集上比较了24个算法的315个指标，得出了令人震撼的结论：这些算法并不能泛化，在某个数据集上很好，下一个可能就不好。每个算法都可能排第一第二，最差都能排到倒数第几。最后发现最强的算法竟然是Item-kNN！</p>
+<p>Dacrema et al., 2019<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>认为深度学习新模型的效果一般般。</p>
+<p>Bauer et al., 2024<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>做了一个综合，分析了数据集，发现用的数据集非常集中，集中在MovieLens、Amazon Reviews等主流数据集，这些数据集普遍偏旧。大部分文章都是提出新的模型。还有一些专注在评测标准。</p>
+<p>Ivanova et al., 2023<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>认为推荐领域用哪个baseline其实并没有共识，一部分原因是每年推荐系统里有5k篇文章，没人能读完所有文章，于是审稿者之间未形成共识，有的审稿者认为某些方法特别好，一定要纳入baseline，另一些审稿者则有不同观点。比如nearest neighbor虽然简单，经过良好调参后却是非常强的baseline，在很多场景比复杂模型表现得好很多，但很多文章不会把nearest neighbor列入baseline。大家都认为它是几十年前的方法，不值得比较。</p>
+<p>不仅baseline不统一，即使baseline统一，也有一个调参的问题，如Shehzad, Jannach, 2023<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>所说，当你提出自己的模型时，非常注重调参，和别人比时却没有非常精细地调参。</p>
+<p>McElfresh et al., 2022<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>做了非常大规模的调研，在85个数据集上比较了24个算法的315个指标，得出了令人震撼的结论：这些算法并不能泛化，在某个数据集上很好，下一个可能就不好。每个算法都可能排第一第二，最差都能排到倒数第几。最后发现最强的算法竟然是Item-kNN！</p>
 <h2 id="data-leakage-in-traintest-split">Data Leakage in Train/Test Split<a href="#data-leakage-in-traintest-split" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p><a href="https://arxiv.org/abs/2210.04149">Take a Fresh Look at Recommender Systems from an Evaluation Standpoint</a>中对20~22年88篇RecSys会议文章的<code>train/test split</code>做了一个梳理，发现34%的论文用的是<code>random split</code>（随机分），25%用的是<code>leave-one-out</code>（最后一个交互做成测试，之前的是训练），19.5% <code>single time point</code>，17% <code>simulation-based online</code>，4.5% <code>sliding window</code>。理论上最完美的train/test split方法是严格遵循时间线，在时间线上取某个时间点之前的做训练集，之后的做测试集，然后慢慢把这个时间点往后推，每个时间点的选取生成了相应的训练集和测试集，时间点越往后推，训练集越多测试集越少——可惜实际操作起来很难做到，大部分文章采用的<code>random split</code>和<code>leave-one-out</code>有很强的信息泄露。</p>
-<p>以<code>leave-one-out</code>为例，每个用户都只取最后一次交互做测试集，问题就在于不同用户的最后一个交互的时间可能大不同——假设某个物品在特定时间非常火，<code>popularity</code>(流行度是推荐系统中最简单的baseline，就是对物品的交互次数进行排序)排序非常高，但某个用户最后一次交互时间甚至在这个特定时间之前，那给这个用户推荐一个未来爆火的物品显然并不合理。SIGIR20的<a href="https://arxiv.org/abs/2005.13829">A Re-visit of the Popularity Baseline in Recommender Systems</a>就重新审视了这一问题，将<code>popularity</code>修正为用户最后一次交互时间点的“当时流行度”后，<code>popularity</code>置信度可以提升70%。</p>
-<p>在<a href="https://arxiv.org/abs/2010.11060">A Critical Study on Data Leakage in Recommender System Offline Evaluation</a>的研究中指出：几乎所有的ML/DL模型中，尤其是离线评测的推荐系统模型中，都存在类似的数据泄露问题——模型无意中使用了未来数据进行训练，学到了本不应该存在的用户-物品交互。<code>BPR</code>、<code>NeuMF</code>、<code>LightGCN</code>、<code>SASRec</code>均未从机制上避免这种数据泄露。这个研究也通过实验证明了这种数据泄露确实会显著影响模型的推荐准确率，且这种对准确率的影响是不可预测的。</p>
+<p>Sun, 2022<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>中对20~22年88篇RecSys会议文章的<code>train/test split</code>做了一个梳理，发现34%的论文用的是<code>random split</code>（随机分），25%用的是<code>leave-one-out</code>（最后一个交互做成测试，之前的是训练），19.5% <code>single time point</code>，17% <code>simulation-based online</code>，4.5% <code>sliding window</code>。理论上最完美的train/test split方法是严格遵循时间线，在时间线上取某个时间点之前的做训练集，之后的做测试集，然后慢慢把这个时间点往后推，每个时间点的选取生成了相应的训练集和测试集，时间点越往后推，训练集越多测试集越少——可惜实际操作起来很难做到，大部分文章采用的<code>random split</code>和<code>leave-one-out</code>有很强的信息泄露。</p>
+<p>以<code>leave-one-out</code>为例，每个用户都只取最后一次交互做测试集，问题就在于不同用户的最后一个交互的时间可能大不同——假设某个物品在特定时间非常火，<code>popularity</code>(流行度是推荐系统中最简单的baseline，就是对物品的交互次数进行排序)排序非常高，但某个用户最后一次交互时间甚至在这个特定时间之前，那给这个用户推荐一个未来爆火的物品显然并不合理。Ji et al., 2020<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>就重新审视了这一问题，将<code>popularity</code>修正为用户最后一次交互时间点的“当时流行度”后，<code>popularity</code>置信度可以提升70%。</p>
+<p>在Ji et al., 2020<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>的研究中指出：几乎所有的ML/DL模型中，尤其是离线评测的推荐系统模型中，都存在类似的数据泄露问题——模型无意中使用了未来数据进行训练，学到了本不应该存在的用户-物品交互。<code>BPR</code>、<code>NeuMF</code>、<code>LightGCN</code>、<code>SASRec</code>均未从机制上避免这种数据泄露。这个研究也通过实验证明了这种数据泄露确实会显著影响模型的推荐准确率，且这种对准确率的影响是不可预测的。</p>
 <h2 id="recommendation-should-be-task-specific--dynamic">Recommendation should be Task-specific &amp; Dynamic<a href="#recommendation-should-be-task-specific--dynamic" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>用户决策涉及通用偏好和当下context因素。当下context是非常task-specific且非常动态的。这也使得推荐任务具备了这一特征。</p>
 <p>很大程度上，现有的推荐系统都只局限在通用偏好层面。回顾数据层面，现有数据集，即各种用户-物品交互矩阵，显然丢掉了context，只能捕捉通用偏好。模型层面，训练是基于决策结果的，而非决策过程本身，这也决定了模型只能学到用户的通用偏好。而评测端，自然而然也只能对通用偏好进行评测。</p>
 <p>工业实践中，推荐系统应该是一个检索问题。在这个检索问题中，<code>query</code>包含通用偏好、当前context这两种动态更新的信息；<code>item collection</code>也是动态更新的；<code>ranking</code>则旨在提升决策质量。</p>
 <p>考虑到context因素，不同场景的推荐系统，如食物推荐、电影推荐、电商推荐、宾馆推荐，也应该有非常不同的实现，分开建模。有的场景选项固定，有的场景就是适合重复，有的场景则偏重探索。不同场景的输入甚至也有区别。比如外卖推荐除了user id之外，必需提供收货地址、早餐/午餐/晚餐这种信息。</p>
 <h2 id="whats-next">What&rsquo;s Next?<a href="#whats-next" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>孙教授近期的一篇文章，对问题定义进行了重新思考：<a href="https://arxiv.org/abs/2404.13375">Beyond Collaborative Filtering: A Relook at Task Formulation in Recommender Systems</a>。认为当前的推荐系统研究对推荐问题做了过度简化，以至于学术界提出的几乎所有的方案都不太适应现实世界中的具体任务。对未来的研究方向进行了一些研判：</p>
+<p>孙教授近期的一篇文章Sun, 2024<sup id="fnref:9"><a href="#fn:9" class="footnote-ref" role="doc-noteref">9</a></sup>，对推荐系统的问题定义进行了重新思考，认为当前的推荐系统研究对推荐问题做了过度简化，以至于学术界提出的几乎所有的方案都不太适应现实世界中的具体任务。对未来的研究方向进行了一些研判：</p>
 <ul>
 <li>预计不会有赢家通吃的模型，未来依旧是每个模型在自己的论文里无敌。</li>
 <li>应将推荐系统问题细化，短视频有短视频赛道，电商有电商赛道，新闻有新闻赛道，针对不同赛道，设计、评测新的模型。别再用MovieLens去评测电商推荐了！</li>
 <li>Item-kNN仍然会是很强的baseline。只不过对nearest和neighbor的定义需要更好的特征工程。</li>
 </ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Are we really making much progress? A worrying analysis of recent neural recommendation approaches <a href="https://arxiv.org/abs/1907.06902">[arxiv]</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Exploring the Landscape of Recommender Systems Evaluation: Practices and Perspectives <a href="https://arxiv.org/pdf/2311.05232.pdf">[pdf]</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>RecBaselines2023: a new dataset for choosing baselines for recommender models <a href="https://arxiv.org/abs/2306.14292">[arxiv]</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>Everyone’s a Winner! On Hyperparameter Tuning of Recommendation Models <a href="https://dl.acm.org/doi/pdf/10.1145/3604915.3609488">[pdf]</a>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>On the Generalizability and Predictability of Recommender Systems<a href="https://arxiv.org/abs/2206.11886">[arxiv]</a>&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>Take a Fresh Look at Recommender Systems from an Evaluation Standpoint <a href="https://arxiv.org/abs/2210.04149">[arxiv]</a>&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p>A Re-visit of the Popularity Baseline in Recommender Systems <a href="https://arxiv.org/abs/2005.13829">[arxiv]</a>&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8">
+<p>A Critical Study on Data Leakage in Recommender System Offline Evaluation  <a href="https://arxiv.org/abs/2010.11060">[arxiv]</a>&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:9">
+<p>Beyond Collaborative Filtering: A Relook at Task Formulation in Recommender Systems <a href="https://arxiv.org/abs/2404.13375">[arxiv]</a>&#160;<a href="#fnref:9" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
       </div></div>
 
