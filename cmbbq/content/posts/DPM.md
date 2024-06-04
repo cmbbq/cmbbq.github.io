@@ -8,7 +8,7 @@ showFullContent = false
 
 # 扩散模型生成高维数据
 ## 生成式模型范式
-不同于判别式方法，生成式建模范式是：给定未知数据分布的一组IID[^1]数据$x_i \sim {}_{iid} p_D(x)$，去学一个参数空间为$\theta \in \Theta$的模型分布$p_\theta(x)$，令其逼近数据分布：$p_\theta(x) \approx p_D(x)$。
+不同于判别式方法，生成式建模范式是：给定未知数据分布的一组IID[^1]数据$x_i \sim p_D(x)$，去学一个参数空间为$\theta \in \Theta$的模型分布$p_\theta(x)$，令其逼近数据分布：$p_\theta(x) \approx p_D(x)$。
 
 机器学习中，生成式模型的经典方法包括：
 - Mixture of Gaussian for clustering
