@@ -52,13 +52,13 @@ Song et al., ICLR 2021[^2]将一个扩散变换描述为：$q(x_i|x_{i-1}) = \ma
 - 数学上是严格保证收敛的。
 
 ## 大规模训练和高效数据生成
-此前变分近似的做法中，噪声的方差参数一般是固定下来，不做优化的。清华大学朱军团队提出的Analytical-DPMs[^6]发现可以给出逆向过程中每个时间点的均值函数和方差的一个解析形式——这个形式和一些学者手工设计的一些形式也比较耦合——最终得到一个不需要任何额外训练的方差估计器。训练好的DPM，只需要插入一行代码，就能用上这个解析形式的方差估计。用这个估计值使每一步的方差估计变得更准，使所需的整体步数变少，折算下来有20~80倍的性能提升。后来这个方法也在Dall-E 2中使用了。
+此前变分近似的做法中，噪声的方差参数一般是固定下来，不做优化的。清华大学TSAIL提出的Analytical-DPMs[^6]发现可以给出逆向过程中每个时间点的均值函数和方差的一个解析形式——这个形式和一些学者手工设计的一些形式也比较耦合——最终得到一个不需要任何额外训练的方差估计器。训练好的DPM，只需要插入一行代码，就能用上这个解析形式的方差估计。用这个估计值使每一步的方差估计变得更准，使所需的整体步数变少，折算下来有20~80倍的性能提升。后来这个方法也在Dall-E 2中使用了。
 
-朱军团队的另一个工作DPM-Solver[^7]做了专门的求解器，使步数从几百步降低到十余步。
+TSAIL团队的另一个工作DPM-Solver[^7]做了专门的求解器，使步数从几百步降低到十余步。
 
-由于涉及加噪去噪，扩散模型的底层架构自然而然借鉴U-Net（CNN）。朱军团队的第三个工作，尝试把扩散模型和transformer结合，设计了U-ViT[^8]，在当时设置了5亿参数的（当时算最大的）大模型，证明对模型的可扩展性确实有帮助。同期有个工作DiT非常类似。Stable Diffusion 3.0就用的是DiT架构。
+由于涉及加噪去噪，扩散模型的底层架构自然而然借鉴U-Net（CNN）。TSAIL团队的第三个工作，尝试把扩散模型和transformer结合，设计了U-ViT[^8]，在当时设置了5亿参数的（当时算最大的）大模型，证明对模型的可扩展性确实有帮助。同期有个工作DiT非常类似。Stable Diffusion 3.0就用的是DiT架构。
 
-回顾前文所述的“生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对p(x)进行条件预测的能力”，基于这种heuristics，朱军团队的另一个研究是UniDiffuser[^9]，目标是用一个模型解决原本marginal diffuser、conditional diffuser、joint diffuser这多个模型才能解决的多个任务。当时DALL-E 2和Stable Diffusion只能文到图，而UniDiffuser能图到文或文到图。
+回顾前文所述的“生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对p(x)进行条件预测的能力”，基于这种heuristics，TSAIL团队的另一个研究是UniDiffuser[^9]，目标是用一个模型解决原本marginal diffuser、conditional diffuser、joint diffuser这多个模型才能解决的多个任务。当时DALL-E 2和Stable Diffusion只能文到图，而UniDiffuser能图到文或文到图。
 
 做完图像之后，又做了Vidu[^10]文生视频的工作，在时间轴上做了升维，实现了16s的生成。此外，还做了3D内容生成，CRM[^11]图生3D，ProlificDreamer[^12]文生3D，在空间上做了升维。在最新的工作Vidu4D[^13]中，做了4D（即sequential 3D）重建。
 
@@ -67,17 +67,25 @@ Song et al., ICLR 2021[^2]将一个扩散变换描述为：$q(x_i|x_{i-1}) = \ma
 
 如果联合分布是准确的，那么这个分类器就是最优的，即所谓贝叶斯分类器。
 
+此外，Chen et al 2024[^14]的工作表明可以将一个预训练好的生成式基座模型转化成一个对噪声鲁棒的分类器。
 
 [^1]: IID stands for Independent and Identically Distributed
-[^2]: Song et al. Score-based generative modeling through stohastic differential equations, ICLR 2021 [[arxiv]](https://arxiv.org/abs/2011.13456)
-[^3]: Ho et al. Denoising diffusion probabilistic models(DDPM), NeurlPS 2020 [[arxiv]](https://arxiv.org/abs/2006.11239)
+[^2]: Song et al. Score-based generative modeling through stohastic differential equations. ICLR 2021 [[arxiv]](https://arxiv.org/abs/2011.13456)
+[^3]: Ho et al. Denoising diffusion probabilistic models(DDPM). NeurlPS 2020 [[arxiv]](https://arxiv.org/abs/2006.11239)
 [^4]: In $\mathcal{N}(O,I)$, $I$ denotes the identity matrix, $O$ denotes the zero matrix.
 [^5]: Some supplementary good ol' fashioned mathematical rigour: https://math.stackexchange.com/a/4568122
-[^6]: Bao et al. Analytic-DPM: an Analytic Estimate of the Optimal Reverse Variance in Diffusion Probabilistic Models, ICLR 2022 [[arxiv]](https://arxiv.org/abs/2201.06503) 
+[^6]: Bao et al. Analytic-DPM: an Analytic Estimate of the Optimal Reverse Variance in Diffusion Probabilistic Models. ICLR 2022 [[arxiv]](https://arxiv.org/abs/2201.06503) 
 [^7]: Lu et al. DPM-Solver: A Fast ODE Solver for Diffusion Probabilistic Model Sampling in Around 10 Steps [[arxiv]](https://arxiv.org/abs/2206.00927)
-[^8] Bao et al. All are Worth Words: A ViT Backbone for Diffusion Models, CVPR 2023 [[arxiv]](https://arxiv.org/abs/2209.12152)
+[^8] Bao et al. All are Worth Words: A ViT Backbone for Diffusion Models. CVPR 2023 [[arxiv]](https://arxiv.org/abs/2209.12152)
 [^9] Bao et al. One Transformer Fits All Distributions in Multi-Modal Diffusion at Scale [[arxiv]](https://arxiv.org/abs/2303.06555)
 [^10] Bao et al. Vidu: a Highly Consistent, Dynamic and Skilled Text-to-Video Generator with Diffusion Models [[arxiv]](https://arxiv.org/abs/2405.04233) 
-[^11] Wang et al. CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model, NeurlPS 2023[[arxiv]](https://arxiv.org/abs/2403.05034)
+[^11] Wang et al. CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model. NeurlPS 2023[[arxiv]](https://arxiv.org/abs/2403.05034)
 [^12] Wang et al. ProlificDreamer: High-Fidelity and Diverse Text-to-3D Generation with Variational Score Distillation [[arxiv]](https://arxiv.org/abs/2305.16213)
 [^13] Wang et al. Vidu4D: Single Generated Video to High-Fidelity 4D Reconstruction with Dynamic Gaussian Surfels [[arxiv]](https://arxiv.org/abs/2405.16822)
+[^14] Chen et al. Robust Classification via Single Diffusion Model. ICML 2024. [[arxiv]](https://arxiv.org/abs/2305.15241)
+[^15] Chen et al. Offline Reinforcement Learning via High-Fidelity Generative Behavior Modeling
+ [[arxiv]](https://arxiv.org/abs/2209.14548)
+[^16] Chen et al. Contrastive Energy Prediction for Exact Energy-Guided Diffusion Sampling in Offline Reinforcement Learning. ICML 2023. [[arxiv]](https://arxiv.org/abs/2304.12824)
+[^17] Chen et al. Efficient Black-box Adversarial Attacks via Bayesian Optimization Guided by a Function Prior. [[arxiv]](https://arxiv.org/abs/2405.19098)
+[^18] Hao et al. DPOT: Auto-Regressive Denoising Operator Transformer for Large-Scale PDE Pre-Training [[arxiv]](https://arxiv.org/abs/2403.03542)
+[^19] Hu et al. Accelerating Transformer Pre-training with 2:4 Sparsity
