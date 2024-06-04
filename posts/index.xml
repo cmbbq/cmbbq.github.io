@@ -13,7 +13,7 @@
       <pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/dpm/</guid>
-      <description>扩散模型生成高维数据 生成式模型范式 不同于判别式方法，生成式建模范式是：给定未知数据分布的一组IID1数据$x_i \sim {}{iid} p_D(x), i = 1,2,3,&amp;hellip;$，去学一个参数空间为$\theta \in \Theta$的模型分布$p{\theta}(x)$，令其逼近数据分布：$p_{\theta}(x) \approx p_D(x)$。
+      <description>扩散模型生成高维数据 生成式模型范式 不同于判别式方法，生成式建模范式是：给定未知数据分布的一组IID1数据$x_i \sim {}{iid} p_D(x)$，去学一个参数空间为$\theta \in \Theta$的模型分布$p{\theta}(x)$，令其逼近数据分布：$p_{\theta}(x) \approx p_D(x)$。
 机器学习中，生成式模型的经典方法包括：
 Mixture of Gaussian for clustering Naive Bayes for classification Mixture of Experts(MoE) for unsupervised/supervised learning Probability graphical models, e.g. bayesian networks Nonparametric Bayesian methods Deep generative models 生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对$p(x)$进行条件预测的能力——这也就构建出分类器，而且研究表明这样构建出来的分类器在半监督这种训练数据比较少的情况下表现出更高的数据利用率，此外也有些工作发现这种分类器在对抗干扰时表现得更鲁棒。
 深度生成式模型的兴起，源自：
@@ -21,10 +21,10 @@ Mixture of Gaussian for clustering Naive Bayes for classification Mixture of Exp
 显式模型如VAE、Energy-based models、Auto-Regressive、Flow-based Models、DPM(Diffusion probabilistic models)直接描述预期产出数据的概率分布。 隐式模型如GAN、Moment-matching DGM则描述了一个变换过程，还需要通过一些准则去引导模型产生更符合预期数据分布的数据。 从训练目标来看，这些模型又可以分为最大似然估计（MLE）、Score-matching、对抗训练（Adversarial training）三类。
 Score-matching：Moment-matching DGM, Diffusion Models Adversarial training：GAN MLE：Everything else 扩散模型 物理过程中的扩散是随着时间推移，破坏结构，从有序到无序。
 扩散模型中扩散过程也是逐渐给数据加高斯噪声，使其信噪比下降。
-Song et al.</description>
+Song et al., ICLR 20212将一个扩散变换描述为：$q(x_i|x_{i-1}) = \mathcal{N}(x_i;\sqrt{1- \beta_i}x_{i-1},\beta_iI)$，令$\alpha_i = \prod_{k=1}^{i} 1 - \beta_i$，则有$q_{\alpha_N}(x_N|x_0) = \prod_{i=1}^{N} q(x_i|x_{i-1}) = \mathcal{N}(x_N;\sqrt{\alpha_N} x_0, (1-\alpha_N)I)$，冗长的递归表达式最终可以划归为一个简洁的closed form3，因此可以很方便地定义N步前向过程的loss。其中$\beta_i$是一系列噪声乘数，可以是超参，也可以说reparameterization学习到的结果。对每个训练数据$x_0 \sim q_D(x)$，都可以构造一个离散马尔可夫链${x_0,x_1,&amp;hellip;,x_N}$，经过$N$次加噪，最终使之趋近高斯白噪。$q(x_N|x_0) \sim \mathcal{N}(O,I), N \rightarrow \infty$。</description>
       <content>&lt;h1 id=&#34;扩散模型生成高维数据&#34;&gt;扩散模型生成高维数据&lt;/h1&gt;
 &lt;h2 id=&#34;生成式模型范式&#34;&gt;生成式模型范式&lt;/h2&gt;
-&lt;p&gt;不同于判别式方法，生成式建模范式是：给定未知数据分布的一组IID&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;数据$x_i \sim {}&lt;em&gt;{iid} p_D(x), i = 1,2,3,&amp;hellip;$，去学一个参数空间为$\theta \in \Theta$的模型分布$p&lt;/em&gt;{\theta}(x)$，令其逼近数据分布：$p_{\theta}(x) \approx p_D(x)$。&lt;/p&gt;
+&lt;p&gt;不同于判别式方法，生成式建模范式是：给定未知数据分布的一组IID&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;数据$x_i \sim {}&lt;em&gt;{iid} p_D(x)$，去学一个参数空间为$\theta \in \Theta$的模型分布$p&lt;/em&gt;{\theta}(x)$，令其逼近数据分布：$p_{\theta}(x) \approx p_D(x)$。&lt;/p&gt;
 &lt;p&gt;机器学习中，生成式模型的经典方法包括：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Mixture of Gaussian for clustering&lt;/li&gt;
