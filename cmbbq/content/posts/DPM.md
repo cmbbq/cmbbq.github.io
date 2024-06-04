@@ -76,16 +76,16 @@ TSAIL团队的另一个工作DPM-Solver[^7]做了专门的求解器，使步数�
 [^5]: Some supplementary good ol' fashioned mathematical rigour: https://math.stackexchange.com/a/4568122
 [^6]: Bao et al. Analytic-DPM: an Analytic Estimate of the Optimal Reverse Variance in Diffusion Probabilistic Models. ICLR 2022 [[arxiv]](https://arxiv.org/abs/2201.06503) 
 [^7]: Lu et al. DPM-Solver: A Fast ODE Solver for Diffusion Probabilistic Model Sampling in Around 10 Steps [[arxiv]](https://arxiv.org/abs/2206.00927)
-[^8] Bao et al. All are Worth Words: A ViT Backbone for Diffusion Models. CVPR 2023 [[arxiv]](https://arxiv.org/abs/2209.12152)
-[^9] Bao et al. One Transformer Fits All Distributions in Multi-Modal Diffusion at Scale [[arxiv]](https://arxiv.org/abs/2303.06555)
-[^10] Bao et al. Vidu: a Highly Consistent, Dynamic and Skilled Text-to-Video Generator with Diffusion Models [[arxiv]](https://arxiv.org/abs/2405.04233) 
-[^11] Wang et al. CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model. NeurlPS 2023[[arxiv]](https://arxiv.org/abs/2403.05034)
-[^12] Wang et al. ProlificDreamer: High-Fidelity and Diverse Text-to-3D Generation with Variational Score Distillation [[arxiv]](https://arxiv.org/abs/2305.16213)
-[^13] Wang et al. Vidu4D: Single Generated Video to High-Fidelity 4D Reconstruction with Dynamic Gaussian Surfels [[arxiv]](https://arxiv.org/abs/2405.16822)
-[^14] Chen et al. Robust Classification via Single Diffusion Model. ICML 2024. [[arxiv]](https://arxiv.org/abs/2305.15241)
-[^15] Chen et al. Offline Reinforcement Learning via High-Fidelity Generative Behavior Modeling
+[^8]: Bao et al. All are Worth Words: A ViT Backbone for Diffusion Models. CVPR 2023 [[arxiv]](https://arxiv.org/abs/2209.12152)
+[^9]: Bao et al. One Transformer Fits All Distributions in Multi-Modal Diffusion at Scale [[arxiv]](https://arxiv.org/abs/2303.06555)
+[^10]: Bao et al. Vidu: a Highly Consistent, Dynamic and Skilled Text-to-Video Generator with Diffusion Models [[arxiv]](https://arxiv.org/abs/2405.04233) 
+[^11]: Wang et al. CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model. NeurlPS 2023[[arxiv]](https://arxiv.org/abs/2403.05034)
+[^12]: Wang et al. ProlificDreamer: High-Fidelity and Diverse Text-to-3D Generation with Variational Score Distillation [[arxiv]](https://arxiv.org/abs/2305.16213)
+[^13]: Wang et al. Vidu4D: Single Generated Video to High-Fidelity 4D Reconstruction with Dynamic Gaussian Surfels [[arxiv]](https://arxiv.org/abs/2405.16822)
+[^14]: Chen et al. Robust Classification via Single Diffusion Model. ICML 2024. [[arxiv]](https://arxiv.org/abs/2305.15241)
+[^15]: Chen et al. Offline Reinforcement Learning via High-Fidelity Generative Behavior Modeling
  [[arxiv]](https://arxiv.org/abs/2209.14548)
-[^16] Chen et al. Contrastive Energy Prediction for Exact Energy-Guided Diffusion Sampling in Offline Reinforcement Learning. ICML 2023. [[arxiv]](https://arxiv.org/abs/2304.12824)
-[^17] Chen et al. Efficient Black-box Adversarial Attacks via Bayesian Optimization Guided by a Function Prior. [[arxiv]](https://arxiv.org/abs/2405.19098)
-[^18] Hao et al. DPOT: Auto-Regressive Denoising Operator Transformer for Large-Scale PDE Pre-Training [[arxiv]](https://arxiv.org/abs/2403.03542)
-[^19] Hu et al. Accelerating Transformer Pre-training with 2:4 Sparsity
+[^16]: Chen et al. Contrastive Energy Prediction for Exact Energy-Guided Diffusion Sampling in Offline Reinforcement Learning. ICML 2023. [[arxiv]](https://arxiv.org/abs/2304.12824)
+[^17]: Chen et al. Efficient Black-box Adversarial Attacks via Bayesian Optimization Guided by a Function Prior. [[arxiv]](https://arxiv.org/abs/2405.19098)
+[^18]: Hao et al. DPOT: Auto-Regressive Denoising Operator Transformer for Large-Scale PDE Pre-Training [[arxiv]](https://arxiv.org/abs/2403.03542)
+[^19]: Hu et al. Accelerating Transformer Pre-training with 2:4 Sparsity
