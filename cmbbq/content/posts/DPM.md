@@ -18,7 +18,7 @@ showFullContent = false
 - Nonparametric Bayesian methods
 - Deep generative models
 
-生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对p(x)进行条件预测的能力——这也就构建出分类器，而且研究表明这样构建出来的分类器在半监督这种训练数据比较少的情况下表现出更高的数据利用率，此外也有些工作发现这种分类器在对抗干扰时表现得更鲁棒。
+生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对$p(x)$进行条件预测的能力——这也就构建出分类器，而且研究表明这样构建出来的分类器在半监督这种训练数据比较少的情况下表现出更高的数据利用率，此外也有些工作发现这种分类器在对抗干扰时表现得更鲁棒。
 
 深度生成式模型的兴起，源自：
 - 相比判别式模型，模型的表达能力变强了，能描述高维数据的复杂分布。
@@ -58,7 +58,7 @@ TSAIL团队的另一个工作DPM-Solver[^7]做了专门的求解器，使步数�
 
 由于涉及加噪去噪，扩散模型的底层架构自然而然借鉴U-Net（CNN）。TSAIL团队的第三个工作，尝试把扩散模型和transformer结合，设计了U-ViT[^8]，在当时设置了5亿参数的（当时算最大的）大模型，证明对模型的可扩展性确实有帮助。同期有个工作DiT非常类似。Stable Diffusion 3.0就用的是DiT架构。
 
-回顾前文所述的“生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对p(x)进行条件预测的能力”，基于这种heuristics，TSAIL团队的另一个研究是UniDiffuser[^9]，目标是用一个模型解决原本marginal diffuser、conditional diffuser、joint diffuser这多个模型才能解决的多个任务。当时DALL-E 2和Stable Diffusion只能文到图，而UniDiffuser能图到文或文到图。
+回顾前文所述的“生成式模型天然具备构建基础模型的潜质，因为它的本质是对多元变量联合分布建模，只要能有效估计$p(x,y)$，自然就具备了对$p(x)$进行条件预测的能力”，基于这种heuristics，TSAIL团队的另一个研究是UniDiffuser[^9]，目标是用一个模型解决原本marginal diffuser、conditional diffuser、joint diffuser这多个模型才能解决的多个任务。当时DALL-E 2和Stable Diffusion只能文到图，而UniDiffuser能图到文或文到图。
 
 做完图像之后，又做了Vidu[^10]文生视频的工作，在时间轴上做了升维，实现了16s的生成。此外，还做了3D内容生成，CRM[^11]图生3D，ProlificDreamer[^12]文生3D，在空间上做了升维。在最新的工作Vidu4D[^13]中，做了4D（即sequential 3D）重建。
 
