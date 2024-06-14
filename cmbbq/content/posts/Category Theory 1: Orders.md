@@ -1,8 +1,8 @@
 +++
-title = "Category Theory 1: Orders"
+title = "CAT01: Orders"
 date = "2024-02-26"
 tags = ["en", "math"]
-description = "The 1st write-up gives an order-theoretic warm-up for the full-fledged category theory. It covers preorders, meets/joins, monotone maps and Galois connections."
+description = "The 1st CAT write-up gives an order-theoretic warm-up for the full-fledged category theory. It covers preorders, meets/joins, monotone maps and Galois connections."
 showFullContent = false
 +++
 
