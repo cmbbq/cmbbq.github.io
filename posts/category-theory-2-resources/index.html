@@ -133,7 +133,7 @@
 
   <div class="post-content"><div>
         <h2 id="symmetric-monoidal-preorders">Symmetric Monoidal Preorders<a href="#symmetric-monoidal-preorders" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p><strong>Def 2.1:</strong> A <code>symmetric monoidal structure</code> on a <code>preorder</code> $(X,≤)$ consists of two constituents: (i) an element $I \in X$, called the <code>monoidal unit</code>, (ii) and a function $\otimes: X \times X \rightarrow X$, called the <code>monoidal product</code>. These constituents must satisfy the following properties:</p>
+<p><strong>Def 2.1:</strong> A <code>symmetric monoidal structure</code> on a preorder $(X,≤)$ consists of two constituents: (i) an element $I \in X$, called the <code>monoidal unit</code>, (ii) and a function $\otimes: X \times X \rightarrow X$, called the <code>monoidal product</code>. These constituents must satisfy the following properties:</p>
 <ul>
 <li>monotonicity: $\forall x_1, x_2, y_1, y_2 \in X$, if $x_1 \le y_1$ and $x_2 \le y_2$, then $x_1 \otimes x_2 \le y_1 \otimes y_2$.</li>
 <li>unitality: $\forall x \in X$, $I \otimes x = x$ and $x \otimes I = x$ holds.</li>
@@ -143,9 +143,9 @@
 <p><strong>Def 2.2:</strong> A preorder equipped with a symmetric monoidal structure, $(X,\le,I,\otimes)$, is called a <code>symmetric monoidal preorder</code>.</p>
 <p><strong>Example 2.1(The Booleans):</strong> $\mathbb{B} = {true, false}$ with $false &lt; true$ is the simplest nontrivial preorder. We can define the monoidal unit be true and the monoidal product be $\wedge$(AND). Then we have a monoidal preorder which we denote $Bool := (\mathbb{B}, \le ,true, \wedge )$.</p>
 <h2 id="wiring-diagrams">Wiring Diagrams<a href="#wiring-diagrams" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p><code>Wiring diagrams</code> are visual representations for building new releationships from old. In a <code>preorder</code> without a <code>monoidal structure</code>, the relations are chained in series.
+<p><code>Wiring diagrams</code> are visual representations for building new releationships from old. In a preorder without a monoidal structure, the relations are chained in series.
 <img src="https://cmbbq.github.io/img/wiring_diagrams_1.png" alt="wiring_diagrams_1"></p>
-<p>With a <code>symmetric monoidal structure</code>, relations could be arranged in parallel as well.
+<p>With a symmetric monoidal structure, relations could be arranged in parallel as well.
 <img src="https://cmbbq.github.io/img/wiring_diagrams_2.png" alt="wiring_diagrams_2">
 The whole wiring diagram above says &ldquo;if $t\le v, w+u\le x+z, v+x\le y$, then $t+u\le y+z$&rdquo;.</p>
 <p>We could draw two wires in parallel to represent the monoidal product of two labels.
