@@ -153,7 +153,7 @@
 <p><img src="https://cmbbq.github.io/img/fast_attention.png" alt="fast_att"></p>
 <p>此外，对于训练负载来说，<code>FlashAttention</code>还在反向传播中复用前馈过程暂存的softmax归一化因子$\frac{1}{\sqrt{D^{QK}}}$，这也比从HBM读$N\times N$的巨大attention中间矩阵要快得多。这可被视作selective gradient checkpointing。</p>
 <h2 id="flashattention2-改进并行和工作切分">FlashAttention2: 改进并行和工作切分<a href="#flashattention2-改进并行和工作切分" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>相比GEMM，<code>FlashAttention</code>只达到了25~40%理论FLOPs/s，可优化空间巨大。FlashAttention2<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>在原版基础上做了并行化和工作切分优化。</p>
+<p>相比GEMM，<code>FlashAttention</code>只达到了25~40%理论FLOPs/s，可优化空间巨大。<code>FlashAttention2</code><sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>在原版基础上做了并行化和工作切分优化。</p>
 <ul>
 <li>减少非矩阵乘算子，因为GPU矩阵乘是高度优化的，其他算子与之差距非常大。
 <ul>

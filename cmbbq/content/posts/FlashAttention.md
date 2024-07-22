@@ -38,7 +38,7 @@ $$Y = att(K,Q,V) = \underbrace{softargmax(\frac{QK^T}{\frac{1}{\sqrt{D^{QK}}}})}
 此外，对于训练负载来说，`FlashAttention`还在反向传播中复用前馈过程暂存的softmax归一化因子$\frac{1}{\sqrt{D^{QK}}}$，这也比从HBM读$N\times N$的巨大attention中间矩阵要快得多。这可被视作selective gradient checkpointing。
 
 ## FlashAttention2: 改进并行和工作切分
-相比GEMM，`FlashAttention`只达到了25~40%理论FLOPs/s，可优化空间巨大。FlashAttention2[^2]在原版基础上做了并行化和工作切分优化。
+相比GEMM，`FlashAttention`只达到了25~40%理论FLOPs/s，可优化空间巨大。`FlashAttention2`[^2]在原版基础上做了并行化和工作切分优化。
 - 减少非矩阵乘算子，因为GPU矩阵乘是高度优化的，其他算子与之差距非常大。
     - 避免循环中算O时每次都rescale，而是在算最终结果时施加softmax归一化因子。
     - 对反向传播时保持的状态进行了精简。
