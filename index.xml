@@ -6,7 +6,38 @@
     <description>Recent content on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paged Attention</title>
+      <link>https://cmbbq.github.io/posts/pagedattention/</link>
+      <pubDate>Tue, 30 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/pagedattention/</guid>
+      <description>在LLM serving场景，通过恰当的batching积攒足够多的请求，可提升LLM吞吐。但每个请求对应的KV Cache非常巨大——在原始实现中，KV Cache需要为max_tokens预留内存，但每个请求实际上携带的tokens数目普遍远小于max_tokens，造成大量内存浪费和反复的动态内存分配。
+PagedAttention1的目标就是消除这种内存浪费、在请求内部和请求之间灵活共享一些KV cache。vLLM通过PagedAttention达到此前sota的FasterTransformer和Orca的2~4倍吞吐。
+此前，朴素的KV Cache实现如下图所示，简短的prompt和并不长的当前iteration只占据了7+4个slots，剩余2038个slots不得不预留在内存里以支撑最大序列长达2048的承诺（采样结束才能知道实际tokens数目），在这之后才能是下一个请求的slots，中间预留的部分就完全浪费掉了。
+PagedAttention把连续的kv存在不连续的内存空间上，借用类似页表的机制（引入一个block_table）规避内存碎片化问题。具体来讲，PagedAttention把KV cache分区成若干个K blocks和V blocks，每个K/V block容纳固定数量tokens所对应的K/V向量，因此attention计算也被转化为blockwise计算。这和FlashAttention有点像，不过应用的尺度不同，前者是为了大规模serving时克服碎片化、按需取用，后者是为了单次self-attention计算能全部fit in SRAM。
+这个物理kv blocks显然是支持多个请求复用的。如下图所示，为每个请求维护一个小的block table即可。
+W. Kwon, et al. Efficient Memory Management for Large Language Model Serving with PagedAttention. [pdf]&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+      <content>&lt;p&gt;在LLM serving场景，通过恰当的batching积攒足够多的请求，可提升LLM吞吐。但每个请求对应的KV Cache非常巨大——在原始实现中，KV Cache需要为&lt;code&gt;max_tokens&lt;/code&gt;预留内存，但每个请求实际上携带的tokens数目普遍远小于&lt;code&gt;max_tokens&lt;/code&gt;，造成大量内存浪费和反复的动态内存分配。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PagedAttention&lt;/code&gt;&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;的目标就是消除这种内存浪费、在请求内部和请求之间灵活共享一些KV cache。vLLM通过&lt;code&gt;PagedAttention&lt;/code&gt;达到此前sota的&lt;code&gt;FasterTransformer&lt;/code&gt;和&lt;code&gt;Orca&lt;/code&gt;的2~4倍吞吐。&lt;/p&gt;
+&lt;p&gt;此前，朴素的KV Cache实现如下图所示，简短的prompt和并不长的当前iteration只占据了7+4个slots，剩余2038个slots不得不预留在内存里以支撑最大序列长达2048的承诺（采样结束才能知道实际tokens数目），在这之后才能是下一个请求的slots，中间预留的部分就完全浪费掉了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/naive_kv_cache.png&#34; alt=&#34;naive_kv_cache&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;PagedAttention&lt;/code&gt;把连续的kv存在不连续的内存空间上，借用类似页表的机制（引入一个block_table）规避内存碎片化问题。具体来讲，&lt;code&gt;PagedAttention&lt;/code&gt;把KV cache分区成若干个K blocks和V blocks，每个K/V block容纳固定数量tokens所对应的K/V向量，因此attention计算也被转化为blockwise计算。这和&lt;code&gt;FlashAttention&lt;/code&gt;有点像，不过应用的尺度不同，前者是为了大规模serving时克服碎片化、按需取用，后者是为了单次self-attention计算能全部fit in SRAM。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/block_table.png&#34; alt=&#34;block_table&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这个物理kv blocks显然是支持多个请求复用的。如下图所示，为每个请求维护一个小的block table即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/vllm_two_requests.png&#34; alt=&#34;vllm_two_requests&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;W. Kwon, et al. Efficient Memory Management for Large Language Model Serving with PagedAttention. &lt;a href=&#34;https://arxiv.org/pdf/2309.06180&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
     <item>
       <title>Flash Attention</title>
       <link>https://cmbbq.github.io/posts/flashattention/</link>
