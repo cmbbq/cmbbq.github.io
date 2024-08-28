@@ -49,31 +49,20 @@ OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linal
 &lt;p&gt;MLIR中&lt;code&gt;dialects&lt;/code&gt;可对passes进行分层或分类，一个典型的dialects分层自上而下如是：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linalg) -&amp;gt; MHA(e.g. stripe/affine) -&amp;gt; HLTSIR(e.g. vector dialects) -&amp;gt; TSIR(e.g. llvm)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Triton的大致流程如下：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt;&amp;gt; 面向用户的Python/C++的kernel代码
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;面向用户的Python/C++的kernel代码
 --&amp;gt; [ML Compiler前端，有时候可能只是某种动转静工具，forward一次，然后转写]
-&amp;gt;&amp;gt; 设备无关的 High-level IR
+设备无关的 High-level IR
 --&amp;gt; [ML Compiler后端Passes，图优化+算子选择+内存优化]
-&amp;gt;&amp;gt; 硬件特化的 Low-level IR [Schedule/Plan]
+硬件特化的 Low-level IR [Schedule/Plan]
 --&amp;gt; [ML Compiler后端Passes，把自己内部的Schedule/Plan翻译到LLVM IR]
-&amp;gt;&amp;gt; LLVM IR 
+LLVM IR 
 --&amp;gt; [LLVM&amp;#39;s NVPTX back-end，进入Language Compilation层面]
-&amp;gt;&amp;gt; PTX
+PTX
 --&amp;gt; [CUDA ptxas assembler]
-&amp;gt;&amp;gt; CUBIN
+CUBIN
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Intel MLIR graph compiler的lowering pipeline如下：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt;&amp;gt; Computation Graphs
--&amp;gt; linalg [^4]
--&amp;gt; layout propagation [^7]
--&amp;gt; tiling [^3]
--&amp;gt; fusion [^8] 
--&amp;gt; micro kernel [^9]
--&amp;gt; vector [^10] 
---- 再此之上都可以分为tensor-level passes，完全不涉及内存，就是tensor层面的优化 ---
--&amp;gt; bufferization [^12]
--&amp;gt; memory planning 
--&amp;gt; LLVM IR 
-&amp;gt;&amp;gt; 交由LLVM处理
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;从中可以看到，lowering pipeline又可分为tensor-land和memref-land两个大的区块。在tensor-land，所有tensor操作都默认不是in-place的，哪怕是明显可以in-place的relu。在memref-land才会考虑内存访问的进一步优化。&lt;/p&gt;
+&lt;p&gt;Computation Graphs -&amp;gt; linalg &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; -&amp;gt; layout propagation &lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; -&amp;gt; tiling &lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; -&amp;gt; fusion &lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt; -&amp;gt; micro kernel &lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt; -&amp;gt; vector &lt;sup id=&#34;fnref1:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; -&amp;gt; bufferization &lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt; -&amp;gt; memory planning -&amp;gt; LLVM IR -&amp;gt; 交由LLVM处理。&lt;/p&gt;
+&lt;p&gt;上述lowering pipeline又可分为tensor-land和memref-land两个大的区块，bufferization之前都是tensor-land。在tensor-land，所有tensor操作都默认不是in-place的，哪怕是明显可以in-place的relu。在memref-land才会考虑内存访问的进一步优化。&lt;/p&gt;
 &lt;h2 id=&#34;手工优化&#34;&gt;手工优化&lt;/h2&gt;
 &lt;p&gt;很多时候，目标模型的架构是确定的，目标机器的架构也就固定几种，ML compilers的可移植性优势——自动算子绑定/算子选择的优势——就近乎不存在了。&lt;/p&gt;
 &lt;p&gt;典型的例子是llama.cpp，和支撑它的ggml，llama.cpp+ggml通过一个人类可读的最小化C/C++项目，实现了各种精度的量化、自动微分、AVX/AVX2优化、Metal优化、flashatt算子、Multi-GPU pipeline并行等各个抽象层次上最直接有效的优化机制，最终也达成相当好的效果，尤其是在本地设备上。&lt;/p&gt;
@@ -83,7 +72,25 @@ OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linal
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;code&gt;Linalg&lt;/code&gt; is a DSL(a high-level MLIR dialect) for expressing linear algebra operations in MLIR, designed to solve the High-level Hierarchical Optimization (HHO box) in MLIR and to interoperate nicely within a Mixture Of Expert Compilers environment (i.e. the CGSel box).&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;把layout调整好，比如M&lt;em&gt;N调成32&lt;/em&gt;32分块。&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;算子分块，或者说矩阵乘法分块层，属于scf dialect，即structured control flow，之前叫LoopOps。&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;
+&lt;p&gt;算子融合，比如elementwise+reduce的op fusion。&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;
+&lt;p&gt;micro kernel一般是手写的，比如分块后的最小粒度的matmul，一般是64*64的，直接交给编译器是做不好的，要对不同硬件要用不同指令，不同顺序，不同寄存器。&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:7&#34;&gt;
+&lt;p&gt;Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;

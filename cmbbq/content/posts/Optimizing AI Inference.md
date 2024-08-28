@@ -38,35 +38,24 @@ OpGraph -> TSOWB(e.g. late hlo) -> CGASel -> HHO(e.g. Linalg) -> MHA(e.g. stripe
 
 Triton的大致流程如下：
 ```
->> 面向用户的Python/C++的kernel代码
+面向用户的Python/C++的kernel代码
 --> [ML Compiler前端，有时候可能只是某种动转静工具，forward一次，然后转写]
->> 设备无关的 High-level IR
+设备无关的 High-level IR
 --> [ML Compiler后端Passes，图优化+算子选择+内存优化]
->> 硬件特化的 Low-level IR [Schedule/Plan]
+硬件特化的 Low-level IR [Schedule/Plan]
 --> [ML Compiler后端Passes，把自己内部的Schedule/Plan翻译到LLVM IR]
->> LLVM IR 
+LLVM IR 
 --> [LLVM's NVPTX back-end，进入Language Compilation层面]
->> PTX
+PTX
 --> [CUDA ptxas assembler]
->> CUBIN
+CUBIN
 ```
 
 Intel MLIR graph compiler的lowering pipeline如下：
-```
->> Computation Graphs
--> linalg [^4]
--> layout propagation [^7]
--> tiling [^3]
--> fusion [^8] 
--> micro kernel [^9]
--> vector [^10] 
---- 再此之上都可以分为tensor-level passes，完全不涉及内存，就是tensor层面的优化 ---
--> bufferization [^12]
--> memory planning 
--> LLVM IR 
->> 交由LLVM处理
-```
-从中可以看到，lowering pipeline又可分为tensor-land和memref-land两个大的区块。在tensor-land，所有tensor操作都默认不是in-place的，哪怕是明显可以in-place的relu。在memref-land才会考虑内存访问的进一步优化。
+
+Computation Graphs -> linalg [^4] -> layout propagation [^7] -> tiling [^3] -> fusion [^8] -> micro kernel [^9] -> vector [^10] -> bufferization [^12] -> memory planning -> LLVM IR -> 交由LLVM处理。
+
+上述lowering pipeline又可分为tensor-land和memref-land两个大的区块，bufferization之前都是tensor-land。在tensor-land，所有tensor操作都默认不是in-place的，哪怕是明显可以in-place的relu。在memref-land才会考虑内存访问的进一步优化。
 
 ## 手工优化
 很多时候，目标模型的架构是确定的，目标机器的架构也就固定几种，ML compilers的可移植性优势——自动算子绑定/算子选择的优势——就近乎不存在了。
