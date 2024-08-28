@@ -56,7 +56,7 @@ ScaNN提出了各向异性量化，算是正本清源，纠正了此前就近选
 - 向量量化中引入的低bit表示，尤其是4bit量化，和低bit浮点数量化一样，可以享受SIMD、AMX的性能红利。
 
 # 最佳实践：根据应用场景将各种正交技术进行正确组合
-[HNSW](https://www.robots.ox.ac.uk/~vgg/publications/2003/Sivic03/sivic03.pdf)、IVF、PQ、各向异性的score-aware quantization loss、brute-force事实上都是正交的技术，可以组合起来使用。
+HNSW、IVF、PQ、各向异性的score-aware quantization loss、brute-force事实上都是正交的技术，可以组合起来使用。
 
 比如进行了PQ量化的数据点可以再构建一个HNSW，用图方法在超大规模数据集上做查询显然比ivfpq更高效。各向异性量化则是对此前PQ量化的修正。考虑到量化后的距离失真，还能用brute-force把ivf+pq+hnsw的粗排结果重算一下得到最精确的距离，由于已经经过一轮粗排，候选数据集大小从十亿级别缩小到万级别，brute-force的开销就完全可以接受了。
 
