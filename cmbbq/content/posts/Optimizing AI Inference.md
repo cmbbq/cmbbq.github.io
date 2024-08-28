@@ -19,7 +19,7 @@ showFullContent = false
 编译，或者说DSLs + Optimizing Compilers，是解决领域问题优化的一个通用解法，为不同硬件提供可移植的优化。比如十年前就有Halide为图像和张量的并行计算提供了一个DSL+编译器，将算法规格本身和优化细节解耦。甚至更底层的gcc/llvm本身也是将算法和优化解耦的例子，在machine code codegen层面做的优化。
 
 ### ML Compilers的优势和劣势
-如今的ML compilers是这种基于编译的思路的延续，其优势在于：
+如今的ML compilers是这种基于编译的思路的延续[^2]，其优势在于：
 - 可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局[^10]，因此适配新硬件是近未来必需解决的事情。
 - 将算法与优化清晰解耦：工程上可以提效，也有助于降低因复杂度爆炸而注入缺陷、使得项目逐渐失控、无法维护的风险。
 
@@ -31,7 +31,7 @@ showFullContent = false
 ### ML Compilers的工作流程
 ML编译器的工作流是高层抽象到底层抽象的``lowering``过程。ML编译器后端包含各种``passes``，所谓pass就是lowering规则。最终会根据设备信息，形成一种硬件特化、张量特化的硬件算子描述，这种描述在TVM里叫做``schedule``，在Triton里叫做``plan``。再进一步CodeGen阶段，是从ML编译器自己的语言翻译到language compiler后端，比如LLVM IR，然后交由LLVM编译成可执行的machine code。
 
-MLIR中``dialects``可对passes进行分层或分类，一个典型的dialects分层自上而下如是：
+MLIR中``dialects``可对passes进行分层或分类，一个典型的dialects分层(见[^1])自上而下如是：
 ```
 OpGraph -> TSOWB(e.g. late hlo) -> CGASel -> HHO(e.g. Linalg) -> MHA(e.g. stripe/affine) -> HLTSIR(e.g. vector dialects) -> TSIR(e.g. llvm)
 ```
@@ -67,13 +67,13 @@ Computation Graphs -> linalg [^4] -> layout propagation [^7] -> tiling [^3] -> f
 手动优化的劣势是一旦出现新架构、新设备，就需要重写代码。
 
 
-[^1]: Tri Dao. FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning. [[pdf]](https://arxiv.org/pdf/2307.08691)
-[^2]: Nvidia Ampere Architecture Whitepaper. [[pdf]](https://images.nvidia.com/aem-dam/en-zz/Solutions/data-center/nvidia-ampere-architecture-whitepaper.pdf)
+[^1]: [Linalg Dialect Rationale: The Case For Compiler-Friendly Custom Operations](https://mlir.llvm.org/docs/Rationale/RationaleLinalgDialect/)
+[^2]: TVM可以视为Halide在ML领域的
 [^3]: 算子分块，或者说矩阵乘法分块层，属于scf dialect，即structured control flow，之前叫LoopOps。
 [^4]: ``Linalg`` is a DSL(a high-level MLIR dialect) for expressing linear algebra operations in MLIR, designed to solve the High-level Hierarchical Optimization (HHO box) in MLIR and to interoperate nicely within a Mixture Of Expert Compilers environment (i.e. the CGSel box). 
 [^5]: [MLIR — Lowering through LLVM](https://www.jeremykun.com/2023/11/01/mlir-lowering-through-llvm/)
 [^6]: [A friendly introduction to machine learning compilers and optimizers](https://huyenchip.com/2021/09/07/a-friendly-introduction-to-machine-learning-compilers-and-optimizers.html)
-[^7]: 把layout调整好，比如M*N调成32*32分块。
+[^7]: 把layout调整好，比如$M\times N$调成$32\times 32$分块。
 [^8]: 算子融合，比如elementwise+reduce的op fusion。
 [^9]: micro kernel一般是手写的，比如分块后的最小粒度的matmul，一般是64*64的，直接交给编译器是做不好的，要对不同硬件要用不同指令，不同顺序，不同寄存器。
 [^10]: 国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。
