@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>推理优化 :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="总结AI工程中相当重要的推理优化问题。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/optimizing-ai-inference/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="推理优化">
+<meta property="og:description" content="总结AI工程中相当重要的推理优化问题。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/optimizing-ai-inference/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-08-28 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/optimizing-ai-inference/">推理优化</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-08-28
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/ai/">ai</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="优化的几个抽象层次">优化的几个抽象层次<a href="#优化的几个抽象层次" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>应用侧的AI Engineering大致上可以分为MLOps和推理优化。推理优化又可以分为几个抽象层次：</p>
+<ol>
+<li>最高层是模型优化：量化、知识蒸馏、参数剪枝、通道剪枝。</li>
+<li>中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。</li>
+<li>底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。</li>
+<li>最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。</li>
+</ol>
+<p>第一层的模型优化减少了模型本身的总计算量，与底层优化正交。第二、第三层的推理优化归根到底都是硬件使能，只不过二层对几乎所有硬件都有效，三层则根据设备信息细化。从实现方法上讲，二、三层优化又可分为基于AI编译器的优化和手工优化。</p>
+<h2 id="基于编译的优化">基于编译的优化<a href="#基于编译的优化" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>编译，或者说DSLs + Optimizing Compilers，是解决领域问题优化的一个通用解法，为不同硬件提供可移植的优化。比如十年前就有Halide为图像和张量的并行计算提供了一个DSL+编译器，将算法规格本身和优化细节解耦。甚至更底层的gcc/llvm本身也是将算法和优化解耦的例子，在machine code codegen层面做的优化。</p>
+<h3 id="ml-compilers的优势和劣势">ML Compilers的优势和劣势<a href="#ml-compilers的优势和劣势" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>如今的ML compilers是这种基于编译的思路的延续，其优势在于：</p>
+<ul>
+<li>可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，因此适配新硬件是近未来必需解决的事情。</li>
+<li>将算法与优化清晰解耦：工程上可以提效，也有助于降低因复杂度爆炸而注入缺陷、使得项目逐渐失控、无法维护的风险。</li>
+</ul>
+<p>其劣势在于：</p>
+<ul>
+<li>不完备：在处理大多数场景、常规问题时性能不错，但总会遇到一些预料之外的edge cases，fallback to the slow path，性能骤然劣化，很难通过tweak DSL code生成更优的代码。</li>
+<li>不灵活：考虑到编译器codegen产物往往不那么human-readble，工程上针对edge cases、ad-hoc需求做灵活的手工优化就比较困难。</li>
+<li>难以真正击败专家手动优化：正如至今不存在能在性能上击败C/C++的函数式语言编译器，ML compiler也只是给出足够好的解，通常不及专家充分优化的C/C++实现。</li>
+</ul>
+<h3 id="ml-compilers的工作流程">ML Compilers的工作流程<a href="#ml-compilers的工作流程" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>ML编译器的工作流是高层抽象到底层抽象的<code>lowering</code>过程。ML编译器后端包含各种<code>passes</code>，所谓pass就是lowering规则。最终会根据设备信息，形成一种硬件特化、张量特化的硬件算子描述，这种描述在TVM里叫做<code>schedule</code>，在Triton里叫做<code>plan</code>。再进一步CodeGen阶段，是从ML编译器自己的语言翻译到language compiler后端，比如LLVM IR，然后交由LLVM编译成可执行的machine code。</p>
+<p>MLIR中<code>dialects</code>可对passes进行分层或分类，一个典型的dialects分层自上而下如是：</p>
+<pre tabindex="0"><code>OpGraph -&gt; TSOWB(e.g. late hlo) -&gt; CGASel -&gt; HHO(e.g. Linalg) -&gt; MHA(e.g. stripe/affine) -&gt; HLTSIR(e.g. vector dialects) -&gt; TSIR(e.g. llvm)
+</code></pre><p>Triton的大致流程如下：</p>
+<pre tabindex="0"><code>&gt;&gt; 面向用户的Python/C++的kernel代码
+--&gt; [ML Compiler前端，有时候可能只是某种动转静工具，forward一次，然后转写]
+&gt;&gt; 设备无关的 High-level IR
+--&gt; [ML Compiler后端Passes，图优化+算子选择+内存优化]
+&gt;&gt; 硬件特化的 Low-level IR [Schedule/Plan]
+--&gt; [ML Compiler后端Passes，把自己内部的Schedule/Plan翻译到LLVM IR]
+&gt;&gt; LLVM IR 
+--&gt; [LLVM&#39;s NVPTX back-end，进入Language Compilation层面]
+&gt;&gt; PTX
+--&gt; [CUDA ptxas assembler]
+&gt;&gt; CUBIN
+</code></pre><p>Intel MLIR graph compiler的lowering pipeline如下：</p>
+<pre tabindex="0"><code>&gt;&gt; Computation Graphs
+-&gt; linalg [^4]
+-&gt; layout propagation [^7]
+-&gt; tiling [^3]
+-&gt; fusion [^8] 
+-&gt; micro kernel [^9]
+-&gt; vector [^10] 
+--- 再此之上都可以分为tensor-level passes，完全不涉及内存，就是tensor层面的优化 ---
+-&gt; bufferization [^12]
+-&gt; memory planning 
+-&gt; LLVM IR 
+&gt;&gt; 交由LLVM处理
+</code></pre><p>从中可以看到，lowering pipeline又可分为tensor-land和memref-land两个大的区块。在tensor-land，所有tensor操作都默认不是in-place的，哪怕是明显可以in-place的relu。在memref-land才会考虑内存访问的进一步优化。</p>
+<h2 id="手工优化">手工优化<a href="#手工优化" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>很多时候，目标模型的架构是确定的，目标机器的架构也就固定几种，ML compilers的可移植性优势——自动算子绑定/算子选择的优势——就近乎不存在了。</p>
+<p>典型的例子是llama.cpp，和支撑它的ggml，llama.cpp+ggml通过一个人类可读的最小化C/C++项目，实现了各种精度的量化、自动微分、AVX/AVX2优化、Metal优化、flashatt算子、Multi-GPU pipeline并行等各个抽象层次上最直接有效的优化机制，最终也达成相当好的效果，尤其是在本地设备上。</p>
+<p>这种手动优化的系统优势在于系统是透明的，程序员可以读懂整个系统，精准定位到涉及某个问题的代码行，从而具备ML编译方案中不具备的灵活性，适合应对ad-hoc需求，适用于模型架构和硬件设备稳定的场景。</p>
+<p>手动优化的劣势是一旦出现新架构、新设备，就需要重写代码。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/pagedattention/">
+                <span class="button__text">Paged Attention</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
