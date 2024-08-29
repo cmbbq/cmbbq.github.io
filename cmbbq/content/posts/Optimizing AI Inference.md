@@ -1,5 +1,5 @@
 +++
-title = "推理优化"
+title = "Optimizing AI Inference"
 date = "2024-08-28"
 tags = ["sys", "ai"]
 description = "总结AI工程中相当重要的推理优化问题。"
@@ -8,7 +8,7 @@ showFullContent = false
 
 ## 优化的几个抽象层次
 应用侧的AI Engineering大致上可以分为MLOps和推理优化。推理优化又可以分为几个抽象层次：
-1. 最高层是模型优化：量化、知识蒸馏、参数剪枝、通道剪枝。
+1. 最高层是模型优化（详见[^13]）：量化、知识蒸馏、参数剪枝、通道剪枝。
 2. 中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。
 3. 底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。
 4. 最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。
@@ -79,3 +79,4 @@ Computation Graphs -> linalg [^4] -> layout propagation [^7] -> tiling [^3] -> f
 [^10]: 国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。
 [^11]: 各种vector操作，具体又可分为GPU dialect，Arm-Neon dialect、x86vector dialect（AVX，AVX512）、第四代Xeon的AMX dialect等。
 [^12]: Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。
+[^13] [Quantization and Pruning](https://cmbbq.github.io/posts/quantization_and_pruning)

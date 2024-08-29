@@ -8,13 +8,13 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 28 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>推理优化</title>
+      <title>Optimizing AI Inference</title>
       <link>https://cmbbq.github.io/posts/optimizing-ai-inference/</link>
       <pubDate>Wed, 28 Aug 2024 00:00:00 +0000</pubDate>
       
       <guid>https://cmbbq.github.io/posts/optimizing-ai-inference/</guid>
       <description>优化的几个抽象层次 应用侧的AI Engineering大致上可以分为MLOps和推理优化。推理优化又可以分为几个抽象层次：
-最高层是模型优化：量化、知识蒸馏、参数剪枝、通道剪枝。 中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。 底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。 最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。 第一层的模型优化减少了模型本身的总计算量，与底层优化正交。第二、第三层的推理优化归根到底都是硬件使能，只不过二层对几乎所有硬件都有效，三层则根据设备信息细化。从实现方法上讲，二、三层优化又可分为基于AI编译器的优化和手工优化。
+最高层是模型优化（详见[^13]）：量化、知识蒸馏、参数剪枝、通道剪枝。 中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。 底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。 最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。 第一层的模型优化减少了模型本身的总计算量，与底层优化正交。第二、第三层的推理优化归根到底都是硬件使能，只不过二层对几乎所有硬件都有效，三层则根据设备信息细化。从实现方法上讲，二、三层优化又可分为基于AI编译器的优化和手工优化。
 基于编译的优化 编译，或者说DSLs + Optimizing Compilers，是解决领域问题优化的一个通用解法，为不同硬件提供可移植的优化。比如十年前就有Halide为图像和张量的并行计算提供了一个DSL+编译器，将算法规格本身和优化细节解耦。甚至更底层的gcc/llvm本身也是将算法和优化解耦的例子，在machine code codegen层面做的优化。
 ML Compilers的优势和劣势 如今的ML compilers是这种基于编译的思路的延续1，其优势在于：
 可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局2，因此适配新硬件是近未来必需解决的事情。 将算法与优化清晰解耦：工程上可以提效，也有助于降低因复杂度爆炸而注入缺陷、使得项目逐渐失控、无法维护的风险。 其劣势在于：
@@ -24,7 +24,7 @@ OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linal
       <content>&lt;h2 id=&#34;优化的几个抽象层次&#34;&gt;优化的几个抽象层次&lt;/h2&gt;
 &lt;p&gt;应用侧的AI Engineering大致上可以分为MLOps和推理优化。推理优化又可以分为几个抽象层次：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;最高层是模型优化：量化、知识蒸馏、参数剪枝、通道剪枝。&lt;/li&gt;
+&lt;li&gt;最高层是模型优化（详见[^13]）：量化、知识蒸馏、参数剪枝、通道剪枝。&lt;/li&gt;
 &lt;li&gt;中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。&lt;/li&gt;
 &lt;li&gt;底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。&lt;/li&gt;
 &lt;li&gt;最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。&lt;/li&gt;
@@ -96,7 +96,8 @@ CUBIN
 &lt;p&gt;micro kernel一般是手写的，比如分块后的最小粒度的matmul，一般是64*64的，直接交给编译器是做不好的，要对不同硬件要用不同指令，不同顺序，不同寄存器。&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:9&#34;&gt;
-&lt;p&gt;Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。
+[^13] &lt;a href=&#34;https://cmbbq.github.io/posts/quantization_and_pruning&#34;&gt;Quantization and Pruning&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
