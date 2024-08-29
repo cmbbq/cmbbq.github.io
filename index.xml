@@ -14,17 +14,17 @@
       
       <guid>https://cmbbq.github.io/posts/optimizing-ai-inference/</guid>
       <description>优化的几个抽象层次 应用侧的AI Engineering大致上可以分为MLOps和推理优化。推理优化又可以分为几个抽象层次：
-最高层是模型优化（详见[^13]）：量化、知识蒸馏、参数剪枝、通道剪枝。 中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。 底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。 最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。 第一层的模型优化减少了模型本身的总计算量，与底层优化正交。第二、第三层的推理优化归根到底都是硬件使能，只不过二层对几乎所有硬件都有效，三层则根据设备信息细化。从实现方法上讲，二、三层优化又可分为基于AI编译器的优化和手工优化。
+最高层是模型优化（详见1）：量化、知识蒸馏、参数剪枝、通道剪枝。 中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。 底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。 最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。 第一层的模型优化减少了模型本身的总计算量，与底层优化正交。第二、第三层的推理优化归根到底都是硬件使能，只不过二层对几乎所有硬件都有效，三层则根据设备信息细化。从实现方法上讲，二、三层优化又可分为基于AI编译器的优化和手工优化。
 基于编译的优化 编译，或者说DSLs + Optimizing Compilers，是解决领域问题优化的一个通用解法，为不同硬件提供可移植的优化。比如十年前就有Halide为图像和张量的并行计算提供了一个DSL+编译器，将算法规格本身和优化细节解耦。甚至更底层的gcc/llvm本身也是将算法和优化解耦的例子，在machine code codegen层面做的优化。
-ML Compilers的优势和劣势 如今的ML compilers是这种基于编译的思路的延续1，其优势在于：
-可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局2，因此适配新硬件是近未来必需解决的事情。 将算法与优化清晰解耦：工程上可以提效，也有助于降低因复杂度爆炸而注入缺陷、使得项目逐渐失控、无法维护的风险。 其劣势在于：
+ML Compilers的优势和劣势 如今的ML compilers是这种基于编译的思路的延续2，其优势在于：
+可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局3，因此适配新硬件是近未来必需解决的事情。 将算法与优化清晰解耦：工程上可以提效，也有助于降低因复杂度爆炸而注入缺陷、使得项目逐渐失控、无法维护的风险。 其劣势在于：
 不完备：在处理大多数场景、常规问题时性能不错，但总会遇到一些预料之外的edge cases，fallback to the slow path，性能骤然劣化，很难通过tweak DSL code生成更优的代码。 不灵活：考虑到编译器codegen产物往往不那么human-readble，工程上针对edge cases、ad-hoc需求做灵活的手工优化就比较困难。 难以真正击败专家手动优化：正如至今不存在能在性能上击败C/C++的函数式语言编译器，ML compiler也只是给出足够好的解，通常不及专家充分优化的C/C++实现。 ML Compilers的工作流程 ML编译器的工作流是高层抽象到底层抽象的lowering过程。ML编译器后端包含各种passes，所谓pass就是lowering规则。最终会根据设备信息，形成一种硬件特化、张量特化的硬件算子描述，这种描述在TVM里叫做schedule，在Triton里叫做plan。再进一步CodeGen阶段，是从ML编译器自己的语言翻译到language compiler后端，比如LLVM IR，然后交由LLVM编译成可执行的machine code。
-MLIR中dialects可对passes进行分层或分类，一个典型的dialects分层(见3)自上而下如是：
+MLIR中dialects可对passes进行分层或分类，一个典型的dialects分层(见4)自上而下如是：
 OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linalg) -&amp;gt; MHA(e.g. stripe/affine) -&amp;gt; HLTSIR(e.g. vector dialects) -&amp;gt; TSIR(e.</description>
       <content>&lt;h2 id=&#34;优化的几个抽象层次&#34;&gt;优化的几个抽象层次&lt;/h2&gt;
 &lt;p&gt;应用侧的AI Engineering大致上可以分为MLOps和推理优化。推理优化又可以分为几个抽象层次：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;最高层是模型优化（详见[^13]）：量化、知识蒸馏、参数剪枝、通道剪枝。&lt;/li&gt;
+&lt;li&gt;最高层是模型优化（详见&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;）：量化、知识蒸馏、参数剪枝、通道剪枝。&lt;/li&gt;
 &lt;li&gt;中间层是图优化和通用优化：operator fusion/reconstruction、loop interchanges、data layout rewrites。&lt;/li&gt;
 &lt;li&gt;底层是硬件算子：最优化的底层算子必然是最特化的（tensor-specific + hardware-specific + framework-agnostic），因此需将中层IR绑定到硬件算子（即后端算子选择），这些硬件算子往往需要根据设备信息，充分利用vectorization、parallelism、locality，做显式cache管理，通过合理的指令重排隐藏memory latency, 利用SIMD/AMX/DSP/GPGPU架构做memory tiling和minibatch block gemm。&lt;/li&gt;
 &lt;li&gt;最底层还有LLVM层面的low-level codegen优化，负责最终生成优化的机器码。&lt;/li&gt;
@@ -33,9 +33,9 @@ OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linal
 &lt;h2 id=&#34;基于编译的优化&#34;&gt;基于编译的优化&lt;/h2&gt;
 &lt;p&gt;编译，或者说DSLs + Optimizing Compilers，是解决领域问题优化的一个通用解法，为不同硬件提供可移植的优化。比如十年前就有Halide为图像和张量的并行计算提供了一个DSL+编译器，将算法规格本身和优化细节解耦。甚至更底层的gcc/llvm本身也是将算法和优化解耦的例子，在machine code codegen层面做的优化。&lt;/p&gt;
 &lt;h3 id=&#34;ml-compilers的优势和劣势&#34;&gt;ML Compilers的优势和劣势&lt;/h3&gt;
-&lt;p&gt;如今的ML compilers是这种基于编译的思路的延续&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;，其优势在于：&lt;/p&gt;
+&lt;p&gt;如今的ML compilers是这种基于编译的思路的延续&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;，其优势在于：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;，因此适配新硬件是近未来必需解决的事情。&lt;/li&gt;
+&lt;li&gt;可移植性：硬件一方面在不断迭代更新，另一方面也不断有新硬件、新架构涌现。端边侧的设备要繁杂的多。Datacenter场景还好，但也面临N卡禁运，国产替代的问题，国产GPGPU还没有形成明确的一两家独大的格局&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;，因此适配新硬件是近未来必需解决的事情。&lt;/li&gt;
 &lt;li&gt;将算法与优化清晰解耦：工程上可以提效，也有助于降低因复杂度爆炸而注入缺陷、使得项目逐渐失控、无法维护的风险。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;其劣势在于：&lt;/p&gt;
@@ -46,7 +46,7 @@ OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linal
 &lt;/ul&gt;
 &lt;h3 id=&#34;ml-compilers的工作流程&#34;&gt;ML Compilers的工作流程&lt;/h3&gt;
 &lt;p&gt;ML编译器的工作流是高层抽象到底层抽象的&lt;code&gt;lowering&lt;/code&gt;过程。ML编译器后端包含各种&lt;code&gt;passes&lt;/code&gt;，所谓pass就是lowering规则。最终会根据设备信息，形成一种硬件特化、张量特化的硬件算子描述，这种描述在TVM里叫做&lt;code&gt;schedule&lt;/code&gt;，在Triton里叫做&lt;code&gt;plan&lt;/code&gt;。再进一步CodeGen阶段，是从ML编译器自己的语言翻译到language compiler后端，比如LLVM IR，然后交由LLVM编译成可执行的machine code。&lt;/p&gt;
-&lt;p&gt;MLIR中&lt;code&gt;dialects&lt;/code&gt;可对passes进行分层或分类，一个典型的dialects分层(见&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;)自上而下如是：&lt;/p&gt;
+&lt;p&gt;MLIR中&lt;code&gt;dialects&lt;/code&gt;可对passes进行分层或分类，一个典型的dialects分层(见&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;)自上而下如是：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;OpGraph -&amp;gt; TSOWB(e.g. late hlo) -&amp;gt; CGASel -&amp;gt; HHO(e.g. Linalg) -&amp;gt; MHA(e.g. stripe/affine) -&amp;gt; HLTSIR(e.g. vector dialects) -&amp;gt; TSIR(e.g. llvm)
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Triton的大致流程如下：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;面向用户的Python/C++的kernel代码
@@ -61,7 +61,7 @@ PTX
 --&amp;gt; [CUDA ptxas assembler]
 CUBIN
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Intel MLIR graph compiler的lowering pipeline如下：&lt;/p&gt;
-&lt;p&gt;Computation Graphs -&amp;gt; linalg &lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; -&amp;gt; layout propagation &lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt; -&amp;gt; tiling &lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt; -&amp;gt; fusion &lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt; -&amp;gt; micro kernel &lt;sup id=&#34;fnref:8&#34;&gt;&lt;a href=&#34;#fn:8&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;8&lt;/a&gt;&lt;/sup&gt; -&amp;gt; vector &lt;sup id=&#34;fnref1:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; -&amp;gt; bufferization &lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt; -&amp;gt; memory planning -&amp;gt; LLVM IR -&amp;gt; 交由LLVM处理。&lt;/p&gt;
+&lt;p&gt;Computation Graphs -&amp;gt; linalg &lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt; -&amp;gt; layout propagation &lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt; -&amp;gt; tiling &lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt; -&amp;gt; fusion &lt;sup id=&#34;fnref:8&#34;&gt;&lt;a href=&#34;#fn:8&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;8&lt;/a&gt;&lt;/sup&gt; -&amp;gt; micro kernel &lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt; -&amp;gt; vector &lt;sup id=&#34;fnref1:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; -&amp;gt; bufferization &lt;sup id=&#34;fnref:10&#34;&gt;&lt;a href=&#34;#fn:10&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;10&lt;/a&gt;&lt;/sup&gt; -&amp;gt; memory planning -&amp;gt; LLVM IR -&amp;gt; 交由LLVM处理。&lt;/p&gt;
 &lt;p&gt;上述lowering pipeline又可分为tensor-land和memref-land两个大的区块，bufferization之前都是tensor-land。在tensor-land，所有tensor操作都默认不是in-place的，哪怕是明显可以in-place的relu。在memref-land才会考虑内存访问的进一步优化。&lt;/p&gt;
 &lt;h2 id=&#34;手工优化&#34;&gt;手工优化&lt;/h2&gt;
 &lt;p&gt;很多时候，目标模型的架构是确定的，目标机器的架构也就固定几种，ML compilers的可移植性优势——自动算子绑定/算子选择的优势——就近乎不存在了。&lt;/p&gt;
@@ -72,32 +72,34 @@ CUBIN
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34;&gt;
-&lt;p&gt;TVM可以视为Halide在ML领域的&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cmbbq.github.io/posts/quantization_and_pruning&#34;&gt;Quantization and Pruning&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34;&gt;
-&lt;p&gt;国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;TVM可以视为Halide在ML领域的&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:3&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;https://mlir.llvm.org/docs/Rationale/RationaleLinalgDialect/&#34;&gt;Linalg Dialect Rationale: The Case For Compiler-Friendly Custom Operations&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:4&#34;&gt;
-&lt;p&gt;&lt;code&gt;Linalg&lt;/code&gt; is a DSL(a high-level MLIR dialect) for expressing linear algebra operations in MLIR, designed to solve the High-level Hierarchical Optimization (HHO box) in MLIR and to interoperate nicely within a Mixture Of Expert Compilers environment (i.e. the CGSel box).&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mlir.llvm.org/docs/Rationale/RationaleLinalgDialect/&#34;&gt;Linalg Dialect Rationale: The Case For Compiler-Friendly Custom Operations&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:5&#34;&gt;
-&lt;p&gt;把layout调整好，比如$M\times N$调成$32\times 32$分块。&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Linalg&lt;/code&gt; is a DSL(a high-level MLIR dialect) for expressing linear algebra operations in MLIR, designed to solve the High-level Hierarchical Optimization (HHO box) in MLIR and to interoperate nicely within a Mixture Of Expert Compilers environment (i.e. the CGSel box).&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:6&#34;&gt;
-&lt;p&gt;算子分块，或者说矩阵乘法分块层，属于scf dialect，即structured control flow，之前叫LoopOps。&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;把layout调整好，比如$M\times N$调成$32\times 32$分块。&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:7&#34;&gt;
-&lt;p&gt;算子融合，比如elementwise+reduce的op fusion。&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;算子分块，或者说矩阵乘法分块层，属于scf dialect，即structured control flow，之前叫LoopOps。&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:8&#34;&gt;
-&lt;p&gt;micro kernel一般是手写的，比如分块后的最小粒度的matmul，一般是64*64的，直接交给编译器是做不好的，要对不同硬件要用不同指令，不同顺序，不同寄存器。&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;算子融合，比如elementwise+reduce的op fusion。&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:9&#34;&gt;
-&lt;p&gt;Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。
-[^13] &lt;a href=&#34;https://cmbbq.github.io/posts/quantization_and_pruning&#34;&gt;Quantization and Pruning&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;micro kernel一般是手写的，比如分块后的最小粒度的matmul，一般是64*64的，直接交给编译器是做不好的，要对不同硬件要用不同指令，不同顺序，不同寄存器。&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:10&#34;&gt;
+&lt;p&gt;Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。&amp;#160;&lt;a href=&#34;#fnref:10&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;

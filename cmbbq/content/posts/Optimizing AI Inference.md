@@ -79,4 +79,4 @@ Computation Graphs -> linalg [^4] -> layout propagation [^7] -> tiling [^3] -> f
 [^10]: 国产AI芯片处于混战阶段：华为Atlas系列、壁仞BR100、瑞芯微rk NPU、百度昆仑芯XPU、比特大陆（bm-se/sc）、寒武纪MLU、海光DCU、燧原GCU等。
 [^11]: 各种vector操作，具体又可分为GPU dialect，Arm-Neon dialect、x86vector dialect（AVX，AVX512）、第四代Xeon的AMX dialect等。
 [^12]: Bufferization in MLIR is the process of converting ops with tensor semantics to ops with memref semantics. 这一阶段会尽可能尝试将一些tensor计算的内存占用in-place化，终极目标是用更少的内存，减少copy次数。
-[^13] [Quantization and Pruning](https://cmbbq.github.io/posts/quantization_and_pruning)
+[^13]: [Quantization and Pruning](https://cmbbq.github.io/posts/quantization_and_pruning)
