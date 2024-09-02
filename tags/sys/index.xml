@@ -6,7 +6,123 @@
     <description>Recent content in sys on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Sep 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/tags/sys/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quantization and Pruning</title>
+      <link>https://cmbbq.github.io/posts/quantization-and-pruning/</link>
+      <pubDate>Mon, 02 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/quantization-and-pruning/</guid>
+      <description>模型压缩技术中，最实用的是量化，其次还可以尝试剪枝。量化降低精度，剪枝裁剪参数。
+Quantization 可以将k-bit量化问题视作将取值范围$(x_{min},x_{max})$的float数值$x$经过量化函数$g(x)$映射到取值范围$(0,2^{k-1})$的int型数值$Q$，并尽可能减少整体模型精度损失（well，如果没有端到端的模型accuracy/perplexity指标，也可以把目标设置为最小化output MSE/RMSE）的问题。$Q=round(g(x))$，
+Uniform vs Non-uniform 根据Q的分布是否为均匀分布，可讲量化器分为uniform quantizers和non-uniform quantizers1。
+Non-uniform quantization往往用几个离散的等级模拟其他分布（$x$真实的分布可能是lognorm分布、norm分布），以期在更稠密的取值范围内提升精度，缺点是计算量更大一些。
+Affine vs Scale 在uniform quantization中，变换函数又有两个选择：affine和scale。前者用一个仿射函数（$g(x)=kx+b$），后者只用（$g(x)=kx$），0在映射后仍为0，$Q$和$x$在0两侧对称，因此又叫对称量化，实际上是仿射量化的一个特例，由于去掉了offset，计算更简化了，也容易向量化。
+PTQ vs QAT 根据是否涉及backprop，量化可以分为PTQ(post-training Quantization)和QAT(Quantization Aware Training)这两类。QAT因训练成本高昂，难以扩展到大模型。因此大模型量化更多地使用PTQ。
+Dynamic vs Static 静态精度量化把权重、激活函数、梯度统一转成低精度表示，比如W8A8量化。推理阶段W8A8完全是int8算术计算，不需要执行任何量化、反量化函数。
+静态量化的参数（scale factor $k$、zero point $b$）是固定的。那么如何决定合适的$k$或$b$呢？静态量化往往需要通过在校准集上收集激活分布，寻找最小化MSE的最优解。但这种校准过程也会引入过拟合校准集的问题。在输入数据的分布非常明确，可以被校准集正确刻画的场景下，可以使用静态量化。
+动态精度量化，又称weight-only量化，只把权重量化到低精度，激活仍保留高精度（因此模型变成了混合精度模型）。动态量化中，量化参数是推理时即时演算的，因此无需专门的校准阶段。推理时激活精度会动态调整精度（上限是模型中存储的激活精度，下限是权重精度，需施加量化函数到激活，或反量化函数到权重），因此保留了部分浮点数计算。
+通常静态量化适合CNN，动态量化适合RNN、transformers。
+量化器的计算量在混合精度模型（比如int4权重量化+fp16激活函数量化的gptq，或torchao QAT的8da4w，或llama.cpp的q4_k）中会影响推理性能。以llama.cpp的q4_k为例，中间张量（比如两个4-bits的sum，再用4-bits有几率产生overflow）有些需要用8-bits而非4-bits量化，可以把模型张量用计算量更高误差更少的量化器（比如non-uniform量化器，计算量虽大但不影响运行时开销），中间张量用计算量小的uniform量化器2。
+LLM Quantization GPTQ3：一种适用于大模型的oneshot量化方法，把所有权重都批量放入矩阵中，逐层量化，每次都最小化输出MSE。GPTQ采用int4/fp16混合精度量化，4-bit用于权重量化，激活函数仍用fp16。GPTQ利用二阶信息做误差补偿，但可能在重建过程中过拟合校准集，导致模型损失泛用性。
+AWQ4：一种低比特weight-only的量化方法，只对权重进行量化，将激活函数和梯度保留为全精度。AWQ认为只有0.1~1%的权重是salient的，应跳过这些salient权重。激活后的分布比权重本身更加salient，因此AWQ根据激活分布寻找需要被跳过的权重。
+GGUF：在llama.cpp的k-quant体系中，qN_0表示N-bits scale量化，qN_1表示N-bits affine量化，qN_k代表特殊的block-wise量化，把原模型权重分块，每个块有自己的根据最大值简单算出的scaling factor（这样显然并不最优，后来又做了改进版本，见2），salient权重被量化到高精度，其他的则量化到低精度，是混合精度的。以q2_k quant为例，salient权重被量化到4-bit，而其他权重则是2bit。q4_0则分别把所有权重都量化到4-bit。
+SmoothQuant5：与per-channel激活量化不同，SmoothQuant把magnitudes做了一个smooth操作，避免过于剧烈的inter-channel variation。SmoothQuant把原本非常uniform的权重分别变得稍有起伏，但实际上仍然易于计算。
+k-bit Inference Scaling Laws 根据6中的三万五千次k-bit推理实验，模型总体积不变的情况下，4-bit精度几乎永远是最优解。
+Pruning 对应PTQ，也存在PTP(Post-Training Pruning)，本文主要讨论PTP，即无需高昂重训练成本（可以通过LoRA恢复）的剪枝。
+结构化稀疏 结构化稀疏在特定维度（chanel、conv kernel）上对卷积、矩阵乘做剪枝操作，改变其shape，生成更小的模型。
+LLM-Pruner7、Torch-Pruning8是针对LLM的结构化稀疏方法。Isomorphic Pruning9则是近期针对ViT和现代CNN的SOTA方法。
+非结构化稀疏 非结构化稀疏以每一个参数为单元进行稀疏，不改变参数矩阵shape，只是令其中部分值为零。要求底层推理实现能有效地利用矩阵稀疏性进行加速。
+SparseGPT10在不显著牺牲perplexity的前提下，对175B级别的模型使用（one-shot，无需retraining），达到60%非结构化稀疏。
+SparseGPT将剪枝问题规约到超大规模稀疏回归实例上，用一种新的近似稀疏回归求解器高效求解，能在单GPU上几个小时内跑完100B级模型的稀疏。
+半结构化稀疏 N:M Pruning11是一种半结构化稀疏方法。SparseGPT这样的非结构化稀疏技术可以通过修改、适配成2:4 sparsity在A100上得到加速。
+Raghuraman Krishnamoorthi.</description>
+      <content>&lt;p&gt;模型压缩技术中，最实用的是量化，其次还可以尝试剪枝。量化降低精度，剪枝裁剪参数。&lt;/p&gt;
+&lt;h1 id=&#34;quantization&#34;&gt;Quantization&lt;/h1&gt;
+&lt;p&gt;可以将k-bit量化问题视作将取值范围$(x_{min},x_{max})$的float数值$x$经过量化函数$g(x)$映射到取值范围$(0,2^{k-1})$的int型数值$Q$，并尽可能减少整体模型精度损失（well，如果没有端到端的模型accuracy/perplexity指标，也可以把目标设置为最小化output MSE/RMSE）的问题。$Q=round(g(x))$，&lt;/p&gt;
+&lt;h2 id=&#34;uniform-vs-non-uniform&#34;&gt;Uniform vs Non-uniform&lt;/h2&gt;
+&lt;p&gt;根据Q的分布是否为均匀分布，可讲量化器分为uniform quantizers和non-uniform quantizers&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+&lt;p&gt;Non-uniform quantization往往用几个离散的等级模拟其他分布（$x$真实的分布可能是lognorm分布、norm分布），以期在更稠密的取值范围内提升精度，缺点是计算量更大一些。&lt;/p&gt;
+&lt;h2 id=&#34;affine-vs-scale&#34;&gt;Affine vs Scale&lt;/h2&gt;
+&lt;p&gt;在uniform quantization中，变换函数又有两个选择：affine和scale。前者用一个仿射函数（$g(x)=kx+b$），后者只用（$g(x)=kx$），0在映射后仍为0，$Q$和$x$在0两侧对称，因此又叫对称量化，实际上是仿射量化的一个特例，由于去掉了offset，计算更简化了，也容易向量化。&lt;/p&gt;
+&lt;h2 id=&#34;ptq-vs-qat&#34;&gt;PTQ vs QAT&lt;/h2&gt;
+&lt;p&gt;根据是否涉及backprop，量化可以分为PTQ(post-training Quantization)和QAT(Quantization Aware Training)这两类。QAT因训练成本高昂，难以扩展到大模型。因此大模型量化更多地使用PTQ。&lt;/p&gt;
+&lt;h2 id=&#34;dynamic-vs-static&#34;&gt;Dynamic vs Static&lt;/h2&gt;
+&lt;p&gt;静态精度量化把权重、激活函数、梯度统一转成低精度表示，比如W8A8量化。推理阶段W8A8完全是int8算术计算，不需要执行任何量化、反量化函数。&lt;/p&gt;
+&lt;p&gt;静态量化的参数（scale factor $k$、zero point $b$）是固定的。那么如何决定合适的$k$或$b$呢？静态量化往往需要通过在校准集上收集激活分布，寻找最小化MSE的最优解。但这种校准过程也会引入过拟合校准集的问题。在输入数据的分布非常明确，可以被校准集正确刻画的场景下，可以使用静态量化。&lt;/p&gt;
+&lt;p&gt;动态精度量化，又称weight-only量化，只把权重量化到低精度，激活仍保留高精度（因此模型变成了混合精度模型）。动态量化中，量化参数是推理时即时演算的，因此无需专门的校准阶段。推理时激活精度会动态调整精度（上限是模型中存储的激活精度，下限是权重精度，需施加量化函数到激活，或反量化函数到权重），因此保留了部分浮点数计算。&lt;/p&gt;
+&lt;p&gt;通常静态量化适合CNN，动态量化适合RNN、transformers。&lt;/p&gt;
+&lt;p&gt;量化器的计算量在混合精度模型（比如int4权重量化+fp16激活函数量化的gptq，或torchao QAT的8da4w，或llama.cpp的q4_k）中会影响推理性能。以llama.cpp的q4_k为例，中间张量（比如两个4-bits的sum，再用4-bits有几率产生overflow）有些需要用8-bits而非4-bits量化，可以把模型张量用计算量更高误差更少的量化器（比如non-uniform量化器，计算量虽大但不影响运行时开销），中间张量用计算量小的uniform量化器&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;llm-quantization&#34;&gt;LLM Quantization&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;GPTQ&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;：一种适用于大模型的oneshot量化方法，把所有权重都批量放入矩阵中，逐层量化，每次都最小化输出MSE。GPTQ采用int4/fp16混合精度量化，4-bit用于权重量化，激活函数仍用fp16。GPTQ利用二阶信息做误差补偿，但可能在重建过程中过拟合校准集，导致模型损失泛用性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AWQ&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;：一种低比特weight-only的量化方法，只对权重进行量化，将激活函数和梯度保留为全精度。AWQ认为只有0.1~1%的权重是salient的，应跳过这些salient权重。激活后的分布比权重本身更加salient，因此AWQ根据激活分布寻找需要被跳过的权重。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GGUF：在llama.cpp的k-quant体系中，qN_0表示N-bits scale量化，qN_1表示N-bits affine量化，qN_k代表特殊的block-wise量化，把原模型权重分块，每个块有自己的根据最大值简单算出的scaling factor（这样显然并不最优，后来又做了改进版本，见&lt;sup id=&#34;fnref1:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;），salient权重被量化到高精度，其他的则量化到低精度，是混合精度的。以q2_k quant为例，salient权重被量化到4-bit，而其他权重则是2bit。q4_0则分别把所有权重都量化到4-bit。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;SmoothQuant&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;：与per-channel激活量化不同，SmoothQuant把magnitudes做了一个smooth操作，避免过于剧烈的inter-channel variation。SmoothQuant把原本非常uniform的权重分别变得稍有起伏，但实际上仍然易于计算。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://cmbbq.github.io/img/smooth_quant.png&#34; alt=&#34;smooth&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;k-bit-inference-scaling-laws&#34;&gt;k-bit Inference Scaling Laws&lt;/h2&gt;
+&lt;p&gt;根据&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;中的三万五千次k-bit推理实验，模型总体积不变的情况下，4-bit精度几乎永远是最优解。&lt;/p&gt;
+&lt;h1 id=&#34;pruning&#34;&gt;Pruning&lt;/h1&gt;
+&lt;p&gt;对应PTQ，也存在PTP(Post-Training Pruning)，本文主要讨论PTP，即无需高昂重训练成本（可以通过LoRA恢复）的剪枝。&lt;/p&gt;
+&lt;h2 id=&#34;结构化稀疏&#34;&gt;结构化稀疏&lt;/h2&gt;
+&lt;p&gt;结构化稀疏在特定维度（chanel、conv kernel）上对卷积、矩阵乘做剪枝操作，改变其shape，生成更小的模型。&lt;/p&gt;
+&lt;p&gt;LLM-Pruner&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt;、Torch-Pruning&lt;sup id=&#34;fnref:8&#34;&gt;&lt;a href=&#34;#fn:8&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;8&lt;/a&gt;&lt;/sup&gt;是针对LLM的结构化稀疏方法。Isomorphic Pruning&lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt;则是近期针对ViT和现代CNN的SOTA方法。&lt;/p&gt;
+&lt;h2 id=&#34;非结构化稀疏&#34;&gt;非结构化稀疏&lt;/h2&gt;
+&lt;p&gt;非结构化稀疏以每一个参数为单元进行稀疏，不改变参数矩阵shape，只是令其中部分值为零。要求底层推理实现能有效地利用矩阵稀疏性进行加速。&lt;/p&gt;
+&lt;p&gt;SparseGPT&lt;sup id=&#34;fnref:10&#34;&gt;&lt;a href=&#34;#fn:10&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;10&lt;/a&gt;&lt;/sup&gt;在不显著牺牲perplexity的前提下，对175B级别的模型使用（one-shot，无需retraining），达到60%非结构化稀疏。&lt;/p&gt;
+&lt;p&gt;SparseGPT将剪枝问题规约到超大规模稀疏回归实例上，用一种新的近似稀疏回归求解器高效求解，能在单GPU上几个小时内跑完100B级模型的稀疏。&lt;/p&gt;
+&lt;h2 id=&#34;半结构化稀疏&#34;&gt;半结构化稀疏&lt;/h2&gt;
+&lt;p&gt;N:M Pruning&lt;sup id=&#34;fnref:11&#34;&gt;&lt;a href=&#34;#fn:11&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;11&lt;/a&gt;&lt;/sup&gt;是一种半结构化稀疏方法。SparseGPT这样的非结构化稀疏技术可以通过修改、适配成2:4 sparsity在A100上得到加速。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;Raghuraman Krishnamoorthi. Quantizing Deep Convolutional Networks for Efficient Inference: A whitepaper. &lt;a href=&#34;https://arxiv.org/pdf/1806.08342&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/ggerganov/llama.cpp/issues/397&#34;&gt;llama.cpp issue: Investigate alternative approach for Q4 quantization&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref1:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;E. Frantar, et al. GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers. &lt;a href=&#34;https://arxiv.org/pdf/2210.17323&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;Ji Lin, et al. AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration. &lt;a href=&#34;https://arxiv.org/pdf/2306.00978&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;
+&lt;p&gt;G. Xiao, et al. SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models. &lt;a href=&#34;https://arxiv.org/pdf/2211.10438&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;
+&lt;p&gt;T. Dettmers, L. Zettlemoyer. The case for 4-bit precision: k-bit Inference Scaling Laws. &lt;a href=&#34;https://arxiv.org/pdf/2212.09720&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:7&#34;&gt;
+&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2305.11627&#34;&gt;LLM-Pruner: On the Structural Pruning of Large Language Models&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:8&#34;&gt;
+&lt;p&gt;G. Fang, et al. DepGraph: Towards Any Structural Pruning. &lt;a href=&#34;https://arxiv.org/pdf/2301.12900&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:9&#34;&gt;
+&lt;p&gt;G. Fang, et al. Isomorphic Pruning for Vision Models. &lt;a href=&#34;https://arxiv.org/pdf/2407.04616&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:10&#34;&gt;
+&lt;p&gt;E. Frantar, D. Alistarh. SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot. &lt;a href=&#34;https://arxiv.org/pdf/2301.00774&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:10&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:11&#34;&gt;
+&lt;p&gt;A. Zhou, et al. Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch. &lt;a href=&#34;https://arxiv.org/pdf/2102.04010&#34;&gt;[pdf]&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:11&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
     <item>
       <title>Optimizing AI Inference</title>
       <link>https://cmbbq.github.io/posts/optimizing-ai-inference/</link>
