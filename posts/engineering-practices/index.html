@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Idiomatic Practices in C&#43;&#43; Systems Engineering :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="本文总结当下我认为比较好的C&#43;&#43;系统工程范式。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/engineering-practices/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Idiomatic Practices in C&#43;&#43; Systems Engineering">
+<meta property="og:description" content="本文总结当下我认为比较好的C&#43;&#43;系统工程范式。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/engineering-practices/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2024-12-03 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/engineering-practices/">Idiomatic Practices in C++ Systems Engineering</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2024-12-03
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/se/">se</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="用最小技术集构建当前问题的直接解">用最小技术集构建当前问题的直接解。<a href="#用最小技术集构建当前问题的直接解" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>如果已有技术修修补补后勉强解决问题，但又存在根本缺陷，则考虑研发新系统作为直接解。</li>
+<li>不为未来的不确定需求破坏当前方案的简洁性。</li>
+<li>管理复杂度，提升可理解性和可维护性。
+<ul>
+<li>核心代码fit in人脑短期记忆的解决方案是技术资产，反之则是技术债。</li>
+<li>若核心代码复杂度高到无法fit in单人短期记忆，则将其合理切分成多个模块，交由多人维护。</li>
+<li>避免引入过多的第三方库，规避C++ dependency hell。</li>
+</ul>
+</li>
+</ul>
+<h2 id="避免解释型注释让代码自解释">避免解释型注释，让代码自解释。<a href="#避免解释型注释让代码自解释" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>如果某一行代码做了什么需要注释，那么说明它还可以进行更好的重构。
+<ul>
+<li>这种注释就像todo标志，表明有空就应该把它重构一下，提升代码质量的同时顺便去除注释。</li>
+<li>剔除这类注释，可以避免日后迭代中，注释逐渐和代码对不上，对读者产生灾难性的误导。</li>
+</ul>
+</li>
+<li>尽量阐释为何这么做(WHY)，而不注解做了什么(WHAT)。
+<ul>
+<li>比较复杂的场景，可以用大段文字整体介绍设计思路。</li>
+<li>这段文字可以放在代码最前面醒目位置，方便随着版本更新也进行相应更新。不必写额外的文档，或Readme，因为外置的文档和代码之间的映射也是脆弱、难以长期维护的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="使每个编译单元内自带文档单测和构建指令">使每个编译单元内自带文档、单测和构建指令<a href="#使每个编译单元内自带文档单测和构建指令" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>编译单元(.cc和它包含的头文件)承载了某个功能的实现，但对这个功能的测试、文档描述、构建脚本却往往放在其他文件里，有时会在很奇怪的位置，甚至混杂在其他复杂文件中，对于新接手项目的人来说了解这个编译单元的全貌就变得很麻烦。</li>
+<li>所以不妨直接把单测代码写在每个.cc文件最下面，把单测的构建信息以注解形式写在.cc文件最上方，把文档以大段注释的方式写在.cc/.h的醒目位置。</li>
+<li>如无特殊需求，构建工具不妨就用<a href="https://github.com/skywind3000/emake">emake</a>。</li>
+</ul>
+<h2 id="非性能攸关场景尽可能拆分出更多函数让每个函数只做一件事">非性能攸关场景，尽可能拆分出更多函数，让每个函数只做一件事。<a href="#非性能攸关场景尽可能拆分出更多函数让每个函数只做一件事" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>如果一个复杂函数能够拆解成多个函数，则将其拆解。</li>
+<li>如果多个函数共享一些变量，则重构成类。</li>
+</ul>
+<h2 id="尽可能避免使用exception而是使用result-monad">尽可能避免使用exception，而是使用result monad。<a href="#尽可能避免使用exception而是使用result-monad" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>避免异常引入不必要的性能开销。</li>
+<li>唯有禁用异常，才能convey fallibility through APIs。</li>
+<li>std::expected&lt;T,E&gt;或best::result&lt;T,E&gt;都是不错的选择。</li>
+</ul>
+<h2 id="慎重对待需要就地处理的局部错误">慎重对待需要就地处理的局部错误。<a href="#慎重对待需要就地处理的局部错误" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>错误是分层的，处理错误的context也是分层的，有些错误只能在它的上一层级得到妥善处理，一旦向上层传播，就会丢失正确处理它的context，因此有必要从接口设计层面慎重对待这类错误。</li>
+<li>如果整个项目的std::expected&lt;T,E&gt;中的E都是一个全局错误类型，编程时可以非常轻松地进行error propagation。但这也意味着有些不该抛给上层的错误也容易被调用者抛上去。</li>
+<li>应赋予需要就地处理的局部错误一个独占的类型<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，并用嵌套的expected表示返回值类型，如<code>expectd&lt;expected&lt;T, SpecialError&gt;, Error&gt;</code>，迫使调用者对SpecialError做单独处理。</li>
+</ul>
+<h2 id="用ftadle实现多态">用FTADLE实现多态。<a href="#用ftadle实现多态" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>我们当然不会用笨重的继承+动态绑定（subtype），也少用丑陋的模板+concept（ducktype）。</li>
+<li>相比而言，FTADLE是更加简洁、灵活、美观、bug-free且易维护的定制化方案，巧妙利用了C++的一个冷门语言特性（<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>），实现了一种优雅的archetype多态。<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://cmbbq.github.io/posts/error-handling">Error Handling</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://cmbbq.github.io/posts/paradigms-of-generic-programming/">Paradigms of Generic Programming: Archetype, Ducktype, Subtype</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/break-the-cycle/">
+                <span class="button__text">Break the Cycle</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
