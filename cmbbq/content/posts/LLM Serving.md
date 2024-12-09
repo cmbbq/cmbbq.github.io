@@ -91,7 +91,7 @@ SGLang基于一个压缩有限状态机实现了structured decoding[^4]，用于
 ![structured_decoding](https://cmbbq.github.io/img/structured_decoding.png)
 
 
-[^1] Gyeong-In Yu and Joo Seong Jeong. Orca: A Distributed Serving System for Transformer-Based Generative Models. OSDI 22. [[pdf]](https://www.usenix.org/system/files/osdi22-yu.pdf)
+[^1]: Gyeong-In Yu and Joo Seong Jeong. Orca: A Distributed Serving System for Transformer-Based Generative Models. OSDI 22. [[pdf]](https://www.usenix.org/system/files/osdi22-yu.pdf)
 [^2]: W. Kwon, et al. Efficient Memory Management for Large Language Model Serving with PagedAttention. [[pdf]](https://arxiv.org/pdf/2309.06180)
 [^3]: C. Holmes, et al. DeepSpeed-FastGen: High-throughput Text Generation for LLMs via MII and DeepSpeed-Inference. [[pdf]](https://arxiv.org/pdf/2401.08671)
 [^4]: L. Zheng, et al. SGLang: Efficient Execution of Structured Language Model Programs. [[pdf]](https://arxiv.org/pdf/2312.07104)
