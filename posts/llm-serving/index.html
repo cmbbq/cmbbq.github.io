@@ -192,6 +192,7 @@
 <h2 id="continuous-batching">Continuous Batching<a href="#continuous-batching" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>上文提及LLM做batching好处虽多，困难更多，并不存在特别简单、显而易见的GPT特供batching机制。</p>
 <p>Orca[^1]首先为GPT模型的batching提出了一个完整的解决方案，在迭代层面进行调度，并通过一个必要的selective batching机制剔除不能做batching的操作（若不做剔除，两个请求整体能做batching的几率可以忽略不计），这些操作虽然不能做batching，但对整体性能提升的影响很小。</p>
+<p><img src="https://cmbbq.github.io/img/orca.png" alt="orca"></p>
 <h2 id="paged-attention">Paged Attention<a href="#paged-attention" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Orca方案并未考虑KV cache的HBM占用，默认预分配max_seq_len。</p>
 <p>但monolithic KV cache导致HBM碎片化，为每个seq预分配巨大内存进而导致并发不足也是真实瓶颈所在，vLLM中就对此进行了优化，提出了Paged Attention<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>，一种近似页表的分块kv cache技术：</p>
@@ -218,6 +219,7 @@
 <p>详见<a href="https://cmbbq.github.io/posts/flash-attention">Flash Attention</a>。</p>
 <h2 id="speculative-decoding">Speculative Decoding<a href="#speculative-decoding" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>Speculative decoding<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>的思路是选用tokenizer相同，大小不同的两个模型。假设大模型的latency大体上是小模型的N倍。小模型输出N个token的时间内，大模型把这N个token拿过来append到seq上形成input，再输出1个token，总计生成N+1个token。基于greedy decoding对这N+1个token进行采样，采样结果如果和小模型的结果match，就直接用了，不match就停下，在停下的地方把原本的小模型token改成大模型采样结果对应的token。整个过程中，大模型实际上只需要一个forward pass，运气好就能一下子输出N+1个token，运气差就输出1个token。</p>
+<p><img src="https://cmbbq.github.io/img/speculative_decoding.png" alt="speculative_decoding"></p>
 <h2 id="structured-decoding">Structured Decoding<a href="#structured-decoding" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>SGLang基于一个压缩有限状态机实现了structured decoding<sup id="fnref1:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>，用于对特定结构化输出（比如支持regex的JSON模板）进行加速，一次性decode多个token。假设这个结构化输出的JSON模板中总是有一个key是&quot;top5 candidate&quot;，那就可以把&quot;top5 candidate&quot;这个multi-token词组当成一个token一轮迭代处理掉。</p>
 <p>[^1] Gyeong-In Yu and Joo Seong Jeong. Orca: A Distributed Serving System for Transformer-Based Generative Models. OSDI 22. <a href="https://www.usenix.org/system/files/osdi22-yu.pdf">[pdf]</a></p>
@@ -228,7 +230,7 @@
 <p>GPU/NPU/TPU等加速器需将模型参数从off-chip memory加载到on-chip SRAM才能进行底层硬件算子的计算，对较大的模型，这种加载开销往往才是瓶颈所在。因此batching不仅仅能提升加速器计算单元的利用率，还能通过一份模型参数在多个请求中重用，更好地利用SRAM locality。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p>在LLM推理语境下，sampling和decoding经常混用，下文中的speculative decoding，也就是speculative sampling，有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>在LLM推理语境下，sampling和decoding经常混用：有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
 <p>W. Kwon, et al. Efficient Memory Management for Large Language Model Serving with PagedAttention. <a href="https://arxiv.org/pdf/2309.06180">[pdf]</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>

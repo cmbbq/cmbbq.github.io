@@ -44,6 +44,8 @@ LLM serving相比此前主流的深度模型serving，有其独特的计算形�
 
 Orca[^1]首先为GPT模型的batching提出了一个完整的解决方案，在迭代层面进行调度，并通过一个必要的selective batching机制剔除不能做batching的操作（若不做剔除，两个请求整体能做batching的几率可以忽略不计），这些操作虽然不能做batching，但对整体性能提升的影响很小。
 
+![orca](https://cmbbq.github.io/img/orca.png)
+
 ## Paged Attention
 Orca方案并未考虑KV cache的HBM占用，默认预分配max_seq_len。
 
@@ -76,6 +78,9 @@ Continuous batching提升了非attn操作的SRAM locality，针对kv计算，Fla
 ## Speculative Decoding
 Speculative decoding[^7]的思路是选用tokenizer相同，大小不同的两个模型。假设大模型的latency大体上是小模型的N倍。小模型输出N个token的时间内，大模型把这N个token拿过来append到seq上形成input，再输出1个token，总计生成N+1个token。基于greedy decoding对这N+1个token进行采样，采样结果如果和小模型的结果match，就直接用了，不match就停下，在停下的地方把原本的小模型token改成大模型采样结果对应的token。整个过程中，大模型实际上只需要一个forward pass，运气好就能一下子输出N+1个token，运气差就输出1个token。
 
+![speculative_decoding](https://cmbbq.github.io/img/speculative_decoding.png)
+
+
 ## Structured Decoding
 SGLang基于一个压缩有限状态机实现了structured decoding[^4]，用于对特定结构化输出（比如支持regex的JSON模板）进行加速，一次性decode多个token。假设这个结构化输出的JSON模板中总是有一个key是"top5 candidate"，那就可以把"top5 candidate"这个multi-token词组当成一个token一轮迭代处理掉。
 
@@ -84,5 +89,5 @@ SGLang基于一个压缩有限状态机实现了structured decoding[^4]，用于
 [^3]: C. Holmes, et al. DeepSpeed-FastGen: High-throughput Text Generation for LLMs via MII and DeepSpeed-Inference. [[pdf]](https://arxiv.org/pdf/2401.08671)
 [^4]: L. Zheng, et al. SGLang: Efficient Execution of Structured Language Model Programs. [[pdf]](https://arxiv.org/pdf/2312.07104)
 [^5]: GPU/NPU/TPU等加速器需将模型参数从off-chip memory加载到on-chip SRAM才能进行底层硬件算子的计算，对较大的模型，这种加载开销往往才是瓶颈所在。因此batching不仅仅能提升加速器计算单元的利用率，还能通过一份模型参数在多个请求中重用，更好地利用SRAM locality。
-[^6]: 在LLM推理语境下，sampling和decoding经常混用，下文中的speculative decoding，也就是speculative sampling，有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。
+[^6]: 在LLM推理语境下，sampling和decoding经常混用：有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。
 [^7]: Y. Leviathan, et al. Fast Inference from Transformers via Speculative Decoding. [[pdf]](https://arxiv.org/pdf/2211.17192)
