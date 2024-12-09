@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="本文总结LLM推理的计算形态和优化机会。" />
+<meta name="description" content="本文总结LLM serving的计算形态和优化机会。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/llm-serving/" />
@@ -37,7 +37,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="LLM Serving">
-<meta property="og:description" content="本文总结LLM推理的计算形态和优化机会。" />
+<meta property="og:description" content="本文总结LLM serving的计算形态和优化机会。" />
 <meta property="og:url" content="https://cmbbq.github.io/posts/llm-serving/" />
 <meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
 
@@ -136,8 +136,8 @@
   <div class="post-content"><div>
         <p>LLM推理有别于小模型推理，更加memory-bound，输入输出也有可以利用的独特模式，自然涌现出系统层面可优化的点。我将这些系统层面的优化机会粗略分为batching优化、sampling优化、模型压缩3类。</p>
 <p>其中batching优化负责输入端将GPU等加速器的计算单元喂的更饱和、更好地利用SRAM locality<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，sampling优化<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>负责输出端更快速拿到LLM的结果，模型压缩负责让大模型不要那么大。</p>
-<h2 id="llm的计算形态以及潜在的机会和约束">LLM的计算形态以及潜在的机会和约束<a href="#llm的计算形态以及潜在的机会和约束" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
-<p>LLM serving相比此前主流的深度模型serving，有其独特的计算形态：</p>
+<h2 id="llm-serving的计算形态">LLM Serving的计算形态<a href="#llm-serving的计算形态" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>LLM serving相比此前主流的深度模型serving，有一些独有的特性和约束：</p>
 <ul>
 <li>一次LLM调用中很多时间耗费在加载模型参数上（HBM-&gt;SRAM）。
 <ul>

@@ -3,7 +3,7 @@
 title = "LLM Serving"
 date = "2024-12-09"
 tags = ["sys", "ai", "llm"]
-description = "本文总结LLM推理的计算形态和优化机会。"
+description = "本文总结LLM serving的计算形态和优化机会。"
 showFullContent = false
 +++
 
@@ -11,8 +11,8 @@ LLM推理有别于小模型推理，更加memory-bound，输入输出也有可�
 
 其中batching优化负责输入端将GPU等加速器的计算单元喂的更饱和、更好地利用SRAM locality[^5]，sampling优化[^6]负责输出端更快速拿到LLM的结果，模型压缩负责让大模型不要那么大。
 
-## LLM的计算形态以及潜在的机会和约束
-LLM serving相比此前主流的深度模型serving，有其独特的计算形态：
+## LLM Serving的计算形态
+LLM serving相比此前主流的深度模型serving，有一些独有的特性和约束：
 - 一次LLM调用中很多时间耗费在加载模型参数上（HBM->SRAM）。
     - batching可以让一次参数加载负责多个seq的推理，显著减少了总体的模型参数加载开销。
 - Seq2Seq：变长输入、变长输出。
