@@ -15,7 +15,7 @@ LLM推理有别于小模型推理，更加memory-bound，输入输出也有可�
 LLM serving相比此前主流的深度模型serving，有其独特的计算形态：
 - 一次LLM调用中很多时间耗费在加载模型参数上（HBM->SRAM）。
     - batching可以让一次参数加载负责多个seq的推理，显著减少了总体的模型参数加载开销。
-- 变长输入、变长输出。
+- Seq2Seq：变长输入、变长输出。
     - 因此batching机制必须适应batch size，seq len皆为变量。
 - 自回归（通过若干次迭代才能处理一个请求），且为每个对话维护一个跨迭代的KV。
     - 纯粹无状态的方法需每次重新计算所有KV，开销会大得无法接受，因此必须基于KV caching做incremental decoding。
