@@ -71,7 +71,9 @@ DeepSpeed-FastGen[^3]中提出了SplitFuse，也是Continuous Batching的一个�
 SGLang采用了Radix attention[^4]技术，将common prefix的KV以radix tree的形式保留下来，使kv cache的生命周期不局限于一次请求，而是真正构成跨多次请求的LRU cache，适应prompt巨大且大多有相同前缀的实际应用场景。
 
 ## Flash Attention
-Continuous batching提升了非attn操作的SRAM locality，针对kv计算，Flash Attention则令attn计算内层循环fit in SRAM。
+Continuous batching提升了非attn操作的SRAM locality，针对kv计算，Flash Attention[^8]则令attn计算内层循环fit in SRAM。
+
+![fast_att](https://cmbbq.github.io/img/fast_attention.png)
 
 详见[Flash Attention](https://cmbbq.github.io/posts/flash-attention)。
 
@@ -91,3 +93,4 @@ SGLang基于一个压缩有限状态机实现了structured decoding[^4]，用于
 [^5]: GPU/NPU/TPU等加速器需将模型参数从off-chip memory加载到on-chip SRAM才能进行底层硬件算子的计算，对较大的模型，这种加载开销往往才是瓶颈所在。因此batching不仅仅能提升加速器计算单元的利用率，还能通过一份模型参数在多个请求中重用，更好地利用SRAM locality。
 [^6]: 在LLM推理语境下，sampling和decoding经常混用：有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。
 [^7]: Y. Leviathan, et al. Fast Inference from Transformers via Speculative Decoding. [[pdf]](https://arxiv.org/pdf/2211.17192)
+[^8]: T. Dao, et al. FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness. [[pdf]](https://arxiv.org/pdf/2205.14135)
