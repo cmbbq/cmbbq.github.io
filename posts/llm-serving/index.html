@@ -205,6 +205,7 @@
 </ul>
 </li>
 </ul>
+<p><img src="https://cmbbq.github.io/img/block_table.png" alt="block_table"></p>
 <p>详见<a href="https://cmbbq.github.io/posts/paged-attention">Paged Attention</a>。</p>
 <h2 id="dynamic-splitfuse">Dynamic SplitFuse<a href="#dynamic-splitfuse" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>DeepSpeed-FastGen<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>中提出了SplitFuse，也是Continuous Batching的一个演化版本。思路是切分长prompt请求成若干个小的step，这些小的step开销较低，可填充调度缝隙，同时还保证prefill(prompt generation)和decode(token generation)的steps开销一致，就可以确保不存在大小不同的workload，取得一定的吞吐提升，但最主要的优势是能稳住tail-latency，在线服务场景下下限更高。</p>
@@ -223,6 +224,7 @@
 <p><img src="https://cmbbq.github.io/img/speculative_decoding.png" alt="speculative_decoding"></p>
 <h2 id="structured-decoding">Structured Decoding<a href="#structured-decoding" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>SGLang基于一个压缩有限状态机实现了structured decoding<sup id="fnref1:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>，用于对特定结构化输出（比如支持regex的JSON模板）进行加速，一次性decode多个token。假设这个结构化输出的JSON模板中总是有一个key是&quot;top5 candidate&quot;，那就可以把&quot;top5 candidate&quot;这个multi-token词组当成一个token一轮迭代处理掉。</p>
+<p><img src="https://cmbbq.github.io/img/structured_decoding.png" alt="structured_decoding"></p>
 <p>[^1] Gyeong-In Yu and Joo Seong Jeong. Orca: A Distributed Serving System for Transformer-Based Generative Models. OSDI 22. <a href="https://www.usenix.org/system/files/osdi22-yu.pdf">[pdf]</a></p>
 <div class="footnotes" role="doc-endnotes">
 <hr>

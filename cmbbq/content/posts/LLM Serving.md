@@ -55,6 +55,8 @@ Orca方案并未考虑KV cache的HBM占用，默认预分配max_seq_len。
 - vLLM的实现中并未采纳Orca的selective batching，主要是因为它的paged attention算子是自己写的cuda，可以与非attn算子一起兼容batching。vLLM将prefill和decoding分开做batching，整体上就不需要实现selective batching这么麻烦的机制了。
     - 但这种做法也阻止了prefill和decoding step的融合。如果某个prompt过长，prefill开销太大，确实会出现block后续所有decoding batch的情形。
 
+![block_table](https://cmbbq.github.io/img/block_table.png)
+
 详见[Paged Attention](https://cmbbq.github.io/posts/paged-attention)。
 
 ## Dynamic SplitFuse
@@ -85,6 +87,9 @@ Speculative decoding[^7]的思路是选用tokenizer相同，大小不同的两�
 
 ## Structured Decoding
 SGLang基于一个压缩有限状态机实现了structured decoding[^4]，用于对特定结构化输出（比如支持regex的JSON模板）进行加速，一次性decode多个token。假设这个结构化输出的JSON模板中总是有一个key是"top5 candidate"，那就可以把"top5 candidate"这个multi-token词组当成一个token一轮迭代处理掉。
+
+![structured_decoding](https://cmbbq.github.io/img/structured_decoding.png)
+
 
 [^1] Gyeong-In Yu and Joo Seong Jeong. Orca: A Distributed Serving System for Transformer-Based Generative Models. OSDI 22. [[pdf]](https://www.usenix.org/system/files/osdi22-yu.pdf)
 [^2]: W. Kwon, et al. Efficient Memory Management for Large Language Model Serving with PagedAttention. [[pdf]](https://arxiv.org/pdf/2309.06180)
