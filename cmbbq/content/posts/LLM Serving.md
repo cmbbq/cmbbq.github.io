@@ -26,11 +26,10 @@ LLM serving相比此前主流的深度模型serving，有一些独有的特性�
 - GPT多了一个前置的计算密集的prefill阶段（也叫infill），用于处理prompt。
     - prefill阶段和增量迭代阶段的序列不好batching（计算要完全一样才好batching）。
     - 这个阶段消化prompt，考虑到很多LLM应用都有非常巨大、内容也差不多的prompt，prefill阶段很多计算都是重复的。
-- GPT在生成token概率分布后，还有一个后置的sampling/decoding阶段：基于概率密度从vocab中选择token。
-    - 考虑到vocab比较大，各种采样算法的计算量都很小，这个过程显然是访存密集的。
+- GPT在生成token概率分布后，还有一个后置的sampling阶段：基于概率密度从vocab中选择token。
     - token选择完成后，当前迭代选中的token还需要再作为下次迭代的forward pass输入参数。
     - 若seq[A~A+5]在此前的迭代中已经进行了采样，在新一轮迭代中除了需要对seq[A+6]采样之外，仍然要对seq[A~A+5]再算一遍。
-    - 已处理tokens的sampling/decoding结果可以cache下来。
+    - 已处理tokens的decoding结果可以cache下来。
     - 很多LLM应用会要求结构化输出，输出的格式比较固定。
 - Transformer的attention算子的input张量形状和已处理tokens长度有关。
     - 不同序列，序列长度不同，attn计算的输入形状不统一，就不好做batching。
@@ -96,6 +95,6 @@ SGLang基于一个压缩有限状态机实现了structured decoding[^4]，用于
 [^3]: C. Holmes, et al. DeepSpeed-FastGen: High-throughput Text Generation for LLMs via MII and DeepSpeed-Inference. [[pdf]](https://arxiv.org/pdf/2401.08671)
 [^4]: L. Zheng, et al. SGLang: Efficient Execution of Structured Language Model Programs. [[pdf]](https://arxiv.org/pdf/2312.07104)
 [^5]: GPU/NPU/TPU等加速器需将模型参数从off-chip memory加载到on-chip SRAM才能进行底层硬件算子的计算，对较大的模型，这种加载开销往往才是瓶颈所在。因此batching不仅仅能提升加速器计算单元的利用率，还能通过一份模型参数在多个请求中重用，更好地利用SRAM locality。
-[^6]: 在LLM推理语境下，sampling和decoding经常混用：有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。
+[^6]: sampling指的基于density做token-selection的过程，decoding指的是整个decoder-only transformer的inference过程。
 [^7]: Y. Leviathan, et al. Fast Inference from Transformers via Speculative Decoding. [[pdf]](https://arxiv.org/pdf/2211.17192)
 [^8]: T. Dao, et al. FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness. [[pdf]](https://arxiv.org/pdf/2205.14135)

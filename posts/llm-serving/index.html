@@ -167,12 +167,11 @@
 <li>这个阶段消化prompt，考虑到很多LLM应用都有非常巨大、内容也差不多的prompt，prefill阶段很多计算都是重复的。</li>
 </ul>
 </li>
-<li>GPT在生成token概率分布后，还有一个后置的sampling/decoding阶段：基于概率密度从vocab中选择token。
+<li>GPT在生成token概率分布后，还有一个后置的sampling阶段：基于概率密度从vocab中选择token。
 <ul>
-<li>考虑到vocab比较大，各种采样算法的计算量都很小，这个过程显然是访存密集的。</li>
 <li>token选择完成后，当前迭代选中的token还需要再作为下次迭代的forward pass输入参数。</li>
 <li>若seq[A~A+5]在此前的迭代中已经进行了采样，在新一轮迭代中除了需要对seq[A+6]采样之外，仍然要对seq[A~A+5]再算一遍。</li>
-<li>已处理tokens的sampling/decoding结果可以cache下来。</li>
+<li>已处理tokens的decoding结果可以cache下来。</li>
 <li>很多LLM应用会要求结构化输出，输出的格式比较固定。</li>
 </ul>
 </li>
@@ -232,7 +231,7 @@
 <p>GPU/NPU/TPU等加速器需将模型参数从off-chip memory加载到on-chip SRAM才能进行底层硬件算子的计算，对较大的模型，这种加载开销往往才是瓶颈所在。因此batching不仅仅能提升加速器计算单元的利用率，还能通过一份模型参数在多个请求中重用，更好地利用SRAM locality。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p>在LLM推理语境下，sampling和decoding经常混用：有时都是指的基于density做token-selection的过程，有时decoding是指整个decoder-only transformer的inference过程。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>sampling指的基于density做token-selection的过程，decoding指的是整个decoder-only transformer的inference过程。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
 <p>Gyeong-In Yu and Joo Seong Jeong. Orca: A Distributed Serving System for Transformer-Based Generative Models. OSDI 22. <a href="https://www.usenix.org/system/files/osdi22-yu.pdf">[pdf]</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
