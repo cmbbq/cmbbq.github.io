@@ -217,6 +217,13 @@
 <li>我们当然不会用笨重的继承+动态绑定（subtype），也少用丑陋的模板+concept（ducktype）。</li>
 <li>相比而言，FTADLE是更加简洁、灵活、美观、bug-free且易维护的定制化方案，巧妙利用了C++的一个冷门语言特性（<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>），实现了一种优雅的archetype多态。<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></li>
 </ul>
+<h2 id="让自定义类型尽可能平凡trivial">让自定义类型尽可能平凡（trivial）<a href="#让自定义类型尽可能平凡trivial" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>能安全的放进各种容器，即copy assignable + copy constructible。</li>
+<li>按bits复制（比如std::memcpy）可正确完成对象的复制，即trivially copyable。</li>
+<li>少数确实不宜设计为copyable的类型，保证trivally move assignable/constructible。</li>
+<li>可无异常默认构造，即nothrow default constructible。</li>
+</ul>
 <h2 id="用强类型表达约束">用强类型表达约束<a href="#用强类型表达约束" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <ul>
 <li>强类型作为参数，可以消除一些函数的隐式的前置条件（implicit preconditions）。
