@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Dev Ergonomics :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="思考哪些特性能真正有效地让系统工程师舒适地编程。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/dev-ergonomics/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Dev Ergonomics">
+<meta property="og:description" content="思考哪些特性能真正有效地让系统工程师舒适地编程。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/dev-ergonomics/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2025-01-23 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/dev-ergonomics/">Dev Ergonomics</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-01-23
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/se/">se</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="安全性-vs-灵活性">安全性 vs 灵活性<a href="#安全性-vs-灵活性" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Rust的借用规则、生命周期、所有权规则在编译期强制检查，使每一行Rust代码都必须达到工业强度，这听起来很美好，但在实际项目中却非常折磨人。因为多数项目，尤其是不确定性较高的新颖系统开发中，必须存在大量demo性质的、测试性质的、探索性质的临时的、ad-hoc的、速朽的、炮灰式的代码。这些代码像无名烈士，在最终成品中消失，却对项目进展起到关键性支撑。</p>
+<p>严格安全检查，是Rust最大的卖点，也构成了它的先天不足。当你想临时改个字段、加个参数迅速看个效果，却很容易破坏此前的规约导致无法编译，不得不从接口到结构做完整的重构。这种昂贵、笨重的工作方式类似让精锐技术兵种去填线，换来的仅仅是对内存安全、线程安全、类型安全的绝对确认。绝对确认听起来非常美好，但实际上更多地只是一种受勋仪式。在非生命财产攸关场景下，熟练的C++程序员可以几乎无需额外努力，就大体保证内存安全、线程安全、类型安全，最终不影响系统可靠性，稍微多一些不必要的复制也几乎不会影响到系统性能。实战中真正靠borrow checker修致命问题的程序员，本来也不能胜任系统编程。对合格系统工程师写的代码再额外授予编译器的认可，仪式感大于实际价值。</p>
+<p>至少在数据中心应用中，安全性和灵活性取其一，我毫不犹豫会选后者。</p>
+<h2 id="全局状态">全局状态<a href="#全局状态" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>C++中可以简单、安全、方便地使用全局变量和单例。Rust则不得不用<code>Lazy&lt;AtomicRefCell&lt;T&gt;&gt;</code>。</p>
+<p>全局状态确实会在代码中注入难以测试的干扰，使代码难以测试，难以维护，但也可能简化实现，提升可维护性。其中的利弊权衡应交由程序员根据实际场景做出决定。</p>
+<h2 id="构建包管理依赖管理">构建、包管理、依赖管理<a href="#构建包管理依赖管理" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>[todo: herd]</p>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://cmbbq.github.io/posts/conciousness/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Conciousness</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/recomendation-systems/">
+                <span class="button__text">Recommender Systems</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
