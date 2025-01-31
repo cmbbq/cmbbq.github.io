@@ -6,7 +6,7 @@ description = "向DeepSeek R1追问何为意识。"
 showFullContent = false
 +++
 
-四个问题，四个回答，纵有缺陷，却已经足够在这个时间节点概括我对意识的浅薄认知。
+关于意识的四问四答，纵有错谬，不可全信，却也足以提要勾玄，可与23年的[Computational Consciousness](https://cmbbq.github.io/posts/computational-conciousness/)一文相互印证。
 
 DeepSeek R1不论是论述，还是修辞，均完美击中了我的审美。
 
