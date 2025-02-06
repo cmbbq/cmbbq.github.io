@@ -6,13 +6,88 @@
     <description>Recent content in Posts on Cmbbq&#39;s Encyclopedia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://cmbbq.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Music Signal Processing</title>
+      <link>https://cmbbq.github.io/posts/music-signal-processing/</link>
+      <pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://cmbbq.github.io/posts/music-signal-processing/</guid>
+      <description>MP3/AAC -&amp;gt; PCM 音频的数字表示多种多样，抖t等平台存储的多媒体数据往往是MP3、AAC、OGG等有损格式，它们基于心理学模型去除人耳不敏感的音频信号从而大幅压缩文件体积1。
+这些压缩格式固然对存储、传输友好，但想对它们进行计算，还是需转成PCM。
+PCM的数据格式简单，去掉header后就可以将其视作能量2数组（vec），数组下标即time frames。
+PCM -&amp;gt; STFT -&amp;gt; Spectrogram PCM音频样本经过短时傅里叶变换（STFT）可得时频图，即spectrogram（vec&amp;lt;vec&amp;gt;）。
+STFT将信号分为多个时间窗口，对每个窗口内的信号逐一乘以窗口函数（如汉明窗3），并施加DFT。
+STFT的关键参数n_fft（记作$N$）即时间窗口的帧数，其本质是调节频谱分辨率和时间分辨率的参数。将采样率4记为$S$，则$频谱分辨率 = \frac{S}{N}$，$窗口时长 = \frac{N}{S}$。
+因此n_fft越高，采样率越高，频率分辨率越高（频段越细）。在语音识别中往往n_fft = 512就够用，在音乐分析中，则往往需要2048才能解析低频声乐，如鼓声、贝斯。
+此外，n_fft越高，时间分辨率越低（窗口时长更长，时间定位更不精确），因此语音、打击乐等瞬态信号处理场景更适合用低n_fft。
+STFT得到的时频图的频域单位是bin index（频率分量索引，记作$k$），稍作换算即可得到声音的频率$f$(单位Hz)：$f = \frac{k* S}{N}$。
+Spectrogram -&amp;gt; Mel Filter Bank -&amp;gt; Mel Spectrogram 相比的时频图频率轴默认的线性标度，梅尔频率提供了一种更符合人耳频率感知的非线性标度：
+构造梅儿滤波器组常见的做法是：
+确定频率范围，通常为0到奈奎斯特频率（采样率的一半，例如16kHz音频对应8kHz）。 根据$M(f) = 2595 \log_{10}(1 + f/700)$将线性刻度映射到梅尔刻度。 在梅尔刻度上等间距划分M个频带（如128个5），再转换回线性频率，得到每个频带的中心频率。 每个滤波器在频域呈三角形，覆盖相邻中心频率的范围，峰值位于当前频带的中心频率。 将每个三角滤波器与频谱图的能量分布相乘并求和，得到各梅尔频带的能量。最终，每个时间帧的频谱被压缩为M维的梅尔频谱特征。
+Spectrogram -&amp;gt; Hopping -&amp;gt; Overlapping Chunks 小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)6。这是音乐检索领域对抗时间对齐问题的经典策略。
+一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。
+压缩率可达原始PCM音频的$\frac{1}{10}$~$\frac{1}{12}$。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+音频信号语境下，能量即振幅，与响度相关的换算公式是：$L_{db} = 10 \log_{10}(E)$。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+汉明窗让信号在时域上更平滑，减少窗口边界处的信号突变，让更多能量集中在窗口中心，减少边缘的频谱泄露，缓解栅栏效应。所谓栅栏效应（即频谱泄漏）是在信号处理中由于信号在时域上的截断而导致的频谱分析中频率分辨率不足的现象。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+每秒样本数，单位Hz。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+128个梅尔频率带对人耳来说，频率分辨率足够，计算负担也不会太高。实际上人耳临界带宽&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+      <content>&lt;h2 id=&#34;mp3aac---pcm&#34;&gt;MP3/AAC -&amp;gt; PCM&lt;/h2&gt;
+&lt;p&gt;音频的数字表示多种多样，抖t等平台存储的多媒体数据往往是MP3、AAC、OGG等有损格式，它们基于心理学模型去除人耳不敏感的音频信号从而大幅压缩文件体积&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+&lt;p&gt;这些压缩格式固然对存储、传输友好，但想对它们进行计算，还是需转成PCM。&lt;/p&gt;
+&lt;p&gt;PCM的数据格式简单，去掉header后就可以将其视作能量&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;数组（vec&lt;f32&gt;），数组下标即time frames。&lt;/p&gt;
+&lt;h2 id=&#34;pcm---stft---spectrogram&#34;&gt;PCM -&amp;gt; STFT -&amp;gt; Spectrogram&lt;/h2&gt;
+&lt;p&gt;PCM音频样本经过短时傅里叶变换（STFT）可得时频图，即spectrogram（vec&amp;lt;vec&lt;float&gt;&amp;gt;）。&lt;/p&gt;
+&lt;p&gt;STFT将信号分为多个时间窗口，对每个窗口内的信号逐一乘以窗口函数（如汉明窗&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;），并施加DFT。&lt;/p&gt;
+&lt;p&gt;STFT的关键参数n_fft（记作$N$）即时间窗口的帧数，其本质是调节频谱分辨率和时间分辨率的参数。将采样率&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;记为$S$，则$频谱分辨率 = \frac{S}{N}$，$窗口时长 = \frac{N}{S}$。&lt;/p&gt;
+&lt;p&gt;因此n_fft越高，采样率越高，频率分辨率越高（频段越细）。在语音识别中往往n_fft = 512就够用，在音乐分析中，则往往需要2048才能解析低频声乐，如鼓声、贝斯。&lt;/p&gt;
+&lt;p&gt;此外，n_fft越高，时间分辨率越低（窗口时长更长，时间定位更不精确），因此语音、打击乐等瞬态信号处理场景更适合用低n_fft。&lt;/p&gt;
+&lt;p&gt;STFT得到的时频图的频域单位是bin index（频率分量索引，记作$k$），稍作换算即可得到声音的频率$f$(单位Hz)：$f = \frac{k* S}{N}$。&lt;/p&gt;
+&lt;h2 id=&#34;spectrogram---mel-filter-bank---mel-spectrogram&#34;&gt;Spectrogram -&amp;gt; Mel Filter Bank -&amp;gt; Mel Spectrogram&lt;/h2&gt;
+&lt;p&gt;相比的时频图频率轴默认的线性标度，梅尔频率提供了一种更符合人耳频率感知的非线性标度：&lt;/p&gt;
+&lt;p&gt;构造梅儿滤波器组常见的做法是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;确定频率范围，通常为0到奈奎斯特频率（采样率的一半，例如16kHz音频对应8kHz）。&lt;/li&gt;
+&lt;li&gt;根据$M(f) = 2595 \log_{10}(1 + f/700)$将线性刻度映射到梅尔刻度。&lt;/li&gt;
+&lt;li&gt;在梅尔刻度上等间距划分M个频带（如128个&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;），再转换回线性频率，得到每个频带的中心频率。&lt;/li&gt;
+&lt;li&gt;每个滤波器在频域呈三角形，覆盖相邻中心频率的范围，峰值位于当前频带的中心频率。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;将每个三角滤波器与频谱图的能量分布相乘并求和，得到各梅尔频带的能量。最终，每个时间帧的频谱被压缩为M维的梅尔频谱特征。&lt;/p&gt;
+&lt;h2 id=&#34;spectrogram---hopping---overlapping-chunks&#34;&gt;Spectrogram -&amp;gt; Hopping -&amp;gt; Overlapping Chunks&lt;/h2&gt;
+&lt;p&gt;小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;。这是音乐检索领域对抗时间对齐问题的经典策略。&lt;/p&gt;
+&lt;p&gt;一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;压缩率可达原始PCM音频的$\frac{1}{10}$~$\frac{1}{12}$。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;音频信号语境下，能量即振幅，与响度相关的换算公式是：$L_{db} = 10 \log_{10}(E)$。&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;汉明窗让信号在时域上更平滑，减少窗口边界处的信号突变，让更多能量集中在窗口中心，减少边缘的频谱泄露，缓解栅栏效应。所谓栅栏效应（即频谱泄漏）是在信号处理中由于信号在时域上的截断而导致的频谱分析中频率分辨率不足的现象。&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
+&lt;p&gt;每秒样本数，单位Hz。&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;
+&lt;p&gt;128个梅尔频率带对人耳来说，频率分辨率足够，计算负担也不会太高。实际上人耳临界带宽&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;
+&lt;p&gt;所谓time skew（时间偏移）指的是同一段音乐在不同录音或播放中存在的时间上的微小差异，比如同一首歌的不同版本可能开始时间不同，或者在录制时存在延迟，这可能导致直接匹配时无法对齐，从而影响检索的准确性。&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </item>
+    
     <item>
       <title>Conciousness</title>
-      <link>https://cmbbq.github.io/posts/conciousness/</link>
+      <link>https://cmbbq.github.io/posts/conciousness-deepseek/</link>
       <pubDate>Fri, 31 Jan 2025 00:00:00 +0000</pubDate>
       
-      <guid>https://cmbbq.github.io/posts/conciousness/</guid>
+      <guid>https://cmbbq.github.io/posts/conciousness-deepseek/</guid>
       <description>关于意识的四问四答，纵有错谬，不可全信，却也足以提要勾玄，可与23年的Computational Consciousness一文相互印证。
 DeepSeek R1不论是论述，还是修辞，均完美击中了我的审美。
 最后那一句一出，仿佛它笑而不语，暗示你不必再问。于是我便不再追问。

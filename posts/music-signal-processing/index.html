@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Music Signal Processing :: Cmbbq&#39;s Encyclopedia</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="以音源剥离为例介绍一些音乐信号处理的基础概念和通用工具。" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://cmbbq.github.io/posts/music-signal-processing/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cmbbq.github.io/assets/style.css">
+
+  <link rel="stylesheet" href="https://cmbbq.github.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="https://cmbbq.github.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="https://cmbbq.github.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Music Signal Processing">
+<meta property="og:description" content="以音源剥离为例介绍一些音乐信号处理的基础概念和通用工具。" />
+<meta property="og:url" content="https://cmbbq.github.io/posts/music-signal-processing/" />
+<meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
+
+  
+    <meta property="og:image" content="https://cmbbq.github.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2025-02-06 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: false,
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.4/tex-mml-chtml.js">
+</script>
+    
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Cmbbq&#39;s Encyclopedia
+  </div>
+</a>
+
+    </div>
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://cmbbq.github.io/posts/music-signal-processing/">Music Signal Processing</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2025-02-06
+        
+      </span>
+    
+    
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="https://cmbbq.github.io/tags/sys/">sys</a>&nbsp;
+    
+    #<a href="https://cmbbq.github.io/tags/music-computing/">music computing</a>&nbsp;
+    
+  </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h2 id="mp3aac---pcm">MP3/AAC -&gt; PCM<a href="#mp3aac---pcm" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>音频的数字表示多种多样，抖t等平台存储的多媒体数据往往是MP3、AAC、OGG等有损格式，它们基于心理学模型去除人耳不敏感的音频信号从而大幅压缩文件体积<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>。</p>
+<p>这些压缩格式固然对存储、传输友好，但想对它们进行计算，还是需转成PCM。</p>
+<p>PCM的数据格式简单，去掉header后就可以将其视作能量<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>数组（vec<f32>），数组下标即time frames。</p>
+<h2 id="pcm---stft---spectrogram">PCM -&gt; STFT -&gt; Spectrogram<a href="#pcm---stft---spectrogram" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>PCM音频样本经过短时傅里叶变换（STFT）可得时频图，即spectrogram（vec&lt;vec<float>&gt;）。</p>
+<p>STFT将信号分为多个时间窗口，对每个窗口内的信号逐一乘以窗口函数（如汉明窗<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>），并施加DFT。</p>
+<p>STFT的关键参数n_fft（记作$N$）即时间窗口的帧数，其本质是调节频谱分辨率和时间分辨率的参数。将采样率<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>记为$S$，则$频谱分辨率 = \frac{S}{N}$，$窗口时长 = \frac{N}{S}$。</p>
+<p>因此n_fft越高，采样率越高，频率分辨率越高（频段越细）。在语音识别中往往n_fft = 512就够用，在音乐分析中，则往往需要2048才能解析低频声乐，如鼓声、贝斯。</p>
+<p>此外，n_fft越高，时间分辨率越低（窗口时长更长，时间定位更不精确），因此语音、打击乐等瞬态信号处理场景更适合用低n_fft。</p>
+<p>STFT得到的时频图的频域单位是bin index（频率分量索引，记作$k$），稍作换算即可得到声音的频率$f$(单位Hz)：$f = \frac{k* S}{N}$。</p>
+<h2 id="spectrogram---mel-filter-bank---mel-spectrogram">Spectrogram -&gt; Mel Filter Bank -&gt; Mel Spectrogram<a href="#spectrogram---mel-filter-bank---mel-spectrogram" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>相比的时频图频率轴默认的线性标度，梅尔频率提供了一种更符合人耳频率感知的非线性标度：</p>
+<p>构造梅儿滤波器组常见的做法是：</p>
+<ul>
+<li>确定频率范围，通常为0到奈奎斯特频率（采样率的一半，例如16kHz音频对应8kHz）。</li>
+<li>根据$M(f) = 2595 \log_{10}(1 + f/700)$将线性刻度映射到梅尔刻度。</li>
+<li>在梅尔刻度上等间距划分M个频带（如128个<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>），再转换回线性频率，得到每个频带的中心频率。</li>
+<li>每个滤波器在频域呈三角形，覆盖相邻中心频率的范围，峰值位于当前频带的中心频率。</li>
+</ul>
+<p>将每个三角滤波器与频谱图的能量分布相乘并求和，得到各梅尔频带的能量。最终，每个时间帧的频谱被压缩为M维的梅尔频谱特征。</p>
+<h2 id="spectrogram---hopping---overlapping-chunks">Spectrogram -&gt; Hopping -&gt; Overlapping Chunks<a href="#spectrogram---hopping---overlapping-chunks" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>。这是音乐检索领域对抗时间对齐问题的经典策略。</p>
+<p>一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>压缩率可达原始PCM音频的$\frac{1}{10}$~$\frac{1}{12}$。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>音频信号语境下，能量即振幅，与响度相关的换算公式是：$L_{db} = 10 \log_{10}(E)$。&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p>汉明窗让信号在时域上更平滑，减少窗口边界处的信号突变，让更多能量集中在窗口中心，减少边缘的频谱泄露，缓解栅栏效应。所谓栅栏效应（即频谱泄漏）是在信号处理中由于信号在时域上的截断而导致的频谱分析中频率分辨率不足的现象。&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p>每秒样本数，单位Hz。&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>128个梅尔频率带对人耳来说，频率分辨率足够，计算负担也不会太高。实际上人耳临界带宽&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>所谓time skew（时间偏移）指的是同一段音乐在不同录音或播放中存在的时间上的微小差异，比如同一首歌的不同版本可能开始时间不同，或者在录制时存在延迟，这可能导致直接匹配时无法对齐，从而影响检索的准确性。&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">阅读其他博文</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="https://cmbbq.github.io/posts/conciousness-deepseek/">
+                <span class="button__text">Conciousness</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        
+    
+
+        <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+          <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+        </svg> rpb.cmbbq@gmail.com </span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://cmbbq.github.io/assets/main.js"></script>
+<script src="https://cmbbq.github.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
