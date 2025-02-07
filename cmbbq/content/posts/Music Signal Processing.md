@@ -2,7 +2,7 @@
 title = "Music Signal Processing"
 date = "2025-02-06"
 tags = ["sys", "music computing"]
-description = "以音源剥离为例介绍一些音乐信号处理的基础概念和通用工具。"
+description = "总结一些音乐信号处理的基础概念和通用工具（持续更新中）。"
 showFullContent = false
 +++
 
