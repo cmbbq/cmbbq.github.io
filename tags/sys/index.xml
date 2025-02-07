@@ -25,13 +25,12 @@ STFT得到的时频图的频域单位是bin index（频率分量索引，记作$
 Spectrogram -&amp;gt; Mel Filter Bank -&amp;gt; Mel Spectrogram 相比的时频图频率轴默认的线性标度，梅尔频率提供了一种更符合人耳频率感知的非线性标度：
 构造梅儿滤波器组常见的做法是：
 确定频率范围，通常为0到奈奎斯特频率（采样率的一半，例如16kHz音频对应8kHz）。 根据$M(f) = 2595 \log_{10}(1 + f/700)$将线性刻度映射到梅尔刻度。 在梅尔刻度上等间距划分M个频带（如128个5），再转换回线性频率，得到每个频带的中心频率。 每个滤波器在频域呈三角形，覆盖相邻中心频率的范围，峰值位于当前频带的中心频率。 将每个三角滤波器与频谱图的能量分布相乘并求和，得到各梅尔频带的能量。最终，每个时间帧的频谱被压缩为M维的梅尔频谱特征。
-Spectrogram -&amp;gt; Hopping -&amp;gt; Overlapping Chunks 小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)6。这是音乐检索领域对抗时间对齐问题的经典策略。
-一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。
-压缩率可达原始PCM音频的$\frac{1}{10}$~$\frac{1}{12}$。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
-音频信号语境下，能量即振幅，与响度相关的换算公式是：$L_{db} = 10 \log_{10}(E)$。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
-汉明窗让信号在时域上更平滑，减少窗口边界处的信号突变，让更多能量集中在窗口中心，减少边缘的频谱泄露，缓解栅栏效应。所谓栅栏效应（即频谱泄漏）是在信号处理中由于信号在时域上的截断而导致的频谱分析中频率分辨率不足的现象。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
-每秒样本数，单位Hz。&amp;#160;&amp;#x21a9;&amp;#xfe0e;
-128个梅尔频率带对人耳来说，频率分辨率足够，计算负担也不会太高。实际上人耳临界带宽&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+MFCC(Mel-Frequency Cepstral Coefficients) 梅尔频谱的每一列做DCT(Discrete Cosine Transform)。 DCT 将输入信号分解为一系列不同频率的余弦分量。 其中低频分量对应信号的整体趋势，高频分量对应信号的细节和噪声。
+通常只取前面若干个低频DCT系数作为MFCC特征，因为高频系数混沌一片，意义不大，而低频系数可刻画乐器的音色、语音的音素。
+MFCC丢弃了相当多频谱细节，更适合语音识别，而非音乐分析。
+CQT(Constant-Q Transform) CQT保证所有频点的Q值相同，即$Q=\frac{f}{\delta f}$ 恒定，因此比梅尔谱更极端地保障了“低频区分辨率高，高频区分辨率低”的特性。CQT频率按指数分布（如钢琴的88个键对应88个频点），每个八度（octave）包含固定数量的频点（如12个半音），不仅更符合人耳听觉特性，也更符合乐理，适合捕捉音乐信号的谐波结构和音高变化。
+CQT的缺点是计算效率低，缺完美信号重构的逆变换。
+Spectrogram -&amp;gt; Hopping -&amp;gt; Overlapping Chunks 小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)6。这是音乐检索领域对抗时间对齐问题的经典策略。</description>
       <content>&lt;h2 id=&#34;mp3aac---pcm&#34;&gt;MP3/AAC -&amp;gt; PCM&lt;/h2&gt;
 &lt;p&gt;音频的数字表示多种多样，抖t等平台存储的多媒体数据往往是MP3、AAC、OGG等有损格式，它们基于心理学模型去除人耳不敏感的音频信号从而大幅压缩文件体积&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
 &lt;p&gt;这些压缩格式固然对存储、传输友好，但想对它们进行计算，还是需转成PCM。&lt;/p&gt;
@@ -53,6 +52,15 @@ Spectrogram -&amp;gt; Hopping -&amp;gt; Overlapping Chunks 小步长重叠切分
 &lt;li&gt;每个滤波器在频域呈三角形，覆盖相邻中心频率的范围，峰值位于当前频带的中心频率。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;将每个三角滤波器与频谱图的能量分布相乘并求和，得到各梅尔频带的能量。最终，每个时间帧的频谱被压缩为M维的梅尔频谱特征。&lt;/p&gt;
+&lt;h2 id=&#34;mfccmel-frequency-cepstral-coefficients&#34;&gt;MFCC(Mel-Frequency Cepstral Coefficients)&lt;/h2&gt;
+&lt;p&gt;梅尔频谱的每一列做DCT(Discrete Cosine Transform)。
+DCT 将输入信号分解为一系列不同频率的余弦分量。
+其中低频分量对应信号的整体趋势，高频分量对应信号的细节和噪声。&lt;/p&gt;
+&lt;p&gt;通常只取前面若干个低频DCT系数作为MFCC特征，因为高频系数混沌一片，意义不大，而低频系数可刻画乐器的音色、语音的音素。&lt;/p&gt;
+&lt;p&gt;MFCC丢弃了相当多频谱细节，更适合语音识别，而非音乐分析。&lt;/p&gt;
+&lt;h2 id=&#34;cqtconstant-q-transform&#34;&gt;CQT(Constant-Q Transform)&lt;/h2&gt;
+&lt;p&gt;CQT保证所有频点的Q值相同，即$Q=\frac{f}{\delta f}$ 恒定，因此比梅尔谱更极端地保障了“低频区分辨率高，高频区分辨率低”的特性。CQT频率按指数分布（如钢琴的88个键对应88个频点），每个八度（octave）包含固定数量的频点（如12个半音），不仅更符合人耳听觉特性，也更符合乐理，适合捕捉音乐信号的谐波结构和音高变化。&lt;/p&gt;
+&lt;p&gt;CQT的缺点是计算效率低，缺完美信号重构的逆变换。&lt;/p&gt;
 &lt;h2 id=&#34;spectrogram---hopping---overlapping-chunks&#34;&gt;Spectrogram -&amp;gt; Hopping -&amp;gt; Overlapping Chunks&lt;/h2&gt;
 &lt;p&gt;小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt;。这是音乐检索领域对抗时间对齐问题的经典策略。&lt;/p&gt;
 &lt;p&gt;一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。&lt;/p&gt;

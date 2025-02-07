@@ -6,7 +6,7 @@
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="总结一些音乐信号处理的基础概念和通用工具（持续更新中）。" />
+<meta name="description" content="总结一些音乐信号处理、频谱分析的基础概念和通用工具。" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
 <link rel="canonical" href="https://cmbbq.github.io/posts/music-signal-processing/" />
@@ -37,7 +37,7 @@
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Music Signal Processing">
-<meta property="og:description" content="总结一些音乐信号处理的基础概念和通用工具（持续更新中）。" />
+<meta property="og:description" content="总结一些音乐信号处理、频谱分析的基础概念和通用工具。" />
 <meta property="og:url" content="https://cmbbq.github.io/posts/music-signal-processing/" />
 <meta property="og:site_name" content="Cmbbq&#39;s Encyclopedia" />
 
@@ -153,6 +153,15 @@
 <li>每个滤波器在频域呈三角形，覆盖相邻中心频率的范围，峰值位于当前频带的中心频率。</li>
 </ul>
 <p>将每个三角滤波器与频谱图的能量分布相乘并求和，得到各梅尔频带的能量。最终，每个时间帧的频谱被压缩为M维的梅尔频谱特征。</p>
+<h2 id="mfccmel-frequency-cepstral-coefficients">MFCC(Mel-Frequency Cepstral Coefficients)<a href="#mfccmel-frequency-cepstral-coefficients" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>梅尔频谱的每一列做DCT(Discrete Cosine Transform)。
+DCT 将输入信号分解为一系列不同频率的余弦分量。
+其中低频分量对应信号的整体趋势，高频分量对应信号的细节和噪声。</p>
+<p>通常只取前面若干个低频DCT系数作为MFCC特征，因为高频系数混沌一片，意义不大，而低频系数可刻画乐器的音色、语音的音素。</p>
+<p>MFCC丢弃了相当多频谱细节，更适合语音识别，而非音乐分析。</p>
+<h2 id="cqtconstant-q-transform">CQT(Constant-Q Transform)<a href="#cqtconstant-q-transform" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>CQT保证所有频点的Q值相同，即$Q=\frac{f}{\delta f}$ 恒定，因此比梅尔谱更极端地保障了“低频区分辨率高，高频区分辨率低”的特性。CQT频率按指数分布（如钢琴的88个键对应88个频点），每个八度（octave）包含固定数量的频点（如12个半音），不仅更符合人耳听觉特性，也更符合乐理，适合捕捉音乐信号的谐波结构和音高变化。</p>
+<p>CQT的缺点是计算效率低，缺完美信号重构的逆变换。</p>
 <h2 id="spectrogram---hopping---overlapping-chunks">Spectrogram -&gt; Hopping -&gt; Overlapping Chunks<a href="#spectrogram---hopping---overlapping-chunks" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>小步长重叠切分通过增加时间轴上的匹配候选密度，使系统能够容忍时间偏移(time skew)<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>。这是音乐检索领域对抗时间对齐问题的经典策略。</p>
 <p>一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。</p>
