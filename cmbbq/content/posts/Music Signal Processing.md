@@ -57,7 +57,7 @@ CQT的缺点是计算效率低，缺完美信号重构的逆变换。
 一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。
 
 ## Shazam Audio Fingerprinting
-若指纹stft以512个复数样本(1024个float)作为fft window，512/4为步长（直接在dft层面hopping，对抗time skew），在8000Hz PCM上施加STFT，则每个时间帧含512样本，相当于$512/8000 = 0.064$s。9bits的时间帧就可以表示32.768s，这是Δt的上限，t1分配13bits即可表示接近9分钟的时长，覆盖大多数pgc音乐时长。正频率分量数目为$\frac{frame_size}{2} = 512$，每个频率分量代表一个频率区间，频带宽7.8125Hz（采样率8000Hz对应的频域范围是0~4000Hz）。
+若指纹stft以1024作为fft window，512作为fft hop[^7]，在8000Hz PCM上施加STFT，则每个时间帧含512样本，相当于$512/8000 = 0.064$s。9bits的时间帧就可以表示32.768s，这是Δt的上限，t1分配13bits即可表示接近9分钟的时长，覆盖大多数pgc音乐时长。正频率分量数目为$\frac{1024}{2} = 512$，每个频率分量代表一个频率区间，频带宽7.8125Hz（采样率8000Hz对应的频域范围是0~4000Hz）。
 
 Δf,f1,Δt一共只需要27bits(padded to 32bits)，再加上t1的32bits，即构成了64bits fingerprint(hash:t1)，在此基础上构建hashmap，建立hash到postinglist(docid:t1的序列)的映射，即可迅速定位指纹出现在哪个doc的哪个时间。若t1用13bits表示，则docid可用19bits表示，从而刚好对齐到32bits，19bits可表示524288个docid，因此Shazam常用库粒度即为524288。
 
@@ -67,3 +67,4 @@ CQT的缺点是计算效率低，缺完美信号重构的逆变换。
 [^4]: 压缩率可达原始PCM音频的$\frac{1}{10}$~$\frac{1}{12}$。
 [^5]: 音频信号语境下，能量即振幅，与响度相关的换算公式是：$L_{db} = 10 \log_{10}(E)$。
 [^6]: 所谓time skew（时间偏移）指的是同一段音乐在不同录音或播放中存在的时间上的微小差异，比如同一首歌的不同版本可能开始时间不同，或者在录制时存在延迟，这可能导致直接匹配时无法对齐，从而影响检索的准确性。
+[^7]：为了对抗time skew，实际上还会再额外引入1/4个hop size作为步长，更细粒度地做hopping，但stft的重叠仍然是选择50%。细粒度的额外3个time shift则生成另外3个spectrogram。
