@@ -57,6 +57,8 @@ CQT的缺点是计算效率低，缺完美信号重构的逆变换。
 一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。
 
 ## Shazam Audio Fingerprinting
+在原曲或录音歌曲匹配中，linear spectrogram要比mel spectrogram更好，因为录音设备的音高误差是沿着线性频率轴（Hz）均匀分布的，并不是沿着梅尔刻度频率分量轴均匀分布的。此外linear spectrogram保留更多的高频音乐信号，如果用mel spectrogram就会少很多高频区域特征，令高频区域特征不够精确。
+
 若指纹stft以1024作为fft window，512作为fft hop[^7]，在8000Hz PCM上施加STFT，每个hop（peaks帧=半个fft帧）找一次频谱peaks，因此从peak时间帧单位包含512样本，即$512/8000 = 0.064$s。9bits的peaks时间帧就可以表示32.768s，这是Δt的上限，t1分配13bits即可表示接近9分钟的时长，覆盖大多数pgc音乐时长。正频率分量数目为$\frac{1024}{2} = 512$，每个频率分量代表一个频率区间，频带宽7.8125Hz（采样率8000Hz对应的频域范围是0~4000Hz）。
 
 Δf,f1,Δt一共只需要27bits(padded to 32bits)，再加上t1的32bits，即构成了64bits fingerprint(hash:t1)，在此基础上构建hashmap，建立hash到postinglist(docid:t1的序列)的映射，即可迅速定位指纹出现在哪个doc的哪个时间。若t1用13bits表示，则docid可用19bits表示，从而刚好对齐到32bits，19bits可表示524288个docid，因此Shazam常用库粒度即为524288。
