@@ -56,6 +56,13 @@ CQT的缺点是计算效率低，缺完美信号重构的逆变换。
 
 一种可行的做法是将mel spectrogram以1/4个chunk size为hop size切分成overlapping chunks，再进行后续处理——可以是某种深度音乐模型，也可以是基于规则的audio fingerprinting。
 
+## Shazam Audio Fingerprinting
+一般用8000hz pcm16le作为输入，得到linear spectrogram，根据奈奎斯特采样定理，其频域范围是0~4000hz，人耳虽然能辨别20Hz~20000Hz的区间，但4000Hz属于广播音质，也基本够用。
+
+若指纹stft以512个复数样本(1024个float)作为fft window，512/4为步长（直接在dft层面hopping，对抗time skew），则每个时间帧含512样本，相当于$512/8000 = 0.064$s。9bits的时间帧就可以表示32.768s，这是Δt的上限，t1分配13bits即可表示接近9分钟的时长，覆盖大多数pgc音乐时长。频率分量数目为$\frac{frame_size}{2} + 1 = 513$，每个频率分量代表一个频率区间，频带宽7.8125Hz。实际采用的频率分量还会舍弃最前面的和最后面的，所以9bits足以表示频域。
+
+Δf,f1,Δt一共只需要27bits(padded to 32bits)，再加上t1的32bits，即构成了64bits fingerprint(hash:t1)，在此基础上构建hashmap，建立hash到postinglist(docid:t1的序列)的映射，即可迅速定位指纹出现在哪个doc的哪个时间。若t1用13bits表示，则docid可用19bits表示，从而刚好对齐到32bits，19bits可表示524288个docid，因此Shazam常用库粒度即为524288。
+
 [^1]: 汉明窗让信号在时域上更平滑，减少窗口边界处的信号突变，让更多能量集中在窗口中心，减少边缘的频谱泄露，缓解栅栏效应。所谓栅栏效应（即频谱泄漏）是在信号处理中由于信号在时域上的截断而导致的频谱分析中频率分辨率不足的现象。
 [^2]: 每秒样本数，单位Hz。
 [^3]: 128个梅尔频率带对人耳来说，频率分辨率足够，计算负担也不会太高。
