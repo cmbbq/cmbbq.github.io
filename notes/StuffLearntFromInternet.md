@@ -32,14 +32,14 @@ It is a film that can redefine what animation can be. It is easily the best anim
 
 The choreography is so precise and expressive that clashes feel not only thrilling but also emotionally charged. While humor leans occasionally childish, it is more deliberate and well-paced than in the original, balancing the heavier moments without undercutting the film’s overall impact. What truly sets Nezha 2 apart, however, is the emotional depth. The story tackles weighty themes such as resurrection, destiny, and the struggle for acceptance with raw honesty that resonates deeply. It examines how the power of perceptions and the control of narratives can shape our lives, while weaving in a profoundly moving exploration of family and unconditional love. I found myself genuinely moved—even shedding tears during some of the quieter, more introspective moments. Ultimately, Nezha 2 is a groundbreaking achievement: an animated epic that delivers thrilling action and stunning visuals through a deeply resonant emotional journey. It is the kind of film that not only entertains but also lingers. If you haven’t seen the original, do yourself a favor and dive into Nezha 2 on the biggest IMAX screen possible. This is a cinematic experience you simply can’t miss. Go see it—it is nothing short of a revelation!
 
-## Redditor on Trump's Executive Order
+## Reddit on Trump's Executive Order
 > President Trump on Tuesday signed an executive order declaring that only the attorney general or the president, instead of federal regulators or bureaucrats, can speak for the U.S. when interpreting the meaning of laws carried out by the executive branch.
 
 This is hilariously unworkable.
  - That's the point. Elon and Thiel want to collapse the United States.
 
 
-## Redditor on Trump's Tweet
+## Reddit on Trump's Tweet
 > Trump just posted: "He who saves his country does not violate any law."
 
 And they keep telling us we're just being silly and paranoid...
@@ -54,9 +54,22 @@ Donald Trump just said Luigi did nothing wrong.
 
 Saves it from whom, for whom? As a lawyer, who takes comfort in rules and precedent as providing fundamental order, as the channel through which we resolve disputes about our respective rights and duties in our shared relation, it has pained me to say it, but I have been saying it since the original Trump administration: we have left the era of law and returned to an era, for a while, of naked politics. Arguments about what is the law have given way to what should be the law. And lawyers and citizens and anyone who cares may not responsibly now rely upon rules and precedents to make our arguments for us. We are now required to speak from the much more basic position of values. And this is a dangerous place to be, because it is in the contest of values that we are most at risk of violence.
 
-## Redditor on ‘Long live the king!’
+## Reddit on ‘Long live the king!’
 > Trump declares New York ‘saved’ from congestion pricing: ‘Long live the king!’
 
 I recall that during Trump's first term, these kinds of bizarre statements would produce responses from Republican leaders that "he was just joking", "that's just locker room talk". Now we hear deafening silence from GOP members of Congress and others. They all seem perfectly willing to see how far Trump can push this absolute monarchy theme, and they'll ride his coattails right into a revolution.
 - "trump can push this absolute monarchy theme". It's not a theme, it's real. They actually want this, they want all of it and can not get enough of it. They literally believe trump does not have enough power and should be able to bypass the checks and balances. The latest national Pew Research Center survey included: "In contrast, a 59% majority of Republicans and Republican-leaning independents say many of the country’s problems could be addressed more effectively if Trump didn’t need to worry so much about Congress or the courts. Republicans who say they ‘strongly’ identify with the GOP are particularly likely to say the nation’s problems could be more effectively addressed by giving Trump more power: 78% say this."
+
+## Reddit on the Minerals Deal
+> ‘It’s blackmail’: Ukrainians react to Trump demand for $500bn share of minerals.
+
+"Blackmail" implies Ukraine has done something wrong, and the US is trying to extract concessions in exchange for keeping quiet. What Trump and the Republicans are doing is simple extortion. Two-bit gangster shit, on the grandest scale possible.
+
+> US threatens to shut off Starlink if Ukraine won't sign minerals deal, sources tell Reuters
+
+A great way to tell other countries to don’t patronize Starlink because it will be a bargaining chip in future to exploit or extorting rackets.
+
+## Curtis Yarvin, Pushing for an Autocratic Takeover of the US
+Curtis Yarvin is a blogger known for founding the anti-egalitarian and anti-democratic philosophical movement known as the Dark Enlightenment or neo-reactionary movement (NRx). In his blog [Unqualified Reservations](https://www.unqualified-reservations.org), which he wrote from 2007 to 2014, and in his later newsletter [Gray Mirror](https://graymirror.substack.com), which he started in 2020, he argues that American democracy is a failed experiment that should be replaced by an accountable monarchy, similar to the governance structure of corporations, which is the belief that Elon, Peter Thiel, Steven Bannon, JD Vance, and Trump all subscribe to right now.
+
 
