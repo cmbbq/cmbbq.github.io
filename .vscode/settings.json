@@ -3,5 +3,9 @@
     "activityBar.background": "#29310B",
     "titleBar.activeBackground": "#39450F",
     "titleBar.activeForeground": "#F9FBEE"
-  }
+  },
+  "editor.unicodeHighlight.includeStrings": false,
+  "editor.foldingHighlight": false,
+  "editor.unicodeHighlight.includeComments": false,
+  "editor.unicodeHighlight.nonBasicASCII": false
 }
